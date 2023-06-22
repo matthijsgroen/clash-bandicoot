@@ -19,7 +19,7 @@ describe("attack", () => {
           hitPoints: 450,
           maxHitPoints: 450,
           effects: [],
-          type: "townhall",
+          building: village.items["townhall#1"],
         },
       });
       expect(result.timeSpent).toEqual(180_000);

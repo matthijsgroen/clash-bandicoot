@@ -23,6 +23,7 @@ troopLevels.forEach(
       hitRadius: 0.4,
       damage,
       trainingTime: time("5s"),
+      aiType: "groundUnit",
       researchCost: {
         amount: researchCost,
         type: "elixir",

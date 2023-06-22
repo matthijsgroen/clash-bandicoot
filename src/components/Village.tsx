@@ -16,26 +16,25 @@ export const Village: React.FC<{ layout: BaseLayout; attack: GameState }> = ({
     }}
     className={styles.grid}
   >
-    {Object.entries(attack.baseData).map(([id, building], i) => {
-      const layoutBuilding = layout.items[id];
+    {Object.entries(attack.baseData).map(([id, buildingState], i) => {
       const info = buildingStore.getBuilding(
-        building.type,
-        layoutBuilding.buildingLevel
+        buildingState.building.buildingType,
+        buildingState.building.buildingLevel
       );
       if (!info)
         return (
           <p key={i}>
-            Item not found: {layoutBuilding.buildingType} level{" "}
-            {layoutBuilding.buildingLevel}
+            Item not found: {buildingState.building.buildingType} level{" "}
+            {buildingState.building.buildingLevel}
           </p>
         );
 
       return (
         <div
-          key={layoutBuilding.buildingId}
+          key={id}
           style={{
-            left: layoutBuilding.position[0] * 15 - 1,
-            top: layoutBuilding.position[1] * 15 - 1,
+            left: buildingState.building.position[0] * 15 - 1,
+            top: buildingState.building.position[1] * 15 - 1,
             width: info.size[0] * 15 + 1,
             height: info.size[1] * 15 + 1,
             position: "absolute",
@@ -43,11 +42,11 @@ export const Village: React.FC<{ layout: BaseLayout; attack: GameState }> = ({
           className={[
             styles.building,
             styles[info.category],
-            styles[layoutBuilding.buildingType],
+            styles[buildingState.building.buildingType],
           ].join(" ")}
         >
-          {layoutBuilding.buildingType} {layoutBuilding.buildingLevel}{" "}
-          {building.hitPoints}
+          {buildingState.building.buildingType}{" "}
+          {buildingState.building.buildingLevel} {buildingState.hitPoints}
         </div>
       );
     })}

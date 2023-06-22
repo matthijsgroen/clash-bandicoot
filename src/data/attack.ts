@@ -1,9 +1,10 @@
-import { BaseLayout } from "./baseLayout";
+import { BaseLayout, LayoutBuilding } from "./baseLayout";
 import "./buildings";
 import { buildingStore } from "./buildingStore";
 import { Troop, troopStore } from "./troopStore";
 import { createKeyStore } from "./keyStore";
 import "./troops";
+import { aiHandlers } from "./ai";
 
 export type Placement = {
   unit: string;
@@ -18,7 +19,12 @@ export type Replay = {
 
 export type BaseData = Record<
   string,
-  { hitPoints: number; maxHitPoints: number; effects: []; type: string }
+  {
+    hitPoints: number;
+    maxHitPoints: number;
+    effects: [];
+    building: LayoutBuilding;
+  }
 >;
 
 export type UnitData = Record<
@@ -53,7 +59,7 @@ const createInitialBaseData = (layout: BaseLayout): BaseData =>
         {
           hitPoints: maxHitPoints,
           maxHitPoints,
-          type: building.buildingType,
+          building,
           effects: [],
         },
       ];
@@ -74,6 +80,13 @@ export const handleAttack = (layout: BaseLayout) => {
   const handleTick = () => {
     if (state.timeSpent > 3 * 60 * 1000) return;
     state.timeSpent += TICK_SPEED;
+    for (const unitId in state.unitData) {
+      const unit = state.unitData[unitId];
+      const aiHandler = unit.info.aiType;
+      if (aiHandler) {
+        aiHandlers[aiHandler](state, unitId, TICK_SPEED);
+      }
+    }
   };
 
   return {

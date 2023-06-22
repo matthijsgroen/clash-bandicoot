@@ -17,7 +17,8 @@ export const getDestruction = (baseData: BaseData): number => {
 
 const isTownHallDestroyed = (baseData: BaseData): boolean =>
   Object.values(baseData).some(
-    ({ hitPoints, type }) => hitPoints === 0 && type === "townhall"
+    ({ hitPoints, building }) =>
+      hitPoints === 0 && building.buildingType === "townhall"
   );
 
 export const getStars = (baseData: BaseData): number => {

@@ -1,7 +1,15 @@
 import { BaseData } from "./attack";
 import { getDestruction, getStars } from "./attackResult";
+import { layoutBuilder } from "./baseLayout";
 
 describe("attack result", () => {
+  const layout = layoutBuilder()
+    .placeBuilding("townhall", 1, [10, 10])
+    .placeBuilding("barracks", 1, [15, 10])
+    .placeBuilding("armycamp", 1, [20, 10])
+    .placeBuilding("armycamp", 1, [20, 15])
+    .result();
+
   describe("total destruction", () => {
     it("returns 0 if all buildings are full health", () => {
       const baseData: BaseData = {
@@ -9,19 +17,19 @@ describe("attack result", () => {
           hitPoints: 450,
           maxHitPoints: 450,
           effects: [],
-          type: "townhall",
+          building: layout.items["townhall#1"],
         },
         "barracks#1": {
           hitPoints: 450,
           maxHitPoints: 450,
           effects: [],
-          type: "barracks",
+          building: layout.items["barracks#1"],
         },
         "armycamp#1": {
           hitPoints: 450,
           maxHitPoints: 450,
           effects: [],
-          type: "armycamp",
+          building: layout.items["armycamp#1"],
         },
       };
 
@@ -34,19 +42,19 @@ describe("attack result", () => {
           hitPoints: 0,
           maxHitPoints: 450,
           effects: [],
-          type: "townhall",
+          building: layout.items["townhall#1"],
         },
         "barracks#1": {
           hitPoints: 0,
           maxHitPoints: 450,
           effects: [],
-          type: "barracks",
+          building: layout.items["barracks#1"],
         },
         "armycamp#1": {
           hitPoints: 0,
           maxHitPoints: 450,
           effects: [],
-          type: "armycamp",
+          building: layout.items["armycamp#1"],
         },
       };
 
@@ -59,25 +67,25 @@ describe("attack result", () => {
           hitPoints: 0,
           maxHitPoints: 450,
           effects: [],
-          type: "townhall",
+          building: layout.items["townhall#1"],
         },
         "barracks#1": {
           hitPoints: 10,
           maxHitPoints: 450,
           effects: [],
-          type: "barracks",
+          building: layout.items["barracks#1"],
         },
         "armycamp#1": {
           hitPoints: 0,
           maxHitPoints: 450,
           effects: [],
-          type: "armycamp",
+          building: layout.items["armycamp#1"],
         },
         "armycamp#2": {
           hitPoints: 450,
           maxHitPoints: 450,
           effects: [],
-          type: "armycamp",
+          building: layout.items["armycamp#2"],
         },
       };
 
@@ -92,19 +100,19 @@ describe("attack result", () => {
           hitPoints: 450,
           maxHitPoints: 450,
           effects: [],
-          type: "townhall",
+          building: layout.items["townhall#1"],
         },
         "barracks#1": {
           hitPoints: 450,
           maxHitPoints: 450,
           effects: [],
-          type: "barracks",
+          building: layout.items["barracks#1"],
         },
         "armycamp#1": {
           hitPoints: 450,
           maxHitPoints: 450,
           effects: [],
-          type: "armycamp",
+          building: layout.items["armycamp#1"],
         },
       };
       expect(getStars(baseData)).toEqual(0);
@@ -116,19 +124,19 @@ describe("attack result", () => {
           hitPoints: 0,
           maxHitPoints: 450,
           effects: [],
-          type: "townhall",
+          building: layout.items["townhall#1"],
         },
         "barracks#1": {
           hitPoints: 450,
           maxHitPoints: 450,
           effects: [],
-          type: "barracks",
+          building: layout.items["barracks#1"],
         },
         "armycamp#1": {
           hitPoints: 450,
           maxHitPoints: 450,
           effects: [],
-          type: "armycamp",
+          building: layout.items["armycamp#1"],
         },
       };
       expect(getStars(baseData)).toEqual(1);
@@ -140,19 +148,19 @@ describe("attack result", () => {
           hitPoints: 450,
           maxHitPoints: 450,
           effects: [],
-          type: "townhall",
+          building: layout.items["townhall#1"],
         },
         "barracks#1": {
           hitPoints: 0,
           maxHitPoints: 450,
           effects: [],
-          type: "barracks",
+          building: layout.items["barracks#1"],
         },
         "armycamp#1": {
           hitPoints: 0,
           maxHitPoints: 450,
           effects: [],
-          type: "armycamp",
+          building: layout.items["armycamp#1"],
         },
       };
       expect(getStars(baseData)).toEqual(1);
@@ -164,19 +172,19 @@ describe("attack result", () => {
           hitPoints: 0,
           maxHitPoints: 450,
           effects: [],
-          type: "townhall",
+          building: layout.items["townhall#1"],
         },
         "barracks#1": {
           hitPoints: 450,
           maxHitPoints: 450,
           effects: [],
-          type: "barracks",
+          building: layout.items["barracks#1"],
         },
         "armycamp#1": {
           hitPoints: 0,
           maxHitPoints: 450,
           effects: [],
-          type: "armycamp",
+          building: layout.items["armycamp#1"],
         },
       };
       expect(getStars(baseData)).toEqual(2);
@@ -188,19 +196,19 @@ describe("attack result", () => {
           hitPoints: 0,
           maxHitPoints: 450,
           effects: [],
-          type: "townhall",
+          building: layout.items["townhall#1"],
         },
         "barracks#1": {
           hitPoints: 0,
           maxHitPoints: 450,
           effects: [],
-          type: "barracks",
+          building: layout.items["barracks#1"],
         },
         "armycamp#1": {
           hitPoints: 0,
           maxHitPoints: 450,
           effects: [],
-          type: "armycamp",
+          building: layout.items["armycamp#1"],
         },
       };
       expect(getStars(baseData)).toEqual(3);
