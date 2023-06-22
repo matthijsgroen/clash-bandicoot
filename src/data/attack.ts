@@ -23,6 +23,7 @@ export type BaseData = Record<
     hitPoints: number;
     maxHitPoints: number;
     effects: [];
+    center: [x: number, y: number];
     building: LayoutBuilding;
   }
 >;
@@ -47,12 +48,15 @@ export type GameState = {
   replay: Replay;
 };
 
-const createInitialBaseData = (layout: BaseLayout): BaseData =>
+export const createInitialBaseData = (layout: BaseLayout): BaseData =>
   Object.fromEntries(
     Object.entries(layout.items).map(([id, building]) => {
-      const maxHitPoints =
-        buildingStore.getBuilding(building.buildingType, building.buildingLevel)
-          ?.hitPoints ?? 0;
+      const info = buildingStore.getBuilding(
+        building.buildingType,
+        building.buildingLevel
+      );
+      if (!info) throw new Error("Building not defined");
+      const maxHitPoints = info.hitPoints ?? 0;
 
       return [
         id,
@@ -60,6 +64,10 @@ const createInitialBaseData = (layout: BaseLayout): BaseData =>
           hitPoints: maxHitPoints,
           maxHitPoints,
           building,
+          center: [
+            building.position[0] + info.size[0] / 2,
+            building.position[1] + info.size[1] / 2,
+          ],
           effects: [],
         },
       ];

@@ -43,8 +43,8 @@ const App = () => {
         <p>
           Time:{" "}
           <output>
-            {Math.floor(timeLeft / 1000 / 60)}:
-            {`00${Math.floor(timeLeft / 1000) % 60}`.slice(-2)}
+            {Math.floor(timeLeft / 1000 / 60)}m{" "}
+            {Math.floor(timeLeft / 1000) % 60}s
           </output>
         </p>
       </aside>
