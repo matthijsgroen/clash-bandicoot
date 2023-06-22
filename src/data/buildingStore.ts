@@ -1,15 +1,12 @@
+import { Cost } from "./types";
+
 export type Building = {
   type: string;
   level: number;
   size: [width: number, height: number];
   thRequirement: number;
   category: "resource" | "defense" | "army" | "trap" | "other";
-  cost: {
-    gold: number;
-    elixir: number;
-    darkElixir: number;
-    time: number;
-  };
+  cost: Cost;
   hitPoints: number;
   triggerRadius?: number;
 

@@ -1,0 +1,30 @@
+.grid {
+  background: repeating-linear-gradient(
+      transparent,
+      transparent 14px,
+      #000 14px,
+      #000 15px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 14px,
+      #000 14px,
+      #000 15px
+    );
+
+  position: relative;
+}
+
+.building {
+  font-size: 10px;
+  border: 2px solid black;
+  box-sizing: border-box;
+  background-color: white;
+}
+.building.resource {
+  background-color: #ff9090;
+}
+.building.resource.townhall {
+  background-color: #90ff90;
+}

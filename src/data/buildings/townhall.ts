@@ -29,9 +29,8 @@ buildingLevels.forEach(([hitPoints, cost, timeStr], lvl) => {
     size: [4, 4],
     hitPoints: hitPoints,
     cost: {
-      gold: cost,
-      elixir: 0,
-      darkElixir: 0,
+      type: "gold",
+      amount: cost,
       time: time(timeStr),
     },
   });

@@ -1,6 +1,6 @@
 import { time } from "./time";
 
-describe(time, () => {
+describe("time", () => {
   describe("seconds", () => {
     it.each([
       ["2s", 2],

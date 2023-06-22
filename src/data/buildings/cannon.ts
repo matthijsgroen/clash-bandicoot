@@ -30,9 +30,8 @@ buildingLevels.forEach(([hitPoints, cost, timeStr, damage, th], lvl) => {
     thRequirement: th,
     hitPoints: hitPoints,
     cost: {
-      gold: cost,
-      elixir: 0,
-      darkElixir: 0,
+      type: "gold",
+      amount: cost,
       time: time(timeStr),
     },
     triggerRadius: 9,

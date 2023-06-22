@@ -8,9 +8,8 @@ buildingStore.addBuilding({
   size: [2, 2],
   hitPoints: 250,
   cost: {
-    gold: 0,
-    elixir: 0,
-    darkElixir: 0,
+    type: "gems",
+    amount: 0,
     time: 0,
   },
 });
