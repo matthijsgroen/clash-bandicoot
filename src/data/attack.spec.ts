@@ -1,5 +1,6 @@
 import { handleAttack } from "./attack";
 import { layoutBuilder } from "./baseLayout";
+import { troopStore } from "./troopStore";
 
 describe("attack", () => {
   describe("while nothing happens", () => {
@@ -22,6 +23,41 @@ describe("attack", () => {
         },
       });
       expect(result.timeSpent).toEqual(180_000);
+    });
+  });
+
+  describe("placing a troop", () => {
+    it("affects the replay, and places the unit", () => {
+      const village = layoutBuilder()
+        .placeBuilding("townhall", 1, [35, 35])
+        .result();
+
+      const attack = handleAttack(village);
+      attack.forwardTime(1 * 60 * 1000);
+      attack.placeUnit("barbarian", 1, [1, 1]);
+
+      const result = attack.getData();
+
+      expect(result.timeSpent).toEqual(60_000);
+      expect(result.replay).toEqual({
+        placement: [
+          { level: 1, unit: "barbarian", timestamp: 60_000, position: [1, 1] },
+        ],
+      });
+
+      const troopInfo = troopStore.getTroop("barbarian", 1);
+
+      expect(result.unitData).toEqual({
+        "barbarian#1": {
+          type: "barbarian",
+          level: 1,
+          hitPoints: 45,
+          position: [1, 1],
+          effects: [],
+          info: troopInfo,
+          unitData: {},
+        },
+      });
     });
   });
 });

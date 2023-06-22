@@ -3,8 +3,12 @@ import styles from "./Village.module.css";
 import "../data/buildings";
 import { buildingStore } from "../data/buildingStore";
 import React from "react";
+import { GameState } from "../data/attack";
 
-export const Village: React.FC<{ layout: BaseLayout }> = ({ layout }) => (
+export const Village: React.FC<{ layout: BaseLayout; attack: GameState }> = ({
+  layout,
+  attack,
+}) => (
   <div
     style={{
       width: layout.gridSize[0] * 15,
@@ -12,9 +16,10 @@ export const Village: React.FC<{ layout: BaseLayout }> = ({ layout }) => (
     }}
     className={styles.grid}
   >
-    {Object.values(layout.items).map((layoutBuilding, i) => {
+    {Object.entries(attack.baseData).map(([id, building], i) => {
+      const layoutBuilding = layout.items[id];
       const info = buildingStore.getBuilding(
-        layoutBuilding.buildingType,
+        building.type,
         layoutBuilding.buildingLevel
       );
       if (!info)
@@ -27,7 +32,7 @@ export const Village: React.FC<{ layout: BaseLayout }> = ({ layout }) => (
 
       return (
         <div
-          key={i}
+          key={layoutBuilding.buildingId}
           style={{
             left: layoutBuilding.position[0] * 15 - 1,
             top: layoutBuilding.position[1] * 15 - 1,
@@ -41,8 +46,24 @@ export const Village: React.FC<{ layout: BaseLayout }> = ({ layout }) => (
             styles[layoutBuilding.buildingType],
           ].join(" ")}
         >
-          {layoutBuilding.buildingType} {layoutBuilding.buildingLevel}
+          {layoutBuilding.buildingType} {layoutBuilding.buildingLevel}{" "}
+          {building.hitPoints}
         </div>
+      );
+    })}
+    {Object.entries(attack.unitData).map(([id, unit]) => {
+      return (
+        <div
+          key={id}
+          style={{
+            left: unit.position[0] * 15 - 1,
+            top: unit.position[1] * 15 - 1,
+            width: 10,
+            height: 10,
+            position: "absolute",
+          }}
+          className={[styles.unit, styles[unit.type]].join(" ")}
+        ></div>
       );
     })}
   </div>

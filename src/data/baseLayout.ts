@@ -1,3 +1,5 @@
+import { createKeyStore } from "./keyStore";
+
 export type LayoutBuilding = {
   position: [x: number, y: number];
   buildingId: string;
@@ -25,22 +27,13 @@ export const newLayout = (
 
 export const placeBuilding = (
   layout: BaseLayout,
-  building: Omit<LayoutBuilding, "buildingId">
+  building: LayoutBuilding
 ): BaseLayout => {
-  const counter =
-    Object.values(layout.items).filter(
-      (e) => e.buildingType === building.buildingType
-    ).length + 1;
-  const buildingId = `${building.buildingType}#${counter}`;
-
   return {
     ...layout,
     items: {
       ...layout.items,
-      [buildingId]: {
-        ...building,
-        buildingId,
-      },
+      [building.buildingId]: building,
     },
   };
 };
@@ -50,6 +43,7 @@ export const layoutBuilder = (
   height = DEFAULT_HEIGHT
 ) => {
   let layout = newLayout(width, height);
+  const keyStore = createKeyStore();
 
   const builder = {
     placeBuilding: (
@@ -57,10 +51,12 @@ export const layoutBuilder = (
       level: number,
       position: [x: number, y: number]
     ) => {
+      const buildingId = keyStore.getKey(type);
       layout = placeBuilding(layout, {
         buildingType: type,
         buildingLevel: level,
         position,
+        buildingId,
       });
       return builder;
     },

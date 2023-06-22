@@ -28,3 +28,14 @@
 .building.resource.townhall {
   background-color: #90ff90;
 }
+
+.unit {
+  font-size: 10px;
+  border: 2px solid black;
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: 50%;
+}
+.unit.barbarian {
+  background-color: yellow;
+}
