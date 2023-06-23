@@ -26,7 +26,7 @@ const App = () => {
       }
 
       setData({ ...attack.current.getData() });
-    }, 20);
+    }, 5);
 
     return () => {
       clearInterval(int);

@@ -12,6 +12,7 @@ export const layout = layoutBuilder()
 export const replay: Replay = {
   placement: [
     { timestamp: 2000, level: 1, unit: "barbarian", position: [5, 17] },
-    { timestamp: 20500, level: 1, unit: "barbarian", position: [32, 25] },
+    { timestamp: 20500, level: 1, unit: "archer", position: [32, 25] },
+    // { timestamp: 21500, level: 1, unit: "barbarian", position: [22, 25] },
   ],
 };

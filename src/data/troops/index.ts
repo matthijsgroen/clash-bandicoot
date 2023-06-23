@@ -1,1 +1,2 @@
 import "./barbarian";
+import "./archer";
