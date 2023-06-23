@@ -4,10 +4,10 @@ export const getDestruction = (baseData: BaseData): number => {
   let buildingHealth = 0;
   let buildingsDestroyed = 0;
 
-  Object.values(baseData).forEach(({ hitPoints, maxHitPoints }) => {
-    buildingHealth += maxHitPoints;
+  Object.values(baseData).forEach(({ hitPoints, building }) => {
+    buildingHealth += building.info.hitPoints;
     if (hitPoints === 0) {
-      buildingsDestroyed += maxHitPoints;
+      buildingsDestroyed += building.info.hitPoints;
     }
   });
 
@@ -18,7 +18,7 @@ export const getDestruction = (baseData: BaseData): number => {
 const isTownHallDestroyed = (baseData: BaseData): boolean =>
   Object.values(baseData).some(
     ({ hitPoints, building }) =>
-      hitPoints === 0 && building.buildingType === "townhall"
+      hitPoints === 0 && building.info.type === "townhall"
   );
 
 export const getStars = (baseData: BaseData): number => {

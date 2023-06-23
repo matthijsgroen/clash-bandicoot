@@ -29,6 +29,12 @@
   background-color: #90ff90;
 }
 
+.building.destroyed {
+  background-color: #777;
+  opacity: 0.3;
+  border: 2px dotted #888;
+}
+
 .unit {
   font-size: 10px;
   border: 2px solid black;

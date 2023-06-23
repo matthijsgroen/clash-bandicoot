@@ -11,10 +11,9 @@ describe("Barbarian", () => {
 
         const attack = handleAttack(village);
         attack.placeUnit("barbarian", 1, [37, 0]);
-        attack.forwardTime(400);
+        attack.forwardTime(4000);
         const unitPlacement = attack.getData().unitData;
-        // unit should have moved
-        console.log(unitPlacement["barbarian#1"]);
+        expect(unitPlacement["barbarian#1"].position[1]).toBeCloseTo(8, 1);
       });
     });
   });

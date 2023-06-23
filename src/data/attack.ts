@@ -1,10 +1,9 @@
 import { BaseLayout, LayoutBuilding } from "./baseLayout";
-import "./buildings";
-import { buildingStore } from "./buildingStore";
+import "./troops";
 import { Troop, troopStore } from "./troopStore";
 import { createKeyStore } from "./keyStore";
-import "./troops";
 import { aiHandlers } from "./ai";
+import { getDestruction, getStars } from "./attackResult";
 
 export type Placement = {
   unit: string;
@@ -17,19 +16,19 @@ export type Replay = {
   placement: Placement[];
 };
 
-export type BaseData = Record<
-  string,
-  {
-    hitPoints: number;
-    maxHitPoints: number;
-    effects: [];
-    center: [x: number, y: number];
-    building: LayoutBuilding;
-  }
->;
+export type BaseBuilding<
+  T extends Record<string, unknown> = Record<string, unknown>
+> = {
+  hitPoints: number;
+  effects: [];
+  center: [x: number, y: number];
+  building: LayoutBuilding;
+  buildingData: T;
+};
 
-export type UnitData = Record<
-  string,
+export type BaseData = Record<string, BaseBuilding>;
+
+export type Unit<T extends Record<string, unknown> = Record<string, unknown>> =
   {
     hitPoints: number;
     effects: [];
@@ -37,12 +36,16 @@ export type UnitData = Record<
     level: number;
     position: [x: number, y: number];
     info: Troop;
-    unitData: Record<string, unknown>;
-  }
->;
+    unitData: T;
+  };
+
+export type UnitData = Record<string, Unit>;
 
 export type GameState = {
   timeSpent: number;
+  damage: number;
+  stars: number;
+
   baseData: BaseData;
   unitData: UnitData;
   replay: Replay;
@@ -51,24 +54,17 @@ export type GameState = {
 export const createInitialBaseData = (layout: BaseLayout): BaseData =>
   Object.fromEntries(
     Object.entries(layout.items).map(([id, building]) => {
-      const info = buildingStore.getBuilding(
-        building.buildingType,
-        building.buildingLevel
-      );
-      if (!info) throw new Error("Building not defined");
-      const maxHitPoints = info.hitPoints ?? 0;
-
       return [
         id,
         {
-          hitPoints: maxHitPoints,
-          maxHitPoints,
+          hitPoints: building.info.hitPoints,
           building,
           center: [
-            building.position[0] + info.size[0] / 2,
-            building.position[1] + info.size[1] / 2,
+            building.position[0] + building.info.size[0] / 2,
+            building.position[1] + building.info.size[1] / 2,
           ],
           effects: [],
+          buildingData: {},
         },
       ];
     })
@@ -80,6 +76,9 @@ export const handleAttack = (layout: BaseLayout) => {
   const unitKeys = createKeyStore();
   const state: GameState = {
     timeSpent: 0,
+    damage: 0,
+    stars: 0,
+
     baseData: createInitialBaseData(layout),
     unitData: {}, // place heroes from layout
     replay: { placement: [] },
@@ -87,6 +86,7 @@ export const handleAttack = (layout: BaseLayout) => {
 
   const handleTick = () => {
     if (state.timeSpent > 3 * 60 * 1000) return;
+    if (state.damage >= 1) return;
     state.timeSpent += TICK_SPEED;
     for (const unitId in state.unitData) {
       const unit = state.unitData[unitId];
@@ -95,6 +95,9 @@ export const handleAttack = (layout: BaseLayout) => {
         aiHandlers[aiHandler](state, unitId, TICK_SPEED);
       }
     }
+
+    state.damage = getDestruction(state.baseData);
+    state.stars = getStars(state.baseData);
   };
 
   return {

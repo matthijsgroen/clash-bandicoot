@@ -17,10 +17,10 @@ describe("attack", () => {
       expect(result.baseData).toEqual({
         "townhall#1": {
           hitPoints: 450,
-          maxHitPoints: 450,
           effects: [],
           center: [37, 37],
           building: village.items["townhall#1"],
+          buildingData: {},
         },
       });
       expect(result.timeSpent).toEqual(180_000);

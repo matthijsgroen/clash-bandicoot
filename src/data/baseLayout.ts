@@ -1,10 +1,11 @@
+import "./buildings";
+import { Building, buildingStore } from "./buildingStore";
 import { createKeyStore } from "./keyStore";
 
 export type LayoutBuilding = {
   position: [x: number, y: number];
   buildingId: string;
-  buildingType: string;
-  buildingLevel: number;
+  info: Building;
   buildingState?: string;
   buildingDirection?: number;
 };
@@ -51,10 +52,13 @@ export const layoutBuilder = (
       level: number,
       position: [x: number, y: number]
     ) => {
+      const building = buildingStore.getBuilding(type, level);
+      if (!building) {
+        return builder;
+      }
       const buildingId = keyStore.getKey(type);
       layout = placeBuilding(layout, {
-        buildingType: type,
-        buildingLevel: level,
+        info: building,
         position,
         buildingId,
       });

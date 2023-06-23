@@ -18,7 +18,7 @@ const App = () => {
         queue.placement.length > 0 &&
         attack.current.getData().timeSpent >= queue.placement[0].timestamp
       ) {
-        const item = queue.placement.pop();
+        const item = queue.placement.shift();
         if (item) {
           console.log("placing unit!", item.unit);
           attack.current.placeUnit(item.unit, item.level, item.position);
@@ -33,7 +33,7 @@ const App = () => {
     };
   }, [attack]);
 
-  const timeLeft = 3 * 60 * 1000 - data.timeSpent;
+  const timeLeft = Math.max(3 * 60 * 1000 - data.timeSpent, 0);
   return (
     <div>
       <main>
@@ -46,6 +46,12 @@ const App = () => {
             {Math.floor(timeLeft / 1000 / 60)}m{" "}
             {Math.floor(timeLeft / 1000) % 60}s
           </output>
+        </p>
+        <p>
+          Destroyed: <output>{Math.floor(data.damage * 100)}%</output>
+        </p>
+        <p>
+          Stars: <output>{data.stars}</output>
         </p>
       </aside>
     </div>
