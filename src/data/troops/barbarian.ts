@@ -19,6 +19,7 @@ troopLevels.forEach(
     troopStore.addTroop({
       type: "barbarian",
       level: 1 + lvl,
+      category: "ground",
       attackSpeed: 1,
       size: 1,
       targetPreference: [],

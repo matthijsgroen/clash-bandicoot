@@ -2,10 +2,12 @@ import "./buildings";
 import { Building, buildingStore } from "./buildingStore";
 import { createKeyStore } from "./keyStore";
 
-export type LayoutBuilding = {
+export type LayoutBuilding<
+  Settings extends Record<string, unknown> = Record<string, unknown>
+> = {
   position: [x: number, y: number];
   buildingId: string;
-  info: Building;
+  info: Building<Settings>;
   buildingState?: string;
   buildingDirection?: number;
 };

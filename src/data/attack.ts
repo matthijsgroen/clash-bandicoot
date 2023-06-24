@@ -17,12 +17,13 @@ export type Replay = {
 };
 
 export type BaseBuilding<
-  T extends Record<string, unknown> = Record<string, unknown>
+  T extends Record<string, unknown> = Record<string, unknown>,
+  Settings extends Record<string, unknown> = Record<string, unknown>
 > = {
   hitPoints: number;
   effects: [];
   center: [x: number, y: number];
-  building: LayoutBuilding;
+  building: LayoutBuilding<Settings>;
   buildingData: T;
 };
 
@@ -37,6 +38,7 @@ export type Unit<T extends Record<string, unknown> = Record<string, unknown>> =
     position: [x: number, y: number];
     info: Troop;
     unitData: T;
+    state: string;
   };
 
 export type UnitData = Record<string, Unit>;
@@ -86,7 +88,6 @@ export const handleAttack = (layout: BaseLayout) => {
 
   const handleTick = () => {
     if (state.timeSpent > 3 * 60 * 1000) return;
-    if (state.damage >= 1) return;
     state.timeSpent += TICK_SPEED;
     for (const unitId in state.unitData) {
       const unit = state.unitData[unitId];
@@ -95,7 +96,15 @@ export const handleAttack = (layout: BaseLayout) => {
         aiHandlers[aiHandler](state, unitId, TICK_SPEED);
       }
     }
+    for (const buildingId in state.baseData) {
+      const building = state.baseData[buildingId];
+      const aiHandler = building.building.info.aiType;
+      if (aiHandler) {
+        aiHandlers[aiHandler](state, buildingId, TICK_SPEED);
+      }
+    }
 
+    if (state.damage >= 1) return;
     state.damage = getDestruction(state.baseData);
     state.stars = getStars(state.baseData);
   };
@@ -136,6 +145,7 @@ export const handleAttack = (layout: BaseLayout) => {
           hitPoints: troop.hitPoints,
           info: troop,
           unitData: {},
+          state: "idle",
         },
       };
     },

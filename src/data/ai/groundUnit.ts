@@ -1,18 +1,13 @@
 import { BaseBuilding, Unit } from "../attack";
 import { EntityAI } from "./type";
+import { getDistance } from "./utils/getDistance";
 
 type GroundUnitData = {
-  target?: string;
+  currentTarget?: string;
   path?: [x: number, y: number][];
   currentAngle?: [sin: number, cos: number];
   attackDelay: number;
 };
-
-const getDistance = (pos: [x: number, y: number], unit: Unit<GroundUnitData>) =>
-  Math.sqrt(
-    Math.pow(pos[0] - unit.position[0], 2) +
-      Math.pow(pos[1] - unit.position[1], 2)
-  );
 
 const isInRange = (building: BaseBuilding, unit: Unit) => {
   const minX = building.building.position[0] - unit.info.hitRadius;
@@ -36,7 +31,12 @@ const isInRange = (building: BaseBuilding, unit: Unit) => {
 
 export const groundUnit: EntityAI = (state, unitId, delta) => {
   const unit = state.unitData[unitId] as Unit<GroundUnitData>;
-  if (!unit.unitData.target) {
+  if (unit.hitPoints <= 0) {
+    unit.state = "dead";
+    return;
+  }
+  if (!unit.unitData.currentTarget) {
+    unit.state = "idle";
     let closestTarget: null | { distance: number; id: string } = null;
 
     for (const buildingId in state.baseData) {
@@ -54,16 +54,17 @@ export const groundUnit: EntityAI = (state, unitId, delta) => {
     }
     if (closestTarget) {
       const building = state.baseData[closestTarget.id];
-      unit.unitData.target = closestTarget.id;
+      unit.unitData.currentTarget = closestTarget.id;
       unit.unitData.path = [[building.center[0], building.center[1]]];
       unit.unitData.attackDelay = unit.info.attackSpeed * 1000;
     }
   } else {
     // TODO: Target could be another unit
-    const building = state.baseData[unit.unitData.target];
+    const building = state.baseData[unit.unitData.currentTarget];
     if (building.hitPoints <= 0) {
-      unit.unitData.target = undefined;
+      unit.unitData.currentTarget = undefined;
       unit.unitData.currentAngle = undefined;
+      unit.state = "idle";
       return;
     }
     const inRange = isInRange(building, unit);
@@ -88,16 +89,19 @@ export const groundUnit: EntityAI = (state, unitId, delta) => {
 
       unit.position[0] += unit.unitData.currentAngle[0] * movementDistanceTick;
       unit.position[1] += unit.unitData.currentAngle[1] * movementDistanceTick;
+      unit.state = "moving";
     } else {
       // Attack!
+      unit.state = "attacking";
       if (unit.unitData.attackDelay > 0) {
         unit.unitData.attackDelay -= delta;
       } else {
-        const building = state.baseData[unit.unitData.target];
+        const building = state.baseData[unit.unitData.currentTarget];
         if (building.hitPoints > 0) {
           building.hitPoints -= unit.info.damage;
           if (building.hitPoints < 0) {
             building.hitPoints = 0;
+            unit.state = "idle";
           }
         }
 

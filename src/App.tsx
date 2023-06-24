@@ -26,7 +26,7 @@ const App = () => {
       }
 
       setData({ ...attack.current.getData() });
-    }, 5);
+    }, 20);
 
     return () => {
       clearInterval(int);
@@ -53,6 +53,25 @@ const App = () => {
         <p>
           Stars: <output>{data.stars}</output>
         </p>
+
+        <p>Units:</p>
+        <ol>
+          {Object.entries(data.unitData).map(([id, data]) => {
+            return (
+              <li
+                key={id}
+                style={
+                  data.info.hitPoints === 0
+                    ? { textDecoration: "line-through", opacity: 0.5 }
+                    : {}
+                }
+              >
+                {data.info.type} lvl. {data.info.level}{" "}
+                {Math.ceil(data.hitPoints)}
+              </li>
+            );
+          })}
+        </ol>
       </aside>
     </div>
   );

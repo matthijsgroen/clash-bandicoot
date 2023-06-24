@@ -4,6 +4,7 @@ import { layoutBuilder } from "../data/baseLayout";
 export const layout = layoutBuilder()
   .placeBuilding("townhall", 1, [17, 17])
   .placeBuilding("armycamp", 1, [10, 17])
+  .placeBuilding("cannon", 1, [14, 14])
   .placeBuilding("barracks", 1, [14, 17])
   .placeBuilding("builderhut", 1, [34, 37])
   .placeBuilding("builderhut", 1, [20, 2])

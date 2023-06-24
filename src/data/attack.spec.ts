@@ -57,6 +57,7 @@ describe("attack", () => {
           effects: [],
           info: troopInfo,
           unitData: {},
+          state: "idle",
         },
       });
     });

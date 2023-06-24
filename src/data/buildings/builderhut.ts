@@ -12,4 +12,5 @@ buildingStore.addBuilding({
     amount: 0,
     time: 0,
   },
+  aiSettings: {},
 });

@@ -5,14 +5,16 @@ import React from "react";
 import { GameState } from "../data/attack";
 import classNames from "classnames";
 
+const OFFSET = 3;
+
 export const Village: React.FC<{ layout: BaseLayout; attack: GameState }> = ({
   layout,
   attack,
 }) => (
   <div
     style={{
-      width: layout.gridSize[0] * 15,
-      height: layout.gridSize[1] * 15,
+      width: (layout.gridSize[0] + OFFSET + OFFSET) * 15,
+      height: (layout.gridSize[1] + OFFSET + OFFSET) * 15,
     }}
     className={styles.grid}
   >
@@ -22,8 +24,8 @@ export const Village: React.FC<{ layout: BaseLayout; attack: GameState }> = ({
         <div
           key={id}
           style={{
-            left: buildingState.building.position[0] * 15 - 1,
-            top: buildingState.building.position[1] * 15 - 1,
+            left: (buildingState.building.position[0] + OFFSET) * 15 - 1,
+            top: (buildingState.building.position[1] + OFFSET) * 15 - 1,
             width: info.size[0] * 15 + 1,
             height: info.size[1] * 15 + 1,
             position: "absolute",
@@ -44,13 +46,16 @@ export const Village: React.FC<{ layout: BaseLayout; attack: GameState }> = ({
         <div
           key={id}
           style={{
-            left: unit.position[0] * 15 - 1,
-            top: unit.position[1] * 15 - 1,
+            left: (unit.position[0] + OFFSET) * 15 - 1,
+            top: (unit.position[1] + OFFSET) * 15 - 1,
             width: 10,
             height: 10,
             position: "absolute",
           }}
-          className={[styles.unit, styles[unit.type]].join(" ")}
+          className={classNames(styles.unit, styles[unit.type], {
+            [styles.attacking]: unit.state === "attacking",
+            [styles.dead]: unit.state === "dead",
+          })}
         ></div>
       );
     })}

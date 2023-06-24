@@ -1,6 +1,8 @@
 import { Cost } from "./types";
 
-export type Building = {
+export type Building<
+  Settings extends Record<string, unknown> = Record<string, unknown>
+> = {
   type: string;
   level: number;
   size: [width: number, height: number];
@@ -11,11 +13,13 @@ export type Building = {
   triggerRadius?: number;
 
   aiType?: string;
-  aiSettings?: Record<string, unknown>;
+  aiSettings: Settings;
 };
 
 export type BuildingStore = {
-  addBuilding: (building: Building) => void;
+  addBuilding: <Settings extends Record<string, unknown>>(
+    building: Building<Settings>
+  ) => void;
   getBuilding: (type: string, level: number) => Building | undefined;
 };
 

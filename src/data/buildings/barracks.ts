@@ -33,5 +33,6 @@ buildingLevels.forEach(([hitPoints, cost, timeStr, th], lvl) => {
       amount: cost,
       time: time(timeStr),
     },
+    aiSettings: {},
   });
 });

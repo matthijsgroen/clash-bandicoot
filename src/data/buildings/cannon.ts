@@ -35,10 +35,10 @@ buildingLevels.forEach(([hitPoints, cost, timeStr, damage, th], lvl) => {
       time: time(timeStr),
     },
     triggerRadius: 9,
+    aiType: "cannon",
     aiSettings: {
       firingRate: 0.8,
       damage,
-      target: "single",
       unitGroup: "ground",
     },
   });

@@ -6,6 +6,7 @@ export type Troop = {
   type: string;
   level: number;
   size: number;
+  category: "ground" | "air";
   movementSpeed: number;
   attackSpeed: number;
   damage: number;
