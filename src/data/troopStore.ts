@@ -1,30 +1,4 @@
-import { Cost } from "./types";
-
-export type TargetPreference = "defense" | "resource" | "wall" | "air-defense";
-
-export type Troop = {
-  type: string;
-  level: number;
-  size: number;
-  category: "ground" | "air";
-  movementSpeed: number;
-  attackSpeed: number;
-  damage: number;
-
-  barrackRequirement: number;
-  laboratoryRequirement: number;
-
-  targetPreference: TargetPreference[];
-  trainingTime: number;
-
-  researchCost: Cost;
-
-  hitPoints: number;
-  hitRadius: number;
-
-  aiType?: string;
-  aiSettings?: Record<string, unknown>;
-};
+import { Troop } from "./types";
 
 export type TroopStore = {
   addTroop: (troop: Troop) => void;

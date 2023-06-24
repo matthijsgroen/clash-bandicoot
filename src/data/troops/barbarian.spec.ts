@@ -1,4 +1,4 @@
-import { handleAttack } from "../attack";
+import { handleAttack } from "../combat/attack";
 import { layoutBuilder } from "../baseLayout";
 
 describe("Barbarian", () => {

@@ -1,6 +1,6 @@
-import { BaseBuilding, Unit } from "../attack";
 import { EntityAI } from "./type";
-import { getDistance } from "./utils/getDistance";
+import { getDistance } from "../utils/getDistance";
+import { BaseBuilding, Unit } from "../types";
 
 type GroundUnitData = {
   currentTarget?: string;

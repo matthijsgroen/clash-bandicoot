@@ -1,5 +1,5 @@
 import { troopStore } from "../troopStore";
-import { time } from "../time";
+import { time } from "../utils/time";
 
 const troopLevels: [
   hitPoints: number,

@@ -1,5 +1,5 @@
-import { Replay } from "../data/attack";
 import { layoutBuilder } from "../data/baseLayout";
+import { Replay } from "../data/types";
 
 export const layout = layoutBuilder()
   .placeBuilding("townhall", 1, [17, 17])

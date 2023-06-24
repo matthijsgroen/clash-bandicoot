@@ -1,6 +1,6 @@
-import { BaseBuilding } from "../attack";
 import { EntityAI } from "./type";
-import { getDistance } from "./utils/getDistance";
+import { getDistance } from "../utils/getDistance";
+import { BaseBuilding } from "../types";
 
 type CannonData = {
   currentTarget?: string;

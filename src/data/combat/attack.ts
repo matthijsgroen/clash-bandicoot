@@ -1,57 +1,9 @@
-import { BaseLayout, LayoutBuilding } from "./baseLayout";
-import "./troops";
-import { Troop, troopStore } from "./troopStore";
-import { createKeyStore } from "./keyStore";
-import { aiHandlers } from "./ai";
+import "../troops";
+import { troopStore } from "../troopStore";
+import { createKeyStore } from "../utils/keyStore";
+import { aiHandlers } from "../ai";
 import { getDestruction, getStars } from "./attackResult";
-
-export type Placement = {
-  unit: string;
-  level: number;
-  timestamp: number;
-  position: [x: number, y: number];
-};
-
-export type Replay = {
-  placement: Placement[];
-};
-
-export type BaseBuilding<
-  T extends Record<string, unknown> = Record<string, unknown>,
-  Settings extends Record<string, unknown> = Record<string, unknown>
-> = {
-  hitPoints: number;
-  effects: [];
-  center: [x: number, y: number];
-  building: LayoutBuilding<Settings>;
-  buildingData: T;
-};
-
-export type BaseData = Record<string, BaseBuilding>;
-
-export type Unit<T extends Record<string, unknown> = Record<string, unknown>> =
-  {
-    hitPoints: number;
-    effects: [];
-    type: string;
-    level: number;
-    position: [x: number, y: number];
-    info: Troop;
-    unitData: T;
-    state: string;
-  };
-
-export type UnitData = Record<string, Unit>;
-
-export type GameState = {
-  timeSpent: number;
-  damage: number;
-  stars: number;
-
-  baseData: BaseData;
-  unitData: UnitData;
-  replay: Replay;
-};
+import { BaseData, BaseLayout, GameState } from "../types";
 
 export const createInitialBaseData = (layout: BaseLayout): BaseData =>
   Object.fromEntries(

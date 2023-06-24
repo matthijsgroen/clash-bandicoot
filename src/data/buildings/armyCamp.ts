@@ -1,5 +1,5 @@
 import { buildingStore } from "../buildingStore";
-import { time } from "../time";
+import { time } from "../utils/time";
 
 const buildingLevels: [
   hitPoints: number,

@@ -1,4 +1,4 @@
-import { BaseData } from "./attack";
+import { BaseData } from "../types";
 
 export const getDestruction = (baseData: BaseData): number => {
   let buildingHealth = 0;

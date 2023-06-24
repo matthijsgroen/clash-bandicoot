@@ -1,4 +1,4 @@
-import { time } from "./time";
+import { time } from "../utils/time";
 
 describe("time", () => {
   describe("seconds", () => {

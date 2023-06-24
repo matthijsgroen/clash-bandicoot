@@ -1,21 +1,7 @@
 import "./buildings";
-import { Building, buildingStore } from "./buildingStore";
-import { createKeyStore } from "./keyStore";
-
-export type LayoutBuilding<
-  Settings extends Record<string, unknown> = Record<string, unknown>
-> = {
-  position: [x: number, y: number];
-  buildingId: string;
-  info: Building<Settings>;
-  buildingState?: string;
-  buildingDirection?: number;
-};
-
-export type BaseLayout = {
-  gridSize: [width: number, height: number];
-  items: Record<string, LayoutBuilding>;
-};
+import { buildingStore } from "./buildingStore";
+import { createKeyStore } from "./utils/keyStore";
+import { BaseLayout, LayoutBuilding } from "./types";
 
 const DEFAULT_WIDTH = 40;
 const DEFAULT_HEIGHT = 40;

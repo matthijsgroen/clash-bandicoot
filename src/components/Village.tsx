@@ -1,9 +1,8 @@
-import { BaseLayout } from "../data/baseLayout";
 import styles from "./Village.module.css";
 import "../data/buildings";
 import React from "react";
-import { GameState } from "../data/attack";
 import classNames from "classnames";
+import { BaseLayout, GameState } from "../data/types";
 
 const OFFSET = 3;
 

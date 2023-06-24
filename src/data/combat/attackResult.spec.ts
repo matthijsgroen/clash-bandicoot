@@ -1,6 +1,7 @@
-import { BaseData, createInitialBaseData } from "./attack";
+import { createInitialBaseData } from "./attack";
+import { layoutBuilder } from "../baseLayout";
+import { BaseData } from "../types";
 import { getDestruction, getStars } from "./attackResult";
-import { layoutBuilder } from "./baseLayout";
 
 describe("attack result", () => {
   const layout = layoutBuilder()

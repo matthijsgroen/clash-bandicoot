@@ -1,6 +1,6 @@
+import { layoutBuilder } from "../baseLayout";
+import { troopStore } from "../troopStore";
 import { handleAttack } from "./attack";
-import { layoutBuilder } from "./baseLayout";
-import { troopStore } from "./troopStore";
 
 describe("attack", () => {
   describe("while nothing happens", () => {

@@ -1,4 +1,4 @@
-import { Unit } from "../../attack";
+import { Unit } from "../types";
 
 export const getDistance = (pos: [x: number, y: number], unit: Unit) =>
   Math.sqrt(

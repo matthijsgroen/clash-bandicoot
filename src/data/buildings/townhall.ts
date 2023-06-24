@@ -1,5 +1,5 @@
 import { buildingStore } from "../buildingStore";
-import { time } from "../time";
+import { time } from "../utils/time";
 
 const buildingLevels: [hitPoints: number, gold: number, time: string][] = [
   [450, 0, "0s"],
