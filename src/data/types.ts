@@ -46,7 +46,7 @@ export type BaseLayout = {
   items: Record<string, LayoutBuilding>;
 };
 
-export type BaseBuilding<
+export type BattleBuildingState<
   T extends Record<string, unknown> = Record<string, unknown>,
   Settings extends Record<string, unknown> = Record<string, unknown>
 > = {
@@ -57,7 +57,7 @@ export type BaseBuilding<
   buildingData: T;
 };
 
-export type BaseData = Record<string, BaseBuilding>;
+export type BattleBaseData = Record<string, BattleBuildingState>;
 
 export type TargetPreference = "defense" | "resource" | "wall" | "air-defense";
 
@@ -85,26 +85,27 @@ export type Troop = {
   aiSettings?: Record<string, unknown>;
 };
 
-export type Unit<T extends Record<string, unknown> = Record<string, unknown>> =
-  {
-    hitPoints: number;
-    effects: [];
-    type: string;
-    level: number;
-    position: [x: number, y: number];
-    info: Troop;
-    unitData: T;
-    state: string;
-  };
+export type BattleUnitState<
+  T extends Record<string, unknown> = Record<string, unknown>
+> = {
+  hitPoints: number;
+  effects: [];
+  type: string;
+  level: number;
+  position: [x: number, y: number];
+  info: Troop;
+  unitData: T;
+  state: string;
+};
 
-export type UnitData = Record<string, Unit>;
+export type BattleUnitData = Record<string, BattleUnitState>;
 
-export type GameState = {
+export type BattleState = {
   timeSpent: number;
   damage: number;
   stars: number;
 
-  baseData: BaseData;
-  unitData: UnitData;
+  baseData: BattleBaseData;
+  unitData: BattleUnitData;
   replay: Replay;
 };

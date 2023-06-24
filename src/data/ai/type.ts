@@ -1,3 +1,3 @@
-import { GameState } from "../types";
+import { BattleState } from "../types";
 
-export type EntityAI = (data: GameState, item: string, delta: number) => void;
+export type EntityAI = (data: BattleState, item: string, delta: number) => void;

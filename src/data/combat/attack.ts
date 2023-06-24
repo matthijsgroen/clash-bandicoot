@@ -3,9 +3,9 @@ import { troopStore } from "../troopStore";
 import { createKeyStore } from "../utils/keyStore";
 import { aiHandlers } from "../ai";
 import { getDestruction, getStars } from "./attackResult";
-import { BaseData, BaseLayout, GameState } from "../types";
+import { BattleBaseData, BaseLayout, BattleState } from "../types";
 
-export const createInitialBaseData = (layout: BaseLayout): BaseData =>
+export const createInitialBaseData = (layout: BaseLayout): BattleBaseData =>
   Object.fromEntries(
     Object.entries(layout.items).map(([id, building]) => {
       return [
@@ -28,7 +28,7 @@ const TICK_SPEED = 20; // 50 FPS
 
 export const handleAttack = (layout: BaseLayout) => {
   const unitKeys = createKeyStore();
-  const state: GameState = {
+  const state: BattleState = {
     timeSpent: 0,
     damage: 0,
     stars: 0,
@@ -71,7 +71,7 @@ export const handleAttack = (layout: BaseLayout) => {
         handleTick();
       }
     },
-    getData: (): GameState => state,
+    getData: (): BattleState => state,
     placeUnit: (
       type: string,
       level: number,

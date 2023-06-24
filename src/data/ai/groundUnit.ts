@@ -1,6 +1,6 @@
 import { EntityAI } from "./type";
 import { getDistance } from "../utils/getDistance";
-import { BaseBuilding, Unit } from "../types";
+import { BattleBuildingState, BattleUnitState } from "../types";
 
 type GroundUnitData = {
   currentTarget?: string;
@@ -9,7 +9,7 @@ type GroundUnitData = {
   attackDelay: number;
 };
 
-const isInRange = (building: BaseBuilding, unit: Unit) => {
+const isInRange = (building: BattleBuildingState, unit: BattleUnitState) => {
   const minX = building.building.position[0] - unit.info.hitRadius;
   const maxX =
     building.building.position[0] +
@@ -30,7 +30,7 @@ const isInRange = (building: BaseBuilding, unit: Unit) => {
 };
 
 export const groundUnit: EntityAI = (state, unitId, delta) => {
-  const unit = state.unitData[unitId] as Unit<GroundUnitData>;
+  const unit = state.unitData[unitId] as BattleUnitState<GroundUnitData>;
   if (unit.hitPoints <= 0) {
     unit.state = "dead";
     return;

@@ -1,6 +1,6 @@
-import { BaseData } from "../types";
+import { BattleBaseData } from "../types";
 
-export const getDestruction = (baseData: BaseData): number => {
+export const getDestruction = (baseData: BattleBaseData): number => {
   let buildingHealth = 0;
   let buildingsDestroyed = 0;
 
@@ -15,13 +15,13 @@ export const getDestruction = (baseData: BaseData): number => {
   return buildingsDestroyed / buildingHealth;
 };
 
-const isTownHallDestroyed = (baseData: BaseData): boolean =>
+const isTownHallDestroyed = (baseData: BattleBaseData): boolean =>
   Object.values(baseData).some(
     ({ hitPoints, building }) =>
       hitPoints === 0 && building.info.type === "townhall"
   );
 
-export const getStars = (baseData: BaseData): number => {
+export const getStars = (baseData: BattleBaseData): number => {
   let stars = 0;
   if (isTownHallDestroyed(baseData)) {
     stars++;

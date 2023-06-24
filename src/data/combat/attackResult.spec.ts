@@ -1,6 +1,6 @@
 import { createInitialBaseData } from "./attack";
 import { layoutBuilder } from "../baseLayout";
-import { BaseData } from "../types";
+import { BattleBaseData } from "../types";
 import { getDestruction, getStars } from "./attackResult";
 
 describe("attack result", () => {
@@ -10,17 +10,17 @@ describe("attack result", () => {
     .placeBuilding("armycamp", 1, [20, 10])
     .placeBuilding("armycamp", 1, [20, 15])
     .result();
-  const initBaseData: BaseData = createInitialBaseData(layout);
+  const initBaseData: BattleBaseData = createInitialBaseData(layout);
 
   describe("total destruction", () => {
     it("returns 0 if all buildings are full health", () => {
-      const baseData: BaseData = initBaseData;
+      const baseData: BattleBaseData = initBaseData;
 
       expect(getDestruction(baseData)).toEqual(0);
     });
 
     it("returns 1 if all buildings are destroyed", () => {
-      const baseData: BaseData = {
+      const baseData: BattleBaseData = {
         "townhall#1": {
           ...initBaseData["townhall#1"],
           hitPoints: 0,
@@ -39,7 +39,7 @@ describe("attack result", () => {
     });
 
     it("only counts fully destroyed buildings", () => {
-      const baseData: BaseData = {
+      const baseData: BattleBaseData = {
         "townhall#1": {
           ...initBaseData["townhall#1"],
           hitPoints: 10,
@@ -64,7 +64,7 @@ describe("attack result", () => {
 
   describe("getStars", () => {
     it("returns 0 stars for healthy base", () => {
-      const baseData: BaseData = {
+      const baseData: BattleBaseData = {
         "townhall#1": {
           ...initBaseData["townhall#1"],
           hitPoints: 450,
@@ -82,7 +82,7 @@ describe("attack result", () => {
     });
 
     it("returns 1 star for destroyed townhall", () => {
-      const baseData: BaseData = {
+      const baseData: BattleBaseData = {
         "townhall#1": {
           ...initBaseData["townhall#1"],
           hitPoints: 0,
@@ -100,7 +100,7 @@ describe("attack result", () => {
     });
 
     it("returns 1 star for over 50% destruction", () => {
-      const baseData: BaseData = {
+      const baseData: BattleBaseData = {
         "townhall#1": {
           ...initBaseData["townhall#1"],
           hitPoints: 450,
@@ -118,7 +118,7 @@ describe("attack result", () => {
     });
 
     it("returns 2 stars for over 50% destruction including townhall", () => {
-      const baseData: BaseData = {
+      const baseData: BattleBaseData = {
         "townhall#1": {
           ...initBaseData["townhall#1"],
           hitPoints: 0,
@@ -136,7 +136,7 @@ describe("attack result", () => {
     });
 
     it("returns 3 stars for full destruction", () => {
-      const baseData: BaseData = {
+      const baseData: BattleBaseData = {
         "townhall#1": {
           ...initBaseData["townhall#1"],
           hitPoints: 0,

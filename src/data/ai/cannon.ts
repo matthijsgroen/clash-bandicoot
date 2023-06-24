@@ -1,6 +1,6 @@
 import { EntityAI } from "./type";
 import { getDistance } from "../utils/getDistance";
-import { BaseBuilding } from "../types";
+import { BattleBuildingState } from "../types";
 
 type CannonData = {
   currentTarget?: string;
@@ -14,7 +14,7 @@ type CannonSettings = {
 };
 
 export const cannon: EntityAI = (state, buildingId, delta) => {
-  const building = state.baseData[buildingId] as BaseBuilding<
+  const building = state.baseData[buildingId] as BattleBuildingState<
     CannonData,
     CannonSettings
   >;

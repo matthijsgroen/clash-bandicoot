@@ -2,11 +2,11 @@ import styles from "./Village.module.css";
 import "../data/buildings";
 import React from "react";
 import classNames from "classnames";
-import { BaseLayout, GameState } from "../data/types";
+import { BaseLayout, BattleState } from "../data/types";
 
 const OFFSET = 3;
 
-export const Village: React.FC<{ layout: BaseLayout; attack: GameState }> = ({
+export const Village: React.FC<{ layout: BaseLayout; attack: BattleState }> = ({
   layout,
   attack,
 }) => (

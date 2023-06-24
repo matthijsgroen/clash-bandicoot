@@ -27,7 +27,7 @@ export const Combat: React.FC<{ base: BaseLayout }> = ({ base }) => {
       }
 
       setData({ ...attack.current.getData() });
-    }, 20);
+    }, 5);
 
     return () => {
       clearInterval(int);
