@@ -3,8 +3,12 @@ import { replay } from "../testScenarios/simpleVillage";
 import { Village } from "./Village";
 import { BaseLayout, Replay } from "../data/types";
 import { handleAttack } from "../data/combat/attack";
+import { Army } from "../data/armyComposition";
 
-export const Combat: React.FC<{ base: BaseLayout }> = ({ base }) => {
+export const Combat: React.FC<{ base: BaseLayout; army: Army }> = ({
+  base,
+}) => {
+  // const selectedTroop = useState<[string, number] | undefined>(undefined);
   const attack = useRef(handleAttack(base));
   const [data, setData] = useState(attack.current.getData());
 

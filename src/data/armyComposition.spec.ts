@@ -2,7 +2,7 @@ import {
   createArmy,
   addTroop,
   getArmySize,
-  buildArmy,
+  armyBuilder,
   getPlacementOverview,
 } from "./armyComposition";
 import { troopStore } from "./troopStore";
@@ -35,7 +35,7 @@ describe("Army composition", () => {
     });
 
     it("returns the size of an army", () => {
-      const army = buildArmy()
+      const army = armyBuilder()
         .addTroops("barbarian", 1, 5)
         .addTroops("archer", 1, 10)
         .result();
@@ -46,7 +46,7 @@ describe("Army composition", () => {
 
   describe("getPlacementOverview", () => {
     it("returns the size of each unit group that is not placed", () => {
-      const army = buildArmy()
+      const army = armyBuilder()
         .addTroops("barbarian", 1, 5)
         .addTroops("archer", 1, 8)
         .addTroops("barbarian", 1, 5)

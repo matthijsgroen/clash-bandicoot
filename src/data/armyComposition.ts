@@ -60,7 +60,7 @@ export const getPlacementOverview = (army: Army) => {
   return placement;
 };
 
-export const buildArmy = () => {
+export const armyBuilder = () => {
   let result = createArmy();
 
   const builder = {

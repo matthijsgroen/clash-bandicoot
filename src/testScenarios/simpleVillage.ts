@@ -1,13 +1,19 @@
+import { armyBuilder } from "../data/armyComposition";
 import { layoutBuilder } from "../data/baseLayout";
 import { Replay } from "../data/types";
 
-export const layout = layoutBuilder()
+export const village = layoutBuilder()
   .placeBuilding("townhall", 1, [17, 17])
   .placeBuilding("armycamp", 1, [10, 17])
   .placeBuilding("cannon", 1, [14, 14])
   .placeBuilding("barracks", 1, [14, 17])
   .placeBuilding("builderhut", 1, [34, 37])
   .placeBuilding("builderhut", 1, [20, 2])
+  .result();
+
+export const army = armyBuilder()
+  .addTroops("barbarian", 1, 4)
+  .addTroops("archer", 1, 4)
   .result();
 
 export const replay: Replay = {
