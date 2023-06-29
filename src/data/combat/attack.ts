@@ -32,6 +32,7 @@ export const handleAttack = (layout: BaseLayout) => {
     timeSpent: 0,
     damage: 0,
     stars: 0,
+    state: "battle",
 
     baseData: createInitialBaseData(layout),
     unitData: {}, // place heroes from layout
@@ -39,7 +40,13 @@ export const handleAttack = (layout: BaseLayout) => {
   };
 
   const handleTick = () => {
-    if (state.timeSpent > 3 * 60 * 1000) return;
+    if (state.state === "ended") {
+      return;
+    }
+    if (state.timeSpent > 3 * 60 * 1000) {
+      state.state = "ended";
+      return;
+    }
     state.timeSpent += TICK_SPEED;
     for (const unitId in state.unitData) {
       const unit = state.unitData[unitId];
@@ -56,7 +63,9 @@ export const handleAttack = (layout: BaseLayout) => {
       }
     }
 
-    if (state.damage >= 1) return;
+    if (state.damage >= 1) {
+      state.state = "ended";
+    }
     state.damage = getDestruction(state.baseData);
     state.stars = getStars(state.baseData);
   };

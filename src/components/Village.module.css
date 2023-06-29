@@ -1,6 +1,7 @@
 .scrollContainer {
   height: 100vh;
   width: 100vw;
+  background-color: #597917;
   overflow: scroll;
 }
 
@@ -9,42 +10,21 @@
 }
 
 .grid {
-  background: repeating-linear-gradient(
-      transparent,
-      transparent 14px,
-      #000 14px,
-      #000 15px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 14px,
-      #000 14px,
-      #000 15px
-    ),
-    linear-gradient(
-      to right,
-      #000 0px,
-      #000 1px,
-      transparent 1px,
-      transparent 100%
-    ),
-    linear-gradient(
-      to bottom,
-      #000 0px,
-      #000 1px,
-      transparent 1px,
-      transparent 100%
-    );
-  background-size: calc(100% - 90px) calc(100% - 90px);
-  background-repeat: no-repeat;
-  background-position: 45px 45px;
-  border: 2px solid black;
+  --tile-size: 15px;
+  background: repeating-conic-gradient(#acbe4a 0% 25%, #8b9f39 0% 50%) 50% /
+    calc(2 * var(--tile-size)) calc(2 * var(--tile-size));
+  background-position: calc(var(--tile-size) * 3) calc(var(--tile-size) * 3);
+  background-clip: content-box;
+  padding: calc(var(--tile-size) * 3);
+  background-color: #acbe4a;
 
   position: relative;
 }
 
 .tilted {
+  width: max-content;
+  height: max-content;
+  background-color: #698532;
   rotate: 45deg;
 }
 

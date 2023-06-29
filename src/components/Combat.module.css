@@ -1,0 +1,57 @@
+.timeRemaining {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  width: 100vw;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 2px 0 #000;
+  font-size: 3vh;
+}
+
+.destruction {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  background-color: #0006;
+  padding: 1em;
+  border-radius: 1em;
+}
+
+.destruction p {
+  margin: 0;
+  color: white;
+  text-shadow: 0 2px 0 #000;
+}
+
+.star {
+  color: #0005;
+  font-size: 1.5em;
+  display: inline-block;
+}
+.star.starCollected {
+  color: white;
+  text-shadow: 0 2px 0 #000;
+  transform: scale(2);
+  animation: setStar 500ms 300ms ease-out forwards;
+}
+.destruction output {
+  padding-left: 0.5em;
+  color: white;
+  text-shadow: 0 2px 0 #000;
+  font-weight: bold;
+  font-size: 1.5em;
+  width: 4ch;
+  text-align: right;
+  display: inline-block;
+}
+
+@keyframes setStar {
+  0% {
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

@@ -4,6 +4,8 @@ import { Village } from "./Village";
 import { BaseLayout, Replay } from "../data/types";
 import { handleAttack } from "../data/combat/attack";
 import { Army } from "../data/armyComposition";
+import styles from "./Combat.module.css";
+import classNames from "classnames";
 
 export const Combat: React.FC<{ base: BaseLayout; army: Army }> = ({
   base,
@@ -45,38 +47,40 @@ export const Combat: React.FC<{ base: BaseLayout; army: Army }> = ({
         <Village layout={base} attack={data} />
       </main>
       <aside>
-        <p>
-          Time:{" "}
+        <p className={styles.timeRemaining}>
           <output>
             {Math.floor(timeLeft / 1000 / 60)}m{" "}
             {Math.floor(timeLeft / 1000) % 60}s
           </output>
         </p>
-        <p>
-          Destroyed: <output>{Math.floor(data.damage * 100)}%</output>
-        </p>
-        <p>
-          Stars: <output>{data.stars}</output>
-        </p>
-
-        <p>Units:</p>
-        <ol>
-          {Object.entries(data.unitData).map(([id, data]) => {
-            return (
-              <li
-                key={id}
-                style={
-                  data.info.hitPoints === 0
-                    ? { textDecoration: "line-through", opacity: 0.5 }
-                    : {}
-                }
-              >
-                {data.info.type} lvl. {data.info.level}{" "}
-                {Math.ceil(data.hitPoints)}
-              </li>
-            );
-          })}
-        </ol>
+        <div className={styles.destruction}>
+          <p>Destroyed:</p>
+          <span
+            className={classNames(
+              { [styles.starCollected]: data.stars > 0 },
+              styles.star
+            )}
+          >
+            ★️
+          </span>
+          <span
+            className={classNames(
+              { [styles.starCollected]: data.stars > 1 },
+              styles.star
+            )}
+          >
+            ★️
+          </span>
+          <span
+            className={classNames(
+              { [styles.starCollected]: data.stars > 2 },
+              styles.star
+            )}
+          >
+            ★️
+          </span>
+          <output>{Math.floor(data.damage * 100)}%</output>
+        </div>
       </aside>
     </div>
   );

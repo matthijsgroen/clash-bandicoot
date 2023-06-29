@@ -104,6 +104,7 @@ export type BattleState = {
   timeSpent: number;
   damage: number;
   stars: number;
+  state: "preparation" | "battle" | "ended";
 
   baseData: BattleBaseData;
   unitData: BattleUnitData;

@@ -1,0 +1,13 @@
+.grid {
+  --tile-size: 15px;
+  background: repeating-conic-gradient(#fff 0% 25%, #eee 0% 50%) 50% /
+    calc(2 * var(--tile-size)) calc(2 * var(--tile-size));
+  background-position: calc(var(--tile-size) * 3) calc(var(--tile-size) * 3);
+  background-clip: content-box;
+
+  position: relative;
+
+  display: grid;
+  grid-auto-columns: 15px;
+  grid-auto-rows: 15px;
+}
