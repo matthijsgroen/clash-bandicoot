@@ -68,9 +68,8 @@ walls.forEach((coordinate) => {
 export const village = builder.result();
 
 export const army = armyBuilder()
-  .addTroops("barbarian", 1, 4)
-  .addTroops("archer", 1, 4)
-  .addTroops("giant", 1, 2)
+  .addTroops("giant", 2, 1)
+  .addTroops("goblin", 2, 1)
   .result();
 
 export const replay: Replay = {
