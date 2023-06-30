@@ -1,7 +1,7 @@
 import { troopStore } from "../troopStore";
 import { time } from "../utils/time";
 
-// https://clashofclans.fandom.com/wiki/Giant
+// https://clashofclans.fandom.com/wiki/Goblin
 
 const troopLevels: [
   hitPoints: number,
@@ -10,38 +10,37 @@ const troopLevels: [
   damage: number,
   labLvl: number
 ][] = [
-  [300, "0s", 0, 22, 0],
-  [360, "4h", 40_000, 28, 2],
-  [450, "8h", 150_000, 38, 4],
-  [600, "12h", 500_000, 48, 5],
-  [800, "1d", 1_200_000, 62, 6],
-  [1100, "2d", 2_000_000, 86, 7],
-  [1300, "3d12h", 3_000_000, 110, 8],
-  [1500, "5d12h", 3_500_000, 124, 9],
+  [25, "0s", 0, 22, 0],
+  [30, "5h", 40_000, 28, 1],
+  [36, "9h", 150_000, 38, 3],
+  [50, "12h", 500_000, 48, 5],
+  [65, "1d", 1_200_000, 62, 6],
+  [80, "1d12h", 2_000_000, 86, 7],
+  [105, "3d12h", 3_000_000, 110, 8],
 ];
 
 troopLevels.forEach(
   ([hitPoints, researchTime, researchCost, damage, labLvl], lvl) => {
     troopStore.addTroop({
-      type: "giant",
+      type: "goblin",
       level: 1 + lvl,
       category: "ground",
-      attackSpeed: 2,
-      size: 5,
-      targetPreference: [{ category: "defense" }],
-      barrackRequirement: 3,
+      attackSpeed: 1,
+      size: 1,
+      targetPreference: [{ category: "resource", multiplier: 2 }],
+      barrackRequirement: 4,
       laboratoryRequirement: labLvl,
       hitPoints,
-      hitRadius: 1,
+      hitRadius: 0.4,
       damage,
-      trainingTime: time("30s"),
+      trainingTime: time("7s"),
       aiType: "groundUnit",
       researchCost: {
         amount: researchCost,
         type: "elixir",
         time: time(researchTime),
       },
-      movementSpeed: 12,
+      movementSpeed: 32,
     });
   }
 );

@@ -18,7 +18,6 @@ export const Combat: React.FC<{ base: BaseLayout; army: Army }> = ({
     const queue: Replay = {
       placement: ([] as Replay["placement"]).concat(replay.placement),
     };
-    console.log(queue);
     const int = setInterval(() => {
       attack.current.playTick();
       while (
@@ -33,7 +32,7 @@ export const Combat: React.FC<{ base: BaseLayout; army: Army }> = ({
       }
 
       setData({ ...attack.current.getData() });
-    }, 20);
+    }, 5);
 
     return () => {
       clearInterval(int);
@@ -54,7 +53,7 @@ export const Combat: React.FC<{ base: BaseLayout; army: Army }> = ({
           </output>
         </p>
         <div className={styles.destruction}>
-          <p>Destroyed:</p>
+          <p>Overall damage:</p>
           <span
             className={classNames(
               { [styles.starCollected]: data.stars > 0 },

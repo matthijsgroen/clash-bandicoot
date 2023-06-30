@@ -1,3 +1,5 @@
+import { ObstacleGrid } from "./pathfinding/types";
+
 export type Cost = {
   amount: number;
   type: "elixir" | "darkElixir" | "gold" | "gems";
@@ -79,7 +81,7 @@ export type Troop = {
   barrackRequirement: number;
   laboratoryRequirement: number;
 
-  targetPreference: BuildingCategory[];
+  targetPreference: { category: BuildingCategory; multiplier?: number }[];
   trainingTime: number;
 
   researchCost: Cost;
@@ -112,6 +114,7 @@ export type BattleState = {
   stars: number;
   state: "preparation" | "battle" | "ended";
 
+  grid: ObstacleGrid;
   layout: BaseLayout;
   baseData: BattleBaseData;
   unitData: BattleUnitData;

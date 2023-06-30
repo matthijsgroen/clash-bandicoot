@@ -75,16 +75,7 @@ export const army = armyBuilder()
 
 export const replay: Replay = {
   placement: [
-    { timestamp: 1000, level: 8, unit: "giant", position: [7.5, 18.5] },
-    // { timestamp: 1200, level: 1, unit: "giant", position: [12.5, 8.5] },
-    // { timestamp: 1300, level: 1, unit: "giant", position: [12.5, 25.5] },
-    // { timestamp: 2000, level: 1, unit: "barbarian", position: [5, 17] },
-    // { timestamp: 5000, level: 1, unit: "barbarian", position: [12, 12] },
-    // { timestamp: 5050, level: 1, unit: "barbarian", position: [13.5, 12.5] },
-    // { timestamp: 5100, level: 1, unit: "barbarian", position: [15.5, 12] },
-    // { timestamp: 6500, level: 1, unit: "archer", position: [13.5, 8.5] },
-    // { timestamp: 20500, level: 1, unit: "archer", position: [27.5, 34.5] },
-    // { timestamp: 20700, level: 1, unit: "archer", position: [29, 34.5] },
-    // { timestamp: 20900, level: 1, unit: "archer", position: [31.5, 34.5] },
+    { timestamp: 1000, level: 2, unit: "giant", position: [7.5, 18.5] },
+    { timestamp: 1020, level: 2, unit: "goblin", position: [7.5, 20.5] },
   ],
 };

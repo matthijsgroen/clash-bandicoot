@@ -1,11 +1,11 @@
 import { EntityAI } from "./type";
 import { getDistance } from "../utils/getDistance";
-import { BattleBuildingState, BattleUnitState } from "../types";
+import { BattleBuildingState, BattleState, BattleUnitState } from "../types";
 import { findPath } from "../pathfinding/pathfinding";
 import { createGraph } from "../pathfinding/graph";
-import { createObstacleGrid } from "../pathfinding/grid";
 import { Path } from "../pathfinding/types";
 import { simplifyPath } from "../pathfinding/path";
+import { createObstacleGrid } from "../pathfinding/grid";
 
 type GroundUnitData = {
   currentTarget?: string;
@@ -26,6 +26,34 @@ const isInRange = (
   );
 };
 
+const attack = (
+  unit: BattleUnitState<GroundUnitData>,
+  targetId: string,
+  state: BattleState,
+  delta: number
+) => {
+  unit.state = "attacking";
+  if (unit.unitData.attackDelay > 0) {
+    unit.unitData.attackDelay -= delta;
+  } else {
+    const building = state.baseData[targetId];
+    if (building.hitPoints > 0) {
+      const preferenceActive = unit.info.targetPreference.find((p) =>
+        building.building.info.categories.some((c) => c === p.category)
+      );
+      const multiplier = preferenceActive?.multiplier ?? 1;
+      building.hitPoints -= unit.info.damage * multiplier;
+      if (building.hitPoints < 0) {
+        building.hitPoints = 0;
+        state.grid = createObstacleGrid(state.layout, state.baseData);
+        unit.state = "idle";
+      }
+    }
+
+    unit.unitData.attackDelay = unit.info.attackSpeed * 1000;
+  }
+};
+
 export const groundUnit: EntityAI = (state, unitId, delta) => {
   const unit = state.unitData[unitId] as BattleUnitState<GroundUnitData>;
   if (unit.hitPoints <= 0) {
@@ -41,22 +69,21 @@ export const groundUnit: EntityAI = (state, unitId, delta) => {
         targets = Object.entries(state.baseData).filter(
           ([, b]) =>
             b.hitPoints > 0 &&
-            b.building.info.categories.some((c) => c === pref)
+            b.building.info.categories.some((c) => c === pref.category)
         );
       }
     }
 
     if (targets.length === 0) {
       targets = Object.entries(state.baseData).filter(
-        ([, b]) => b.hitPoints > 0 && b.building.info.type !== "wall"
+        ([, b]) => b.hitPoints > 0 && b.building.info.type !== "wall" // also skip traps / hidden tesla's
       );
     }
 
     let limitCounter = 0;
     let path: Path | undefined = undefined;
 
-    const grid = createObstacleGrid(state.layout, state.baseData);
-    const graph = createGraph(grid);
+    const graph = createGraph(state.grid);
     const xOff = unit.position[0] % 1;
     const yOff = unit.position[1] % 1;
 
@@ -79,7 +106,7 @@ export const groundUnit: EntityAI = (state, unitId, delta) => {
     }
 
     if (path && path.length > 1) {
-      unit.unitData.path = simplifyPath(path, grid).map(([x, y]) => [
+      unit.unitData.path = simplifyPath(path, state.grid).map(([x, y]) => [
         x + xOff,
         y + yOff,
       ]);
@@ -101,6 +128,7 @@ export const groundUnit: EntityAI = (state, unitId, delta) => {
         unit.unitData.path.shift();
         unit.unitData.currentAngle = undefined;
       }
+
       const nextPoint = unit.unitData.path[0];
       if (!nextPoint) {
         unit.unitData.currentTarget = undefined;
@@ -108,6 +136,23 @@ export const groundUnit: EntityAI = (state, unitId, delta) => {
         unit.unitData.path = undefined;
         unit.state = "idle";
         return;
+      }
+
+      // is next step a wall? start breaking through
+      const tileCoord = [Math.floor(nextPoint[0]), Math.floor(nextPoint[1])];
+      const tileValue = state.grid[tileCoord[1]][tileCoord[0]];
+      if (tileValue > 0) {
+        const wall = Object.entries(state.baseData).find(
+          ([, s]) =>
+            s.building.info.type === "wall" &&
+            s.hitPoints > 0 &&
+            s.building.position[0] === tileCoord[0] &&
+            s.building.position[1] === tileCoord[1]
+        );
+        if (wall && isInRange(wall[1], unit)) {
+          attack(unit, wall[0], state, delta);
+          return;
+        }
       }
 
       if (!unit.unitData.currentAngle) {
@@ -125,22 +170,7 @@ export const groundUnit: EntityAI = (state, unitId, delta) => {
       unit.position[1] += unit.unitData.currentAngle[1] * movementDistanceTick;
       unit.state = "moving";
     } else {
-      // Attack!
-      unit.state = "attacking";
-      if (unit.unitData.attackDelay > 0) {
-        unit.unitData.attackDelay -= delta;
-      } else {
-        const building = state.baseData[unit.unitData.currentTarget];
-        if (building.hitPoints > 0) {
-          building.hitPoints -= unit.info.damage;
-          if (building.hitPoints < 0) {
-            building.hitPoints = 0;
-            unit.state = "idle";
-          }
-        }
-
-        unit.unitData.attackDelay = unit.info.attackSpeed * 1000;
-      }
+      attack(unit, unit.unitData.currentTarget, state, delta);
     }
   }
 };

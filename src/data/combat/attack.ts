@@ -4,6 +4,7 @@ import { createKeyStore } from "../utils/keyStore";
 import { aiHandlers } from "../ai";
 import { getDestruction, getStars } from "./attackResult";
 import { BattleBaseData, BaseLayout, BattleState } from "../types";
+import { createObstacleGrid } from "../pathfinding/grid";
 
 export const createInitialBaseData = (layout: BaseLayout): BattleBaseData =>
   Object.fromEntries(
@@ -28,14 +29,17 @@ const TICK_SPEED = 20; // 50 FPS
 
 export const handleAttack = (layout: BaseLayout) => {
   const unitKeys = createKeyStore();
+  const baseData = createInitialBaseData(layout);
   const state: BattleState = {
     timeSpent: 0,
     damage: 0,
     stars: 0,
     state: "battle",
 
-    baseData: createInitialBaseData(layout),
+    baseData,
     layout,
+
+    grid: createObstacleGrid(layout, baseData),
     unitData: {}, // place heroes from layout
     replay: { placement: [] },
   };

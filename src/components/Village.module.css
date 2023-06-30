@@ -84,6 +84,11 @@
   translate: -5px -5px;
   scale: 1.5;
 }
+.unit.goblin {
+  background-color: green;
+  translate: -5px -5px;
+  scale: 0.8;
+}
 .attacking {
   animation: attack 200ms alternate infinite;
 }
@@ -98,9 +103,13 @@
 
 @keyframes attack {
   0% {
-    scale: 1;
+    width: 10px;
+    height: 10px;
+    translate: -5px -5px;
   }
   100% {
-    scale: 1.3;
+    width: 12px;
+    height: 12px;
+    translate: -6px -6px;
   }
 }

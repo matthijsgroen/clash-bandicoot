@@ -1,5 +1,6 @@
 import { createObstacleGrid } from "./grid";
 import { layoutBuilder } from "../baseLayout";
+import { createInitialBaseData } from "../combat/attack";
 
 describe("createObstacleGrid", () => {
   it("returns a 2 dimensional matching grid", () => {
@@ -21,7 +22,10 @@ describe("createObstacleGrid", () => {
         .placeBuilding("builderhut", 1, [0, 0])
         .result();
 
-      const gridResult = createObstacleGrid(layout, {});
+      const gridResult = createObstacleGrid(
+        layout,
+        createInitialBaseData(layout)
+      );
       expect(gridResult).toEqual([
         [0, 0, 0, 0, 0],
         [0, -1, 0, 0, 0],
@@ -38,7 +42,10 @@ describe("createObstacleGrid", () => {
         .placeBuilding("cannon", 1, [0, 0])
         .result();
 
-      const gridResult = createObstacleGrid(layout, {});
+      const gridResult = createObstacleGrid(
+        layout,
+        createInitialBaseData(layout)
+      );
       expect(gridResult).toEqual([
         [0, 0, 0, 0, 0],
         [0, -1, 0, 0, 0],
@@ -55,7 +62,10 @@ describe("createObstacleGrid", () => {
         .placeBuilding("armycamp", 1, [0, 0])
         .result();
 
-      const gridResult = createObstacleGrid(layout, {});
+      const gridResult = createObstacleGrid(
+        layout,
+        createInitialBaseData(layout)
+      );
       expect(gridResult).toEqual([
         [0, 0, 0, 0, 0],
         [0, -1, -1, 0, 0],
