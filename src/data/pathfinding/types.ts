@@ -25,3 +25,5 @@ export type Graph = {
 
   getNeighbors: (node: GraphNode) => GraphNode[];
 };
+
+export type Path = [x: number, y: number][];
