@@ -2,7 +2,7 @@ import { buildingStore } from "../buildingStore";
 
 buildingStore.addBuilding({
   type: "builderhut",
-  category: "other",
+  categories: [],
   level: 1,
   thRequirement: 1,
   size: [2, 2],

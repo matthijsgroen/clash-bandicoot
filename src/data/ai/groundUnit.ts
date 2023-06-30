@@ -36,8 +36,17 @@ export const groundUnit: EntityAI = (state, unitId, delta) => {
     unit.state = "idle";
 
     let targets: [string, BattleBuildingState][] = [];
+    for (const pref of unit.info.targetPreference) {
+      if (targets.length === 0) {
+        targets = Object.entries(state.baseData).filter(
+          ([, b]) =>
+            b.hitPoints > 0 &&
+            b.building.info.categories.some((c) => c === pref)
+        );
+      }
+    }
 
-    if (unit.info.targetPreference.length === 0) {
+    if (targets.length === 0) {
       targets = Object.entries(state.baseData).filter(
         ([, b]) => b.hitPoints > 0
       );

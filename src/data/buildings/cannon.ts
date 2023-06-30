@@ -24,7 +24,7 @@ const buildingLevels: [
 buildingLevels.forEach(([hitPoints, cost, timeStr, damage, th], lvl) => {
   buildingStore.addBuilding({
     type: "cannon",
-    category: "defense",
+    categories: ["defense"],
     level: 1 + lvl,
     size: [3, 3],
     thRequirement: th,

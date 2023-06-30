@@ -22,7 +22,7 @@ export type Building<
   level: number;
   size: [width: number, height: number];
   thRequirement: number;
-  category: "resource" | "defense" | "army" | "trap" | "other";
+  categories: BuildingCategory[];
   cost: Cost;
   hitPoints: number;
   triggerRadius?: number;
@@ -59,7 +59,13 @@ export type BattleBuildingState<
 
 export type BattleBaseData = Record<string, BattleBuildingState>;
 
-export type TargetPreference = "defense" | "resource" | "wall" | "air-defense";
+export type BuildingCategory =
+  | "defense"
+  | "resource"
+  | "wall"
+  | "air-defense"
+  | "army"
+  | "trap";
 
 export type Troop = {
   type: string;
@@ -73,7 +79,7 @@ export type Troop = {
   barrackRequirement: number;
   laboratoryRequirement: number;
 
-  targetPreference: TargetPreference[];
+  targetPreference: BuildingCategory[];
   trainingTime: number;
 
   researchCost: Cost;

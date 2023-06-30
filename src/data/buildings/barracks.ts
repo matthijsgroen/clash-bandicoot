@@ -23,7 +23,7 @@ const buildingLevels: [
 buildingLevels.forEach(([hitPoints, cost, timeStr, th], lvl) => {
   buildingStore.addBuilding({
     type: "barracks",
-    category: "army",
+    categories: ["army"],
     level: 1 + lvl,
     size: [3, 3],
     thRequirement: th,

@@ -40,7 +40,6 @@ export const Village: React.FC<{ layout: BaseLayout; attack: BattleState }> = ({
                 className={classNames(
                   { [styles.destroyed]: buildingState.hitPoints === 0 },
                   styles.building,
-                  styles[info.category],
                   styles[info.type]
                 )}
               >

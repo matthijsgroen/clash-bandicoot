@@ -23,7 +23,7 @@ const buildingLevels: [hitPoints: number, gold: number, time: string][] = [
 buildingLevels.forEach(([hitPoints, cost, timeStr], lvl) => {
   buildingStore.addBuilding({
     type: "townhall",
-    category: "resource",
+    categories: ["resource"],
     level: 1 + lvl,
     thRequirement: lvl,
     size: [4, 4],
