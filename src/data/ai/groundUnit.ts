@@ -84,6 +84,7 @@ export const groundUnit: EntityAI = (state, unitId, delta) => {
         );
         unit.unitData.currentAngle = [Math.cos(angle), Math.sin(angle)];
       }
+      // https://clashofclans.fandom.com/wiki/Troop_Movement_Speed
       const movementDistanceTick =
         ((unit.info.movementSpeed * 12.5) / 100_000) * delta;
 

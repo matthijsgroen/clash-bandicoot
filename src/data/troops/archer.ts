@@ -1,6 +1,8 @@
 import { troopStore } from "../troopStore";
 import { time } from "../utils/time";
 
+// https://clashofclans.fandom.com/wiki/Archer
+
 const troopLevels: [
   hitPoints: number,
   researchTime: string,
