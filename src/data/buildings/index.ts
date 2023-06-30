@@ -8,3 +8,6 @@ import "./elixirStorage";
 import "./goldStorage";
 import "./elixirCollector";
 import "./goldMine";
+import "./mortar";
+import "./airDefense";
+import "./wall";

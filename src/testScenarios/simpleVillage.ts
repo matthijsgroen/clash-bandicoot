@@ -2,7 +2,7 @@ import { armyBuilder } from "../data/armyComposition";
 import { layoutBuilder } from "../data/baseLayout";
 import { Replay } from "../data/types";
 
-export const village = layoutBuilder()
+const builder = layoutBuilder()
   .placeBuilding("townhall", 1, [18, 20])
   .placeBuilding("archertower", 1, [15, 20])
   .placeBuilding("cannon", 1, [18, 24])
@@ -29,7 +29,38 @@ export const village = layoutBuilder()
   .placeBuilding("elixircollector", 4, [12, 20])
   .placeBuilding("elixircollector", 4, [12, 17])
   .placeBuilding("elixircollector", 4, [15, 14])
-  .result();
+  .placeBuilding("mortar", 1, [22, 21])
+  .placeBuilding("airdefense", 1, [19, 17]);
+
+const walls: [x: number, y: number][] = [];
+
+const setWalls = (
+  start: number,
+  end: number,
+  placer: (x: number) => [x: number, y: number]
+) => {
+  for (let x = start; x <= end; x++) {
+    const coord = placer(x);
+    walls.push(coord);
+  }
+};
+
+setWalls(21, 25, (x) => [x, 24]);
+setWalls(25, 27, (x) => [25, x]);
+setWalls(21, 25, (x) => [x, 28]);
+setWalls(25, 26, (x) => [21, x]);
+setWalls(13, 21, (x) => [x, 27]);
+setWalls(24, 26, (x) => [17, x]);
+setWalls(24, 26, (x) => [13, x]);
+setWalls(11, 16, (x) => [x, 23]);
+setWalls(16, 22, (x) => [11, x]);
+setWalls(14, 19, (x) => [18, x]);
+
+walls.forEach((coordinate) => {
+  builder.placeBuilding("wall", 4, coordinate);
+});
+
+export const village = builder.result();
 
 export const army = armyBuilder()
   .addTroops("barbarian", 1, 4)

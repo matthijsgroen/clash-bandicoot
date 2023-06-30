@@ -50,6 +50,9 @@
 .building.townhall {
   background-color: #90ff90;
 }
+.building.wall {
+  background-color: #999;
+}
 
 .building.destroyed {
   background-color: #777;
