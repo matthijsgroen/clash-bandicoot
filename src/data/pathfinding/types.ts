@@ -8,12 +8,9 @@ export type GraphNode = {
   open: boolean;
   closed: boolean;
 
-  /** Travel cost */
-  g: number;
-  /** Heuristics score */
-  h: number;
-  /** Total Cost (travel + heuristic + weight) */
-  f: number;
+  travelCost: number;
+  /** Total Cost (travel + weight) */
+  totalCost: number;
 
   parent?: GraphNode;
 };

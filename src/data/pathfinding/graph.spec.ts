@@ -9,6 +9,7 @@ describe("createGraph", () => {
     [0, 8, 0, 0, 0],
     [0, 0, 0, 0, 0],
   ];
+
   describe("get", () => {
     it("returns a graphNode", () => {
       const graph = createGraph(grid);
@@ -85,6 +86,16 @@ describe("createGraph", () => {
       graph.close(item);
 
       expect(graph.openNodes).toEqual([]);
+    });
+  });
+
+  describe("neighbors", () => {
+    it("returns all neighbors of a node", () => {
+      const graph = createGraph(grid);
+      const item = graph.get(0, 0)!;
+
+      const neighbors = graph.getNeighbors(item);
+      expect(neighbors).toHaveLength(3);
     });
   });
 });
