@@ -17,7 +17,7 @@
   bottom: 1em;
   right: 1em;
   background-color: #0006;
-  padding: 1em;
+  padding: 0.5em;
   border-radius: 1em;
 }
 
@@ -26,6 +26,7 @@
   font-family: "Sriracha", cursive;
   text-transform: uppercase;
   font-weight: bold;
+  font-size: 0.8em;
 
   color: white;
   text-shadow: 0 2px 0 #000;
@@ -35,14 +36,24 @@
   color: #0005;
   font-size: 1.5em;
   display: inline-block;
+  line-height: 0.8em;
 }
 .star.starCollected {
   color: white;
   text-shadow: 0 2px 0 #000;
-  transform: scale(2);
+  transform: translate(-40vw, -50vh) scale(6);
+}
+.star.starCollected.first {
   animation: setStar 500ms 300ms ease-out forwards;
 }
+.star.starCollected.second {
+  animation: setStar 1500ms 300ms ease-out forwards;
+}
+.star.starCollected.third {
+  animation: setStar 2000ms 300ms ease-out forwards;
+}
 .destruction output {
+  line-height: 0.8em;
   padding-left: 0.5em;
   font-family: "Sriracha", cursive;
   font-weight: bold;
@@ -57,9 +68,9 @@
 
 @keyframes setStar {
   0% {
-    transform: scale(2);
+    transform: translate(-40vw, -50vh) scale(6);
   }
   100% {
-    transform: scale(1);
+    transform: translate(0vw, 0vh) scale(1);
   }
 }

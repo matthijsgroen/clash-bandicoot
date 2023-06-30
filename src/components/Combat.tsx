@@ -57,7 +57,8 @@ export const Combat: React.FC<{ base: BaseLayout; army: Army }> = ({
           <span
             className={classNames(
               { [styles.starCollected]: data.stars > 0 },
-              styles.star
+              styles.star,
+              styles.first
             )}
           >
             ★️
@@ -65,7 +66,8 @@ export const Combat: React.FC<{ base: BaseLayout; army: Army }> = ({
           <span
             className={classNames(
               { [styles.starCollected]: data.stars > 1 },
-              styles.star
+              styles.star,
+              styles.second
             )}
           >
             ★️
@@ -73,7 +75,8 @@ export const Combat: React.FC<{ base: BaseLayout; army: Army }> = ({
           <span
             className={classNames(
               { [styles.starCollected]: data.stars > 2 },
-              styles.star
+              styles.star,
+              styles.third
             )}
           >
             ★️
