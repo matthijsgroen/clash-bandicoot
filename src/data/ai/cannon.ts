@@ -31,7 +31,6 @@ export const cannon: EntityAI = (state, buildingId, delta) => {
         target.hitPoints > 0 &&
         getDistance(building.center, target.position) <= buildingRange
     );
-    // console.log(inRange, building.buildingData.unitGroup);
     building.buildingData.currentTarget = inRange[0]?.[0];
     building.buildingData.attackDelay =
       building.building.info.aiSettings.firingRate * 1000;
