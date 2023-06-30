@@ -60,6 +60,9 @@
 .unit.archer {
   background-color: pink;
 }
+.unit.giant {
+  background-color: red;
+}
 .attacking {
   animation: attack 200ms alternate infinite;
 }

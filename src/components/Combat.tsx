@@ -33,7 +33,7 @@ export const Combat: React.FC<{ base: BaseLayout; army: Army }> = ({
       }
 
       setData({ ...attack.current.getData() });
-    }, 5);
+    }, 20);
 
     return () => {
       clearInterval(int);
