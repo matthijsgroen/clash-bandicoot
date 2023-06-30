@@ -1,6 +1,11 @@
 import { EntityAI } from "./type";
 import { getDistance } from "../utils/getDistance";
 import { BattleBuildingState, BattleUnitState } from "../types";
+import { findPath } from "../pathfinding/pathfinding";
+import { createGraph } from "../pathfinding/graph";
+import { createObstacleGrid } from "../pathfinding/grid";
+import { Path } from "../pathfinding/types";
+import { simplifyPath } from "../pathfinding/path";
 
 type GroundUnitData = {
   currentTarget?: string;
@@ -9,23 +14,15 @@ type GroundUnitData = {
   attackDelay: number;
 };
 
-const isInRange = (building: BattleBuildingState, unit: BattleUnitState) => {
-  const minX = building.building.position[0] - unit.info.hitRadius;
-  const maxX =
-    building.building.position[0] +
-    building.building.info.size[0] +
-    unit.info.hitRadius;
-  const minY = building.building.position[1] - unit.info.hitRadius;
-  const maxY =
-    building.building.position[1] +
-    building.building.info.size[1] +
-    unit.info.hitRadius;
-
+const isInRange = (
+  building: BattleBuildingState,
+  unit: BattleUnitState,
+  position?: [x: number, y: number]
+) => {
+  const pos = position ?? unit.position;
   return (
-    unit.position[0] > minX &&
-    unit.position[0] < maxX &&
-    unit.position[1] > minY &&
-    unit.position[1] < maxY
+    getDistance(pos, building.center) - building.building.info.size[0] / 1.5 <
+    unit.info.hitRadius
   );
 };
 
@@ -37,25 +34,46 @@ export const groundUnit: EntityAI = (state, unitId, delta) => {
   }
   if (!unit.unitData.currentTarget) {
     unit.state = "idle";
-    let closestTarget: null | { distance: number; id: string } = null;
 
-    for (const buildingId in state.baseData) {
-      const building = state.baseData[buildingId];
-      if (building.hitPoints <= 0) continue;
-      const distance = getDistance(building.center, unit);
+    let targets: [string, BattleBuildingState][] = [];
 
-      // Next step: Route -- using pathFinder.
-      // make small map of close area, use pathing to determine distance.
-      // with an absolute path and a walk path distance
-
-      if (closestTarget === null || closestTarget.distance > distance) {
-        closestTarget = { distance, id: buildingId };
-      }
+    if (unit.info.targetPreference.length === 0) {
+      targets = Object.entries(state.baseData).filter(
+        ([, b]) => b.hitPoints > 0
+      );
     }
-    if (closestTarget) {
-      const building = state.baseData[closestTarget.id];
-      unit.unitData.currentTarget = closestTarget.id;
-      unit.unitData.path = [[building.center[0], building.center[1]]];
+
+    let limitCounter = 0;
+    let path: Path | undefined = undefined;
+
+    const grid = createObstacleGrid(state.layout, state.baseData);
+    const graph = createGraph(grid);
+    const xOff = unit.position[0] % 1;
+    const yOff = unit.position[1] % 1;
+
+    while (path === undefined && limitCounter < 3000) {
+      limitCounter++;
+      path = findPath(
+        graph,
+        [Math.floor(unit.position[0]), Math.floor(unit.position[1])],
+        ([x, y]) => {
+          const coord: [number, number] = [x, y];
+          for (let [id, target] of targets) {
+            if (isInRange(target, unit, coord)) {
+              unit.unitData.currentTarget = id;
+              return true;
+            }
+          }
+          return false;
+        }
+      );
+    }
+
+    if (path && path.length > 1) {
+      unit.unitData.path = simplifyPath(path, grid).map(([x, y]) => [
+        x + xOff,
+        y + yOff,
+      ]);
       unit.unitData.attackDelay = unit.info.attackSpeed * 1000;
     }
   } else {
@@ -64,19 +82,25 @@ export const groundUnit: EntityAI = (state, unitId, delta) => {
     if (building.hitPoints <= 0) {
       unit.unitData.currentTarget = undefined;
       unit.unitData.currentAngle = undefined;
+      unit.unitData.path = undefined;
       unit.state = "idle";
       return;
     }
     const inRange = isInRange(building, unit);
     if (!inRange && unit.unitData.path) {
-      if (
-        unit.position[0] === unit.unitData.path[0][0] &&
-        unit.position[1] === unit.unitData.path[0][1]
-      ) {
-        unit.unitData.path.pop();
+      if (getDistance(unit.unitData.path[0], unit.position) < 0.1) {
+        unit.unitData.path.shift();
         unit.unitData.currentAngle = undefined;
       }
       const nextPoint = unit.unitData.path[0];
+      if (!nextPoint) {
+        unit.unitData.currentTarget = undefined;
+        unit.unitData.currentAngle = undefined;
+        unit.unitData.path = undefined;
+        unit.state = "idle";
+        return;
+      }
+
       if (!unit.unitData.currentAngle) {
         const angle = Math.atan2(
           nextPoint[1] - unit.position[1],

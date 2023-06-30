@@ -106,6 +106,7 @@ export type BattleState = {
   stars: number;
   state: "preparation" | "battle" | "ended";
 
+  layout: BaseLayout;
   baseData: BattleBaseData;
   unitData: BattleUnitData;
   replay: Replay;

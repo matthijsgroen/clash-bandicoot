@@ -29,7 +29,7 @@ export const cannon: EntityAI = (state, buildingId, delta) => {
       ([, target]) =>
         (target.info.category === unitGroup || unitGroup === "all") &&
         target.hitPoints > 0 &&
-        getDistance(building.center, target) <= buildingRange
+        getDistance(building.center, target.position) <= buildingRange
     );
     // console.log(inRange, building.buildingData.unitGroup);
     building.buildingData.currentTarget = inRange[0]?.[0];
@@ -41,7 +41,7 @@ export const cannon: EntityAI = (state, buildingId, delta) => {
     const target = state.unitData[building.buildingData.currentTarget];
     if (
       target.hitPoints <= 0 ||
-      getDistance(building.center, target) > buildingRange
+      getDistance(building.center, target.position) > buildingRange
     ) {
       building.buildingData.currentTarget = undefined;
       return;

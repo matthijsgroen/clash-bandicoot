@@ -35,6 +35,7 @@ export const handleAttack = (layout: BaseLayout) => {
     state: "battle",
 
     baseData: createInitialBaseData(layout),
+    layout,
     unitData: {}, // place heroes from layout
     replay: { placement: [] },
   };

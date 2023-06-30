@@ -1,10 +1,4 @@
-import { BattleUnitState } from "../types";
-
 export const getDistance = (
-  pos: [x: number, y: number],
-  unit: BattleUnitState
-) =>
-  Math.sqrt(
-    Math.pow(pos[0] - unit.position[0], 2) +
-      Math.pow(pos[1] - unit.position[1], 2)
-  );
+  a: [x: number, y: number],
+  b: [x: number, y: number]
+) => Math.sqrt(Math.pow(a[0] - b[0], 2) + Math.pow(a[1] - b[1], 2));
