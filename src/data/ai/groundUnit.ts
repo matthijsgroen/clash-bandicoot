@@ -21,7 +21,7 @@ const isInRange = (
 ) => {
   const pos = position ?? unit.position;
   return (
-    getDistance(pos, building.center) - building.building.info.size[0] / 1.5 <
+    getDistance(pos, building.center) - building.building.info.size[0] / 1.7 <
     unit.info.hitRadius
   );
 };

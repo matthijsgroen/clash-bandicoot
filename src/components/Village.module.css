@@ -1,7 +1,7 @@
 .scrollContainer {
   height: 100vh;
   width: 100vw;
-  background-color: #597917;
+  background-color: #667120;
   overflow: scroll;
 }
 
@@ -11,7 +11,7 @@
 
 .grid {
   --tile-size: 15px;
-  background: repeating-conic-gradient(#acbe4a 0% 25%, #8b9f39 0% 50%) 50% /
+  background: repeating-conic-gradient(#aab841 0% 25%, #99af47 0% 50%) 50% /
     calc(2 * var(--tile-size)) calc(2 * var(--tile-size));
   background-position: calc(var(--tile-size) * 3) calc(var(--tile-size) * 3);
   background-clip: content-box;
@@ -24,7 +24,7 @@
 .tilted {
   width: max-content;
   height: max-content;
-  background-color: #698532;
+  background-color: #7f9e3a;
   rotate: 45deg;
 }
 
@@ -56,12 +56,16 @@
 }
 .unit.barbarian {
   background-color: yellow;
+  translate: -5px -5px;
 }
 .unit.archer {
   background-color: pink;
+  translate: -5px -5px;
 }
 .unit.giant {
   background-color: red;
+  translate: -5px -5px;
+  scale: 1.5;
 }
 .attacking {
   animation: attack 200ms alternate infinite;
