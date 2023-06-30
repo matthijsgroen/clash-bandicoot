@@ -24,6 +24,9 @@ export const createObstacleGrid = (
         ) {
           grid[posY + y][posX + x] = -1;
         }
+        if (building.info.type === "wall") {
+          grid[posY + y][posX + x] = building.info.hitPoints;
+        }
       }
     }
   }

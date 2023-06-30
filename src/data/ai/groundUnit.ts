@@ -21,7 +21,7 @@ const isInRange = (
 ) => {
   const pos = position ?? unit.position;
   return (
-    getDistance(pos, building.center) - building.building.info.size[0] / 1.8 <
+    getDistance(pos, building.center) - building.building.info.size[0] / 2.05 <
     unit.info.hitRadius
   );
 };
@@ -48,7 +48,7 @@ export const groundUnit: EntityAI = (state, unitId, delta) => {
 
     if (targets.length === 0) {
       targets = Object.entries(state.baseData).filter(
-        ([, b]) => b.hitPoints > 0
+        ([, b]) => b.hitPoints > 0 && b.building.info.type !== "wall"
       );
     }
 

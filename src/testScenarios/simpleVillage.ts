@@ -55,6 +55,11 @@ setWalls(24, 26, (x) => [13, x]);
 setWalls(11, 16, (x) => [x, 23]);
 setWalls(16, 22, (x) => [11, x]);
 setWalls(14, 19, (x) => [18, x]);
+setWalls(14, 22, (x) => [x, 13]);
+setWalls(22, 25, (x) => [x, 14]);
+setWalls(15, 24, (x) => [25, x]);
+setWalls(12, 14, (x) => [x, 16]);
+setWalls(14, 15, (x) => [14, x]);
 
 walls.forEach((coordinate) => {
   builder.placeBuilding("wall", 4, coordinate);
@@ -70,7 +75,7 @@ export const army = armyBuilder()
 
 export const replay: Replay = {
   placement: [
-    { timestamp: 1000, level: 1, unit: "giant", position: [13.5, 8.5] },
+    { timestamp: 1000, level: 8, unit: "giant", position: [7.5, 18.5] },
     // { timestamp: 1200, level: 1, unit: "giant", position: [12.5, 8.5] },
     // { timestamp: 1300, level: 1, unit: "giant", position: [12.5, 25.5] },
     // { timestamp: 2000, level: 1, unit: "barbarian", position: [5, 17] },

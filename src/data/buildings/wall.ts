@@ -1,5 +1,4 @@
 import { buildingStore } from "../buildingStore";
-import { time } from "../utils/time";
 
 // https://clashofclans.fandom.com/wiki/Wall/Home_Village
 

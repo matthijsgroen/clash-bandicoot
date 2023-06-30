@@ -26,7 +26,7 @@ troopLevels.forEach(
       type: "giant",
       level: 1 + lvl,
       category: "ground",
-      attackSpeed: 2,
+      attackSpeed: 0.2, //2
       size: 5,
       targetPreference: ["defense"],
       barrackRequirement: 3,
@@ -41,7 +41,7 @@ troopLevels.forEach(
         type: "elixir",
         time: time(researchTime),
       },
-      movementSpeed: 12,
+      movementSpeed: 24, //12
     });
   }
 );

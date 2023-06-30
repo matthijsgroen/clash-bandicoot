@@ -5,6 +5,9 @@ export const getDestruction = (baseData: BattleBaseData): number => {
   let buildingsDestroyed = 0;
 
   Object.values(baseData).forEach(({ hitPoints, building }) => {
+    if (building.info.categories.some((c) => c === "wall" || c === "trap")) {
+      return;
+    }
     buildingHealth += building.info.hitPoints;
     if (hitPoints === 0) {
       buildingsDestroyed += building.info.hitPoints;
