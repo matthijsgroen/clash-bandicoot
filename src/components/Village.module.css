@@ -33,11 +33,21 @@
   border: 2px solid black;
   box-sizing: border-box;
   background-color: white;
+  overflow: hidden;
 }
-.building.resource {
-  background-color: #ff9090;
+.building.elixirstorage {
+  background-color: pink;
 }
-.building.resource.townhall {
+.building.elixircollector {
+  background-color: pink;
+}
+.building.goldmine {
+  background-color: gold;
+}
+.building.goldstorage {
+  background-color: gold;
+}
+.building.townhall {
   background-color: #90ff90;
 }
 

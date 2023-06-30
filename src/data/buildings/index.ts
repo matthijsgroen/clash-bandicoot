@@ -4,3 +4,7 @@ import "./builderHut";
 import "./cannon";
 import "./archerTower";
 import "./townhall";
+import "./elixirStorage";
+import "./goldStorage";
+import "./elixirCollector";
+import "./goldMine";
