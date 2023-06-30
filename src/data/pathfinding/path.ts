@@ -7,15 +7,15 @@ const interpolate = (
   [x1, y1]: [x: number, b: number]
 ): Path => {
   const line: Path = [];
-  let sx: number, sy: number, dx: number, dy: number, err: number, e2: number;
+  let sx: number, sy: number, e2: number;
 
-  dx = abs(x1 - x0);
-  dy = abs(y1 - y0);
+  const dx = abs(x1 - x0);
+  const dy = abs(y1 - y0);
 
   sx = x0 < x1 ? 1 : -1;
   sy = y0 < y1 ? 1 : -1;
 
-  err = dx - dy;
+  let err = dx - dy; // slope function
 
   while (true) {
     line.push([x0, y0]);
@@ -44,8 +44,6 @@ export const simplifyPath = (path: Path, grid: ObstacleGrid): Path => {
     y0 = path[0][1], // path start y
     x1 = path[len - 1][0], // path end x
     y1 = path[len - 1][1], // path end y
-    i,
-    j,
     coord: [number, number],
     line,
     testCoord;
@@ -54,12 +52,12 @@ export const simplifyPath = (path: Path, grid: ObstacleGrid): Path => {
   let sy = y0;
   const newPath: Path = [[sx, sy]];
 
-  for (i = 2; i < len; ++i) {
+  for (let i = 2; i < len; ++i) {
     coord = path[i];
     line = interpolate([sx, sy], coord);
 
     let blocked = false;
-    for (j = 1; j < line.length; ++j) {
+    for (let j = 1; j < line.length; ++j) {
       testCoord = line[j];
 
       if (grid[testCoord[1]][testCoord[0]] !== 0) {
