@@ -56,6 +56,7 @@ export type BattleBuildingState<
   effects: [];
   center: [x: number, y: number];
   building: LayoutBuilding<Settings>;
+  state: string;
   buildingData: T;
 };
 

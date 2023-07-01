@@ -30,6 +30,7 @@ const builder = layoutBuilder()
   .placeBuilding("elixircollector", 4, [12, 17])
   .placeBuilding("elixircollector", 4, [15, 14])
   .placeBuilding("mortar", 1, [22, 21])
+  .placeBuilding("laboratory", 1, [9, 24])
   .placeBuilding("airdefense", 1, [19, 17]);
 
 const walls: [x: number, y: number][] = [];

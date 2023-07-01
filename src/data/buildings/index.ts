@@ -11,3 +11,4 @@ import "./goldMine";
 import "./mortar";
 import "./airDefense";
 import "./wall";
+import "./laboratory";

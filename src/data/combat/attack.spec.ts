@@ -19,6 +19,7 @@ describe("attack", () => {
           hitPoints: 450,
           effects: [],
           center: [37, 37],
+          state: "idle",
           building: village.items["townhall#1"],
           buildingData: {},
         },

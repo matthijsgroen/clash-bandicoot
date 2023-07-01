@@ -42,9 +42,11 @@ export const cannon: EntityAI = (state, buildingId, delta) => {
       target.hitPoints <= 0 ||
       getDistance(building.center, target.position) > buildingRange
     ) {
+      building.state = "idle";
       building.buildingData.currentTarget = undefined;
       return;
     }
+    building.state = "attacking";
     if (building.buildingData.attackDelay > 0) {
       building.buildingData.attackDelay -= delta;
     } else {

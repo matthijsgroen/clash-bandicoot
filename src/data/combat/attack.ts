@@ -19,6 +19,7 @@ export const createInitialBaseData = (layout: BaseLayout): BattleBaseData =>
             building.position[1] + building.info.size[1] / 2,
           ],
           effects: [],
+          state: "idle",
           buildingData: {},
         },
       ];
