@@ -47,6 +47,7 @@ export const Combat: React.FC<{ base: BaseLayout; army: Army }> = ({
       </main>
       <aside>
         <p className={styles.timeRemaining}>
+          <p>Time remaining till end of fight:</p>
           <output>
             {Math.floor(timeLeft / 1000 / 60)}m{" "}
             {Math.floor(timeLeft / 1000) % 60}s

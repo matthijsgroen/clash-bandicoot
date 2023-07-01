@@ -9,13 +9,19 @@
   font-weight: bold;
   color: white;
   text-shadow: 0 2px 0 #000;
+}
+.timeRemaining p {
+  margin: 0;
+  line-height: 1em;
+}
+.timeRemaining output {
   font-size: 3vh;
 }
 
 .destruction {
   position: fixed;
-  bottom: 1em;
-  right: 1em;
+  bottom: 20vh;
+  right: 3vw;
   background-color: #0006;
   padding: 0.5em;
   border-radius: 1em;

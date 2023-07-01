@@ -92,10 +92,10 @@
   scale: 0.8;
 }
 .unit.attacking {
-  animation: attack 200ms alternate infinite;
+  animation: attack 450ms alternate infinite;
 }
 .building.attacking {
-  animation: attackBuilding 200ms alternate infinite;
+  animation: attackBuilding 300ms alternate infinite;
 }
 
 .dead {
