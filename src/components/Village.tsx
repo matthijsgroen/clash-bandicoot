@@ -3,15 +3,17 @@ import "../data/buildings";
 import React from "react";
 import classNames from "classnames";
 import { BaseLayout, BattleState } from "../data/types";
+import { createInitialBaseData } from "../data/combat/attack";
 
 export const OFFSET = 3;
 export const TILE_SIZE = 15;
 
-export const Village: React.FC<{ layout: BaseLayout; attack: BattleState }> = ({
-  layout,
-  attack,
-}) => {
-  const inProgress = attack.timeSpent < 3 * 60 * 1000;
+export const Village: React.FC<{
+  layout: BaseLayout;
+  attack?: BattleState;
+}> = ({ layout, attack }) => {
+  const inProgress = attack && attack.timeSpent < 3 * 60 * 1000;
+  const baseData = attack ? attack.baseData : createInitialBaseData(layout);
   return (
     <div className={styles.scrollContainer}>
       <div className={styles.rotationContainer}>
@@ -23,7 +25,7 @@ export const Village: React.FC<{ layout: BaseLayout; attack: BattleState }> = ({
             }}
             className={styles.grid}
           >
-            {Object.entries(attack.baseData).map(([id, buildingState], i) => {
+            {Object.entries(baseData).map(([id, buildingState], i) => {
               const info = buildingState.building.info;
               return (
                 <div
@@ -52,25 +54,26 @@ export const Village: React.FC<{ layout: BaseLayout; attack: BattleState }> = ({
                 </div>
               );
             })}
-            {Object.entries(attack.unitData).map(([id, unit]) => {
-              return (
-                <div
-                  key={id}
-                  style={{
-                    left: (unit.position[0] + OFFSET) * TILE_SIZE - 1,
-                    top: (unit.position[1] + OFFSET) * TILE_SIZE - 1,
-                    width: 10,
-                    height: 10,
-                    position: "absolute",
-                  }}
-                  className={classNames(styles.unit, styles[unit.type], {
-                    [styles.attacking]:
-                      unit.state === "attacking" && inProgress,
-                    [styles.dead]: unit.state === "dead",
-                  })}
-                ></div>
-              );
-            })}
+            {attack &&
+              Object.entries(attack.unitData).map(([id, unit]) => {
+                return (
+                  <div
+                    key={id}
+                    style={{
+                      left: (unit.position[0] + OFFSET) * TILE_SIZE - 1,
+                      top: (unit.position[1] + OFFSET) * TILE_SIZE - 1,
+                      width: 10,
+                      height: 10,
+                      position: "absolute",
+                    }}
+                    className={classNames(styles.unit, styles[unit.type], {
+                      [styles.attacking]:
+                        unit.state === "attacking" && inProgress,
+                      [styles.dead]: unit.state === "dead",
+                    })}
+                  ></div>
+                );
+              })}
           </div>
         </div>
       </div>
