@@ -1,4 +1,4 @@
-import { layoutBuilder } from "../baseLayout";
+import { layoutBuilder } from "../layout/baseLayout";
 import { troopStore } from "../troopStore";
 import { handleAttack } from "./attack";
 

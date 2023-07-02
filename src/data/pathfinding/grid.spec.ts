@@ -1,5 +1,5 @@
 import { createObstacleGrid } from "./grid";
-import { layoutBuilder } from "../baseLayout";
+import { layoutBuilder } from "../layout/baseLayout";
 import { createInitialBaseData } from "../combat/attack";
 
 describe("createObstacleGrid", () => {

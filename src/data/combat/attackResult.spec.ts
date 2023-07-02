@@ -1,5 +1,5 @@
 import { createInitialBaseData } from "./attack";
-import { layoutBuilder } from "../baseLayout";
+import { layoutBuilder } from "../layout/baseLayout";
 import { BattleBaseData } from "../types";
 import { getDestruction, getStars } from "./attackResult";
 

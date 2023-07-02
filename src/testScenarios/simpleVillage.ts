@@ -1,5 +1,11 @@
 import { armyBuilder } from "../data/armyComposition";
-import { layoutBuilder } from "../data/baseLayout";
+import { layoutBuilder } from "../data/layout/baseLayout";
+import {
+  compressLayout,
+  decompressLayout,
+  packLayout,
+  unpackLayout,
+} from "../data/layout/packLayout";
 import { Replay } from "../data/types";
 
 const builder = layoutBuilder()
@@ -67,6 +73,12 @@ walls.forEach((coordinate) => {
 });
 
 export const village = builder.result();
+
+export const village2 = decompressLayout(
+  unpackLayout(
+    "CP8AzgMBCAEAPAgBDwQJABkQBAMFBBAEBgcEDwQEABkEBBAEDgAZEAQIDwQDCQEAFQUEBwQMAQAVCgEAKgUEDQEBAQAZDgEEBAgBACYPBAUAEgsBAAEQBAQGBBAEBAoBEAQFDwQEBgQFBAASDQEAJw8ECAQEAwEAFQkBAAEFBAABDwQEABYEBAQE"
+  )
+);
 
 export const army = armyBuilder()
   .addTroops("giant", 2, 1)

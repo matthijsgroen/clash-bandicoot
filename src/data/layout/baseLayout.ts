@@ -1,7 +1,7 @@
-import "./buildings";
-import { buildingStore } from "./buildingStore";
-import { createKeyStore } from "./utils/keyStore";
-import { BaseLayout, LayoutBuilding } from "./types";
+import "../buildings";
+import { buildingStore } from "../buildingStore";
+import { createKeyStore } from "../utils/keyStore";
+import { BaseLayout, LayoutBuilding } from "../types";
 
 const DEFAULT_WIDTH = 40;
 const DEFAULT_HEIGHT = 40;

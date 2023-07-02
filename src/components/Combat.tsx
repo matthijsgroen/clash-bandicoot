@@ -46,13 +46,13 @@ export const Combat: React.FC<{ base: BaseLayout; army: Army }> = ({
         <Village layout={base} attack={data} />
       </main>
       <aside>
-        <p className={styles.timeRemaining}>
+        <div className={styles.timeRemaining}>
           <p>Time remaining till end of fight:</p>
           <output>
             {Math.floor(timeLeft / 1000 / 60)}m{" "}
             {Math.floor(timeLeft / 1000) % 60}s
           </output>
-        </p>
+        </div>
         <div className={styles.destruction}>
           <p>Overall damage:</p>
           <span

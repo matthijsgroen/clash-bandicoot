@@ -1,4 +1,4 @@
-import { army, village } from "./testScenarios/simpleVillage";
+import { army, village2 } from "./testScenarios/simpleVillage";
 import { Combat } from "./components/Combat";
 import { useState } from "react";
 import { Button } from "./components/Button";
@@ -8,7 +8,7 @@ const App = () => {
 
   return (
     <div>
-      {popupActive === "attack" && <Combat base={village} army={army} />}
+      {popupActive === "attack" && <Combat base={village2} army={army} />}
 
       <Button onClick={() => setActivePopup("attack")}>Attack</Button>
     </div>
