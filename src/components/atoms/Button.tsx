@@ -8,14 +8,14 @@ type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {
 };
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (props, ref) => (
+  ({ color, square, ...props }, ref) => (
     <button
       type="button"
       ref={ref}
       {...props}
       className={classnames(styles.button, {
-        [styles.orange]: props.color === "orange",
-        [styles.square]: props.square,
+        [styles.orange]: color === "orange",
+        [styles.square]: square,
       })}
     >
       {props.children}

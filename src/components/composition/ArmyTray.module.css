@@ -1,0 +1,104 @@
+.armyTray {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 15vh;
+  background-color: #0006;
+  border-top: 1px solid #999;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+.scrollArea {
+  padding: 0 3rem;
+  display: grid;
+  height: 100%;
+  width: max-content;
+  grid-auto-flow: column;
+  gap: 1.5rem;
+}
+
+.trayButton {
+  border-radius: 0.75rem;
+}
+
+.empty {
+  border: 2px dashed white;
+}
+
+.group {
+  display: grid;
+  grid-auto-columns: 6rem;
+  padding: 1rem 0 2rem 0;
+
+  width: max-content;
+  grid-auto-flow: column;
+  gap: 0.75rem;
+}
+
+.unit {
+  border: 1px solid black;
+  display: grid;
+  grid-template-rows: 2em 1fr;
+  padding: 0;
+  scale: 1;
+  transition: scale 200ms ease-in-out;
+}
+
+.unit.selected {
+  border: 1px solid white;
+  scale: 1.15;
+}
+
+.amounts {
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+  border-top: 2px solid #99e;
+  background: #66a linear-gradient(to bottom, transparent 0%, #448 100%);
+  height: stretch;
+
+  font-family: "Sriracha", cursive;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1.3rem;
+  color: white;
+  text-shadow: 0 2px 0 #000;
+  text-align: right;
+  padding-right: 0.8rem;
+}
+
+.portraitBox {
+  height: stretch;
+  box-sizing: border-box;
+  padding: 5px 5px 7px 5px;
+  background: #66a;
+  border-bottom: 6px solid #337;
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+}
+
+.portrait {
+  height: 100%;
+
+  font-family: "Sriracha", cursive;
+  font-weight: bold;
+  font-size: 1rem;
+  color: white;
+  text-shadow: 0 2px 0 #000;
+  position: relative;
+}
+
+.level {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+
+  font-weight: normal;
+  font-size: 0.8rem;
+  line-height: 1.2rem;
+  background-color: #444;
+  border-radius: 5px;
+  width: 1.2rem;
+  height: 1.2rem;
+}

@@ -3,9 +3,9 @@ import { Village } from "./Village";
 import { BaseLayout, Replay } from "../data/types";
 import { handleAttack } from "../data/combat/attack";
 import { Army } from "../data/armyComposition";
-import styles from "./Combat.module.css";
-import { Timer } from "./Timer";
-import { Destruction } from "./Destruction";
+import { Timer } from "./atoms/Timer";
+import { Destruction } from "./atoms/Destruction";
+import { ArmyTray } from "./composition/ArmyTray";
 
 export const Combat: React.FC<{
   base: BaseLayout;
@@ -54,7 +54,7 @@ export const Combat: React.FC<{
         <Timer timeLeft={timeLeft} label="Time remaining till end of fight:" />
         <Destruction damage={data.damage} stars={data.stars} />
       </aside>
-      <aside className={styles.armyTray}></aside>
+      <ArmyTray army={army} />
     </div>
   );
 };

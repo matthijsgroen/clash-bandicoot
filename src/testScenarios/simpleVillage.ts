@@ -1,11 +1,6 @@
 import { armyBuilder } from "../data/armyComposition";
 import { layoutBuilder } from "../data/layout/baseLayout";
-import {
-  compressLayout,
-  decompressLayout,
-  packLayout,
-  unpackLayout,
-} from "../data/layout/packLayout";
+import { decompressLayout, unpackLayout } from "../data/layout/packLayout";
 import { Replay } from "../data/types";
 
 const builder = layoutBuilder()
