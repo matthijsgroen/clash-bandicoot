@@ -1,12 +1,17 @@
 import styles from "./Village.module.css";
 import "../data/buildings";
-import React from "react";
+import React, { CSSProperties } from "react";
 import classNames from "classnames";
 import { BaseLayout, BattleState } from "../data/types";
 import { createInitialBaseData } from "../data/combat/attack";
 
 export const OFFSET = 3;
 export const TILE_SIZE = 15;
+
+export interface PlacementCSS extends CSSProperties {
+  "--x": number;
+  "--y": number;
+}
 
 export const Village: React.FC<{
   layout: BaseLayout;
@@ -30,23 +35,18 @@ export const Village: React.FC<{
               return (
                 <div
                   key={id}
-                  style={{
-                    left:
-                      (buildingState.building.position[0] + OFFSET) *
-                        TILE_SIZE -
-                      1,
-                    top:
-                      (buildingState.building.position[1] + OFFSET) *
-                        TILE_SIZE -
-                      1,
-                    width: info.size[0] * TILE_SIZE + 1,
-                    height: info.size[1] * TILE_SIZE + 1,
-                    position: "absolute",
-                  }}
+                  style={
+                    {
+                      "--x": buildingState.building.position[0],
+                      "--y": buildingState.building.position[1],
+                      position: "absolute",
+                    } as PlacementCSS
+                  }
                   className={classNames(
                     { [styles.destroyed]: buildingState.hitPoints === 0 },
                     styles.building,
                     styles[info.type],
+                    styles[`size${info.size[0]}`],
                     styles[buildingState.state]
                   )}
                 >
