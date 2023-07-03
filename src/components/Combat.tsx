@@ -5,6 +5,7 @@ import { handleAttack } from "../data/combat/attack";
 import { Army } from "../data/armyComposition";
 import styles from "./Combat.module.css";
 import classNames from "classnames";
+import { Timer } from "./Timer";
 
 export const Combat: React.FC<{
   base: BaseLayout;
@@ -44,21 +45,13 @@ export const Combat: React.FC<{
   }, [attack]);
 
   const timeLeft = Math.max(3 * 60 * 1000 - data.timeSpent, 0);
-  const minutesLeft = Math.floor(timeLeft / 1000 / 60);
-  const secondsLeft = Math.floor(timeLeft / 1000) % 60;
   return (
     <div>
       <main>
         <Village layout={base} attack={data} />
       </main>
       <aside>
-        <div className={styles.timeRemaining}>
-          <p>Time remaining till end of fight:</p>
-          <output>
-            {minutesLeft > 0 && `${minutesLeft}m `}
-            {secondsLeft}s
-          </output>
-        </div>
+        <Timer timeLeft={timeLeft} label="Time remaining till end of fight:" />
         <div className={styles.destruction}>
           <p>Overall damage:</p>
           <span

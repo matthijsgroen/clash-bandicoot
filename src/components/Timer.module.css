@@ -1,0 +1,22 @@
+.timeRemaining {
+  font-family: "Sriracha", cursive;
+
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  width: 100vw;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 2px 0 #000;
+}
+.timeRemaining p {
+  margin: 0;
+  line-height: 1em;
+}
+.timeRemaining output {
+  font-size: 3vh;
+}
+.red {
+  color: red;
+}
