@@ -12,7 +12,13 @@ const App = () => {
         <Combat base={village2} army={army} replay={replay} />
       )}
 
-      <Button onClick={() => setActivePopup("attack")}>Attack</Button>
+      <Button
+        onClick={() => setActivePopup("attack")}
+        color="orange"
+        square={true}
+      >
+        Attack
+      </Button>
     </div>
   );
 };
