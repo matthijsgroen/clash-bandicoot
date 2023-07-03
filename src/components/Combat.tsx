@@ -4,8 +4,8 @@ import { BaseLayout, Replay } from "../data/types";
 import { handleAttack } from "../data/combat/attack";
 import { Army } from "../data/armyComposition";
 import styles from "./Combat.module.css";
-import classNames from "classnames";
 import { Timer } from "./Timer";
+import { Destruction } from "./Destruction";
 
 export const Combat: React.FC<{
   base: BaseLayout;
@@ -52,37 +52,7 @@ export const Combat: React.FC<{
       </main>
       <aside>
         <Timer timeLeft={timeLeft} label="Time remaining till end of fight:" />
-        <div className={styles.destruction}>
-          <p>Overall damage:</p>
-          <span
-            className={classNames(
-              { [styles.starCollected]: data.stars > 0 },
-              styles.star,
-              styles.first
-            )}
-          >
-            ★️
-          </span>
-          <span
-            className={classNames(
-              { [styles.starCollected]: data.stars > 1 },
-              styles.star,
-              styles.second
-            )}
-          >
-            ★️
-          </span>
-          <span
-            className={classNames(
-              { [styles.starCollected]: data.stars > 2 },
-              styles.star,
-              styles.third
-            )}
-          >
-            ★️
-          </span>
-          <output>{Math.floor(data.damage * 100)}%</output>
-        </div>
+        <Destruction damage={data.damage} stars={data.stars} />
       </aside>
       <aside className={styles.armyTray}></aside>
     </div>
