@@ -12,6 +12,7 @@
   left: calc((var(--x) + 3) * var(--tile-size) - 1px);
   top: calc((var(--y) + 3) * var(--tile-size) - 1px);
   box-shadow: #000 1px 1px 0px;
+  cursor: default;
 }
 
 .building.size1 {

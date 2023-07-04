@@ -6,11 +6,11 @@
 }
 
 .rotationContainer {
+  transform-origin: 0 0;
   scale: 1.5 1;
   width: max-content;
   height: max-content;
-  padding: calc(9em + 9em) calc((9em + 9em) * 0.8) calc(9em + 9em)
-    calc((9em + 9em) * 1.75);
+  padding: calc(9em + 9em) calc((9em + 9em) * 0.8);
 }
 
 :root {
@@ -32,5 +32,6 @@
   width: max-content;
   height: max-content;
   background-color: #7f9e3a;
+  transform-origin: center;
   rotate: 45deg;
 }

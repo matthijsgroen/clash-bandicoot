@@ -1,4 +1,5 @@
 .destruction {
+  pointer-events: none;
   background-color: #0006;
   padding: 0.5em;
   border-radius: 1em;

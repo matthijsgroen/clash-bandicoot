@@ -67,7 +67,7 @@ export const Combat: React.FC<{
         }
       }
       setBattleState({ ...attack.current.getData() });
-    }, 5);
+    }, 20);
 
     return () => {
       clearInterval(int);
@@ -77,7 +77,7 @@ export const Combat: React.FC<{
   return (
     <div>
       <main>
-        <Village />
+        <Village onClick={(p) => console.log(p)} />
       </main>
       <aside>
         <CombatTimer />

@@ -1,4 +1,5 @@
 .timeRemaining {
+  pointer-events: none;
   text-align: center;
 
   font-family: "Sriracha", cursive;

@@ -19,12 +19,18 @@ const unitsAtom = atom((get) => {
   return Object.entries(attack.unitData);
 });
 
-export const Village: React.FC = () => {
+export const Village: React.FC<{
+  onClick?: (pos: [x: number, y: number]) => void;
+}> = ({ onClick }) => {
   const buildings = useAtomValue(buildingsAtom);
   const units = useAtomValue(unitsAtom);
   const layout = useAtomValue(layoutAtom);
   return (
-    <Grid width={layout.gridSize[0]} height={layout.gridSize[1]}>
+    <Grid
+      width={layout.gridSize[0]}
+      height={layout.gridSize[1]}
+      onClick={onClick}
+    >
       {buildings.map(([id, buildingState]) => {
         const info = buildingState.building.info;
         return (
