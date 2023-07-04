@@ -7,15 +7,17 @@ export const UnitButton: React.FC<{
   label?: string;
   amount?: number;
   selected?: boolean;
+  disabled?: boolean;
   level?: number;
-}> = ({ color, label, level, amount, selected }) => (
+}> = ({ color, label, level, amount, selected, disabled }) => (
   <button
     className={classnames(styles.trayButton, styles.unit, {
       [styles.selected]: selected,
     })}
+    disabled={disabled}
   >
     <div className={classnames(styles.amounts)}>
-      {amount !== undefined && `${amount}x`}
+      {amount !== undefined && `x${amount}`}
     </div>
     <div className={styles.portraitBox}>
       <div style={{ backgroundColor: color }} className={styles.portrait}>
@@ -41,6 +43,13 @@ export const ArmyTray: React.FC<{ army: Army }> = ({ army }) => {
           <Placeholder />
         </div>
         <div className={styles.group}>
+          <UnitButton
+            color={"#bb0"}
+            label={"Barbarian"}
+            level={1}
+            amount={0}
+            disabled
+          />
           <Placeholder />
           <Placeholder />
           <Placeholder />
