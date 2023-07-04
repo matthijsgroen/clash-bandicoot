@@ -1,0 +1,53 @@
+:root {
+  --tile-size: 15px;
+}
+
+.unit {
+  font-size: 10px;
+  border: 2px solid black;
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: 50%;
+}
+.unit.barbarian {
+  background-color: yellow;
+  translate: -5px -5px;
+}
+.unit.archer {
+  background-color: pink;
+  translate: -5px -5px;
+}
+.unit.giant {
+  background-color: red;
+  translate: -5px -5px;
+  scale: 1.5;
+}
+.unit.goblin {
+  background-color: green;
+  translate: -5px -5px;
+  scale: 0.8;
+}
+.unit.attacking {
+  animation: attack 450ms alternate infinite;
+}
+
+.dead {
+  opacity: 0.3;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: #777;
+  rotate: -45deg;
+}
+
+@keyframes attack {
+  0% {
+    width: 10px;
+    height: 10px;
+    translate: -5px -5px;
+  }
+  100% {
+    width: 12px;
+    height: 12px;
+    translate: -6px -6px;
+  }
+}

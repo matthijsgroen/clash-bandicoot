@@ -1,0 +1,36 @@
+.scrollContainer {
+  height: 100vh;
+  width: 100vw;
+  background-color: #667120;
+  overflow: scroll;
+}
+
+.rotationContainer {
+  scale: 1.5 1;
+  width: max-content;
+  height: max-content;
+  padding: calc(9em + 9em) calc((9em + 9em) * 0.8) calc(9em + 9em)
+    calc((9em + 9em) * 1.75);
+}
+
+:root {
+  --tile-size: 15px;
+}
+
+.grid {
+  background: repeating-conic-gradient(#aab841 0% 25%, #99af47 0% 50%) 50% /
+    calc(2 * var(--tile-size)) calc(2 * var(--tile-size));
+  background-position: calc(var(--tile-size) * 3) calc(var(--tile-size) * 3);
+  background-clip: content-box;
+  padding: calc(var(--tile-size) * 3);
+  background-color: #acbe4a;
+
+  position: relative;
+}
+
+.tilted {
+  width: max-content;
+  height: max-content;
+  background-color: #7f9e3a;
+  rotate: 45deg;
+}
