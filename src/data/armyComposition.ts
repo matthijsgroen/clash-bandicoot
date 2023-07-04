@@ -124,12 +124,19 @@ export const placeUnit = (
   };
 };
 
+export const canDeployTroops = (army: Army) =>
+  army.units.some((u) => u.state === "ready");
+
 export const armyBuilder = () => {
   let result = createArmy();
 
   const builder = {
     addTroops: (type: string, lvl: number, amount = 1) => {
       result = addTroop(result, type, lvl, amount);
+      return builder;
+    },
+    placeTroop: (type: string, lvl: number) => {
+      result = placeUnit(result, type, lvl);
       return builder;
     },
     result: () => result,

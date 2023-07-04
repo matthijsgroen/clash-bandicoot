@@ -24,7 +24,6 @@ export const ArmyControl: React.FC = () => {
     []
   );
   const fillSpots = Math.max(11 - placement.length, 0);
-  console.count("army-control");
 
   return (
     <ArmyTray className={styles.armyControl}>

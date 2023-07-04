@@ -10,7 +10,7 @@ import {
   BattleUnitData,
 } from "../types";
 import { createObstacleGrid } from "../pathfinding/grid";
-import { Army, placeUnit } from "../armyComposition";
+import { Army, canDeployTroops, placeUnit } from "../armyComposition";
 
 export const createInitialBaseData = (layout: BaseLayout): BattleBaseData =>
   Object.fromEntries(
@@ -77,9 +77,9 @@ export const handleAttack = (
       state.state = "ended";
       return;
     }
-    // if (unitsAlive(state.unitData)) {
-
-    // }
+    if (!unitsAlive(state.unitData) && !canDeployTroops(state.army)) {
+      state.timeLeft = 0;
+    }
     state.timeSpent += TICK_SPEED;
     state.timeLeft = Math.max(state.timeLeft - TICK_SPEED, 0);
 

@@ -5,6 +5,7 @@ import {
   armyBuilder,
   getPlacementOverview,
   placeUnit,
+  canDeployTroops,
 } from "./armyComposition";
 import { troopStore } from "./troopStore";
 
@@ -107,6 +108,36 @@ describe("Army composition", () => {
       const updatedArmy2 = placeUnit(updatedArmy, "barbarian", 1);
       const placementState2 = updatedArmy2.units.map((t) => t.state);
       expect(placementState2).toEqual(["placed", "placed", "ready"]);
+    });
+  });
+
+  describe("canDeployTroops", () => {
+    it("returns false for empty army", () => {
+      const army = armyBuilder().result();
+
+      const result = canDeployTroops(army);
+      expect(result).toBe(false);
+    });
+
+    it("returns false for army with placed troops", () => {
+      const army = armyBuilder()
+        .addTroops("barbarian", 1, 2)
+        .placeTroop("barbarian", 1)
+        .placeTroop("barbarian", 1)
+        .result();
+
+      const result = canDeployTroops(army);
+      expect(result).toBe(false);
+    });
+
+    it("returns true for ready troops", () => {
+      const army = armyBuilder()
+        .addTroops("barbarian", 1, 2)
+        .placeTroop("barbarian", 1)
+        .result();
+
+      const result = canDeployTroops(army);
+      expect(result).toBe(true);
     });
   });
 });

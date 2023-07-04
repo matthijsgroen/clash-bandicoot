@@ -46,7 +46,6 @@ export const Combat: React.FC<{
       replay ? replay.placement : []
     ),
   });
-  console.count("render");
 
   useEffect(() => {
     const int = setInterval(() => {
@@ -65,7 +64,6 @@ export const Combat: React.FC<{
         if (item) {
           console.log("placing unit!", item.unit);
           attack.current.placeUnit(item.unit, item.level, item.position);
-          // setArmyState((army) => placeUnit(army, item.unit, item.level));
         }
       }
       setBattleState({ ...attack.current.getData() });
