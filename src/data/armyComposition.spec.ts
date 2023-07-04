@@ -4,6 +4,7 @@ import {
   getArmySize,
   armyBuilder,
   getPlacementOverview,
+  placeUnit,
 } from "./armyComposition";
 import { troopStore } from "./troopStore";
 
@@ -48,16 +49,64 @@ describe("Army composition", () => {
     it("returns the size of each unit group that is not placed", () => {
       const army = armyBuilder()
         .addTroops("barbarian", 1, 5)
+        .addTroops("giant", 2, 8)
         .addTroops("archer", 1, 8)
         .addTroops("barbarian", 1, 5)
+        .addTroops("goblin", 1, 1)
         .addTroops("archer", 2, 2)
         .result();
 
       expect(getPlacementOverview(army)).toEqual([
-        { type: "barbarian", level: 1, available: 10 },
-        { type: "archer", level: 1, available: 8 },
-        { type: "archer", level: 2, available: 2 },
+        {
+          type: "barbarian",
+          level: 1,
+          available: 10,
+          category: "elixirTroops",
+          categoryIndex: 0,
+        },
+        {
+          type: "archer",
+          level: 2,
+          available: 2,
+          category: "elixirTroops",
+          categoryIndex: 1,
+        },
+        {
+          type: "archer",
+          level: 1,
+          available: 8,
+          category: "elixirTroops",
+          categoryIndex: 1,
+        },
+        {
+          type: "giant",
+          level: 2,
+          available: 8,
+          category: "elixirTroops",
+          categoryIndex: 2,
+        },
+        {
+          type: "goblin",
+          level: 1,
+          available: 1,
+          category: "elixirTroops",
+          categoryIndex: 3,
+        },
       ]);
+    });
+  });
+
+  describe("placeUnit", () => {
+    it("marks first available unit as placed", () => {
+      const army = armyBuilder().addTroops("barbarian", 1, 3).result();
+
+      const updatedArmy = placeUnit(army, "barbarian", 1);
+      const placementState = updatedArmy.units.map((t) => t.state);
+      expect(placementState).toEqual(["placed", "ready", "ready"]);
+
+      const updatedArmy2 = placeUnit(updatedArmy, "barbarian", 1);
+      const placementState2 = updatedArmy2.units.map((t) => t.state);
+      expect(placementState2).toEqual(["placed", "placed", "ready"]);
     });
   });
 });

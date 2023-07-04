@@ -1,3 +1,4 @@
+import { Army } from "./armyComposition";
 import { ObstacleGrid } from "./pathfinding/types";
 
 export type Cost = {
@@ -110,11 +111,13 @@ export type BattleUnitState<
 export type BattleUnitData = Record<string, BattleUnitState>;
 
 export type BattleState = {
+  timeLeft: number;
   timeSpent: number;
   damage: number;
   stars: number;
   state: "preparation" | "battle" | "ended";
 
+  army: Army;
   grid: ObstacleGrid;
   layout: BaseLayout;
   baseData: BattleBaseData;

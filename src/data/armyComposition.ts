@@ -2,7 +2,11 @@ import { Troop } from "./types";
 import "./troops";
 import { troopStore } from "./troopStore";
 
-export const knownTroopTypes = ["barbarian", "archer"];
+export const elixirTroops = ["barbarian", "archer", "giant", "goblin"];
+export const darkElixirTroops = [];
+export const heros = [];
+export const spells = [];
+export const darkSpells = [];
 
 export type ArmyTroop = {
   troop: Troop;
@@ -39,25 +43,85 @@ export const getArmySize = (army: Army) =>
   army.units.reduce((size, unit) => size + unit.troop.size, 0);
 
 export const getPlacementOverview = (army: Army) => {
-  const placement: { type: string; level: number; available: number }[] = [];
+  const placement: {
+    type: string;
+    level: number;
+    available: number;
+    category: string;
+    categoryIndex: number;
+  }[] = [];
+
+  const categories = {
+    elixirTroops,
+    darkElixirTroops,
+    heros,
+    spells,
+    darkSpells,
+  };
+
   army.units.forEach((unit) => {
-    if (unit.state === "ready") {
-      const index = placement.findIndex(
-        (e) => e.type === unit.troop.type && e.level === unit.troop.level
-      );
-      if (index === -1) {
-        placement.push({
-          type: unit.troop.type,
-          level: unit.troop.level,
-          available: 1,
-        });
-      } else {
-        placement[index].available++;
-      }
+    const index = placement.findIndex(
+      (e) => e.type === unit.troop.type && e.level === unit.troop.level
+    );
+
+    const category = Object.entries(categories).find(([, c]) =>
+      c.some((u) => u === unit.troop.type)
+    );
+
+    if (index === -1) {
+      placement.push({
+        type: unit.troop.type,
+        level: unit.troop.level,
+        available: unit.state === "ready" ? 1 : 0,
+        category: category?.[0] ?? "unknown",
+        categoryIndex:
+          (category?.[1] as string[]).indexOf(unit.troop.type) ?? -1,
+      });
+    } else if (unit.state === "ready") {
+      placement[index].available++;
     }
   });
+  const catKeys = Object.keys(categories);
 
-  return placement;
+  return placement.sort((a, b) => {
+    const aCatIndex = catKeys.indexOf(a.category);
+    const bCatIndex = catKeys.indexOf(a.category);
+    if (aCatIndex !== bCatIndex) {
+      return aCatIndex - bCatIndex;
+    }
+    if (a.categoryIndex !== b.categoryIndex) {
+      return a.categoryIndex - b.categoryIndex;
+    }
+    if (a.level !== b.level) {
+      return b.level - a.level;
+    }
+    return 0;
+  });
+};
+
+export const placeUnit = (
+  army: Army,
+  unitType: string,
+  unitLevel: number
+): Army => {
+  let placed = false;
+  return {
+    units: army.units.map((unit) => {
+      if (
+        !placed &&
+        unit.troop.type === unitType &&
+        unit.troop.level === unitLevel &&
+        unit.state === "ready"
+      ) {
+        placed = true;
+        return {
+          ...unit,
+          state: "placed",
+        };
+      }
+      return unit;
+    }),
+  };
 };
 
 export const armyBuilder = () => {

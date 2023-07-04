@@ -52,6 +52,14 @@ export const layoutBuilder = (
       });
       return builder;
     },
+    moveAll: (deltaX: number, deltaY: number) => {
+      Object.values(layout.items).forEach((building) => {
+        building.position[0] += deltaX;
+        building.position[1] += deltaY;
+      });
+
+      return builder;
+    },
     result: () => layout,
   };
   return builder;

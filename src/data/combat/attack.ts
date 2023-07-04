@@ -3,8 +3,14 @@ import { troopStore } from "../troopStore";
 import { createKeyStore } from "../utils/keyStore";
 import { aiHandlers } from "../ai";
 import { getDestruction, getStars } from "./attackResult";
-import { BattleBaseData, BaseLayout, BattleState } from "../types";
+import {
+  BattleBaseData,
+  BaseLayout,
+  BattleState,
+  BattleUnitData,
+} from "../types";
 import { createObstacleGrid } from "../pathfinding/grid";
+import { Army, placeUnit } from "../armyComposition";
 
 export const createInitialBaseData = (layout: BaseLayout): BattleBaseData =>
   Object.fromEntries(
@@ -27,33 +33,56 @@ export const createInitialBaseData = (layout: BaseLayout): BattleBaseData =>
   );
 
 const TICK_SPEED = 20; // 50 FPS
+export const DEFAULT_DURATION = 3 * 60 * 1000;
 
-export const handleAttack = (layout: BaseLayout) => {
-  const unitKeys = createKeyStore();
+export const createBattleState = (
+  layout: BaseLayout,
+  army: Army,
+  duration = DEFAULT_DURATION
+): BattleState => {
   const baseData = createInitialBaseData(layout);
-  const state: BattleState = {
+  return {
     timeSpent: 0,
+    timeLeft: duration,
     damage: 0,
     stars: 0,
     state: "battle",
 
     baseData,
     layout,
+    army,
 
     grid: createObstacleGrid(layout, baseData),
     unitData: {}, // place heroes from layout
     replay: { placement: [] },
   };
+};
+
+export const unitsAlive = (unitData: BattleUnitData): number =>
+  Object.values(unitData).filter((unit) => unit.hitPoints > 0).length;
+
+export const handleAttack = (
+  layout: BaseLayout,
+  army: Army,
+  duration = DEFAULT_DURATION
+) => {
+  const unitKeys = createKeyStore();
+  const state = createBattleState(layout, army, duration);
 
   const handleTick = () => {
     if (state.state === "ended") {
       return;
     }
-    if (state.timeSpent > 3 * 60 * 1000) {
+    if (state.timeLeft <= 0) {
       state.state = "ended";
       return;
     }
+    // if (unitsAlive(state.unitData)) {
+
+    // }
     state.timeSpent += TICK_SPEED;
+    state.timeLeft = Math.max(state.timeLeft - TICK_SPEED, 0);
+
     for (const unitId in state.unitData) {
       const unit = state.unitData[unitId];
       const aiHandler = unit.info.aiType;
@@ -94,6 +123,7 @@ export const handleAttack = (layout: BaseLayout) => {
     ) => {
       const troop = troopStore.getTroop(type, level);
       if (!troop) return;
+      state.army = placeUnit(state.army, type, level);
 
       state.replay.placement.push({
         level,

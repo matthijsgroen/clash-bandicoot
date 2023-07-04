@@ -1,3 +1,4 @@
+import { armyBuilder } from "../armyComposition";
 import { handleAttack } from "../combat/attack";
 import { layoutBuilder } from "../layout/baseLayout";
 
@@ -9,7 +10,9 @@ describe("Barbarian", () => {
           .placeBuilding("townhall", 1, [35, 35])
           .result();
 
-        const attack = handleAttack(village);
+        const army = armyBuilder().addTroops("barbarian", 1, 1).result();
+
+        const attack = handleAttack(village, army);
         attack.placeUnit("barbarian", 1, [37, 0]);
         attack.forwardTime(4000);
         const unitPlacement = attack.getData().unitData;
