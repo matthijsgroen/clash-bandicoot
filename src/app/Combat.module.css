@@ -1,0 +1,12 @@
+.timer {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  width: 100vw;
+}
+
+.destruction {
+  position: fixed;
+  bottom: 20vh;
+  right: 3vw;
+}

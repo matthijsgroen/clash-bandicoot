@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Button.module.css";
-import classnames from "classnames";
+import classNames from "classnames";
 
 type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   color: "orange";
@@ -13,7 +13,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       type="button"
       ref={ref}
       {...props}
-      className={classnames(styles.button, {
+      className={classNames(styles.button, {
         [styles.orange]: color === "orange",
         [styles.square]: square,
       })}

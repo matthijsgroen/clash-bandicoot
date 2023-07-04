@@ -1,17 +1,18 @@
-import classnames from "classnames";
+import classNames from "classnames";
 import styles from "./Timer.module.css";
 
-export const Timer: React.FC<{ timeLeft: number; label?: string }> = ({
-  timeLeft,
-  label,
-}) => {
+export const Timer: React.FC<{
+  timeLeft: number;
+  label?: string;
+  className?: string;
+}> = ({ timeLeft, label, className }) => {
   const minutesLeft = Math.floor(timeLeft / 1000 / 60);
   const secondsLeft = Math.floor(timeLeft / 1000) % 60;
   return (
-    <div className={styles.timeRemaining}>
+    <div className={classNames(styles.timeRemaining, className)}>
       {label && <p>{label}</p>}
       <output
-        className={classnames({
+        className={classNames({
           [styles.red]:
             minutesLeft === 0 && secondsLeft < 30 && secondsLeft % 2 === 1,
         })}

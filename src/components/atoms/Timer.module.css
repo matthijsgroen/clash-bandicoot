@@ -1,8 +1,4 @@
 .timeRemaining {
-  position: fixed;
-  top: 1em;
-  left: 1em;
-  width: 100vw;
   text-align: center;
 
   font-family: "Sriracha", cursive;

@@ -1,0 +1,17 @@
+.armyTray {
+  height: 15vh;
+  width: stretch;
+  background-color: #0006;
+  border-top: 1px solid #aaa;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+.scrollArea {
+  padding: 0 5rem;
+  display: grid;
+  height: 100%;
+  width: max-content;
+  grid-auto-flow: column;
+  gap: 1.5rem;
+}

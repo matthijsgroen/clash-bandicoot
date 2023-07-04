@@ -1,5 +1,5 @@
 import { army, village2, replay } from "./testScenarios/simpleVillage";
-import { Combat } from "./components/Combat";
+import { Combat } from "./app/Combat";
 import { useState } from "react";
 import { Button } from "./components/atoms/Button";
 

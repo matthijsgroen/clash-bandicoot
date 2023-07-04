@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
+import styles from "./Combat.module.css";
 import { Village } from "./Village";
 import { BaseLayout, Replay } from "../data/types";
 import { handleAttack } from "../data/combat/attack";
 import { Army } from "../data/armyComposition";
-import { Timer } from "./atoms/Timer";
-import { Destruction } from "./atoms/Destruction";
-import { ArmyTray } from "./composition/ArmyTray";
+import { Timer } from "../components/atoms/Timer";
+import { Destruction } from "../components/atoms/Destruction";
+import { ArmyControl } from "./ArmyControl";
 
 export const Combat: React.FC<{
   base: BaseLayout;
@@ -51,10 +52,18 @@ export const Combat: React.FC<{
         <Village layout={base} attack={data} />
       </main>
       <aside>
-        <Timer timeLeft={timeLeft} label="Time remaining till end of fight:" />
-        <Destruction damage={data.damage} stars={data.stars} />
+        <Timer
+          timeLeft={timeLeft}
+          label="Attack ends in:"
+          className={styles.timer}
+        />
+        <Destruction
+          damage={data.damage}
+          stars={data.stars}
+          className={styles.destruction}
+        />
       </aside>
-      <ArmyTray army={army} />
+      <ArmyControl army={army} />
     </div>
   );
 };

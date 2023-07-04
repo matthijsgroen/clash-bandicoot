@@ -1,43 +1,5 @@
-.armyTray {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100vw;
-  height: 15vh;
-  background-color: #0006;
-  border-top: 1px solid #999;
-  overflow-y: hidden;
-  overflow-x: auto;
-}
-
-.scrollArea {
-  padding: 0 3rem;
-  display: grid;
-  height: 100%;
-  width: max-content;
-  grid-auto-flow: column;
-  gap: 1.5rem;
-}
-
-.trayButton {
-  border-radius: 0.75rem;
-}
-
-.empty {
-  border: 2px dashed white;
-}
-
-.group {
-  display: grid;
-  grid-auto-columns: 5rem;
-  padding: 1rem 0 2rem 0;
-
-  width: max-content;
-  grid-auto-flow: column;
-  gap: 0.75rem;
-}
-
 .unit {
+  border-radius: 0.75rem;
   border: 1px solid black;
   display: grid;
   grid-template-rows: 2em 1fr;
