@@ -1,4 +1,4 @@
-export const compressList = [
+export const buildingList = [
   "empty",
   "townhall",
   "wall",
@@ -16,4 +16,5 @@ export const compressList = [
   "mortar",
   "wallH",
   "wallV",
+  "clancastle",
 ];

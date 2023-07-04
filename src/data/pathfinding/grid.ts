@@ -27,7 +27,7 @@ export const createObstacleGrid = (
           grid[posY + y][posX + x] = -1;
         }
         if (building.info.type === "wall") {
-          grid[posY + y][posX + x] = hitPoints;
+          grid[posY + y][posX + x] = hitPoints / 50;
         }
       }
     }

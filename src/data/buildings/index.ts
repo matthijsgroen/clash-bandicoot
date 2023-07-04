@@ -12,3 +12,4 @@ import "./mortar";
 import "./airDefense";
 import "./wall";
 import "./laboratory";
+import "./clanCastle";

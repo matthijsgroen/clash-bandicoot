@@ -2,9 +2,9 @@ import { unzlibSync, zlibSync } from "fflate";
 import { buildingStore } from "../buildingStore";
 import { BaseLayout } from "../types";
 import { layoutBuilder } from "./baseLayout";
-import { compressList } from "./compressList";
+import { buildingList } from "./compressList";
 
-const EMPTY = compressList.indexOf("empty");
+const EMPTY = buildingList.indexOf("empty");
 
 export const compressLayout = (layout: BaseLayout): Uint8Array => {
   const result: number[] = [];
@@ -53,7 +53,7 @@ export const compressLayout = (layout: BaseLayout): Uint8Array => {
           emptySpace = 0;
         }
 
-        const buildingId = compressList.indexOf(building.info.type);
+        const buildingId = buildingList.indexOf(building.info.type);
 
         if (buildingId === 2) {
           const horizontal = countWalls(building.info.level, true, x, y);
@@ -161,7 +161,7 @@ export const decompressLayout = (buffer: Uint8Array): BaseLayout => {
         // EOF
         return builder.result();
       }
-      const type = compressList[typeIndex];
+      const type = buildingList[typeIndex];
       if (type === "wallH") {
         const count = bytes.shift() ?? 1;
 

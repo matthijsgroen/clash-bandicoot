@@ -18,6 +18,7 @@ const builder = layoutBuilder()
   .placeBuilding("barracks", 1, [29, 21])
   .placeBuilding("armycamp", 1, [26, 16])
   .placeBuilding("armycamp", 1, [12, 28])
+  .placeBuilding("clancastle", 1, [26, 13])
   .placeBuilding("goldstorage", 4, [14, 24])
   .placeBuilding("goldstorage", 4, [26, 24])
   .placeBuilding("goldmine", 4, [22, 15])
@@ -74,18 +75,18 @@ const packed = pack(village);
 console.log(packed);
 
 const data =
-  "eNoVjWEKwjAUgxP6va6bbi0DhV5AwTN4DO9_FX3mT0IgX9pXn-JmvZs7q-agBIO60EGTzMe_bZ2yWrdg4Zq-Wa9gt615GBLx6ITOi-UBNYdsmSI5lUDnbj07DUruk-Us8xTdSf0A3n0FYw";
+  "eNodjdENwjAUA23lXpoW2oRKVGIBkJiBMdh_FXjwZcuS79pH7-JmvZo788U6BiUY1IkOOsi-_dbWKbN1DSbOmYv1DFbbum2GhNw7of1keUDNI0u2SE4l0L5aj06Dkv9kOcfU_i3wBeb_BWw";
 
 export const village2 = unpack(data);
 
 export const army = armyBuilder()
-  .addTroops("giant", 8, 1)
+  .addTroops("giant", 2, 1)
   .addTroops("goblin", 2, 1)
   .result();
 
 export const replay: Replay = {
   placement: [
-    { timestamp: 1000, level: 8, unit: "giant", position: [7.5, 18.5] },
+    { timestamp: 1000, level: 2, unit: "giant", position: [7.5, 18.5] },
     { timestamp: 1020, level: 2, unit: "goblin", position: [7.5, 20.5] },
   ],
 };

@@ -75,10 +75,16 @@ export const handleAttack = (
     }
     if (state.timeLeft <= 0) {
       state.state = "ended";
+      Object.values(state.unitData).forEach((u) => {
+        if (u.state === "attacking") {
+          u.state = "idle";
+        }
+      });
       return;
     }
     if (!unitsAlive(state.unitData) && !canDeployTroops(state.army)) {
       state.timeLeft = 0;
+      return;
     }
     state.timeSpent += TICK_SPEED;
     state.timeLeft = Math.max(state.timeLeft - TICK_SPEED, 0);
