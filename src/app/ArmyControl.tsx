@@ -16,7 +16,10 @@ const colorMap: Record<string, string> = {
   goblin: "green",
 };
 
-export const ArmyControl: React.FC = () => {
+export const ArmyControl: React.FC<{
+  onSelect?: (type: string, level: number) => void;
+  selected?: [type: string, level: number];
+}> = ({ onSelect, selected }) => {
   const army = useAtomValue(armyAtom);
   const placement = getPlacementOverview(army);
   const groups = placement.reduce<string[]>(
@@ -39,6 +42,15 @@ export const ArmyControl: React.FC = () => {
                 level={p.level}
                 disabled={p.available === 0}
                 amount={p.available}
+                selected={
+                  p.available > 0 &&
+                  selected &&
+                  selected[0] === p.type &&
+                  selected[1] === p.level
+                }
+                onClick={() => {
+                  onSelect?.(p.type, p.level);
+                }}
               />
             ))}
           {i === l.length - 1 &&

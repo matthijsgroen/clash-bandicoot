@@ -8,9 +8,7 @@ const App = () => {
 
   return (
     <div>
-      {popupActive === "attack" && (
-        <Combat base={village2} army={army} replay={replay} />
-      )}
+      {popupActive === "attack" && <Combat base={village2} army={army} />}
 
       <Button
         onClick={() => setActivePopup("attack")}

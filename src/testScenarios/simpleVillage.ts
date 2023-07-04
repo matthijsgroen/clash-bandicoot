@@ -80,8 +80,9 @@ const data =
 export const village2 = unpack(data);
 
 export const army = armyBuilder()
-  .addTroops("giant", 2, 1)
-  .addTroops("goblin", 2, 1)
+  .addTroops("giant", 2, 13)
+  .addTroops("goblin", 2, 13)
+  .addTroops("archer", 2, 5)
   .result();
 
 export const replay: Replay = {

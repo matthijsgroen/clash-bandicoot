@@ -129,7 +129,13 @@ export const handleAttack = (
     ) => {
       const troop = troopStore.getTroop(type, level);
       if (!troop) return;
-      state.army = placeUnit(state.army, type, level);
+      const updatedArmy = placeUnit(state.army, type, level);
+      if (updatedArmy === state.army) {
+        // not placed
+        return;
+      }
+
+      state.army = updatedArmy;
 
       state.replay.placement.push({
         level,

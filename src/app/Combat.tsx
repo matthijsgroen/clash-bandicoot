@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Combat.module.css";
 import { Village } from "./Village";
 import { BaseLayout, Replay } from "../data/types";
@@ -37,7 +37,9 @@ export const Combat: React.FC<{
   army: Army;
   replay?: Replay;
 }> = ({ base, replay, army }) => {
-  // const selectedTroop = useState<[string, number] | undefined>(undefined);
+  const [selectedTroop, setSelectedTroop] = useState<
+    [string, number] | undefined
+  >(undefined);
   const setBattleState = useSetAtom(battleAtom);
   const attack = useRef(handleAttack(base, army));
 
@@ -77,13 +79,22 @@ export const Combat: React.FC<{
   return (
     <div>
       <main>
-        <Village onClick={(p) => console.log(p)} />
+        <Village
+          onClick={(p) => {
+            if (selectedTroop) {
+              attack.current.placeUnit(selectedTroop[0], selectedTroop[1], p);
+            }
+          }}
+        />
       </main>
       <aside>
         <CombatTimer />
         <DestructionMeter />
       </aside>
-      <ArmyControl />
+      <ArmyControl
+        onSelect={(t, l) => setSelectedTroop([t, l])}
+        selected={selectedTroop}
+      />
     </div>
   );
 };

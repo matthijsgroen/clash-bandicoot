@@ -6,7 +6,7 @@
   padding: 0;
   scale: 1;
   background-color: #337;
-  transition: scale 200ms ease-in-out;
+  transition: scale 50ms ease-in-out;
 }
 
 .unit.selected {

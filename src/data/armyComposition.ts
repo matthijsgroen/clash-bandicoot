@@ -105,7 +105,7 @@ export const placeUnit = (
   unitLevel: number
 ): Army => {
   let placed = false;
-  return {
+  const update: Army = {
     units: army.units.map((unit) => {
       if (
         !placed &&
@@ -122,6 +122,7 @@ export const placeUnit = (
       return unit;
     }),
   };
+  return placed ? update : army;
 };
 
 export const canDeployTroops = (army: Army) =>
