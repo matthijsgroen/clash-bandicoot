@@ -12,7 +12,7 @@ describe("compressLayout", () => {
       const layout = layoutBuilder(20, 20).result();
 
       const result = compressLayout(layout);
-      expect(result).toEqual([4]);
+      expect([...result]).toEqual([4]);
 
       const packed = packLayout(result);
       expect(packed).toEqual("BA");
@@ -26,7 +26,7 @@ describe("compressLayout", () => {
         .result();
 
       const result = compressLayout(layout);
-      expect(result).toEqual([4, 0, 68, 1, 7]);
+      expect([...result]).toEqual([4, 0, 68, 1, 7]);
     });
   });
 
@@ -62,7 +62,7 @@ describe("compressLayout", () => {
       .result();
 
     const bytes = compressLayout(layout);
-    expect(bytes).toEqual([8, 0, 83, 15, 3, 7]);
+    expect([...bytes]).toEqual([8, 0, 83, 15, 3, 7]);
   });
 
   describe("wall compression (vertical)", () => {
@@ -77,14 +77,14 @@ describe("compressLayout", () => {
       .result();
 
     const bytes = compressLayout(layout);
-    expect(bytes).toEqual([8, 0, 122, 16, 3, 7]);
+    expect([...bytes]).toEqual([8, 0, 122, 16, 3, 7]);
   });
 });
 
 describe("uncompressLayout", () => {
   it("can extract empty grid from base64 string", () => {
     const unpacked = unpackLayout("BP8AkQ");
-    expect(unpacked).toEqual([4, 255, 0, 145]);
+    expect([...unpacked]).toEqual([4, 255, 0, 145]);
 
     const layout = decompressLayout(unpacked);
     expect(layout.gridSize).toEqual([20, 20]);

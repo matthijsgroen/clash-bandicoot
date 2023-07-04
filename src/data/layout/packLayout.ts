@@ -1,3 +1,4 @@
+import { unzlibSync, zlibSync } from "fflate";
 import { buildingStore } from "../buildingStore";
 import { BaseLayout } from "../types";
 import { layoutBuilder } from "./baseLayout";
@@ -5,7 +6,7 @@ import { compressList } from "./compressList";
 
 const EMPTY = compressList.indexOf("empty");
 
-export const compressLayout = (layout: BaseLayout): number[] => {
+export const compressLayout = (layout: BaseLayout): Uint8Array => {
   const result: number[] = [];
   const handled: boolean[][] = Array(layout.gridSize[0])
     .fill(null)
@@ -101,13 +102,13 @@ export const compressLayout = (layout: BaseLayout): number[] => {
     lastTwo = result.slice(-2);
   }
 
-  return result;
+  return Uint8Array.from(result);
 };
 
 // https://link.clashofclans.com/en?action=OpenLayout&id=TH4%3AHV%3AAAAAMAAAAAH9tvdlevbrUsisyYCPBE9n
 // https://link.clashofclans.com/en?action=OpenLayout&id=TH10%3AWB%3AAAAASAAAAAGxgRlSQfEuWGtBHQoZv2rJ
 
-export const packLayout = (compressedLayout: number[]): string => {
+export const packLayout = (compressedLayout: Uint8Array): string => {
   const binString = Array.from(compressedLayout, (x) =>
     String.fromCodePoint(x)
   ).join("");
@@ -118,17 +119,18 @@ export const packLayout = (compressedLayout: number[]): string => {
   return result;
 };
 
-export const unpackLayout = (base64urlString: string): number[] => {
+export const unpackLayout = (base64urlString: string): Uint8Array => {
   const binString = atob(base64urlString.replace(/_/g, "/").replace(/-/g, "+"));
   const buffer = Uint8Array.from(
     binString as unknown as string[],
     (m) => m.codePointAt(0) ?? 0
   );
-  return [...buffer];
+  return buffer;
 };
 
-export const decompressLayout = (buffer: [...number[]]): BaseLayout => {
-  const gridSize = (buffer.shift() as number) * 5;
+export const decompressLayout = (buffer: Uint8Array): BaseLayout => {
+  const bytes = [...buffer];
+  const gridSize = (bytes.shift() as number) * 5;
   const builder = layoutBuilder(gridSize, gridSize);
 
   const handled: boolean[][] = Array(gridSize)
@@ -145,23 +147,23 @@ export const decompressLayout = (buffer: [...number[]]): BaseLayout => {
         continue;
       }
 
-      const typeIndex = buffer.shift();
+      const typeIndex = bytes.shift();
       if (typeIndex === 255) {
         emptySpace = 254;
         continue;
       }
-      const levelOrLength = buffer.shift() ?? 1;
+      const levelOrLength = bytes.shift() ?? 1;
       if (typeIndex === 0) {
         emptySpace = levelOrLength - 1;
         continue;
       }
       if (typeIndex === undefined) {
-        console.log("Building not found", typeIndex);
+        // EOF
         return builder.result();
       }
       const type = compressList[typeIndex];
       if (type === "wallH") {
-        const count = buffer.shift() ?? 1;
+        const count = bytes.shift() ?? 1;
 
         for (let hx = 0; hx < count; hx++) {
           handled[x + hx][y] = true;
@@ -170,7 +172,7 @@ export const decompressLayout = (buffer: [...number[]]): BaseLayout => {
         continue;
       }
       if (type === "wallV") {
-        const count = buffer.shift() ?? 1;
+        const count = bytes.shift() ?? 1;
 
         for (let hy = 0; hy < count; hy++) {
           handled[x][y + hy] = true;
@@ -195,3 +197,9 @@ export const decompressLayout = (buffer: [...number[]]): BaseLayout => {
 
   return builder.result();
 };
+
+export const pack = (layout: BaseLayout): string =>
+  packLayout(zlibSync(compressLayout(layout), { level: 9 }));
+
+export const unpack = (string: string): BaseLayout =>
+  decompressLayout(unzlibSync(unpackLayout(string)));
