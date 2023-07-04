@@ -4,7 +4,7 @@ import {
   Group,
   Placeholder,
   UnitButton,
-} from "../components/composition/ArmyTray";
+} from "../ui-components/composition/ArmyTray";
 import { getPlacementOverview } from "../data/armyComposition";
 import styles from "./ArmyControl.module.css";
 import { armyAtom } from "./combatState";

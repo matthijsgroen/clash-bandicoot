@@ -2,9 +2,9 @@ import "../data/buildings";
 import React from "react";
 import { atom, useAtomValue } from "jotai";
 import { battleAtom, layoutAtom } from "./combatState";
-import { Grid } from "../components/composition/Village";
-import { Building } from "../components/composition/Village/Building";
-import { Unit } from "../components/composition/Village/Unit";
+import { Grid } from "../ui-components/composition/Village";
+import { Building } from "../ui-components/composition/Village/Building";
+import { Unit } from "../ui-components/composition/Village/Unit";
 
 export const OFFSET = 3;
 export const TILE_SIZE = 15;
