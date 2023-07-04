@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./Combat.module.css";
 import { Village } from "./Village";
 import { BaseLayout, Replay } from "../data/types";
@@ -7,6 +7,30 @@ import { Army } from "../data/armyComposition";
 import { Timer } from "../components/atoms/Timer";
 import { Destruction } from "../components/atoms/Destruction";
 import { ArmyControl } from "./ArmyControl";
+import { useAtomValue, useSetAtom } from "jotai";
+import { battleAtom } from "./combatState";
+
+const CombatTimer = () => {
+  const timeLeft = useAtomValue(battleAtom).timeLeft;
+  return (
+    <Timer
+      timeLeft={timeLeft}
+      label="Attack ends in:"
+      className={styles.timer}
+    />
+  );
+};
+
+const DestructionMeter = () => {
+  const data = useAtomValue(battleAtom);
+  return (
+    <Destruction
+      damage={data.damage}
+      stars={data.stars}
+      className={styles.destruction}
+    />
+  );
+};
 
 export const Combat: React.FC<{
   base: BaseLayout;
@@ -14,16 +38,23 @@ export const Combat: React.FC<{
   replay?: Replay;
 }> = ({ base, replay, army }) => {
   // const selectedTroop = useState<[string, number] | undefined>(undefined);
-  const attack = useRef(handleAttack(base));
-  const [data, setData] = useState(attack.current.getData());
+  const setBattleState = useSetAtom(battleAtom);
+  const attack = useRef(handleAttack(base, army));
+
   const placementQueue = useRef<Replay>({
     placement: ([] as Replay["placement"]).concat(
       replay ? replay.placement : []
     ),
   });
+  console.count("render");
 
   useEffect(() => {
     const int = setInterval(() => {
+      if (attack.current.getData().state === "ended") {
+        clearInterval(int);
+        return;
+      }
+
       attack.current.playTick();
       while (
         placementQueue.current.placement.length > 0 &&
@@ -34,36 +65,27 @@ export const Combat: React.FC<{
         if (item) {
           console.log("placing unit!", item.unit);
           attack.current.placeUnit(item.unit, item.level, item.position);
+          // setArmyState((army) => placeUnit(army, item.unit, item.level));
         }
       }
-
-      setData({ ...attack.current.getData() });
+      setBattleState({ ...attack.current.getData() });
     }, 5);
 
     return () => {
       clearInterval(int);
     };
-  }, [attack]);
+  }, [army, attack, setBattleState]);
 
-  const timeLeft = Math.max(3 * 60 * 1000 - data.timeSpent, 0);
   return (
     <div>
       <main>
-        <Village layout={base} attack={data} />
+        <Village />
       </main>
       <aside>
-        <Timer
-          timeLeft={timeLeft}
-          label="Attack ends in:"
-          className={styles.timer}
-        />
-        <Destruction
-          damage={data.damage}
-          stars={data.stars}
-          className={styles.destruction}
-        />
+        <CombatTimer />
+        <DestructionMeter />
       </aside>
-      <ArmyControl army={army} />
+      <ArmyControl />
     </div>
   );
 };

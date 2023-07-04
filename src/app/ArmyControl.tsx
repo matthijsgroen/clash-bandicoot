@@ -1,33 +1,53 @@
+import { useAtomValue } from "jotai";
 import {
   ArmyTray,
   Group,
   Placeholder,
   UnitButton,
 } from "../components/composition/ArmyTray";
-import { Army } from "../data/armyComposition";
+import { getPlacementOverview } from "../data/armyComposition";
 import styles from "./ArmyControl.module.css";
+import { armyAtom } from "./combatState";
 
-export const ArmyControl: React.FC<{ army: Army }> = ({ army }) => {
+const colorMap: Record<string, string> = {
+  giant: "red",
+  archer: "pink",
+  barbarian: "#bb0",
+  goblin: "green",
+};
+
+export const ArmyControl: React.FC = () => {
+  const army = useAtomValue(armyAtom);
+  const placement = getPlacementOverview(army);
+  const groups = placement.reduce<string[]>(
+    (r, u) => (r.includes(u.category) ? r : r.concat(u.category)),
+    []
+  );
+  const fillSpots = Math.max(11 - placement.length, 0);
+  console.count("army-control");
+
   return (
     <ArmyTray className={styles.armyControl}>
-      <Group>
-        <UnitButton color={"red"} label={"Giant"} />
-        <UnitButton color={"green"} label={"Goblin"} level={2} selected />
-        <UnitButton color={"pink"} label={"Archer"} level={2} amount={5} />
-        <Placeholder />
-      </Group>
-      <Group>
-        <UnitButton
-          color={"#bb0"}
-          label={"Barbarian"}
-          level={1}
-          amount={0}
-          disabled
-        />
-        <Placeholder />
-        <Placeholder />
-        <Placeholder />
-      </Group>
+      {groups.map((g, i, l) => (
+        <Group key={g}>
+          {placement
+            .filter((p) => p.category === g)
+            .map((p) => (
+              <UnitButton
+                key={`${p.type}${p.level}`}
+                color={colorMap[p.type]}
+                label={p.type}
+                level={p.level}
+                disabled={p.available === 0}
+                amount={p.available}
+              />
+            ))}
+          {i === l.length - 1 &&
+            Array(fillSpots)
+              .fill(null)
+              .map((_v, i) => <Placeholder key={i} />)}
+        </Group>
+      ))}
     </ArmyTray>
   );
 };
