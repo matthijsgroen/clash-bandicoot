@@ -1,15 +1,7 @@
 import { armyBuilder } from "../data/armyComposition";
 import { layoutBuilder } from "../data/layout/baseLayout";
-import {
-  compressLayout,
-  decompressLayout,
-  pack,
-  packLayout,
-  unpack,
-  unpackLayout,
-} from "../data/layout/packLayout";
-import { BaseLayout, Replay } from "../data/types";
-import { zlibSync, unzlibSync } from "fflate";
+import { pack, unpack } from "../data/layout/packLayout";
+import { Replay } from "../data/types";
 
 const builder = layoutBuilder()
   .placeBuilding("townhall", 1, [18, 20])
@@ -74,6 +66,7 @@ setWalls(14, 15, (x) => [14, x]);
 walls.forEach((coordinate) => {
   builder.placeBuilding("wall", 4, coordinate);
 });
+builder.moveAll(-2, -3);
 
 const village = builder.result();
 
@@ -81,18 +74,18 @@ const packed = pack(village);
 console.log(packed);
 
 const data =
-  "eNoVjUEKwkAUQxPm_em02s5QUJgLKHgG77_0SvrNJiGQl_bVp7hZ7-bOqjkowaAudNAk8_FvW6es1i1YuKZv1ivYbWsehkQ8OqHzYnlAzSFbpkhOJdC5W89Og5L7ZDnLPEV3Uj8e4gXd";
+  "eNoVjWEKwjAUgxP6va6bbi0DhV5AwTN4DO9_FX3mT0IgX9pXn-JmvZs7q-agBIO60EGTzMe_bZ2yWrdg4Zq-Wa9gt615GBLx6ITOi-UBNYdsmSI5lUDnbj07DUruk-Us8xTdSf0A3n0FYw";
 
 export const village2 = unpack(data);
 
 export const army = armyBuilder()
-  .addTroops("giant", 2, 1)
+  .addTroops("giant", 8, 1)
   .addTroops("goblin", 2, 1)
   .result();
 
 export const replay: Replay = {
   placement: [
-    { timestamp: 1000, level: 2, unit: "giant", position: [7.5, 18.5] },
+    { timestamp: 1000, level: 8, unit: "giant", position: [7.5, 18.5] },
     { timestamp: 1020, level: 2, unit: "goblin", position: [7.5, 20.5] },
   ],
 };
