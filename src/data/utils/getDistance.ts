@@ -1,4 +1,4 @@
 export const getDistance = (
-  a: [x: number, y: number],
-  b: [x: number, y: number]
-) => Math.sqrt(Math.pow(a[0] - b[0], 2) + Math.pow(a[1] - b[1], 2));
+  [x1, y1]: [x: number, y: number],
+  [x2, y2]: [x: number, y: number]
+) => Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
