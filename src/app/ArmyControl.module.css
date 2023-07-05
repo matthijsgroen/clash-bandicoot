@@ -1,5 +1,6 @@
 .armyControl {
   position: fixed;
-  bottom: 0;
+  top: calc(100dvh - 6rem);
+  height: 6rem;
   left: 0;
 }

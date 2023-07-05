@@ -38,16 +38,18 @@
   height: calc(var(--tile-size) * 4 - 6px);
 }
 
-.destroyed {
+.attacking {
+  animation: attackBuilding 300ms alternate infinite;
+}
+
+.building.destroyed {
   background-color: #777;
   opacity: 0.3;
   border: 2px dotted #888;
   box-shadow: none;
+  animation: none;
 }
 
-.building.attacking {
-  animation: attackBuilding 300ms alternate infinite;
-}
 @keyframes attackBuilding {
   0% {
     border: 1px solid black;

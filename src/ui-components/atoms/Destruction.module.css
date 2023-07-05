@@ -10,7 +10,7 @@
   font-family: "Sriracha", cursive;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 0.8em;
+  font-size: 0.6em;
 
   color: white;
   text-shadow: 0 2px 0 #000;
@@ -18,7 +18,7 @@
 
 .star {
   color: #0005;
-  font-size: 1.5em;
+  font-size: 1.2em;
   display: inline-block;
   line-height: 0.8em;
 }
@@ -44,7 +44,7 @@
   color: white;
   text-shadow: 0 2px 0 #000;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.2em;
   width: 4ch;
   text-align: right;
   display: inline-block;
@@ -52,7 +52,7 @@
 
 @keyframes setStar {
   0% {
-    transform: translate(-40vw, -50vh) scale(6);
+    transform: translate(-30dvw, -20dvh) scale(6);
   }
   100% {
     transform: translate(0vw, 0vh) scale(1);

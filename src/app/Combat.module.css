@@ -1,12 +1,16 @@
+.combat {
+  position: absolute;
+}
+
 .timer {
   position: fixed;
-  top: 1em;
-  left: 1em;
+  top: 1rem;
+  left: 0;
   width: 100vw;
 }
 
 .destruction {
   position: fixed;
-  bottom: 20vh;
-  right: 3vw;
+  bottom: 7rem;
+  right: 1rem;
 }

@@ -77,7 +77,7 @@ export const Combat: React.FC<{
   }, [army, attack, setBattleState]);
 
   return (
-    <div>
+    <div className={styles.combat}>
       <main>
         <Village
           onClick={(p) => {

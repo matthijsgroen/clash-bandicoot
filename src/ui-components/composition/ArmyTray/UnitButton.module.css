@@ -1,8 +1,9 @@
 .unit {
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
+  height: 4.5rem;
   border: 1px solid black;
   display: grid;
-  grid-template-rows: 2em 1fr;
+  grid-template-rows: 1.25em 1fr;
   padding: 0;
   scale: 1;
   background-color: #337;
@@ -11,20 +12,19 @@
 
 .unit.selected {
   border: 1px solid white;
-  scale: 1.15;
+  scale: 1.1;
 }
 
 .amounts {
-  border-top-left-radius: 0.75rem;
-  border-top-right-radius: 0.75rem;
-  border-top: 2px solid #99e;
+  border-radius: 0.5rem;
+  border-top: 1px solid #99e;
   background: #66a linear-gradient(to bottom, transparent 0%, #448 100%);
   height: stretch;
 
   font-family: "Sriracha", cursive;
   font-weight: bold;
-  font-size: 1rem;
-  line-height: 1.3rem;
+  font-size: 0.6rem;
+  line-height: 0.8rem;
   color: white;
   text-shadow: 0 2px 0 #000;
   text-align: right;
@@ -32,14 +32,14 @@
 }
 
 .portraitBox {
-  height: stretch;
+  height: 100%;
   box-sizing: border-box;
-  padding: 5px 5px 7px 5px;
+  padding: 2px 2px 4px 2px;
   border-top: 1px solid #aaf;
   background: #88c;
-  border-bottom: 4px solid #337;
-  border-bottom-left-radius: 0.75rem;
-  border-bottom-right-radius: 0.75rem;
+  border-bottom: 2px solid #337;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 
 .portrait {
@@ -47,7 +47,7 @@
 
   font-family: "Sriracha", cursive;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.5rem;
   color: white;
   text-shadow: 0 2px 0 #000;
   text-transform: capitalize;
@@ -60,14 +60,14 @@
   left: 2px;
 
   font-weight: normal;
-  font-size: 0.8rem;
-  line-height: 1.2rem;
+  font-size: 0.6rem;
+  line-height: 1rem;
   background-color: #333;
   border: 1px solid black;
   box-shadow: 0 0 2px 0 white;
   border-radius: 5px;
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 1rem;
+  height: 1rem;
 }
 
 .unit:disabled {
