@@ -108,7 +108,24 @@ export type BattleUnitState<
   state: string;
 };
 
+/**
+ * Used for bombs, mortars, spells
+ */
+export type BattleEffectState<
+  T extends Record<string, unknown> = Record<string, unknown>
+> = {
+  type: string;
+  level: number;
+  position: [x: number, y: number];
+  range: number;
+  info?: unknown; //Spell;
+  effectData: T;
+  visible: boolean;
+  state: string;
+};
+
 export type BattleUnitData = Record<string, BattleUnitState>;
+export type BattleEffectData = Record<string, BattleEffectState>;
 
 export type BattleState = {
   timeLeft: number;
@@ -120,7 +137,9 @@ export type BattleState = {
   army: Army;
   grid: ObstacleGrid;
   layout: BaseLayout;
+
   baseData: BattleBaseData;
   unitData: BattleUnitData;
+  effectData: BattleEffectData;
   replay: Replay;
 };

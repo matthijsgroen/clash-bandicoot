@@ -54,6 +54,7 @@ export const createBattleState = (
 
     grid: createObstacleGrid(layout, baseData),
     unitData: {}, // place heroes from layout
+    effectData: {},
     replay: { placement: [] },
   };
 };
@@ -76,6 +77,11 @@ export const handleAttack = (
     if (state.timeLeft <= 0) {
       state.state = "ended";
       Object.values(state.unitData).forEach((u) => {
+        if (u.state === "attacking") {
+          u.state = "idle";
+        }
+      });
+      Object.values(state.baseData).forEach((u) => {
         if (u.state === "attacking") {
           u.state = "idle";
         }
@@ -103,6 +109,7 @@ export const handleAttack = (
         aiHandlers[aiHandler](state, buildingId, TICK_SPEED);
       }
     }
+    // handle effects
 
     if (state.damage >= 1) {
       state.state = "ended";
