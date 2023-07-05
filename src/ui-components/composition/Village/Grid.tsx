@@ -3,6 +3,7 @@ import React, {
   MouseEventHandler,
   PropsWithChildren,
   useCallback,
+  useEffect,
   useRef,
 } from "react";
 
@@ -61,6 +62,22 @@ export const Grid: React.FC<
     },
     [onClick]
   );
+
+  useEffect(() => {
+    if (!fieldRef.current || !fieldRef.current.parentElement) {
+      return;
+    }
+    const scrollContainer = fieldRef.current.parentElement;
+    const rect = scrollContainer.getBoundingClientRect();
+
+    const scrollWidth = scrollContainer.scrollWidth;
+    const scrollHeight = scrollContainer.scrollHeight;
+
+    scrollContainer.scroll({
+      top: scrollHeight / 2 - rect.height / 2,
+      left: scrollWidth / 2 - rect.width / 2,
+    });
+  }, []);
 
   return (
     <div className={styles.scrollContainer}>
