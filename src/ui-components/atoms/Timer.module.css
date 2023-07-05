@@ -4,15 +4,17 @@
 
   font-family: "Sriracha", cursive;
   font-weight: bold;
+  font-size: 0.6rem;
   color: white;
   text-shadow: 0 2px 0 #000;
 }
+
 .timeRemaining p {
   margin: 0;
   line-height: 1em;
 }
 .timeRemaining output {
-  font-size: 3vh;
+  font-size: 1.2rem;
 }
 .red {
   color: red;
