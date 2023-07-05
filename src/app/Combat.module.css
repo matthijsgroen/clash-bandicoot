@@ -1,5 +1,9 @@
 .combat {
   position: absolute;
+  width: 100dvw;
+  height: 100dvh;
+  top: 0;
+  left: 0;
 }
 
 .timer {
