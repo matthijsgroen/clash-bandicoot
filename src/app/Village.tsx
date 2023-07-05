@@ -1,10 +1,18 @@
 import "../data/buildings";
 import React from "react";
 import { useAtomValue } from "jotai";
-import { buildingsAtom, layoutAtom, unitsAtom } from "./combatState";
-import { Grid } from "../ui-components/composition/Village";
-import { Building } from "../ui-components/composition/Village/Building";
-import { Unit } from "../ui-components/composition/Village/Unit";
+import {
+  buildingsAtom,
+  effectsAtom,
+  layoutAtom,
+  unitsAtom,
+} from "./combatState";
+import {
+  Building,
+  Effect,
+  Grid,
+  Unit,
+} from "../ui-components/composition/Village";
 import { PlacementOutline } from "./PlacementOutline";
 
 export const OFFSET = 3;
@@ -16,6 +24,7 @@ export const Village: React.FC<{
   const buildings = useAtomValue(buildingsAtom);
   const units = useAtomValue(unitsAtom);
   const layout = useAtomValue(layoutAtom);
+  const effects = useAtomValue(effectsAtom);
   return (
     <Grid
       width={layout.gridSize[0]}
@@ -47,6 +56,17 @@ export const Village: React.FC<{
           y={unit.position[1]}
           unitType={unit.info.type}
           state={unit.state}
+        />
+      ))}
+
+      {effects.map(([id, effect]) => (
+        <Effect
+          key={id}
+          x={effect.position[0]}
+          y={effect.position[1]}
+          radius={effect.range}
+          effectType={effect.type}
+          state={effect.state}
         />
       ))}
     </Grid>

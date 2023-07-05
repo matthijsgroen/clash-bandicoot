@@ -109,7 +109,13 @@ export const handleAttack = (
         aiHandlers[aiHandler](state, buildingId, TICK_SPEED);
       }
     }
-    // handle effects
+    for (const effectId in state.effectData) {
+      const effect = state.effectData[effectId];
+      const aiHandler = effect.aiType;
+      if (aiHandler) {
+        aiHandlers[aiHandler](state, effectId, TICK_SPEED);
+      }
+    }
 
     if (state.damage >= 1) {
       state.state = "ended";

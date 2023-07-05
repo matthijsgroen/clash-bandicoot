@@ -23,3 +23,10 @@ export const unitsAtom = atom((get) => {
   const attack = get(battleAtom);
   return Object.entries(attack.unitData);
 });
+
+export const effectsAtom = atom((get) => {
+  const attack = get(battleAtom);
+  return Object.entries(attack.effectData).filter(
+    ([, effect]) => effect.visible
+  );
+});

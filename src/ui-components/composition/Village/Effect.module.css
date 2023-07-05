@@ -1,0 +1,19 @@
+:root {
+  --tile-size: 15px;
+}
+
+.effect {
+  position: absolute;
+  left: calc((var(--x) + 3 - var(--range) / 2) * var(--tile-size));
+  top: calc((var(--y) + 3 - var(--range) / 2) * var(--tile-size));
+  width: calc(var(--range) * var(--tile-size));
+  height: calc(var(--range) * var(--tile-size));
+  background-color: pink;
+  border: 1px solid black;
+  opacity: 0.4;
+  border-radius: 50%;
+}
+
+.explosion {
+  background-color: #00;
+}

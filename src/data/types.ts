@@ -119,6 +119,7 @@ export type BattleEffectState<
   position: [x: number, y: number];
   range: number;
   info?: unknown; //Spell;
+  aiType: string;
   effectData: T;
   visible: boolean;
   state: string;
