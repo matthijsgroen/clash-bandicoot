@@ -13,3 +13,13 @@ export const layoutAtom = atom((get) => {
   const state = get(battleAtom);
   return state.layout;
 });
+
+export const buildingsAtom = atom((get) => {
+  const attack = get(battleAtom);
+  return Object.entries(attack.baseData);
+});
+
+export const unitsAtom = atom((get) => {
+  const attack = get(battleAtom);
+  return Object.entries(attack.unitData);
+});

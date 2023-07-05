@@ -1,0 +1,24 @@
+.outline {
+  left: calc((var(--x) + 2) * var(--tile-size) - 1px);
+  top: calc((var(--y) + 2) * var(--tile-size) - 1px);
+  background-color: white;
+}
+.size1 {
+  width: calc(var(--tile-size) * 3 + 1px);
+  height: calc(var(--tile-size) * 3 + 1px);
+}
+.size2 {
+  width: calc(var(--tile-size) * 4 + 1px);
+  height: calc(var(--tile-size) * 4 + 1px);
+}
+.size3 {
+  width: calc(var(--tile-size) * 5 + 1px);
+  height: calc(var(--tile-size) * 5 + 1px);
+}
+.size4 {
+  width: calc(var(--tile-size) * 6 + 1px);
+  height: calc(var(--tile-size) * 6 + 1px);
+}
+.outlineBox {
+  opacity: 0.3;
+}

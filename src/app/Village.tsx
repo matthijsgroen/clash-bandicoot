@@ -1,23 +1,14 @@
 import "../data/buildings";
 import React from "react";
-import { atom, useAtomValue } from "jotai";
-import { battleAtom, layoutAtom } from "./combatState";
+import { useAtomValue } from "jotai";
+import { buildingsAtom, layoutAtom, unitsAtom } from "./combatState";
 import { Grid } from "../ui-components/composition/Village";
 import { Building } from "../ui-components/composition/Village/Building";
 import { Unit } from "../ui-components/composition/Village/Unit";
+import { PlacementOutline } from "./PlacementOutline";
 
 export const OFFSET = 3;
 export const TILE_SIZE = 15;
-
-const buildingsAtom = atom((get) => {
-  const attack = get(battleAtom);
-  return Object.entries(attack.baseData);
-});
-
-const unitsAtom = atom((get) => {
-  const attack = get(battleAtom);
-  return Object.entries(attack.unitData);
-});
 
 export const Village: React.FC<{
   onClick?: (pos: [x: number, y: number]) => void;
@@ -31,6 +22,8 @@ export const Village: React.FC<{
       height={layout.gridSize[1]}
       onClick={onClick}
     >
+      <PlacementOutline />
+
       {buildings.map(([id, buildingState]) => {
         const info = buildingState.building.info;
         return (
