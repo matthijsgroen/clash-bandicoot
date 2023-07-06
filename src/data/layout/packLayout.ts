@@ -105,9 +105,6 @@ export const compressLayout = (layout: BaseLayout): Uint8Array => {
   return Uint8Array.from(result);
 };
 
-// https://link.clashofclans.com/en?action=OpenLayout&id=TH4%3AHV%3AAAAAMAAAAAH9tvdlevbrUsisyYCPBE9n
-// https://link.clashofclans.com/en?action=OpenLayout&id=TH10%3AWB%3AAAAASAAAAAGxgRlSQfEuWGtBHQoZv2rJ
-
 export const packLayout = (compressedLayout: Uint8Array): string => {
   const binString = Array.from(compressedLayout, (x) =>
     String.fromCodePoint(x)
