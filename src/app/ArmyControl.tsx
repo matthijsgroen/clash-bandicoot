@@ -37,7 +37,7 @@ export const ArmyControl: React.FC<{
             .map((p) => (
               <UnitButton
                 key={`${p.type}${p.level}`}
-                color={colorMap[p.type]}
+                portraitColor={colorMap[p.type]}
                 label={p.type}
                 level={p.level}
                 disabled={p.available === 0}

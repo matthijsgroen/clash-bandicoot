@@ -6,7 +6,7 @@
   grid-template-rows: 1.25em 1fr;
   padding: 0;
   scale: 1;
-  background-color: #337;
+  background-color: color-mix(in hsl, var(--base-color) 80%, black);
   transition: scale 50ms ease-in-out;
 }
 
@@ -17,8 +17,13 @@
 
 .amounts {
   border-radius: 0.5rem;
-  border-top: 1px solid #99e;
-  background: #66a linear-gradient(to bottom, transparent 0%, #448 100%);
+  border-top: 1px solid color-mix(in hsl, var(--base-color) 60%, white);
+  background: color-mix(in hsl, var(--base-color) 90%, white)
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in hsl, var(--base-color) 70%, black) 100%
+    );
   height: stretch;
 
   font-family: "Sriracha", cursive;
@@ -34,10 +39,10 @@
 .portraitBox {
   height: 100%;
   box-sizing: border-box;
-  padding: 2px 2px 4px 2px;
-  border-top: 1px solid #aaf;
-  background: #88c;
-  border-bottom: 2px solid #337;
+  padding: 3px 3px 4px 3px;
+  border-top: 1px solid color-mix(in hsl, var(--base-color) 60%, white);
+  background: var(--base-color);
+  border-bottom: 2px solid color-mix(in hsl, var(--base-color) 70%, black);
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }

@@ -9,7 +9,7 @@
 
 .scrollArea {
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 max(1rem, env(safe-area-inset-right));
   display: grid;
   height: 100%;
   width: max-content;
