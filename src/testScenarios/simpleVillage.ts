@@ -31,7 +31,7 @@ const builder = layoutBuilder()
   .placeBuilding("elixircollector", 4, [12, 20])
   .placeBuilding("elixircollector", 4, [12, 17])
   .placeBuilding("elixircollector", 4, [15, 14])
-  .placeBuilding("mortar", 1, [22, 21])
+  .placeBuilding("mortar", 2, [22, 21])
   .placeBuilding("laboratory", 1, [9, 24])
   .placeBuilding("airdefense", 1, [19, 17]);
 
@@ -75,7 +75,7 @@ const packed = pack(village);
 console.log(packed);
 
 const data =
-  "eNodjdENwjAUA23lXpoW2oRKVGIBkJiBMdh_FXjwZcuS79pH7-JmvZo788U6BiUY1IkOOsi-_dbWKbN1DSbOmYv1DFbbum2GhNw7of1keUDNI0u2SE4l0L5aj06Dkv9kOcfU_i3wBeb_BWw";
+  "eNodjdENwjAUA21yr00LbUIlKrEASMzAGOy_Cjz6ZcuS7-pXn-Jqvasb09XaOyXoDCMNtJN9_a-1USbrFoxcMmfrFSy2dV9PkJBHI7SdLXcY8sicLZIzEGhbrGejQsl_spxjag8L_ADnQwVt";
 
 export const village2 = unpack(data);
 
@@ -83,6 +83,7 @@ export const army = armyBuilder()
   .addTroops("giant", 2, 13)
   .addTroops("goblin", 2, 13)
   .addTroops("archer", 2, 5)
+  .addTroops("barbarian", 4, 10)
   .result();
 
 export const replay: Replay = {
