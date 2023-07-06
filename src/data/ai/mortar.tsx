@@ -64,17 +64,21 @@ export const mortar: EntityAI = (state, buildingId, delta) => {
     if (building.buildingData.attackDelay > 0) {
       building.buildingData.attackDelay -= delta;
     } else {
-      const explosion: BattleEffectState<{ damage: number; delay: number }> = {
+      const explosion: BattleEffectState<{
+        damage: number;
+        damageDealt: boolean;
+      }> = {
         type: "explosion",
         level: buildingInfo.level,
         position: [...target.position],
         aiType: "explosion",
         effectData: {
-          delay: distance,
           damage: buildingInfo.aiSettings.damage,
+          damageDealt: false,
         },
         range: buildingInfo.aiSettings.splash,
-        visible: false,
+        delay: distance * 100,
+        duration: 200,
         state: "idle",
       };
 

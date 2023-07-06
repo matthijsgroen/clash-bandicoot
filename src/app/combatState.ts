@@ -27,6 +27,6 @@ export const unitsAtom = atom((get) => {
 export const effectsAtom = atom((get) => {
   const attack = get(battleAtom);
   return Object.entries(attack.effectData).filter(
-    ([, effect]) => effect.visible
+    ([, effect]) => effect.delay <= 0
   );
 });

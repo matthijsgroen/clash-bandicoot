@@ -121,7 +121,8 @@ export type BattleEffectState<
   info?: unknown; //Spell;
   aiType: string;
   effectData: T;
-  visible: boolean;
+  delay: number;
+  duration: number;
   state: string;
 };
 
