@@ -86,6 +86,7 @@ export const mortar: EntityAI = (state, buildingId, delta) => {
       building.buildingData.currentTarget = undefined;
       building.buildingData.attackDelay =
         building.building.info.aiSettings.firingRate * 1000;
+      building.state = "idle";
     }
   }
 };
