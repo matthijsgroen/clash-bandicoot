@@ -1,14 +1,6 @@
 import { BaseLayout, BattleBaseData } from "../types";
+import { createGrid } from "../utils/grid";
 import { ObstacleGrid } from "./types";
-
-export const createGrid = <T>(
-  width: number,
-  height: number,
-  initialValue: T
-): T[][] =>
-  Array(height)
-    .fill(0)
-    .map(() => Array(width).fill(initialValue));
 
 export const createObstacleGrid = (
   layout: BaseLayout,

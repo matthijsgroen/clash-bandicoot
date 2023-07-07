@@ -15,4 +15,33 @@ describe("createPlacementGrid", () => {
       expect(allTrue).toBe(true);
     });
   });
+
+  describe("with a single building grid", () => {
+    it("returns true out of range in building", () => {
+      const layout = layoutBuilder(10, 10)
+        .placeBuilding("townhall", 1, [2, 2])
+        .result();
+
+      const grid = createPlacementGrid(layout);
+      expect(grid[0][0]).toBe(true);
+    });
+
+    it("returns false just out of range of building", () => {
+      const layout = layoutBuilder(10, 10)
+        .placeBuilding("townhall", 1, [2, 2])
+        .result();
+
+      const grid = createPlacementGrid(layout);
+      expect(grid[1][1]).toBe(false);
+    });
+
+    it("returns false on top of building", () => {
+      const layout = layoutBuilder(10, 10)
+        .placeBuilding("townhall", 1, [2, 2])
+        .result();
+
+      const grid = createPlacementGrid(layout);
+      expect(grid[3][3]).toBe(false);
+    });
+  });
 });

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Combat.module.css";
-import { Village } from "./Village";
+import { Village } from "./village/Village";
 import { BaseLayout, Replay } from "../engine/types";
 import { handleAttack } from "../engine/combat/attack";
 import { Army } from "../engine/armyComposition";

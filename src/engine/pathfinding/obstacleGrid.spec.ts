@@ -1,4 +1,4 @@
-import { createObstacleGrid } from "./grid";
+import { createObstacleGrid } from "./obstacleGrid";
 import { layoutBuilder } from "../layout/baseLayout";
 import { createInitialBaseData } from "../combat/attack";
 

@@ -5,7 +5,7 @@ import { findPath } from "../pathfinding/pathfinding";
 import { createGraph } from "../pathfinding/graph";
 import { Path } from "../pathfinding/types";
 import { simplifyPath } from "../pathfinding/path";
-import { createObstacleGrid } from "../pathfinding/grid";
+import { createObstacleGrid } from "../pathfinding/obstacleGrid";
 
 type GroundUnitData = {
   currentTarget?: string;

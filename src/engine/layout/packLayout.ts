@@ -3,7 +3,7 @@ import { buildingStore } from "../../data/buildingStore";
 import { BaseLayout } from "../types";
 import { layoutBuilder } from "./baseLayout";
 import { buildingList } from "./compressList";
-import { createGrid } from "../pathfinding/grid";
+import { createGrid } from "../utils/grid";
 
 const EMPTY = buildingList.indexOf("empty");
 

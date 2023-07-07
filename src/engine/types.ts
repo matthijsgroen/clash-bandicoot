@@ -37,6 +37,7 @@ export type BattleBuildingState<
   center: [x: number, y: number];
   building: LayoutBuilding<Settings>;
   state: string;
+  invisible: boolean;
   buildingData: T;
 };
 

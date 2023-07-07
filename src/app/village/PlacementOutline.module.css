@@ -1,7 +1,6 @@
 .outline {
   left: calc((var(--x) - 1) * var(--tile-size) - 1px);
   top: calc((var(--y) - 1) * var(--tile-size) - 1px);
-  background-color: white;
 }
 .size1 {
   width: calc(var(--tile-size) * 3 + 1px);
@@ -20,7 +19,19 @@
   height: calc(var(--tile-size) * 6 + 1px);
 }
 .outlineBox {
+  translate: calc(var(--tile-size) * -3) calc(var(--tile-size) * -3);
+}
+.dark .outline {
+  background-color: white;
+}
+.light .outline {
+  background-color: #222;
+}
+.dark {
   filter: drop-shadow(0px 0px 1px black);
   mix-blend-mode: darken;
-  translate: calc(var(--tile-size) * -3) calc(var(--tile-size) * -3);
+}
+.light {
+  filter: drop-shadow(0px 0px 1px white);
+  mix-blend-mode: plus-lighter;
 }

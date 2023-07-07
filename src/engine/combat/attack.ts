@@ -9,8 +9,9 @@ import {
   BattleState,
   BattleUnitData,
 } from "../types";
-import { createObstacleGrid } from "../pathfinding/grid";
+import { createObstacleGrid } from "../pathfinding/obstacleGrid";
 import { Army, canDeployTroops, placeUnit } from "../armyComposition";
+import { createPlacementGrid } from "../layout/placementGrid";
 
 export const createInitialBaseData = (layout: BaseLayout): BattleBaseData =>
   Object.fromEntries(
@@ -25,6 +26,7 @@ export const createInitialBaseData = (layout: BaseLayout): BattleBaseData =>
             building.position[1] + building.info.size[1] / 2,
           ],
           effects: [],
+          invisible: building.info.categories.some((c) => c === "trap"),
           state: "idle",
           buildingData: {},
         },
@@ -69,6 +71,7 @@ export const handleAttack = (
 ) => {
   const unitKeys = createKeyStore();
   const state = createBattleState(layout, army, duration);
+  const placementGrid = createPlacementGrid(layout);
 
   const handleTick = () => {
     if (state.state === "ended") {
@@ -142,6 +145,8 @@ export const handleAttack = (
     ) => {
       const troop = troopStore.getTroop(type, level);
       if (!troop) return;
+      const [x, y] = [Math.floor(position[0]), Math.floor(position[1])];
+      if (!placementGrid[y][x]) return;
       // Troops need to be placed away from buildings
       const updatedArmy = placeUnit(state.army, type, level);
       if (updatedArmy === state.army) {

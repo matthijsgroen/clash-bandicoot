@@ -13,3 +13,4 @@ import "./airDefense";
 import "./wall";
 import "./laboratory";
 import "./clanCastle";
+import "./bomb";

@@ -1,4 +1,4 @@
-import { createGrid } from "./grid";
+import { createGrid } from "../utils/grid";
 import { Graph, GraphNode, ObstacleGrid } from "./types";
 
 export const createGraph = (grid: ObstacleGrid): Graph => {

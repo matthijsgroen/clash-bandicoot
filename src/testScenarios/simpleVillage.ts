@@ -33,7 +33,9 @@ const builder = layoutBuilder()
   .placeBuilding("elixircollector", 4, [15, 14])
   .placeBuilding("mortar", 2, [22, 21])
   .placeBuilding("laboratory", 1, [9, 24])
-  .placeBuilding("airdefense", 1, [19, 17]);
+  .placeBuilding("airdefense", 1, [19, 17])
+  // Traps
+  .placeBuilding("bomb", 2, [17, 23]);
 
 const walls: [x: number, y: number][] = [];
 
@@ -75,7 +77,7 @@ const packed = pack(village);
 console.log(packed);
 
 const data =
-  "eNodjdENwjAUA21yr00LbUIlKrEASMzAGOy_Cjz6ZcuS7-pXn-Jqvasb09XaOyXoDCMNtJN9_a-1USbrFoxcMmfrFSy2dV9PkJBHI7SdLXcY8sicLZIzEGhbrGejQsl_spxjag8L_ADnQwVt";
+  "eNodjdENgkAQRHe4t8eBwh4kktiAJtZgGfbfiq58zWSSea997VPUZO-mYNpkR6c4nToSYAfZ1__agjLJbs7INXOWvZxFkt3XARLyCHwfbLvI1KHmlTmbJ6ni2L7InkGDkoSkKccUnx74AfOaBYA";
 
 export const village2 = unpack(data);
 
