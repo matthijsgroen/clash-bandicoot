@@ -1,6 +1,6 @@
-import { Troop } from "./types";
-import "./troops";
-import { troopStore } from "./troopStore";
+import "../data/troops";
+import { troopStore } from "../data/troopStore";
+import { Troop } from "../data/types";
 
 export const elixirTroops = ["barbarian", "archer", "giant", "goblin"];
 export const darkElixirTroops = [];

@@ -1,6 +1,6 @@
-import { armyBuilder } from "../armyComposition";
-import { handleAttack } from "../combat/attack";
-import { layoutBuilder } from "../layout/baseLayout";
+import { armyBuilder } from "../../engine/armyComposition";
+import { handleAttack } from "../../engine/combat/attack";
+import { layoutBuilder } from "../../engine/layout/baseLayout";
 
 describe("Barbarian", () => {
   describe("movement", () => {

@@ -1,6 +1,6 @@
 import { armyBuilder } from "../armyComposition";
 import { layoutBuilder } from "../layout/baseLayout";
-import { troopStore } from "../troopStore";
+import { troopStore } from "../../data/troopStore";
 import { handleAttack, unitsAlive } from "./attack";
 
 describe("attack", () => {

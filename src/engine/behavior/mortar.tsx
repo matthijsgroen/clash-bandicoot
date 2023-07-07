@@ -1,6 +1,6 @@
 import { EntityAI } from "./type";
-import { getDistance } from "../utils/getDistance";
 import { BattleBuildingState, BattleEffectState } from "../types";
+import { getDistance } from "../utils/getDistance";
 
 type MortarData = {
   currentTarget?: string;

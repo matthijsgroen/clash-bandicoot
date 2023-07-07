@@ -1,7 +1,7 @@
-import { armyBuilder } from "../data/armyComposition";
-import { layoutBuilder } from "../data/layout/baseLayout";
-import { pack, unpack } from "../data/layout/packLayout";
-import { Replay } from "../data/types";
+import { armyBuilder } from "../engine/armyComposition";
+import { layoutBuilder } from "../engine/layout/baseLayout";
+import { pack, unpack } from "../engine/layout/packLayout";
+import { Replay } from "../engine/types";
 
 const builder = layoutBuilder()
   .placeBuilding("townhall", 1, [18, 20])

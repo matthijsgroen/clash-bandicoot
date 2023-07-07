@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Combat.module.css";
 import { Village } from "./Village";
-import { BaseLayout, Replay } from "../data/types";
-import { handleAttack } from "../data/combat/attack";
-import { Army } from "../data/armyComposition";
+import { BaseLayout, Replay } from "../engine/types";
+import { handleAttack } from "../engine/combat/attack";
+import { Army } from "../engine/armyComposition";
 import { Timer } from "../ui-components/atoms/Timer";
 import { Destruction } from "../ui-components/atoms/Destruction";
 import { ArmyControl } from "./ArmyControl";

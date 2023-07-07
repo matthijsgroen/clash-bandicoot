@@ -1,5 +1,5 @@
-import "../buildings";
-import { buildingStore } from "../buildingStore";
+import "../../data/buildings";
+import { buildingStore } from "../../data/buildingStore";
 import { createKeyStore } from "../utils/keyStore";
 import { BaseLayout, LayoutBuilding } from "../types";
 

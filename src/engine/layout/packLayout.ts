@@ -1,5 +1,5 @@
 import { unzlibSync, zlibSync } from "fflate";
-import { buildingStore } from "../buildingStore";
+import { buildingStore } from "../../data/buildingStore";
 import { BaseLayout } from "../types";
 import { layoutBuilder } from "./baseLayout";
 import { buildingList } from "./compressList";

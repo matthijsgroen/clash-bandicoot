@@ -1,3 +1,4 @@
+import { troopStore } from "../data/troopStore";
 import {
   createArmy,
   addTroop,
@@ -7,7 +8,6 @@ import {
   placeUnit,
   canDeployTroops,
 } from "./armyComposition";
-import { troopStore } from "./troopStore";
 
 describe("Army composition", () => {
   describe("createArmy", () => {

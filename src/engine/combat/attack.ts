@@ -1,7 +1,7 @@
-import "../troops";
-import { troopStore } from "../troopStore";
+import "../../data/troops";
+import { troopStore } from "../../data/troopStore";
 import { createKeyStore } from "../utils/keyStore";
-import { aiHandlers } from "../ai";
+import { aiHandlers } from "../behavior";
 import { getDestruction, getStars } from "./attackResult";
 import {
   BattleBaseData,
@@ -142,6 +142,7 @@ export const handleAttack = (
     ) => {
       const troop = troopStore.getTroop(type, level);
       if (!troop) return;
+      // Troops need to be placed away from buildings
       const updatedArmy = placeUnit(state.army, type, level);
       if (updatedArmy === state.army) {
         // not placed
