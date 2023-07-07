@@ -1,7 +1,12 @@
-# Clash of Clans simulator
+# Clash Bandicoot
 
-Goal is to have fun. Figure out how game engines work, using Clash of Clans as reference game.
-Figure out how to solve certain performance issues in React. This is not intended to be a playable game.
+Goals:
+
+- Have fun.
+- Figure out how game engines work, using Clash of Clans as reference game. (using public fandom wiki info)
+- Figure out how to solve certain performance issues in React. This is not intended to be a playable game.
+- Building responsive web interfaces for desktop, tablet and mobile.
+- Experiment more with service workers.
 
 Interesting bits:
 
@@ -28,3 +33,9 @@ visit http://localhost:3000
 ```
 yarn test
 ```
+
+# Disclaimer
+
+This material is unofficial and is not endorsed by Supercell. For
+more information see Supercell's Fan Content Policy:
+[www.supercell.com/fan-content-policy](www.supercell.com/fan-content-policy).
