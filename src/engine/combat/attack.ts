@@ -12,6 +12,7 @@ import {
 import { createObstacleGrid } from "../pathfinding/obstacleGrid";
 import { Army, canDeployTroops, placeUnit } from "../armyComposition";
 import { createPlacementGrid } from "../layout/placementGrid";
+import { Troop } from "../../data/types";
 
 export const createInitialBaseData = (layout: BaseLayout): BattleBaseData =>
   Object.fromEntries(
@@ -63,6 +64,27 @@ export const createBattleState = (
 
 export const unitsAlive = (unitData: BattleUnitData): number =>
   Object.values(unitData).filter((unit) => unit.hitPoints > 0).length;
+
+export const addTroopToState = (
+  state: BattleState,
+  key: string,
+  troop: Troop,
+  position: [x: number, y: number]
+) => {
+  state.unitData = {
+    ...state.unitData,
+    [key]: {
+      type: troop.type,
+      level: troop.level,
+      position,
+      effects: [],
+      hitPoints: troop.hitPoints,
+      info: troop,
+      unitData: {},
+      state: "idle",
+    },
+  };
+};
 
 export const handleAttack = (
   layout: BaseLayout,
@@ -163,19 +185,7 @@ export const handleAttack = (
         timestamp: state.timeSpent,
       });
       const key = unitKeys.getKey(type);
-      state.unitData = {
-        ...state.unitData,
-        [key]: {
-          type,
-          level,
-          position,
-          effects: [],
-          hitPoints: troop.hitPoints,
-          info: troop,
-          unitData: {},
-          state: "idle",
-        },
-      };
+      addTroopToState(state, key, troop, position);
     },
   };
 };

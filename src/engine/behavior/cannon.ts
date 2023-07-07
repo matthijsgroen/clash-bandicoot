@@ -1,6 +1,7 @@
 import { EntityAI } from "./type";
 import { getDistance } from "../utils/getDistance";
 import { BattleBuildingState } from "../types";
+import { applyDamage } from "./utils";
 
 type CannonData = {
   currentTarget?: string;
@@ -50,10 +51,7 @@ export const cannon: EntityAI = (state, buildingId, delta) => {
     if (building.buildingData.attackDelay > 0) {
       building.buildingData.attackDelay -= delta;
     } else {
-      target.hitPoints -= building.building.info.aiSettings.damage;
-      if (target.hitPoints < 0) {
-        target.hitPoints = 0;
-      }
+      applyDamage(target, building.building.info.aiSettings.damage);
       building.buildingData.attackDelay =
         building.building.info.aiSettings.firingRate * 1000;
     }

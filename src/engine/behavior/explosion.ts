@@ -1,12 +1,15 @@
 import { BattleEffectState } from "../types";
 import { getDistance } from "../utils/getDistance";
 import { EntityAI } from "./type";
+import { applyDamage } from "./utils";
+
+export type ExplosionEntity = BattleEffectState<{
+  damage: number;
+  damageDealt: boolean;
+}>;
 
 export const explosion: EntityAI = (state, effectId, delta) => {
-  const effect = state.effectData[effectId] as BattleEffectState<{
-    damage: number;
-    damageDealt: boolean;
-  }>;
+  const effect = state.effectData[effectId] as ExplosionEntity;
   if (effect.delay > 0) {
     effect.delay -= delta;
   } else {
@@ -21,7 +24,7 @@ export const explosion: EntityAI = (state, effectId, delta) => {
             getDistance(target.position, effect.position) <= effect.range
         );
         for (const target of inRange) {
-          target.hitPoints -= effect.effectData.damage;
+          applyDamage(target, effect.effectData.damage);
         }
         effect.effectData.damageDealt = true;
       }

@@ -6,6 +6,7 @@ import { createGraph } from "../pathfinding/graph";
 import { Path } from "../pathfinding/types";
 import { simplifyPath } from "../pathfinding/path";
 import { createObstacleGrid } from "../pathfinding/obstacleGrid";
+import { applyDamage } from "./utils";
 
 type GroundUnitData = {
   currentTarget?: string;
@@ -42,9 +43,8 @@ const attack = (
         building.building.info.categories.some((c) => c === p.category)
       );
       const multiplier = preferenceActive?.multiplier ?? 1;
-      building.hitPoints -= unit.info.damage * multiplier;
-      if (building.hitPoints < 0) {
-        building.hitPoints = 0;
+      applyDamage(building, unit.info.damage * multiplier);
+      if (building.hitPoints === 0) {
         state.grid = createObstacleGrid(state.layout, state.baseData);
         unit.state = "idle";
       }
