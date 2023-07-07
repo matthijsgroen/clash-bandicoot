@@ -10,7 +10,7 @@ export const Buildings: React.FC<{ showHidden?: boolean }> = ({
   return (
     <>
       {buildings
-        .filter(([, buildingsState]) => showHidden || !buildingsState.invisible)
+        .filter(([, buildingsState]) => showHidden || buildingsState.visible)
         .map(([id, buildingState]) => {
           const info = buildingState.building.info;
           return (

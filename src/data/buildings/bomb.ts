@@ -31,11 +31,12 @@ buildingLevels.forEach(([damage, cost, timeStr, th], lvl) => {
       time: time(timeStr),
     },
     triggerRadius: 1.5,
-    // aiType: "bomb",
+    aiType: "bomb",
     aiSettings: {
       damage,
       unitGroup: "ground",
       splash: 3,
+      firingRate: 1.5,
     },
   });
 });

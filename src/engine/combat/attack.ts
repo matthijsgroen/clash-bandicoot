@@ -26,7 +26,7 @@ export const createInitialBaseData = (layout: BaseLayout): BattleBaseData =>
             building.position[1] + building.info.size[1] / 2,
           ],
           effects: [],
-          invisible: building.info.categories.some((c) => c === "trap"),
+          visible: !building.info.categories.some((c) => c === "trap"),
           state: "idle",
           buildingData: {},
         },

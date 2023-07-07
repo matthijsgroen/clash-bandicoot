@@ -21,7 +21,7 @@ export const PlacementOutline: React.FC<{ mode?: "dark" | "light" }> = ({
       })}
     >
       {buildings
-        .filter(([, buildingsState]) => !buildingsState.invisible)
+        .filter(([, buildingsState]) => buildingsState.visible)
         .map(([id, buildingState]) => {
           const info = buildingState.building.info;
           return (
