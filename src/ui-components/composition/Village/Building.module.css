@@ -9,8 +9,8 @@
   background-color: white;
   overflow: hidden;
 
-  left: calc((var(--x) + 3) * var(--tile-size) - 1px);
-  top: calc((var(--y) + 3) * var(--tile-size) - 1px);
+  left: calc(var(--x) * var(--tile-size) - 1px);
+  top: calc(var(--y) * var(--tile-size) - 1px);
   box-shadow: #000 1px 1px 0px;
   cursor: default;
 }
@@ -20,20 +20,20 @@
   height: calc(var(--tile-size) + 1px);
 }
 .building.size2 {
-  left: calc((var(--x) + 3) * var(--tile-size) + 3px);
-  top: calc((var(--y) + 3) * var(--tile-size) + 3px);
+  left: calc(var(--x) * var(--tile-size) + 3px);
+  top: calc(var(--y) * var(--tile-size) + 3px);
   width: calc(var(--tile-size) * 2 - 6px);
   height: calc(var(--tile-size) * 2 - 6px);
 }
 .building.size3 {
-  left: calc((var(--x) + 3) * var(--tile-size) + 3px);
-  top: calc((var(--y) + 3) * var(--tile-size) + 3px);
+  left: calc(var(--x) * var(--tile-size) + 3px);
+  top: calc(var(--y) * var(--tile-size) + 3px);
   width: calc(var(--tile-size) * 3 - 6px);
   height: calc(var(--tile-size) * 3 - 6px);
 }
 .building.size4 {
-  left: calc((var(--x) + 3) * var(--tile-size) + 3px);
-  top: calc((var(--y) + 3) * var(--tile-size) + 3px);
+  left: calc(var(--x) * var(--tile-size) + 3px);
+  top: calc(var(--y) * var(--tile-size) + 3px);
   width: calc(var(--tile-size) * 4 - 6px);
   height: calc(var(--tile-size) * 4 - 6px);
 }

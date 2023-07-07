@@ -55,7 +55,10 @@ export const Grid: React.FC<
         const sx = Math.cos(angle) * dist;
         const sy = Math.sin(angle) * dist;
 
-        return [sx / TILE_SIZE + tilesW / 2, sy / TILE_SIZE + tilesH / 2];
+        return [
+          sx / TILE_SIZE + tilesW / 2 + OFFSET,
+          sy / TILE_SIZE + tilesH / 2 + OFFSET,
+        ];
       };
 
       onClick?.(calcPos([fieldX, fieldY]));
@@ -85,8 +88,8 @@ export const Grid: React.FC<
         <div className={styles.tilted}>
           <div
             style={{
-              width: width * TILE_SIZE,
-              height: height * TILE_SIZE,
+              width: (width - OFFSET - OFFSET) * TILE_SIZE,
+              height: (height - OFFSET - OFFSET) * TILE_SIZE,
             }}
             className={styles.grid}
             onClick={onClickHandler}

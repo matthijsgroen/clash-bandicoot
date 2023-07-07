@@ -67,7 +67,7 @@ setWalls(14, 15, (x) => [14, x]);
 walls.forEach((coordinate) => {
   builder.placeBuilding("wall", 4, coordinate);
 });
-builder.moveAll(-2, -3);
+builder.moveAll(1, 0);
 
 const village = builder.result();
 

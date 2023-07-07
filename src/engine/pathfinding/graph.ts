@@ -1,12 +1,15 @@
+import { createGrid } from "./grid";
 import { Graph, GraphNode, ObstacleGrid } from "./types";
 
 export const createGraph = (grid: ObstacleGrid): Graph => {
   const open: GraphNode[] = [];
   const closed: GraphNode[] = [];
 
-  const graph: (GraphNode | undefined)[][] = Array(grid.length)
-    .fill(0)
-    .map(() => Array(grid[0].length).fill(undefined));
+  const graph = createGrid<GraphNode | undefined>(
+    grid.length,
+    grid[0].length,
+    undefined
+  );
 
   const get = (x: number, y: number) => {
     let node = graph[y]?.[x];

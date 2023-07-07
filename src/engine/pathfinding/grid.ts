@@ -1,13 +1,26 @@
 import { BaseLayout, BattleBaseData } from "../types";
 import { ObstacleGrid } from "./types";
 
+export const createGrid = <T>(
+  width: number,
+  height: number,
+  initialValue: T
+): T[][] =>
+  Array(height)
+    .fill(0)
+    .map(() => Array(width).fill(initialValue));
+
 export const createObstacleGrid = (
   layout: BaseLayout,
-  baseInfo: BattleBaseData
+  baseInfo: BattleBaseData,
+  paddingX = 0,
+  paddingY = 0
 ): ObstacleGrid => {
-  const grid = Array(layout.gridSize[0])
-    .fill(0)
-    .map(() => Array(layout.gridSize[1]).fill(0));
+  const grid = createGrid(
+    layout.gridSize[0] + paddingX + paddingX,
+    layout.gridSize[1] + paddingY + paddingY,
+    0
+  );
 
   for (const key in layout.items) {
     const building = layout.items[key];
@@ -24,10 +37,10 @@ export const createObstacleGrid = (
           y > 0 &&
           ((y < height - 1 && height > 2) || height <= 2)
         ) {
-          grid[posY + y][posX + x] = -1;
+          grid[posY + y + paddingY][posX + x + paddingX] = -1;
         }
         if (building.info.type === "wall") {
-          grid[posY + y][posX + x] = hitPoints / 50;
+          grid[posY + y + paddingY][posX + x + paddingX] = hitPoints / 50;
         }
       }
     }

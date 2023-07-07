@@ -4,8 +4,8 @@
 
 .effect {
   position: absolute;
-  left: calc((var(--x) + 3 - var(--range) / 2) * var(--tile-size));
-  top: calc((var(--y) + 3 - var(--range) / 2) * var(--tile-size));
+  left: calc((var(--x) - var(--range) / 2) * var(--tile-size));
+  top: calc((var(--y) - var(--range) / 2) * var(--tile-size));
   width: calc(var(--range) * var(--tile-size));
   height: calc(var(--range) * var(--tile-size));
   background-color: pink;

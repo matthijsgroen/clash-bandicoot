@@ -1,6 +1,6 @@
 .outline {
-  left: calc((var(--x) + 2) * var(--tile-size) - 1px);
-  top: calc((var(--y) + 2) * var(--tile-size) - 1px);
+  left: calc((var(--x) - 1) * var(--tile-size) - 1px);
+  top: calc((var(--y) - 1) * var(--tile-size) - 1px);
   background-color: white;
 }
 .size1 {

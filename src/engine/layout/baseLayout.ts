@@ -3,8 +3,8 @@ import { buildingStore } from "../../data/buildingStore";
 import { createKeyStore } from "../utils/keyStore";
 import { BaseLayout, LayoutBuilding } from "../types";
 
-const DEFAULT_WIDTH = 40;
-const DEFAULT_HEIGHT = 40;
+const DEFAULT_WIDTH = 46;
+const DEFAULT_HEIGHT = 46;
 
 export const newLayout = (
   width = DEFAULT_WIDTH,

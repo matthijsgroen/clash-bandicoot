@@ -3,16 +3,19 @@ import { buildingStore } from "../../data/buildingStore";
 import { BaseLayout } from "../types";
 import { layoutBuilder } from "./baseLayout";
 import { buildingList } from "./compressList";
+import { createGrid } from "../pathfinding/grid";
 
 const EMPTY = buildingList.indexOf("empty");
 
 export const compressLayout = (layout: BaseLayout): Uint8Array => {
   const result: number[] = [];
-  const handled: boolean[][] = Array(layout.gridSize[0])
-    .fill(null)
-    .map(() => Array(layout.gridSize[1]).fill(false));
+  const handled = createGrid(
+    layout.gridSize[0] - 6,
+    layout.gridSize[1] - 6,
+    false
+  );
 
-  result.push(Math.ceil(layout.gridSize[0] / 5));
+  result.push(Math.ceil((layout.gridSize[0] - 6) / 5));
 
   const getBuilding = (x: number, y: number) =>
     Object.values(layout.items).find(
@@ -43,9 +46,9 @@ export const compressLayout = (layout: BaseLayout): Uint8Array => {
 
   let emptySpace = 0;
 
-  for (let y = 0; y < layout.gridSize[1]; y++) {
-    for (let x = 0; x < layout.gridSize[0]; x++) {
-      if (handled[x][y]) continue;
+  for (let y = 3; y < layout.gridSize[1] - 3; y++) {
+    for (let x = 3; x < layout.gridSize[0] - 3; x++) {
+      if (handled[x - 3][y - 3]) continue;
       const building = getBuilding(x, y);
       if (building) {
         if (emptySpace > 0) {
@@ -61,14 +64,14 @@ export const compressLayout = (layout: BaseLayout): Uint8Array => {
           if (horizontal > vertical) {
             result.push(15, building.info.level, horizontal);
             for (let hx = 0; hx < horizontal; hx++) {
-              handled[x + hx][y] = true;
+              handled[x + hx - 3][y - 3] = true;
             }
             continue;
           }
           if (vertical > 1) {
             result.push(16, building.info.level, vertical);
             for (let hy = 0; hy < vertical; hy++) {
-              handled[x][y + hy] = true;
+              handled[x - 3][y + hy - 3] = true;
             }
             continue;
           }
@@ -78,7 +81,7 @@ export const compressLayout = (layout: BaseLayout): Uint8Array => {
 
         for (let hy = 0; hy < building.info.size[1]; hy++) {
           for (let hx = 0; hx < building.info.size[0]; hx++) {
-            handled[x + hx][y + hy] = true;
+            handled[x + hx - 3][y + hy - 3] = true;
           }
         }
       } else {
@@ -128,11 +131,8 @@ export const unpackLayout = (base64urlString: string): Uint8Array => {
 export const decompressLayout = (buffer: Uint8Array): BaseLayout => {
   const bytes = [...buffer];
   const gridSize = (bytes.shift() as number) * 5;
-  const builder = layoutBuilder(gridSize, gridSize);
-
-  const handled: boolean[][] = Array(gridSize)
-    .fill(null)
-    .map(() => Array(gridSize).fill(false));
+  const builder = layoutBuilder(gridSize + 6, gridSize + 6);
+  const handled = createGrid(gridSize, gridSize, false);
 
   let emptySpace = 0;
 
@@ -156,7 +156,7 @@ export const decompressLayout = (buffer: Uint8Array): BaseLayout => {
       }
       if (typeIndex === undefined) {
         // EOF
-        return builder.result();
+        return builder.moveAll(3, 3).result();
       }
       const type = buildingList[typeIndex];
       if (type === "wallH") {
@@ -180,7 +180,7 @@ export const decompressLayout = (buffer: Uint8Array): BaseLayout => {
       if (type) {
         const building = buildingStore.getBuilding(type, levelOrLength);
         if (!building) {
-          return builder.result();
+          return builder.moveAll(3, 3).result();
         }
         builder.placeBuilding(type, levelOrLength, [x, y]);
         for (let hy = 0; hy < building.size[1]; hy++) {
@@ -192,7 +192,7 @@ export const decompressLayout = (buffer: Uint8Array): BaseLayout => {
     }
   }
 
-  return builder.result();
+  return builder.moveAll(3, 3).result();
 };
 
 export const pack = (layout: BaseLayout): string =>

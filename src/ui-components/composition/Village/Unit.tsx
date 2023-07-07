@@ -13,8 +13,8 @@ export const Unit: React.FC<{
   return (
     <div
       style={{
-        left: (x + OFFSET) * TILE_SIZE - 1,
-        top: (y + OFFSET) * TILE_SIZE - 1,
+        left: x * TILE_SIZE - 1,
+        top: y * TILE_SIZE - 1,
         width: 10,
         height: 10,
         position: "absolute",
