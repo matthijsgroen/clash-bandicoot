@@ -22,7 +22,7 @@ describe("attack", () => {
           effects: [],
           center: [37, 37],
           state: "idle",
-          invisible: false,
+          visible: true,
           building: village.items["townhall#1"],
           buildingData: {},
         },
