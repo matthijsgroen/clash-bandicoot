@@ -1,5 +1,5 @@
 import { Button } from "../ui-components/atoms/Button";
-import { setAppUpdate, useAppUpdate } from "./hooks/useAppUpdater";
+import { useAppUpdate } from "./hooks/useAppUpdater";
 
 export const HomeScreen: React.FC<{
   setActivePopup: (name: string | null) => void;
