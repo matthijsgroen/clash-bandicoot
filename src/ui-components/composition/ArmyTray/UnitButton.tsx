@@ -6,7 +6,7 @@ interface ButtonCSSProperties extends CSSProperties {
   "--base-color": string;
 }
 
-const DEFAULT_COLOR = "#88c";
+export const DEFAULT_COLOR = "#88c";
 
 export const UnitButton: React.FC<{
   portraitColor: string;
