@@ -15,6 +15,7 @@ import {
   Effects,
 } from "../ui-components/composition/Village";
 import { Units } from "../ui-components/composition/Village/Units";
+import { Button } from "../ui-components/atoms/Button";
 
 const CombatTimer = () => {
   const timeLeft = useAtomValue(battleAtom).timeLeft;
@@ -42,7 +43,8 @@ export const Combat: React.FC<{
   base: BaseLayout;
   army: Army;
   replay?: Replay;
-}> = ({ base, replay, army }) => {
+  onClose?: () => void;
+}> = ({ base, replay, army, onClose }) => {
   const [selectedTroop, setSelectedTroop] = useState<
     [string, number] | undefined
   >(undefined);
@@ -107,6 +109,14 @@ export const Combat: React.FC<{
       <aside>
         <CombatTimer />
         <DestructionMeter />
+        {battleState.state === "ended" && (
+          <div style={{ position: "absolute", left: "30dvw", top: "30dvh" }}>
+            <p>Yay combat is done!</p>
+            <Button onClick={onClose} color="orange">
+              Go Back
+            </Button>
+          </div>
+        )}
       </aside>
       <ArmyControl
         onSelect={(t, l) => setSelectedTroop([t, l])}

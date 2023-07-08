@@ -10,8 +10,23 @@ const App = () => {
 
   return (
     <div>
-      {popupActive === "attack" && <Combat base={village2} army={army} />}
-      {popupActive === "villageEditor" && <VillageEditor base={newLayout()} />}
+      {popupActive === "attack" && (
+        <Combat
+          base={village2}
+          army={army}
+          onClose={() => {
+            setActivePopup(null);
+          }}
+        />
+      )}
+      {popupActive === "villageEditor" && (
+        <VillageEditor
+          base={newLayout()}
+          onClose={() => {
+            setActivePopup(null);
+          }}
+        />
+      )}
       {popupActive === null && (
         <HomeScreen
           setActivePopup={(name) => {
