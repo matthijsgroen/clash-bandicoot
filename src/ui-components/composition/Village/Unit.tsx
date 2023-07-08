@@ -15,8 +15,8 @@ export const Unit: React.FC<{
       style={{
         left: x * TILE_SIZE - 1,
         top: y * TILE_SIZE - 1,
-        width: 10,
-        height: 10,
+        width: 5,
+        height: 5,
         position: "absolute",
       }}
       className={classNames(styles.unit, styles[unitType], {

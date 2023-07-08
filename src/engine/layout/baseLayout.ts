@@ -2,6 +2,7 @@ import "../../data/buildings";
 import { buildingStore } from "../../data/buildingStore";
 import { createKeyStore } from "../utils/keyStore";
 import { BaseLayout, LayoutBuilding } from "../types";
+import { Building } from "../../data/types";
 
 const DEFAULT_WIDTH = 46;
 const DEFAULT_HEIGHT = 46;
@@ -13,6 +14,10 @@ export const newLayout = (
   gridSize: [width, height],
   items: {},
 });
+
+export const isVisible = <Settings extends Record<string, unknown>>(
+  building: Building<Settings>
+): boolean => !building.categories.some((c) => c === "trap");
 
 export const placeBuilding = (
   layout: BaseLayout,

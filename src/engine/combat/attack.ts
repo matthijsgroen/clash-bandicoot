@@ -13,6 +13,7 @@ import { createObstacleGrid } from "../pathfinding/obstacleGrid";
 import { Army, canDeployTroops, placeUnit } from "../armyComposition";
 import { createPlacementGrid } from "../layout/placementGrid";
 import { Troop } from "../../data/types";
+import { isVisible } from "../layout/baseLayout";
 
 export const createInitialBaseData = (layout: BaseLayout): BattleBaseData =>
   Object.fromEntries(
@@ -27,7 +28,7 @@ export const createInitialBaseData = (layout: BaseLayout): BattleBaseData =>
             building.position[1] + building.info.size[1] / 2,
           ],
           effects: [],
-          visible: !building.info.categories.some((c) => c === "trap"),
+          visible: isVisible(building.info),
           state: "idle",
           buildingData: {},
         },

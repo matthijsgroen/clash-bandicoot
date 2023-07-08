@@ -28,10 +28,9 @@ export const HomeScreen: React.FC<{
       </Button>
 
       <Button
-        onClick={() => setActivePopup("attack")}
+        onClick={() => setActivePopup("villageEditor")}
         color="orange"
         square={true}
-        disabled
       >
         Bases
       </Button>

@@ -1,14 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Combat.module.css";
-import { Village } from "./village/Village";
 import { BaseLayout, Replay } from "../engine/types";
 import { handleAttack } from "../engine/combat/attack";
 import { Army } from "../engine/armyComposition";
 import { Timer } from "../ui-components/atoms/Timer";
 import { Destruction } from "../ui-components/atoms/Destruction";
 import { ArmyControl } from "./ArmyControl";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { battleAtom } from "./combatState";
+import {
+  Grid,
+  PlacementOutline,
+  Buildings,
+  Effects,
+} from "../ui-components/composition/Village";
+import { Units } from "../ui-components/composition/Village/Units";
 
 const CombatTimer = () => {
   const timeLeft = useAtomValue(battleAtom).timeLeft;
@@ -40,7 +46,7 @@ export const Combat: React.FC<{
   const [selectedTroop, setSelectedTroop] = useState<
     [string, number] | undefined
   >(undefined);
-  const setBattleState = useSetAtom(battleAtom);
+  const [battleState, setBattleState] = useAtom(battleAtom);
   const attack = useRef(handleAttack(base, army));
 
   const placementQueue = useRef<Replay>({
@@ -76,16 +82,27 @@ export const Combat: React.FC<{
     };
   }, [army, attack, setBattleState]);
 
+  const layout = battleState.layout;
+  const buildingStatus = battleState.baseData;
+  const units = battleState.unitData;
+
   return (
     <div className={styles.combat}>
       <main>
-        <Village
+        <Grid
+          width={layout.gridSize[0]}
+          height={layout.gridSize[1]}
           onClick={(p) => {
             if (selectedTroop) {
               attack.current.placeUnit(selectedTroop[0], selectedTroop[1], p);
             }
           }}
-        />
+        >
+          <PlacementOutline mode="dark" layout={layout} />
+          <Buildings layout={layout} battleBaseData={buildingStatus} />
+          <Units units={units} />
+          <Effects effects={battleState.effectData} />
+        </Grid>
       </main>
       <aside>
         <CombatTimer />
