@@ -25,7 +25,7 @@
   background-color: white;
 }
 .light .outline {
-  background-color: #222;
+  background-color: #0f0f0f;
 }
 .dark {
   filter: drop-shadow(0px 0px 1px black);

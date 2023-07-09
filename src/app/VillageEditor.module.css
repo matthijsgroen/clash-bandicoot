@@ -5,3 +5,16 @@
   top: 0;
   left: 0;
 }
+
+.placementControl {
+  position: fixed;
+  top: calc(100dvh - 6rem);
+  height: 6rem;
+  left: 0;
+}
+
+.goBack {
+  position: absolute;
+  left: 0 max(1rem, env(safe-area-inset-right));
+  bottom: 7rem;
+}

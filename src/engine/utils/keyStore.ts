@@ -1,11 +1,17 @@
-export const createKeyStore = () => {
+export const createKeyStore = (initialKeys: string[] = []) => {
   const store: Record<string, number> = {};
 
   return {
     getKey: (type: string): string => {
-      store[type] = store[type] || 0;
-      store[type]++;
-      return `${type}#${store[type]}`;
+      let key = "";
+
+      do {
+        store[type] = store[type] || 0;
+        store[type]++;
+        key = `${type}#${store[type]}`;
+      } while (initialKeys.includes(key));
+
+      return key;
     },
   };
 };

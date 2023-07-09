@@ -37,9 +37,14 @@ export const layoutBuilder = (
   height = DEFAULT_HEIGHT
 ) => {
   let layout = newLayout(width, height);
-  const keyStore = createKeyStore();
+  let keyStore = createKeyStore();
 
   const builder = {
+    updateWithLayout: (baseLayout: BaseLayout) => {
+      layout = baseLayout;
+      keyStore = createKeyStore(Object.keys(layout.items));
+      return builder;
+    },
     placeBuilding: (
       type: string,
       level: number,
