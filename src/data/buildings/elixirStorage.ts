@@ -38,3 +38,12 @@ buildingLevels.forEach(([hitPoints, cost, timeStr, th], lvl) => {
     aiSettings: {},
   });
 });
+
+[
+  [1, 1],
+  [2, 3],
+  [3, 8],
+  [4, 9],
+].forEach(([amount, th]) =>
+  buildingStore.setBuildingLimit("elixirstorage", amount, th)
+);

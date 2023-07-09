@@ -36,3 +36,7 @@ buildingLevels.forEach(([hitPoints, cost, capacity, timeStr, th], lvl) => {
     },
   });
 });
+
+[[1, 1]].forEach(([amount, th]) =>
+  buildingStore.setBuildingLimit("clancastle", amount, th)
+);

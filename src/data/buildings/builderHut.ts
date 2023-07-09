@@ -14,3 +14,7 @@ buildingStore.addBuilding({
   },
   aiSettings: {},
 });
+
+[[5, 1]].forEach(([amount, th]) =>
+  buildingStore.setBuildingLimit("builderhut", amount, th)
+);

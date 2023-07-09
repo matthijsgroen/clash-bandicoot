@@ -36,3 +36,7 @@ buildingLevels.forEach(([hitPoints, cost, timeStr, th], lvl) => {
     aiSettings: {},
   });
 });
+
+[[1, 1]].forEach(([amount, th]) =>
+  buildingStore.setBuildingLimit("barracks", amount, th)
+);

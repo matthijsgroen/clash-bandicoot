@@ -26,3 +26,17 @@ buildingLevels.forEach(([hitPoints, cost, th], lvl) => {
     aiSettings: {},
   });
 });
+
+[
+  [25, 2],
+  [50, 3],
+  [75, 4],
+  [100, 5],
+  [125, 6],
+  [175, 7],
+  [225, 8],
+  [250, 9],
+  [275, 10],
+  [300, 11],
+  [325, 14],
+].forEach(([amount, th]) => buildingStore.setBuildingLimit("wall", amount, th));

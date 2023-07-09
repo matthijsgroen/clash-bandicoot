@@ -43,3 +43,12 @@ buildingLevels.forEach(([hitPoints, cost, timeStr, damage, th], lvl) => {
     },
   });
 });
+
+[
+  [2, 1],
+  [3, 5],
+  [6, 10],
+  [7, 11],
+].forEach(([amount, th]) =>
+  buildingStore.setBuildingLimit("cannon", amount, th)
+);

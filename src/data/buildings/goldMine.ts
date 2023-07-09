@@ -39,3 +39,15 @@ buildingLevels.forEach(([hitPoints, cost, timeStr, th], lvl) => {
     aiSettings: {},
   });
 });
+
+[
+  [1, 1],
+  [2, 2],
+  [3, 3],
+  [4, 4],
+  [5, 5],
+  [6, 6],
+  [7, 9],
+].forEach(([amount, th]) =>
+  buildingStore.setBuildingLimit("goldmine", amount, th)
+);

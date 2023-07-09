@@ -40,3 +40,11 @@ buildingLevels.forEach(([damage, cost, timeStr, th], lvl) => {
     },
   });
 });
+
+[
+  [2, 3],
+  [4, 5],
+  [6, 7],
+  [7, 13],
+  [8, 14],
+].forEach(([amount, th]) => buildingStore.setBuildingLimit("bomb", amount, th));

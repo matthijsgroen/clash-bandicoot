@@ -32,3 +32,7 @@ buildingLevels.forEach(([hitPoints, cost, timeStr, th], lvl) => {
     aiSettings: {},
   });
 });
+
+[[1, 3]].forEach(([amount, th]) =>
+  buildingStore.setBuildingLimit("laboratory", amount, th)
+);

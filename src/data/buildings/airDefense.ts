@@ -39,3 +39,12 @@ buildingLevels.forEach(([hitPoints, cost, timeStr, damage, th], lvl) => {
     },
   });
 });
+
+[
+  [1, 4],
+  [2, 6],
+  [3, 7],
+  [4, 9],
+].forEach(([amount, th]) =>
+  buildingStore.setBuildingLimit("airdefense", amount, th)
+);

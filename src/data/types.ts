@@ -28,6 +28,12 @@ export type Building<
   aiSettings: Settings;
 };
 
+export type BuildingLimit = {
+  thLevel: number;
+  type: string;
+  amount: number;
+};
+
 export type Troop = {
   type: string;
   level: number;

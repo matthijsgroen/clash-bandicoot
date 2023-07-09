@@ -41,3 +41,12 @@ buildingLevels.forEach(([hitPoints, cost, timeStr, damage, th], lvl) => {
     },
   });
 });
+
+[
+  [1, 3],
+  [2, 6],
+  [3, 7],
+  [4, 8],
+].forEach(([amount, th]) =>
+  buildingStore.setBuildingLimit("mortar", amount, th)
+);

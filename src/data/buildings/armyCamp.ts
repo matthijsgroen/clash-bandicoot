@@ -35,3 +35,12 @@ buildingLevels.forEach(([hitPoints, cost, timeStr, capacity, th], lvl) => {
     },
   });
 });
+
+[
+  [1, 1],
+  [2, 3],
+  [3, 5],
+  [4, 7],
+].forEach(([amount, th]) =>
+  buildingStore.setBuildingLimit("armycamp", amount, th)
+);
