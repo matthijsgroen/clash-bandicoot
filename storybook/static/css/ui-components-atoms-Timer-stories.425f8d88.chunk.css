@@ -1,0 +1,24 @@
+.Timer_timeRemaining__xHPPf {
+  pointer-events: none;
+  text-align: center;
+
+  font-family: "Sriracha", cursive;
+  font-weight: bold;
+  font-size: 0.6rem;
+  color: white;
+  text-shadow: 0 2px 0 #000;
+}
+
+.Timer_timeRemaining__xHPPf p {
+  margin: 0;
+  line-height: 1em;
+}
+.Timer_timeRemaining__xHPPf output {
+  font-size: 1.2rem;
+}
+.Timer_red__GjO5o {
+  color: red;
+}
+
+
+/*# sourceMappingURL=ui-components-atoms-Timer-stories.425f8d88.chunk.css.map*/

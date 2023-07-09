@@ -1,0 +1,43 @@
+.Grid_scrollContainer__fn6VR {
+  height: 100dvh;
+  width: 100dvw;
+  background-color: #667120;
+  overflow: scroll;
+  --tile-size: 15px;
+}
+
+.Grid_rotationContainer__-y0BG {
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+  scale: 1.5 1;
+  width: -webkit-max-content;
+  width: max-content;
+  height: -webkit-max-content;
+  height: max-content;
+  padding: calc(9em + 9em) calc((9em + 9em) * 0.8);
+}
+
+.Grid_grid__D4ak3 {
+  background: repeating-conic-gradient(#aab841 0% 25%, #99af47 0% 50%) 50% /
+    calc(2 * var(--tile-size)) calc(2 * var(--tile-size));
+  background-position: calc(var(--tile-size) * 3) calc(var(--tile-size) * 3);
+  background-clip: content-box;
+  padding: calc(var(--tile-size) * 3);
+  background-color: #acbe4a;
+
+  position: relative;
+}
+
+.Grid_tilted__\+V9nI {
+  width: -webkit-max-content;
+  width: max-content;
+  height: -webkit-max-content;
+  height: max-content;
+  background-color: #7f9e3a;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  rotate: 45deg;
+}
+
+
+/*# sourceMappingURL=ui-components-composition-Village-Grid-stories.37048ffa.chunk.css.map*/

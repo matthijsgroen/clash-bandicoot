@@ -1,0 +1,80 @@
+.Destruction_destruction__-vjWu {
+  pointer-events: none;
+  background-color: #0006;
+  padding: 0.5em;
+  border-radius: 1em;
+}
+
+.Destruction_destruction__-vjWu p {
+  margin: 0;
+  font-family: "Sriracha", cursive;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.6rem;
+
+  color: white;
+  text-shadow: 0 2px 0 #000;
+}
+
+.Destruction_star__YB727 {
+  color: #0005;
+  font-size: 1.2em;
+  display: inline-block;
+  line-height: 0.8em;
+}
+.Destruction_star__YB727.Destruction_starCollected__OQppb {
+  color: white;
+  text-shadow: 0 2px 0 #000;
+  -webkit-transform: translate(-40vw, -50vh) scale(6);
+          transform: translate(-40vw, -50vh) scale(6);
+}
+.Destruction_star__YB727.Destruction_starCollected__OQppb.Destruction_first__BZQ29 {
+  -webkit-animation: 500ms Destruction_setStar__GJIBM 300ms ease-out forwards;
+          animation: 500ms Destruction_setStar__GJIBM 300ms ease-out forwards;
+}
+.Destruction_star__YB727.Destruction_starCollected__OQppb.Destruction_second__kwZkY {
+  -webkit-animation: 500ms Destruction_setStar__GJIBM 600ms ease-out forwards;
+          animation: 500ms Destruction_setStar__GJIBM 600ms ease-out forwards;
+}
+.Destruction_star__YB727.Destruction_starCollected__OQppb.Destruction_third__bI1dx {
+  -webkit-animation: 500ms Destruction_setStar__GJIBM 900ms ease-out forwards;
+          animation: 500ms Destruction_setStar__GJIBM 900ms ease-out forwards;
+}
+.Destruction_destruction__-vjWu output {
+  line-height: 0.8em;
+  padding-left: 0.5em;
+  font-family: "Sriracha", cursive;
+  font-weight: bold;
+  color: white;
+  font-weight: bold;
+  text-shadow: 0 2px 0 #000;
+  font-size: 1.2rem;
+  width: 4ch;
+  text-align: right;
+  display: inline-block;
+}
+
+@-webkit-keyframes Destruction_setStar__GJIBM {
+  0% {
+    -webkit-transform: translate(-30dvw, -20dvh) scale(6);
+            transform: translate(-30dvw, -20dvh) scale(6);
+  }
+  100% {
+    -webkit-transform: translate(0vw, 0vh) scale(1);
+            transform: translate(0vw, 0vh) scale(1);
+  }
+}
+
+@keyframes Destruction_setStar__GJIBM {
+  0% {
+    -webkit-transform: translate(-30dvw, -20dvh) scale(6);
+            transform: translate(-30dvw, -20dvh) scale(6);
+  }
+  100% {
+    -webkit-transform: translate(0vw, 0vh) scale(1);
+            transform: translate(0vw, 0vh) scale(1);
+  }
+}
+
+
+/*# sourceMappingURL=ui-components-atoms-Destruction-stories.a7d16e52.chunk.css.map*/

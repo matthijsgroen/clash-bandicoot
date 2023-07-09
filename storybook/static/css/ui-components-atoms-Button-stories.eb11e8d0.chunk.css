@@ -1,0 +1,59 @@
+.Button_button__d3Ync {
+  margin: 1rem;
+  padding: 0;
+  display: inline-block;
+  border: none;
+  background: transparent;
+}
+
+button:active .Button_outer__Zd-2h {
+  scale: 0.9;
+  -webkit-filter: brightness(130%);
+          filter: brightness(130%);
+}
+
+.Button_outer__Zd-2h {
+  padding: 1px 0 0 0;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 2px 0 #000;
+  border: 1px solid black;
+  height: 100%;
+  background-color: var(--color);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 1fr;
+}
+
+.Button_inner__FQgg0 {
+  border-radius: 5px;
+  border-top: 1px solid color-mix(in hsl, var(--color) 40%, white);
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-bottom: 2px solid color-mix(in hsl, var(--color) 70%, black);
+  background: linear-gradient(
+    180deg,
+    color-mix(in hsl, var(--color) 90%, black),
+    color-mix(in hsl, var(--color) 95%, black) 10%,
+    color-mix(in hsl shorter hue, var(--color) 95%, white) 30%,
+    color-mix(in hsl shorter hue, var(--color) 30%, white) 53%,
+    transparent 50%
+  );
+}
+
+.Button_square__egl4j {
+  width: 5rem;
+  aspect-ratio: 1;
+}
+
+.Button_button__d3Ync:disabled {
+  -webkit-filter: grayscale(1) brightness(70%);
+          filter: grayscale(1) brightness(70%);
+}
+
+
+/*# sourceMappingURL=ui-components-atoms-Button-stories.eb11e8d0.chunk.css.map*/

@@ -1,0 +1,134 @@
+.Grid_scrollContainer__fn6VR {
+  height: 100dvh;
+  width: 100dvw;
+  background-color: #667120;
+  overflow: scroll;
+  --tile-size: 15px;
+}
+
+.Grid_rotationContainer__-y0BG {
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+  scale: 1.5 1;
+  width: -webkit-max-content;
+  width: max-content;
+  height: -webkit-max-content;
+  height: max-content;
+  padding: calc(9em + 9em) calc((9em + 9em) * 0.8);
+}
+
+.Grid_grid__D4ak3 {
+  background: repeating-conic-gradient(#aab841 0% 25%, #99af47 0% 50%) 50% /
+    calc(2 * var(--tile-size)) calc(2 * var(--tile-size));
+  background-position: calc(var(--tile-size) * 3) calc(var(--tile-size) * 3);
+  background-clip: content-box;
+  padding: calc(var(--tile-size) * 3);
+  background-color: #acbe4a;
+
+  position: relative;
+}
+
+.Grid_tilted__\+V9nI {
+  width: -webkit-max-content;
+  width: max-content;
+  height: -webkit-max-content;
+  height: max-content;
+  background-color: #7f9e3a;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  rotate: 45deg;
+}
+
+.Building_ground__PK5fN {
+  left: calc(var(--x) * var(--tile-size) - 1px);
+  top: calc(var(--y) * var(--tile-size) - 1px);
+  width: calc(var(--tile-size) * var(--size) + 1px);
+  height: calc(var(--tile-size) * var(--size) + 1px);
+  padding: 0;
+  display: grid;
+}
+
+.Building_selected__Bo72o {
+  background-color: #ff0a;
+}
+
+.Building_building__zBQXG {
+  font-size: 8px;
+  border: 1px solid black;
+  box-sizing: border-box;
+  background-color: white;
+  overflow: hidden;
+
+  box-shadow: #000 1px 1px 0px;
+  cursor: default;
+  width: 1fr;
+
+  margin: calc((var(--size) + var(--size)) * 1px - 1px)
+    calc((var(--size) + var(--size)) * 1px)
+    calc((var(--size) + var(--size)) * 1px)
+    calc((var(--size) + var(--size)) * 1px - 1px);
+}
+
+.Building_building__zBQXG.Building_size1__GVxRe {
+  margin: 0;
+}
+
+.Building_attacking__LPaLB {
+  -webkit-animation: Building_attackBuilding__NSe0S 300ms alternate infinite;
+          animation: Building_attackBuilding__NSe0S 300ms alternate infinite;
+}
+
+.Building_building__zBQXG.Building_destroyed__nxsTS {
+  background-color: #777;
+  opacity: 0.3;
+  border: 2px dotted #888;
+  box-shadow: none;
+  -webkit-animation: none;
+          animation: none;
+}
+
+@-webkit-keyframes Building_attackBuilding__NSe0S {
+  0% {
+    border: 1px solid black;
+    box-shadow: #000 1px 1px 0px, inset 0px 0px 0px black;
+  }
+  100% {
+    border: 1px solid red;
+    box-shadow: #000 1px 1px 0px, inset 0px 0px 4px red;
+  }
+}
+
+@keyframes Building_attackBuilding__NSe0S {
+  0% {
+    border: 1px solid black;
+    box-shadow: #000 1px 1px 0px, inset 0px 0px 0px black;
+  }
+  100% {
+    border: 1px solid red;
+    box-shadow: #000 1px 1px 0px, inset 0px 0px 4px red;
+  }
+}
+
+.Building_elixirstorage__ffL18,
+.Building_elixircollector__HJcgy {
+  background-color: pink;
+}
+.Building_goldmine__GZTmA,
+.Building_goldstorage__vjLya {
+  background-color: gold;
+}
+.Building_townhall__jPETY {
+  background-color: #90ff90;
+}
+.Building_cannon__bQz3N,
+.Building_mortar__AObK5,
+.Building_archertower__XOS9Q,
+.Building_airdefense__R2jiu {
+  background-color: #ffaaaa;
+}
+.Building_wall__6PBMR {
+  background-color: #999;
+}
+
+
+/*# sourceMappingURL=ui-components-composition-Village-Building-stories.37283057.chunk.css.map*/
