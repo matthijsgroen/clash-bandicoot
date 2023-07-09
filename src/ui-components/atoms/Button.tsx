@@ -1,9 +1,11 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import styles from "./Button.module.css";
 import classNames from "classnames";
 
+type ButtonCSSProperties = { "--color": string } & CSSProperties;
+
 type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {
-  color: "orange";
+  color: string;
   square?: boolean;
 };
 
@@ -13,12 +15,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       type="button"
       ref={ref}
       {...props}
+      style={{ "--color": color } as ButtonCSSProperties}
       className={classNames(styles.button, {
-        [styles.orange]: color === "orange",
         [styles.square]: square,
       })}
     >
-      {props.children}
+      <div className={styles.outer}>
+        <div className={styles.inner}>{props.children}</div>
+      </div>
     </button>
   )
 );
