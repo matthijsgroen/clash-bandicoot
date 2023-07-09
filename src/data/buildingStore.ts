@@ -25,7 +25,7 @@ export const createBuildingStore = (): BuildingStore => {
     getMaxBuildingAmount(thLevel, type) {
       let limit = 0;
       limits.forEach((e) => {
-        if (thLevel <= e.thLevel && type === e.type && e.amount > limit) {
+        if (thLevel >= e.thLevel && type === e.type && e.amount > limit) {
           limit = e.amount;
         }
       });
