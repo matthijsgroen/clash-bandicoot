@@ -93,6 +93,8 @@
   text-shadow: 0 1px 0 #000;
   text-transform: capitalize;
   position: relative;
+  word-break: break-all;
+  line-height: 0.6rem;
 }
 
 .UnitButton_level__d\+Z-J {
@@ -122,4 +124,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-composition-ArmyTray-UnitButton-stories.31ac2521.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-ArmyTray-Group-stories.f69bfd97.chunk.css.map*/
