@@ -25,7 +25,7 @@ clientsClaim();
 precacheAndRoute(self.__WB_MANIFEST);
 
 registerRoute(
-  ({ url }) => url.pathname.startsWith("/storybook/"),
+  ({ url }) => url.pathname.startsWith("/clash-bandicoot/storybook/"),
   new NetworkOnly()
 );
 
