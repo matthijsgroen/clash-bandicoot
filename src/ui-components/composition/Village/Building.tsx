@@ -5,6 +5,7 @@ import styles from "./Building.module.css";
 interface PlacementCSS extends CSSProperties {
   "--x": number;
   "--y": number;
+  "--size": number;
 }
 
 export const Building: React.FC<{
@@ -16,28 +17,44 @@ export const Building: React.FC<{
   level: number;
   hitPoints: number;
   state?: string;
-}> = ({ x, y, size, className, hitPoints, level, buildingType, state }) => {
+  selected?: boolean;
+}> = ({
+  x,
+  y,
+  size,
+  className,
+  hitPoints,
+  level,
+  buildingType,
+  state,
+  selected,
+}) => {
   return (
     <div
       style={
         {
           "--x": x,
           "--y": y,
+          "--size": size,
           position: "absolute",
         } as PlacementCSS
       }
-      className={classNames(
-        {
-          [styles.destroyed]: hitPoints === 0,
-          [styles[state ?? "none"]]: state,
-        },
-        styles.building,
-        styles[`size${size}`],
-        styles[buildingType],
-        className
-      )}
+      className={classNames(styles.ground, { [styles.selected]: selected })}
     >
-      {buildingType} {level} {hitPoints}
+      <div
+        className={classNames(
+          {
+            [styles.destroyed]: hitPoints === 0,
+            [styles[state ?? "none"]]: state,
+            [styles[buildingType]]: styles[buildingType],
+          },
+          styles.building,
+          styles[`size${size}`],
+          className
+        )}
+      >
+        {buildingType} {level} {hitPoints}
+      </div>
     </div>
   );
 };

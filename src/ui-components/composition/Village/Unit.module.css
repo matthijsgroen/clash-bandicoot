@@ -1,7 +1,3 @@
-:root {
-  --tile-size: 15px;
-}
-
 .unit {
   font-size: 5px;
   border: 1px solid black;

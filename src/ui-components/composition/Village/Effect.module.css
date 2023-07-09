@@ -1,7 +1,3 @@
-:root {
-  --tile-size: 15px;
-}
-
 .effect {
   position: absolute;
   left: calc((var(--x) - var(--range) / 2) * var(--tile-size));

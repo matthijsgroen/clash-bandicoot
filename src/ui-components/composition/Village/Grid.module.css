@@ -3,6 +3,7 @@
   width: 100dvw;
   background-color: #667120;
   overflow: scroll;
+  --tile-size: 15px;
 }
 
 .rotationContainer {
@@ -11,10 +12,6 @@
   width: max-content;
   height: max-content;
   padding: calc(9em + 9em) calc((9em + 9em) * 0.8);
-}
-
-:root {
-  --tile-size: 15px;
 }
 
 .grid {
