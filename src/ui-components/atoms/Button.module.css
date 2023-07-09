@@ -16,7 +16,6 @@ button:active .outer {
   border-radius: 5px;
   font-weight: bold;
   color: white;
-  text-shadow: 0 2px 0 #000;
   border: 1px solid black;
   height: 100%;
   background-color: var(--color);
@@ -36,12 +35,19 @@ button:active .outer {
   border-bottom: 2px solid color-mix(in hsl, var(--color) 70%, black);
   background: linear-gradient(
     180deg,
-    color-mix(in hsl, var(--color) 90%, black),
-    color-mix(in hsl, var(--color) 95%, black) 10%,
-    color-mix(in hsl shorter hue, var(--color) 95%, white) 30%,
-    color-mix(in hsl shorter hue, var(--color) 30%, white) 53%,
+    color-mix(in srgb, var(--color) 85%, white) 0%,
+    color-mix(in srgb, var(--color) 60%, white) 20%,
+    color-mix(in srgb, var(--color) 60%, white) 53%,
+    var(--color) 53%,
+    var(--color) 80%,
+    color-mix(in srgb, var(--color) 80%, black) 100%,
     transparent 50%
   );
+
+  font-family: "Sriracha", cursive;
+  font-weight: bold;
+  font-size: 1rem;
+  text-shadow: 0 2px 0 #000, 1px -1px 0 #0002;
 }
 
 .square {
