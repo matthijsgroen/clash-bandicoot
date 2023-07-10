@@ -20,14 +20,17 @@ export const Grid: React.FC<
 > = ({ width, height, children, onClick }) => {
   const fieldRef = useRef<HTMLDivElement>(null);
 
-  const onClickHandler = useCallback<MouseEventHandler<HTMLDivElement>>(
-    (e) => {
+  const calculatePosition = useCallback(
+    (
+      clientX: number,
+      clientY: number
+    ): [gridX: number, gridY: number] | undefined => {
       if (!fieldRef.current) {
         return;
       }
 
-      const fieldX = e.clientX + fieldRef.current.parentElement!.scrollLeft;
-      const fieldY = e.clientY + fieldRef.current.parentElement!.scrollTop;
+      const fieldX = clientX + fieldRef.current.parentElement!.scrollLeft;
+      const fieldY = clientY + fieldRef.current.parentElement!.scrollTop;
 
       const field = getComputedStyle(fieldRef.current);
       const width = parseFloat(field.width);
@@ -40,28 +43,31 @@ export const Grid: React.FC<
       const cx = pl + width / 2;
       const cy = pt + height / 2;
 
-      const calcPos = ([x, y]: [x: number, y: number]): [
-        x: number,
-        y: number
-      ] => {
-        const rx = x / 1.5;
+      const rx = fieldX / 1.5;
 
-        const sw = rx - cx;
-        const sh = y - cy;
+      const sw = rx - cx;
+      const sh = fieldY - cy;
 
-        const dist = Math.sqrt(sw * sw + sh * sh);
-        const angle = -45 * rad1 + Math.atan2(sh, sw);
+      const dist = Math.sqrt(sw * sw + sh * sh);
+      const angle = -45 * rad1 + Math.atan2(sh, sw);
 
-        const sx = Math.cos(angle) * dist;
-        const sy = Math.sin(angle) * dist;
+      const sx = Math.cos(angle) * dist;
+      const sy = Math.sin(angle) * dist;
 
-        return [
-          sx / TILE_SIZE + tilesW / 2 + OFFSET,
-          sy / TILE_SIZE + tilesH / 2 + OFFSET,
-        ];
-      };
+      return [
+        sx / TILE_SIZE + tilesW / 2 + OFFSET,
+        sy / TILE_SIZE + tilesH / 2 + OFFSET,
+      ];
+    },
+    []
+  );
 
-      onClick?.(calcPos([fieldX, fieldY]));
+  const onClickHandler = useCallback<MouseEventHandler<HTMLDivElement>>(
+    (e) => {
+      if (onClick) {
+        const pos = calculatePosition(e.clientX, e.clientY);
+        if (pos) onClick(pos);
+      }
     },
     [onClick]
   );
