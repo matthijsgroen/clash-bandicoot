@@ -18,11 +18,11 @@
 .amounts {
   border-radius: 0.5rem;
   border-top: 1px solid color-mix(in hsl, var(--base-color) 60%, white);
-  background: color-mix(in hsl, var(--base-color) 90%, white)
+  background: color-mix(in srgb, var(--base-color) 90%, white)
     linear-gradient(
       to bottom,
       transparent 0%,
-      color-mix(in hsl, var(--base-color) 70%, black) 100%
+      color-mix(in srgb, var(--base-color) 90%, black) 100%
     );
   height: stretch;
 
@@ -40,7 +40,7 @@
   height: 100%;
   box-sizing: border-box;
   padding: 3px 3px 4px 3px;
-  border-top: 1px solid color-mix(in hsl, var(--base-color) 60%, white);
+  border-top: 1px solid color-mix(in hsl, var(--base-color) 80%, white);
   background: var(--base-color);
   border-bottom: 2px solid color-mix(in hsl, var(--base-color) 70%, black);
   border-bottom-left-radius: 0.5rem;
