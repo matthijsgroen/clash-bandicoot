@@ -15,7 +15,6 @@ import { buildingList } from "../engine/layout/compressList";
 import { buildingStore } from "../data/buildingStore";
 import { layoutBuilder } from "../engine/layout/baseLayout";
 import { useRef, useState } from "react";
-import { setTokenSourceMapRange } from "typescript";
 
 export const VillageEditor: React.FC<{
   base: BaseLayout;
