@@ -17,6 +17,8 @@ export const UnitButton: React.FC<{
   disabled?: boolean;
   level?: number;
   onClick?: MouseEventHandler;
+  onMouseDown?: MouseEventHandler;
+  onMouseUp?: MouseEventHandler;
 }> = ({
   portraitColor,
   buttonColor = DEFAULT_COLOR,
@@ -26,6 +28,8 @@ export const UnitButton: React.FC<{
   selected,
   disabled,
   onClick,
+  onMouseDown,
+  onMouseUp,
 }) => (
   <button
     className={classNames(styles.unit, {
@@ -34,6 +38,8 @@ export const UnitButton: React.FC<{
     style={{ "--base-color": buttonColor } as ButtonCSSProperties}
     disabled={disabled}
     onClick={onClick}
+    onMouseDown={onMouseDown}
+    onMouseUp={onMouseUp}
   >
     <div className={styles.amounts}>{amount !== undefined && `x${amount}`}</div>
     <div className={styles.portraitBox}>

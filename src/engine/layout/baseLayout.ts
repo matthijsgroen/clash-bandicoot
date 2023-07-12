@@ -3,6 +3,7 @@ import { buildingStore } from "../../data/buildingStore";
 import { createKeyStore } from "../utils/keyStore";
 import { BaseLayout, LayoutBuilding } from "../types";
 import { Building } from "../../data/types";
+import { isTemplateSpan } from "typescript";
 
 const DEFAULT_WIDTH = 46;
 const DEFAULT_HEIGHT = 46;
@@ -48,18 +49,42 @@ export const layoutBuilder = (
     placeBuilding: (
       type: string,
       level: number,
-      position: [x: number, y: number]
+      position: [x: number, y: number],
+      buildingId?: string
     ) => {
       const building = buildingStore.getBuilding(type, level);
       if (!building) {
         return builder;
       }
-      const buildingId = keyStore.getKey(type);
+      const id = buildingId ?? keyStore.getKey(type);
       layout = placeBuilding(layout, {
         info: building,
         position,
-        buildingId,
+        buildingId: id,
       });
+      return builder;
+    },
+    moveBuilding: (buildingId: string, position: [x: number, y: number]) => {
+      layout = {
+        ...layout,
+        items: {
+          ...layout.items,
+          [buildingId]: {
+            ...layout.items[buildingId],
+            position,
+          },
+        },
+      };
+      return builder;
+    },
+    removeBuilding: (buildingId: string) => {
+      layout = {
+        ...layout,
+        items: {
+          ...layout.items,
+        },
+      };
+      delete layout.items[buildingId];
       return builder;
     },
     moveAll: (deltaX: number, deltaY: number) => {

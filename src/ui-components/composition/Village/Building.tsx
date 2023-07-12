@@ -47,10 +47,10 @@ export const Building: React.FC<{
             [styles.destroyed]: hitPoints === 0,
             [styles[state ?? "none"]]: state,
             [styles[buildingType]]: styles[buildingType],
+            [`${className}`]: className,
           },
           styles.building,
-          styles[`size${size}`],
-          className
+          styles[`size${size}`]
         )}
       >
         {buildingType} {level} {hitPoints}

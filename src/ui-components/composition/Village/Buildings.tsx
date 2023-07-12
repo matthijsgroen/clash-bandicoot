@@ -6,7 +6,8 @@ export const Buildings: React.FC<{
   showHidden?: boolean;
   layout: BaseLayout;
   battleBaseData?: BattleBaseData;
-}> = ({ showHidden = false, layout, battleBaseData }) => {
+  selection?: string[];
+}> = ({ showHidden = false, layout, battleBaseData, selection = [] }) => {
   const buildings = Object.entries(layout.items);
   return (
     <>
@@ -35,6 +36,7 @@ export const Buildings: React.FC<{
               level={info.level}
               size={info.size[0]}
               state={state}
+              selected={selection.includes(id)}
             />
           );
         })}

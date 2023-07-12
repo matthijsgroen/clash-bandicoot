@@ -5,6 +5,8 @@
   height: calc(var(--tile-size) * var(--size) + 1px);
   padding: 0;
   display: grid;
+  pointer-events: none;
+  user-select: none;
 }
 
 .selected {
@@ -12,6 +14,8 @@
 }
 
 .building {
+  pointer-events: none;
+  user-select: none;
   font-size: 8px;
   border: 1px solid black;
   box-sizing: border-box;

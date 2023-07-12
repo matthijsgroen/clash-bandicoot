@@ -94,9 +94,16 @@ export const Combat: React.FC<{
         <Grid
           width={layout.gridSize[0]}
           height={layout.gridSize[1]}
-          onClick={(p) => {
+          onClick={(e, pos) => {
             if (selectedTroop) {
-              attack.current.placeUnit(selectedTroop[0], selectedTroop[1], p);
+              const position = pos(e.clientX, e.clientY);
+              if (position) {
+                attack.current.placeUnit(
+                  selectedTroop[0],
+                  selectedTroop[1],
+                  position
+                );
+              }
             }
           }}
         >

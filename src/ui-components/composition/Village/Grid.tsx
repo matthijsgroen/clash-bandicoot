@@ -11,19 +11,40 @@ export const OFFSET = 3;
 export const TILE_SIZE = 15;
 const rad1 = Math.PI / 180;
 
+export type GridMouseEventHandler = (
+  e: React.MouseEvent<HTMLDivElement>,
+  calcPos: (
+    clientX: number,
+    clientY: number,
+    floored?: boolean
+  ) => [gridX: number, gridY: number] | undefined
+) => void;
+
 export const Grid: React.FC<
   PropsWithChildren<{
     width: number;
     height: number;
-    onClick?: (pos: [x: number, y: number]) => void;
+    onClick?: GridMouseEventHandler;
+    onMouseDown?: GridMouseEventHandler;
+    onMouseUp?: GridMouseEventHandler;
+    onMouseMove?: GridMouseEventHandler;
   }>
-> = ({ width, height, children, onClick }) => {
+> = ({
+  width,
+  height,
+  children,
+  onClick,
+  onMouseDown,
+  onMouseUp,
+  onMouseMove,
+}) => {
   const fieldRef = useRef<HTMLDivElement>(null);
 
   const calculatePosition = useCallback(
     (
       clientX: number,
-      clientY: number
+      clientY: number,
+      floored = false
     ): [gridX: number, gridY: number] | undefined => {
       if (!fieldRef.current) {
         return;
@@ -54,22 +75,13 @@ export const Grid: React.FC<
       const sx = Math.cos(angle) * dist;
       const sy = Math.sin(angle) * dist;
 
-      return [
+      const result: [x: number, y: number] = [
         sx / TILE_SIZE + tilesW / 2 + OFFSET,
         sy / TILE_SIZE + tilesH / 2 + OFFSET,
       ];
+      return floored ? [Math.floor(result[0]), Math.floor(result[1])] : result;
     },
     []
-  );
-
-  const onClickHandler = useCallback<MouseEventHandler<HTMLDivElement>>(
-    (e) => {
-      if (onClick) {
-        const pos = calculatePosition(e.clientX, e.clientY);
-        if (pos) onClick(pos);
-      }
-    },
-    [onClick]
   );
 
   useEffect(() => {
@@ -88,6 +100,34 @@ export const Grid: React.FC<
     });
   }, []);
 
+  const onClickHandler = useCallback<MouseEventHandler<HTMLDivElement>>(
+    (e) => {
+      onClick && onClick(e, calculatePosition);
+    },
+    [onClick, calculatePosition]
+  );
+
+  const onMouseDownHandler = useCallback<MouseEventHandler<HTMLDivElement>>(
+    (e) => {
+      onMouseDown && onMouseDown(e, calculatePosition);
+    },
+    [onMouseDown, calculatePosition]
+  );
+
+  const onMouseUpHandler = useCallback<MouseEventHandler<HTMLDivElement>>(
+    (e) => {
+      onMouseUp && onMouseUp(e, calculatePosition);
+    },
+    [onMouseUp, calculatePosition]
+  );
+
+  const onMouseMoveHandler = useCallback<MouseEventHandler<HTMLDivElement>>(
+    (e) => {
+      onMouseMove && onMouseMove(e, calculatePosition);
+    },
+    [onMouseMove, calculatePosition]
+  );
+
   return (
     <div className={styles.scrollContainer}>
       <div className={styles.rotationContainer} ref={fieldRef}>
@@ -99,6 +139,9 @@ export const Grid: React.FC<
             }}
             className={styles.grid}
             onClick={onClickHandler}
+            onMouseMove={onMouseMoveHandler}
+            onMouseDown={onMouseDownHandler}
+            onMouseUp={onMouseUpHandler}
           >
             {children}
           </div>
