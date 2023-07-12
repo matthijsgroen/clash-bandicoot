@@ -3,7 +3,6 @@ import { buildingStore } from "../../data/buildingStore";
 import { createKeyStore } from "../utils/keyStore";
 import { BaseLayout, LayoutBuilding } from "../types";
 import { Building } from "../../data/types";
-import { isTemplateSpan } from "typescript";
 
 const DEFAULT_WIDTH = 46;
 const DEFAULT_HEIGHT = 46;
