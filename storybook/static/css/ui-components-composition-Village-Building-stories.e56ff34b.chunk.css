@@ -46,6 +46,9 @@
   height: calc(var(--tile-size) * var(--size) + 1px);
   padding: 0;
   display: grid;
+  pointer-events: none;
+  -webkit-user-select: none;
+          user-select: none;
 }
 
 .Building_selected__Bo72o {
@@ -53,6 +56,9 @@
 }
 
 .Building_building__zBQXG {
+  pointer-events: none;
+  -webkit-user-select: none;
+          user-select: none;
   font-size: 8px;
   border: 1px solid black;
   box-sizing: border-box;
@@ -131,4 +137,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-composition-Village-Building-stories.37283057.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-Village-Building-stories.e56ff34b.chunk.css.map*/
