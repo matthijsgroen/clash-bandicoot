@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import styles from "./Grid.module.css";
 import React, {
   MouseEventHandler,
@@ -75,6 +76,7 @@ export const Grid: React.FC<
   PropsWithChildren<{
     width: number;
     height: number;
+    scrollable?: boolean;
     onClick?: MouseEventHandler<HTMLDivElement>;
     onMouseMove?: MouseEventHandler<HTMLDivElement>;
     onMouseDown?: MouseEventHandler<HTMLDivElement>;
@@ -84,7 +86,7 @@ export const Grid: React.FC<
     onTouchMove?: TouchEventHandler<HTMLDivElement>;
     onTouchEnd?: TouchEventHandler<HTMLDivElement>;
   }>
-> = ({ width, height, children, ...eventHandlers }) => {
+> = ({ width, height, scrollable = true, children, ...eventHandlers }) => {
   const fieldRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -104,7 +106,11 @@ export const Grid: React.FC<
   }, []);
 
   return (
-    <div className={styles.scrollContainer}>
+    <div
+      className={classNames(styles.scrollContainer, {
+        [styles.scrollable]: scrollable,
+      })}
+    >
       <div className={styles.rotationContainer} ref={fieldRef}>
         <div className={styles.tilted}>
           <div

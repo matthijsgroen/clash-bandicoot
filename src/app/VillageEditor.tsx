@@ -137,6 +137,7 @@ export const VillageEditor: React.FC<{
         <Grid
           width={base.gridSize[0]}
           height={base.gridSize[1]}
+          scrollable={dragState === null}
           onMouseMove={(e) => {
             if (e.stopPropagation) e.stopPropagation();
             if (e.preventDefault) e.preventDefault();
