@@ -1,4 +1,4 @@
-import { CSSProperties, MouseEventHandler } from "react";
+import { CSSProperties } from "react";
 import styles from "./UnitButton.module.css";
 import classNames from "classnames";
 
@@ -8,18 +8,21 @@ interface ButtonCSSProperties extends CSSProperties {
 
 export const DEFAULT_COLOR = "#88c";
 
-export const UnitButton: React.FC<{
-  portraitColor: string;
-  buttonColor?: string;
-  label?: string;
-  amount?: number;
-  selected?: boolean;
-  disabled?: boolean;
-  level?: number;
-  onClick?: MouseEventHandler;
-  onMouseDown?: MouseEventHandler;
-  onMouseUp?: MouseEventHandler;
-}> = ({
+export const UnitButton: React.FC<
+  {
+    portraitColor: string;
+    buttonColor?: string;
+    label?: string;
+    amount?: number;
+    selected?: boolean;
+    disabled?: boolean;
+    level?: number;
+    hidden?: boolean;
+  } & Omit<
+    React.DOMAttributes<HTMLButtonElement>,
+    "dangerouslySetInnerHTML" | "children"
+  >
+> = ({
   portraitColor,
   buttonColor = DEFAULT_COLOR,
   label,
@@ -27,19 +30,17 @@ export const UnitButton: React.FC<{
   amount,
   selected,
   disabled,
-  onClick,
-  onMouseDown,
-  onMouseUp,
+  hidden,
+  ...events
 }) => (
   <button
     className={classNames(styles.unit, {
       [styles.selected]: selected,
+      [styles.hidden]: hidden,
     })}
     style={{ "--base-color": buttonColor } as ButtonCSSProperties}
     disabled={disabled}
-    onClick={onClick}
-    onMouseDown={onMouseDown}
-    onMouseUp={onMouseUp}
+    {...events}
   >
     <div className={styles.amounts}>{amount !== undefined && `x${amount}`}</div>
     <div className={styles.portraitBox}>

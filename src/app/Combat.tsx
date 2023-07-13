@@ -16,6 +16,7 @@ import {
 } from "../ui-components/composition/Village";
 import { Units } from "../ui-components/composition/Village/Units";
 import { Button } from "../ui-components/atoms/Button";
+import { calculateGridPosition } from "../ui-components/composition/Village/Grid";
 
 const CombatTimer = () => {
   const timeLeft = useAtomValue(battleAtom).timeLeft;
@@ -94,10 +95,15 @@ export const Combat: React.FC<{
         <Grid
           width={layout.gridSize[0]}
           height={layout.gridSize[1]}
-          onClick={(e, pos) => {
+          onClick={(e) => {
             if (selectedTroop) {
-              const position = pos(e.clientX, e.clientY);
+              const position = calculateGridPosition(
+                e.currentTarget,
+                e.clientX,
+                e.clientY
+              );
               if (position) {
+                console.log(e.currentTarget, position);
                 attack.current.placeUnit(
                   selectedTroop[0],
                   selectedTroop[1],

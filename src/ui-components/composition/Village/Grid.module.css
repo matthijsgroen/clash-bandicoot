@@ -3,6 +3,8 @@
   width: 100dvw;
   background-color: #667120;
   overflow: scroll;
+  /* overflow: hidden; */
+  overscroll-behavior: contain;
   --tile-size: 15px;
 }
 
