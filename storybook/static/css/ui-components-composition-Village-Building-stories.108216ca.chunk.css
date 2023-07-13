@@ -2,10 +2,12 @@
   height: 100dvh;
   width: 100dvw;
   background-color: #667120;
-  overflow: scroll;
-  /* overflow: hidden; */
+  overflow: hidden;
   overscroll-behavior: contain;
   --tile-size: 15px;
+}
+.Grid_scrollable__pMnbC {
+  overflow: scroll;
 }
 
 .Grid_rotationContainer__-y0BG {
@@ -139,4 +141,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-composition-Village-Building-stories.905f508e.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-Village-Building-stories.108216ca.chunk.css.map*/
