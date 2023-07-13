@@ -3,6 +3,8 @@
   width: 100dvw;
   background-color: #667120;
   overflow: scroll;
+  /* overflow: hidden; */
+  overscroll-behavior: contain;
   --tile-size: 15px;
 }
 
@@ -137,4 +139,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-composition-Village-Building-stories.e56ff34b.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-Village-Building-stories.905f508e.chunk.css.map*/
