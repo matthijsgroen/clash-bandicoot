@@ -1,8 +1,11 @@
 .Destruction_destruction__-vjWu {
   pointer-events: none;
   background-color: #0006;
-  padding: 0.5em;
-  border-radius: 1em;
+  padding: 0.25em;
+  border-radius: 0.5rem;
+  height: var(--control-size-default);
+  width: var(--control-size-huge);
+  box-sizing: border-box;
 }
 
 .Destruction_destruction__-vjWu p {
@@ -18,7 +21,7 @@
 
 .Destruction_star__YB727 {
   color: #0005;
-  font-size: 1.2em;
+  font-size: 1.3rem;
   display: inline-block;
   line-height: 0.8em;
 }
@@ -41,8 +44,8 @@
           animation: 500ms Destruction_setStar__GJIBM 900ms ease-out forwards;
 }
 .Destruction_destruction__-vjWu output {
-  line-height: 0.8em;
-  padding-left: 0.5em;
+  line-height: 0.8rem;
+  padding-left: 0.25rem;
   font-family: "Sriracha", cursive;
   font-weight: bold;
   color: white;
@@ -77,4 +80,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-atoms-Destruction-stories.a7d16e52.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-Destruction-stories.c6f7bf51.chunk.css.map*/

@@ -1,0 +1,25 @@
+@import url(https://fonts.googleapis.com/css2?family=Sriracha&display=swap);
+html,
+body {
+  background-color: white;
+}
+
+:root {
+  --control-size-small: 1.5rem;
+  --control-size-default: 3rem;
+  --control-size-large: 4rem;
+  --control-size-huge: 8rem;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+  overflow: hidden;
+  -webkit-user-select: none;
+          user-select: none;
+}
+
+
+/*# sourceMappingURL=main.a8895b61.css.map*/

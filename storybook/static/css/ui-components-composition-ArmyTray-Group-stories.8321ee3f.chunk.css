@@ -1,7 +1,7 @@
 .Group_group__DI3f6 {
   display: grid;
-  grid-auto-columns: 3.5rem;
-  padding: 0.25rem 0 max(1rem, env(safe-area-inset-right, 1rem)) 0;
+  grid-auto-columns: var(--control-size-default);
+  padding: 0.25rem 0 max(0.25rem, env(safe-area-inset-right, 0.25rem)) 0;
 
   width: -webkit-max-content;
 
@@ -12,7 +12,7 @@
 }
 
 .ArmyTray_armyTray__FXipA {
-  height: 100%;
+  height: calc(var(--control-height) + env(safe-area-inset-bottom) + 0.1rem);
   width: 100%;
   background-color: #0006;
   border-top: 1px solid #aaa;
@@ -34,7 +34,7 @@
 
 .UnitButton_unit__r93h7 {
   border-radius: 0.5rem;
-  height: 4.5rem;
+  height: var(--control-size-large);
   border: 1px solid black;
   display: grid;
   grid-template-rows: 1.25em 1fr;
@@ -69,7 +69,7 @@
   color: white;
   text-shadow: 0 2px 0 #000;
   text-align: right;
-  padding-right: 0.8rem;
+  padding-right: 0.3rem;
 }
 .UnitButton_hidden__xA9p6 {
   display: none;
@@ -124,7 +124,9 @@
 .Placeholder_empty__wtf-1 {
   border-radius: 0.5rem;
   border: 2px dashed #aaa;
+  height: var(--control-size-large);
+  box-sizing: border-box;
 }
 
 
-/*# sourceMappingURL=ui-components-composition-ArmyTray-Group-stories.ad9f6f1b.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-ArmyTray-Group-stories.8321ee3f.chunk.css.map*/

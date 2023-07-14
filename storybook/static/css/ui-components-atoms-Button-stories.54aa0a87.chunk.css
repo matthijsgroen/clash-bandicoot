@@ -28,7 +28,6 @@ button:active .Button_outer__Zd-2h {
 .Button_inner__FQgg0 {
   border-radius: 5px;
   border-top: 1px solid color-mix(in hsl, var(--color) 40%, white);
-  padding: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,13 +45,36 @@ button:active .Button_outer__Zd-2h {
 
   font-family: "Sriracha", cursive;
   font-weight: bold;
-  font-size: 1rem;
   text-shadow: 0 2px 0 #000, 1px -1px 0 #0002;
 }
 
-.Button_square__egl4j {
-  width: 5rem;
-  aspect-ratio: 1;
+.Button_smallWidth__6Au\+0 {
+  width: var(--control-size-small);
+}
+.Button_smallHeight__2-ayX {
+  height: var(--control-size-small);
+
+  font-size: 0.6rem;
+}
+.Button_defaultWidth__YbRjm {
+  width: var(--control-size-default);
+}
+.Button_defaultHeight__z37An {
+  height: var(--control-size-default);
+}
+.Button_largeWidth__85zGu {
+  width: var(--control-size-large);
+}
+.Button_largeHeight__C1xRJ {
+  height: var(--control-size-large);
+}
+.Button_hugeWidth__Uzr0G {
+  width: var(--control-size-huge);
+}
+.Button_hugeHeight__RXekj {
+  height: var(--control-size-huge);
+  padding: 0.5rem;
+  font-size: 1rem;
 }
 
 .Button_button__d3Ync:disabled {
@@ -61,4 +83,4 @@ button:active .Button_outer__Zd-2h {
 }
 
 
-/*# sourceMappingURL=ui-components-atoms-Button-stories.85958104.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-Button-stories.54aa0a87.chunk.css.map*/
