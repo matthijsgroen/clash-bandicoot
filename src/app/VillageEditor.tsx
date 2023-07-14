@@ -21,7 +21,6 @@ const getTouchPosition = (
   e: React.TouchEvent<HTMLElement>
 ): [x: number, y: number] | undefined => {
   const mainTouch = e.touches[0];
-  let position: [x: number, y: number] | undefined = undefined;
   if (!mainTouch) {
     return undefined;
   }
