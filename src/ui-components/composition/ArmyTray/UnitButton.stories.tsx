@@ -27,18 +27,16 @@ export const UnitButton: Story = {
   },
   decorators: [
     (Story) => (
-      <div style={{ height: "5rem" }}>
-        <ArmyTray>
-          <Group>
-            <Story />
-          </Group>
-          <Group>
-            <Placeholder />
-            <Placeholder />
-            <Placeholder />
-          </Group>
-        </ArmyTray>
-      </div>
+      <ArmyTray>
+        <Group>
+          <Story />
+        </Group>
+        <Group>
+          <Placeholder />
+          <Placeholder />
+          <Placeholder />
+        </Group>
+      </ArmyTray>
     ),
   ],
 };

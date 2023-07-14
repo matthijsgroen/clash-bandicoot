@@ -17,11 +17,4 @@ type Story = StoryObj<typeof meta>;
 // More on interaction testing: https://storybook.js.org/docs/react/writing-tests/interaction-testing
 export const ArmyTray: Story = {
   args: {},
-  decorators: [
-    (Story) => (
-      <div style={{ height: "5rem" }}>
-        <Story />
-      </div>
-    ),
-  ],
 };

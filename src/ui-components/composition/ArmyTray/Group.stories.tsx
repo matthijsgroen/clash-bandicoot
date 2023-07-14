@@ -21,23 +21,21 @@ type Story = StoryObj<typeof meta>;
 export const Group: Story = {
   args: {
     children: [
-      <UnitButton portraitColor="pink" />,
-      <UnitButton portraitColor="#bb0" />,
-      <UnitButton portraitColor="red" />,
+      <UnitButton portraitColor="pink" key="1" />,
+      <UnitButton portraitColor="#bb0" key="2" />,
+      <UnitButton portraitColor="red" key="3" />,
     ],
   },
   decorators: [
     (Story) => (
-      <div style={{ height: "5rem" }}>
-        <ArmyTray>
-          <Story />
-          <GroupComponent>
-            <Placeholder />
-            <Placeholder />
-            <Placeholder />
-          </GroupComponent>
-        </ArmyTray>
-      </div>
+      <ArmyTray>
+        <Story />
+        <GroupComponent>
+          <Placeholder />
+          <Placeholder />
+          <Placeholder />
+        </GroupComponent>
+      </ArmyTray>
     ),
   ],
 };

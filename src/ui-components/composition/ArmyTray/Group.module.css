@@ -1,7 +1,7 @@
 .group {
   display: grid;
-  grid-auto-columns: 3.5rem;
-  padding: 0.25rem 0 max(1rem, env(safe-area-inset-right, 1rem)) 0;
+  grid-auto-columns: var(--control-size-default);
+  padding: 0.25rem 0 max(0.25rem, env(safe-area-inset-right, 0.25rem)) 0;
 
   width: max-content;
   grid-auto-flow: column;

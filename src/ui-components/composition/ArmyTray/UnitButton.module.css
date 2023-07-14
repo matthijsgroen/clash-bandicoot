@@ -1,6 +1,6 @@
 .unit {
   border-radius: 0.5rem;
-  height: 4.5rem;
+  height: var(--control-size-large);
   border: 1px solid black;
   display: grid;
   grid-template-rows: 1.25em 1fr;
@@ -33,7 +33,7 @@
   color: white;
   text-shadow: 0 2px 0 #000;
   text-align: right;
-  padding-right: 0.8rem;
+  padding-right: 0.3rem;
 }
 .hidden {
   display: none;

@@ -6,18 +6,27 @@ type ButtonCSSProperties = { "--color": string } & CSSProperties;
 
 type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   color: string;
-  square?: boolean;
+  height?: "small" | "default" | "large" | "huge";
+  width?: "small" | "default" | "large" | "huge";
 };
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ color, square, ...props }, ref) => (
+  ({ color, height, width, ...props }, ref) => (
     <button
       type="button"
       ref={ref}
       {...props}
       style={{ "--color": color } as ButtonCSSProperties}
       className={classNames(styles.button, {
-        [styles.square]: square,
+        [styles.smallHeight]: height === "small",
+        [styles.defaultHeight]: height === "default",
+        [styles.largeHeight]: height === "large",
+        [styles.hugeHeight]: height === "huge",
+
+        [styles.smallWidth]: width === "small",
+        [styles.defaultWidth]: width === "default",
+        [styles.largeWidth]: width === "large",
+        [styles.hugeWidth]: width === "huge",
       })}
     >
       <div className={styles.outer}>

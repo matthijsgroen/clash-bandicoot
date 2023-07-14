@@ -1,8 +1,11 @@
 .destruction {
   pointer-events: none;
   background-color: #0006;
-  padding: 0.5em;
-  border-radius: 1em;
+  padding: 0.25em;
+  border-radius: 0.5rem;
+  height: var(--control-size-default);
+  width: var(--control-size-huge);
+  box-sizing: border-box;
 }
 
 .destruction p {
@@ -18,7 +21,7 @@
 
 .star {
   color: #0005;
-  font-size: 1.2em;
+  font-size: 1.3rem;
   display: inline-block;
   line-height: 0.8em;
 }
@@ -37,8 +40,8 @@
   animation: 500ms setStar 900ms ease-out forwards;
 }
 .destruction output {
-  line-height: 0.8em;
-  padding-left: 0.5em;
+  line-height: 0.8rem;
+  padding-left: 0.25rem;
   font-family: "Sriracha", cursive;
   font-weight: bold;
   color: white;

@@ -276,7 +276,7 @@ export const VillageEditor: React.FC<{
           />
         </Grid>
         <div className={styles.goBack}>
-          <Button onClick={onClose} color="red">
+          <Button onClick={onClose} color="red" width="large" height="small">
             Go back
           </Button>
         </div>

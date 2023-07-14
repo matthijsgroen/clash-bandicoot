@@ -22,7 +22,8 @@ export const HomeScreen: React.FC<{
       <Button
         onClick={() => setActivePopup("attack")}
         color="orange"
-        square={true}
+        width="huge"
+        height="large"
       >
         Attack
       </Button>
@@ -30,7 +31,8 @@ export const HomeScreen: React.FC<{
       <Button
         onClick={() => setActivePopup("villageEditor")}
         color="orange"
-        square={true}
+        width="huge"
+        height="large"
       >
         Bases
       </Button>
@@ -38,7 +40,8 @@ export const HomeScreen: React.FC<{
       <Button
         onClick={() => setActivePopup("attack")}
         color="orange"
-        square={true}
+        width="huge"
+        height="large"
         disabled
       >
         Armies
@@ -47,7 +50,8 @@ export const HomeScreen: React.FC<{
       <Button
         onClick={() => setActivePopup("attack")}
         color="orange"
-        square={true}
+        width="huge"
+        height="large"
         disabled
       >
         Replays
@@ -56,7 +60,8 @@ export const HomeScreen: React.FC<{
       <Button
         onClick={() => setActivePopup("attack")}
         color="orange"
-        square={true}
+        width="huge"
+        height="large"
         disabled
       >
         Help
