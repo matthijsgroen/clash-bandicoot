@@ -1,7 +1,7 @@
 .Group_group__DI3f6 {
   display: grid;
   grid-auto-columns: 3.5rem;
-  padding: 0.25rem 0 2rem 0;
+  padding: 0.25rem 0 max(1rem, env(safe-area-inset-right, 1rem)) 0;
 
   width: -webkit-max-content;
 
@@ -127,4 +127,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-composition-ArmyTray-UnitButton-stories.e562ae18.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-ArmyTray-UnitButton-stories.ad9f6f1b.chunk.css.map*/
