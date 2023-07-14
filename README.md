@@ -13,6 +13,7 @@ Interesting bits:
 - Tick loop
 - Path finding
 - Working with the notch on mobile: https://css-tricks.com/the-notch-and-css/
+- drag and drop using mouse or touch
 
 ## Setup
 
