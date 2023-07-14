@@ -44,8 +44,12 @@
 }
 
 .Building_ground__PK5fN {
-  left: calc(var(--x) * var(--tile-size) - 1px);
-  top: calc(var(--y) * var(--tile-size) - 1px);
+  left: 0;
+  top: 0;
+
+  translate: calc(var(--x) * var(--tile-size) - 1px)
+    calc(var(--y) * var(--tile-size) - 1px);
+  transition: translate 100ms;
   width: calc(var(--tile-size) * var(--size) + 1px);
   height: calc(var(--tile-size) * var(--size) + 1px);
   padding: 0;
@@ -57,6 +61,10 @@
 
 .Building_selected__Bo72o {
   background-color: #ff0a;
+}
+
+.Building_overlapping__GqqLV {
+  background-color: #f44a;
 }
 
 .Building_building__zBQXG {
@@ -86,6 +94,11 @@
 .Building_attacking__LPaLB {
   -webkit-animation: Building_attackBuilding__NSe0S 300ms alternate infinite;
           animation: Building_attackBuilding__NSe0S 300ms alternate infinite;
+}
+
+.Building_overlapping__GqqLV.Building_building__zBQXG {
+  -webkit-animation: Building_overlapBuilding__L8C2o 1600ms alternate infinite;
+          animation: Building_overlapBuilding__L8C2o 1600ms alternate infinite;
 }
 
 .Building_building__zBQXG.Building_destroyed__nxsTS {
@@ -119,6 +132,28 @@
   }
 }
 
+@-webkit-keyframes Building_overlapBuilding__L8C2o {
+  0% {
+    border: 1px solid black;
+    box-shadow: #000 1px 1px 0px, inset 0px 0px 0px black;
+  }
+  100% {
+    border: 1px solid red;
+    box-shadow: #000 1px 1px 0px, inset 0px 0px 1rem red;
+  }
+}
+
+@keyframes Building_overlapBuilding__L8C2o {
+  0% {
+    border: 1px solid black;
+    box-shadow: #000 1px 1px 0px, inset 0px 0px 0px black;
+  }
+  100% {
+    border: 1px solid red;
+    box-shadow: #000 1px 1px 0px, inset 0px 0px 1rem red;
+  }
+}
+
 .Building_elixirstorage__ffL18,
 .Building_elixircollector__HJcgy {
   background-color: pink;
@@ -141,4 +176,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-composition-Village-Building-stories.108216ca.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-Village-Building-stories.477d4eff.chunk.css.map*/
