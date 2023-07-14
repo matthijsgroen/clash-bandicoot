@@ -18,60 +18,66 @@ export const HomeScreen: React.FC<{
           </strong>
         </p>
       </header>
+      <menu>
+        <Button
+          onClick={() => setActivePopup("attack")}
+          color="orange"
+          width="huge"
+          height="large"
+        >
+          Attack
+        </Button>
 
-      <Button
-        onClick={() => setActivePopup("attack")}
-        color="orange"
-        width="huge"
-        height="large"
-      >
-        Attack
-      </Button>
+        <Button
+          onClick={() => setActivePopup("villageEditor")}
+          color="orange"
+          width="huge"
+          height="large"
+        >
+          Bases
+        </Button>
 
-      <Button
-        onClick={() => setActivePopup("villageEditor")}
-        color="orange"
-        width="huge"
-        height="large"
-      >
-        Bases
-      </Button>
+        <Button
+          onClick={() => setActivePopup("attack")}
+          color="orange"
+          width="huge"
+          height="large"
+          disabled
+        >
+          Armies
+        </Button>
 
-      <Button
-        onClick={() => setActivePopup("attack")}
-        color="orange"
-        width="huge"
-        height="large"
-        disabled
-      >
-        Armies
-      </Button>
+        <Button
+          onClick={() => setActivePopup("attack")}
+          color="orange"
+          width="huge"
+          height="large"
+          disabled
+        >
+          Replays
+        </Button>
 
-      <Button
-        onClick={() => setActivePopup("attack")}
-        color="orange"
-        width="huge"
-        height="large"
-        disabled
-      >
-        Replays
-      </Button>
-
-      <Button
-        onClick={() => setActivePopup("attack")}
-        color="orange"
-        width="huge"
-        height="large"
-        disabled
-      >
-        Help
-      </Button>
+        <Button
+          onClick={() => setActivePopup("attack")}
+          color="orange"
+          width="huge"
+          height="large"
+          disabled
+        >
+          Help
+        </Button>
+      </menu>
 
       {hasUpdate && (
         <div>
           <p>
             The app has an update!
-            <Button color="orange" onClick={() => triggerUpdate()}>
+            <Button
+              color="orange"
+              onClick={() => triggerUpdate()}
+              width="large"
+              height="default"
+            >
               Update now
             </Button>
           </p>

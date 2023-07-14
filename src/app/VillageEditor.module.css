@@ -19,3 +19,14 @@
   padding-left: env(safe-area-inset-left, 1rem);
   bottom: 7rem;
 }
+.toolBar {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  bottom: 7rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.5rem;
+}

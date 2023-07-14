@@ -62,7 +62,6 @@ export const VillageEditor: React.FC<{
   }>(null);
 
   const builder = useRef(layoutBuilder().updateWithLayout(startBase));
-  // builder.placeBuilding("townhall", 1, [20, 20]);
   const base = builder.current.result();
 
   const townHallLevel = Object.values(base.items).reduce(
@@ -93,34 +92,50 @@ export const VillageEditor: React.FC<{
   );
 
   const onDragRelease = () => {
-    if (
-      selection &&
-      "buildings" in selection &&
-      selection.buildings.length === 1 &&
-      selection.buildings[0].id === "newBuilding"
-    ) {
-      const building = base.items["newBuilding"];
-      const position = building.position;
-      // dropping a new building
-      const outOfBounds =
-        !position ||
-        position[0] < 3 ||
-        position[1] < 3 ||
-        position[0] + building.info.size[0] > base.gridSize[0] - 3 ||
-        position[1] + building.info.size[1] > base.gridSize[1] - 3;
+    if (selection && "buildings" in selection) {
+      const outOfBounds = selection.buildings.some((buildingInfo) => {
+        const building = base.items[buildingInfo.id];
+        const position = building.position;
+        return (
+          !position ||
+          position[0] < 3 ||
+          position[1] < 3 ||
+          position[0] + building.info.size[0] > base.gridSize[0] - 3 ||
+          position[1] + building.info.size[1] > base.gridSize[1] - 3
+        );
+      });
 
       if (outOfBounds) {
-        builder.current.removeBuilding("newBuilding");
+        selection.buildings.forEach((buildingInfo) => {
+          if (buildingInfo.isNew) {
+            builder.current.removeBuilding(buildingInfo.id);
+          } else {
+            builder.current.moveBuilding(
+              buildingInfo.id,
+              buildingInfo.position
+            );
+          }
+        });
       } else {
-        builder.current
-          .removeBuilding("newBuilding")
-          .placeBuilding(
-            building.info.type,
-            building.info.level,
-            building.position
-          );
+        selection.buildings.forEach((buildingInfo) => {
+          const building = base.items[buildingInfo.id];
+          if (buildingInfo.isNew) {
+            builder.current
+              .removeBuilding("newBuilding")
+              .placeBuilding(
+                building.info.type,
+                building.info.level,
+                building.position
+              );
+          }
+        });
       }
-      clearSelection();
+      const allNew = selection.buildings.every((b) => b.isNew);
+      if (allNew) {
+        clearSelection();
+      } else {
+        setDragState(null);
+      }
     }
   };
 
@@ -280,6 +295,16 @@ export const VillageEditor: React.FC<{
             Go back
           </Button>
         </div>
+        {dragState === null && selection !== null && (
+          <div className={styles.toolBar}>
+            <Button color="#F2E1D9" width="default" height="default">
+              ⬆
+            </Button>
+            <Button color="red" width="default" height="default">
+              🗑️
+            </Button>
+          </div>
+        )}
       </main>
       <ArmyTray className={styles.placementControl}>
         <Group>
