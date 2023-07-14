@@ -1,6 +1,9 @@
 .outline {
-  left: calc((var(--x) - 1) * var(--tile-size) - 1px);
-  top: calc((var(--y) - 1) * var(--tile-size) - 1px);
+  left: 0;
+  top: 0;
+  translate: calc((var(--x) - 1) * var(--tile-size) - 1px)
+    calc((var(--y) - 1) * var(--tile-size) - 1px);
+  transition: translate 100ms;
 }
 .size1 {
   width: calc(var(--tile-size) * 3 + 1px);

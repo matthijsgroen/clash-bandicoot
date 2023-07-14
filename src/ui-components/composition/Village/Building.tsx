@@ -18,6 +18,7 @@ export const Building: React.FC<{
   hitPoints: number;
   state?: string;
   selected?: boolean;
+  overlapping?: boolean;
 }> = ({
   x,
   y,
@@ -28,6 +29,7 @@ export const Building: React.FC<{
   buildingType,
   state,
   selected,
+  overlapping,
 }) => {
   return (
     <div
@@ -39,7 +41,10 @@ export const Building: React.FC<{
           position: "absolute",
         } as PlacementCSS
       }
-      className={classNames(styles.ground, { [styles.selected]: selected })}
+      className={classNames(styles.ground, {
+        [styles.selected]: selected && !overlapping,
+        [styles.overlapping]: overlapping && selected,
+      })}
     >
       <div
         className={classNames(
@@ -48,6 +53,7 @@ export const Building: React.FC<{
             [styles[state ?? "none"]]: state,
             [styles[buildingType]]: styles[buildingType],
             [`${className}`]: className,
+            [styles.overlapping]: overlapping,
           },
           styles.building,
           styles[`size${size}`]
