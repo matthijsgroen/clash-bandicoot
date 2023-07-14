@@ -17,13 +17,44 @@ import { layoutBuilder } from "../engine/layout/baseLayout";
 import { useRef, useState } from "react";
 import { calculateGridPosition } from "../ui-components/composition/Village/Grid";
 
+const getTouchPosition = (
+  e: React.TouchEvent<HTMLElement>
+): [x: number, y: number] | undefined => {
+  const mainTouch = e.touches[0];
+  let position: [x: number, y: number] | undefined = undefined;
+  if (!mainTouch) {
+    return undefined;
+  }
+  const element = document.elementFromPoint(
+    mainTouch.clientX,
+    mainTouch.clientY
+  ) as HTMLElement | null;
+
+  if (!element) {
+    return;
+  }
+
+  return calculateGridPosition(
+    element,
+    mainTouch.clientX,
+    mainTouch.clientY,
+    true
+  );
+};
+
 export const VillageEditor: React.FC<{
   base: BaseLayout;
   onClose?: () => void;
 }> = ({ base: startBase, onClose }) => {
   const [selection, setSelection] = useState<
     | null
-    | { buildings: { id: string; position: [x: number, y: number] }[] }
+    | {
+        buildings: {
+          id: string;
+          position: [x: number, y: number];
+          isNew?: boolean;
+        }[];
+      }
     | { buildingType: string; level: number }
   >(null);
   const [dragState, setDragState] = useState<null | {
@@ -90,9 +121,13 @@ export const VillageEditor: React.FC<{
             building.position
           );
       }
-      setSelection(null);
-      setDragState(null);
+      clearSelection();
     }
+  };
+
+  const clearSelection = () => {
+    setSelection(null);
+    setDragState(null);
   };
 
   const onDrag = (position: [x: number, y: number] | undefined) => {
@@ -106,7 +141,9 @@ export const VillageEditor: React.FC<{
           position,
           "newBuilding"
         );
-        setSelection({ buildings: [{ id: "newBuilding", position }] });
+        setSelection({
+          buildings: [{ id: "newBuilding", position, isNew: true }],
+        });
         setDragState({ dragStart: position });
       }
     }
@@ -131,6 +168,29 @@ export const VillageEditor: React.FC<{
     }
   };
 
+  const onSelect = (position: [x: number, y: number]) => {
+    const building = Object.values(builder.current.result().items).find(
+      (element) => {
+        const xOff = position[0] - element.position[0];
+        const yOff = position[1] - element.position[1];
+        return (
+          xOff >= 0 &&
+          xOff <= element.info.size[0] &&
+          yOff >= 0 &&
+          yOff <= element.info.size[1]
+        );
+      }
+    );
+    if (building) {
+      setSelection({
+        buildings: [{ id: building.buildingId, position: building.position }],
+      });
+      setDragState({ dragStart: position });
+    } else {
+      clearSelection();
+    }
+  };
+
   return (
     <div className={styles.editor}>
       <main>
@@ -138,6 +198,20 @@ export const VillageEditor: React.FC<{
           width={base.gridSize[0]}
           height={base.gridSize[1]}
           scrollable={dragState === null}
+          onMouseDown={(e) => {
+            if (dragState !== null && selection !== null) {
+              onDragRelease();
+            }
+
+            const position = calculateGridPosition(
+              e.currentTarget,
+              e.clientX,
+              e.clientY,
+              true
+            );
+            if (!position) return;
+            onSelect(position);
+          }}
           onMouseMove={(e) => {
             if (e.stopPropagation) e.stopPropagation();
             if (e.preventDefault) e.preventDefault();
@@ -154,6 +228,34 @@ export const VillageEditor: React.FC<{
             );
           }}
           onMouseUp={(e) => {
+            if (e.stopPropagation) e.stopPropagation();
+            if (e.preventDefault) e.preventDefault();
+
+            if (dragState === null || selection === null) {
+              return;
+            }
+            onDragRelease();
+          }}
+          onTouchStart={(e) => {
+            if (dragState !== null && selection !== null) {
+              onDragRelease();
+            }
+            const position = getTouchPosition(e);
+
+            if (!position) {
+              clearSelection();
+              return;
+            }
+            onSelect(position);
+          }}
+          onTouchMove={(e) => {
+            if (dragState === null || selection === null) {
+              return;
+            }
+
+            onDrag(getTouchPosition(e));
+          }}
+          onTouchEnd={(e) => {
             if (e.stopPropagation) e.stopPropagation();
             if (e.preventDefault) e.preventDefault();
 
@@ -203,24 +305,7 @@ export const VillageEditor: React.FC<{
                 if (dragState === null || selection === null) {
                   return;
                 }
-                const mainTouch = e.touches[0];
-                if (mainTouch) {
-                  const element = document.elementFromPoint(
-                    mainTouch.clientX,
-                    mainTouch.clientY
-                  ) as HTMLElement | null;
-                  if (!element) {
-                    return;
-                  }
-                  onDrag(
-                    calculateGridPosition(
-                      element,
-                      mainTouch.clientX,
-                      mainTouch.clientY,
-                      true
-                    )
-                  );
-                }
+                onDrag(getTouchPosition(e));
               }}
               onTouchEnd={(e) => {
                 if (e.stopPropagation) e.stopPropagation();

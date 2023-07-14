@@ -10,4 +10,5 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overscroll-behavior: none;
   overflow: hidden;
+  user-select: none;
 }
