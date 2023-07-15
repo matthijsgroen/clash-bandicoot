@@ -14,9 +14,11 @@ import {
 import { buildingList } from "../engine/layout/compressList";
 import { buildingStore } from "../data/buildingStore";
 import {
+  canUpgrade,
   moveBuilding,
   placeNewBuilding,
   removeBuilding,
+  upgradeBuilding,
 } from "../engine/layout/baseLayout";
 import { useState } from "react";
 import { calculateGridPosition } from "../ui-components/composition/Village/Grid";
@@ -307,26 +309,42 @@ export const VillageEditor: React.FC<{
             Go back
           </Button>
         </div>
-        {dragState === null && selection !== null && (
-          <div className={styles.toolBar}>
-            <Button
-              color="#F2E1D9"
-              width="default"
-              height="default"
-              disabled={true}
-            >
-              ⬆
-            </Button>
-            <Button
-              color="red"
-              width="default"
-              height="default"
-              disabled={true}
-            >
-              🗑️
-            </Button>
-          </div>
-        )}
+        {dragState === null &&
+          selection !== null &&
+          "buildings" in selection && (
+            <div className={styles.toolBar}>
+              {selection.buildings.length === 1 && (
+                <Button
+                  color="#F2E1D9"
+                  width="default"
+                  height="default"
+                  disabled={!canUpgrade(base, selection.buildings[0].id)}
+                  onClick={() => {
+                    updateBase((base) =>
+                      upgradeBuilding(base, selection.buildings[0].id)
+                    );
+                  }}
+                >
+                  ⬆
+                </Button>
+              )}
+              {selection.buildings.length === 1 && (
+                <Button
+                  color="red"
+                  width="default"
+                  height="default"
+                  onClick={() => {
+                    updateBase((base) =>
+                      removeBuilding(base, selection.buildings[0].id)
+                    );
+                    setSelection(null);
+                  }}
+                >
+                  🗑️
+                </Button>
+              )}
+            </div>
+          )}
       </main>
       <ArmyTray className={styles.placementControl}>
         <Group>

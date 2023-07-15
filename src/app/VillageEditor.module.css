@@ -19,6 +19,7 @@
   bottom: calc(
     var(--control-size-large) + env(safe-area-inset-bottom) + 1.5rem
   );
+  z-index: 1;
 }
 .toolBar {
   position: absolute;

@@ -51,6 +51,32 @@ export const placeNewBuilding = (
   });
 };
 
+export const getTownhallLevel = (layout: BaseLayout): number => {
+  const townhall = Object.values(layout.items).find(
+    (b) => b.info.type === "townhall"
+  );
+  return townhall ? townhall.info.level : 0;
+};
+
+export const canUpgrade = (layout: BaseLayout, buildingId: string): boolean => {
+  const currentBuilding = layout.items[buildingId];
+  if (!currentBuilding) return false;
+
+  const upgradedVersion = buildingStore.getBuilding(
+    currentBuilding.info.type,
+    currentBuilding.info.level + 1
+  );
+  if (!upgradedVersion) {
+    return false;
+  }
+  if (currentBuilding.info.type === "townhall") {
+    return true;
+  }
+  const townhallLevel = getTownhallLevel(layout);
+
+  return upgradedVersion.thRequirement <= townhallLevel;
+};
+
 export const moveBuilding = (
   layout: BaseLayout,
   buildingId: string,
@@ -65,6 +91,32 @@ export const moveBuilding = (
     },
   },
 });
+
+export const upgradeBuilding = (
+  layout: BaseLayout,
+  buildingId: string,
+  levelIncrease = 1
+): BaseLayout => {
+  const currentBuilding = layout.items[buildingId];
+  const upgradedVersion = buildingStore.getBuilding(
+    currentBuilding.info.type,
+    currentBuilding.info.level + 1
+  );
+  if (!upgradedVersion) {
+    return layout;
+  }
+
+  return {
+    ...layout,
+    items: {
+      ...layout.items,
+      [buildingId]: {
+        ...layout.items[buildingId],
+        info: upgradedVersion,
+      },
+    },
+  };
+};
 
 export const removeBuilding = (layout: BaseLayout, buildingId: string) => {
   const result = {
