@@ -39,12 +39,17 @@ const getTouchPosition = (
     return;
   }
 
-  return calculateGridPosition(
+  const position = calculateGridPosition(
     element,
     mainTouch.clientX,
     mainTouch.clientY,
     true
   );
+  if (position) {
+    // Add an offset so that the user can see what is dragged
+    return [position[0] - 1, position[1] - 1];
+  }
+  return undefined;
 };
 
 export const VillageEditor: React.FC<{

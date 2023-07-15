@@ -40,6 +40,10 @@
     calc((var(--size) + var(--size)) * 1px - 1px);
 }
 
+.selected .building {
+  outline: 4px solid #ff0a;
+}
+
 .building.size1 {
   margin: 0;
 }
