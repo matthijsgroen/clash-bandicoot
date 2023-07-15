@@ -22,6 +22,7 @@ import {
 } from "../engine/layout/baseLayout";
 import { useState } from "react";
 import { calculateGridPosition } from "../ui-components/composition/Village/Grid";
+import { shiftPosition } from "../data/utils/shiftPosition";
 
 const getTouchPosition = (
   e: React.TouchEvent<HTMLElement>
@@ -45,11 +46,7 @@ const getTouchPosition = (
     mainTouch.clientY,
     true
   );
-  if (position) {
-    // Add an offset so that the user can see what is dragged
-    return [position[0] - 1, position[1] - 1];
-  }
-  return undefined;
+  return position;
 };
 
 export const VillageEditor: React.FC<{
@@ -286,7 +283,7 @@ export const VillageEditor: React.FC<{
               return;
             }
 
-            onDrag(getTouchPosition(e));
+            onDrag(shiftPosition(getTouchPosition(e), -2, -2));
           }}
           onTouchEnd={(e) => {
             if (e.stopPropagation) e.stopPropagation();
@@ -374,7 +371,7 @@ export const VillageEditor: React.FC<{
                 if (dragState === null || selection === null) {
                   return;
                 }
-                onDrag(getTouchPosition(e));
+                onDrag(shiftPosition(getTouchPosition(e), -2, -2));
               }}
               onTouchEnd={(e) => {
                 if (e.stopPropagation) e.stopPropagation();
