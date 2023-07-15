@@ -15,6 +15,7 @@ import { buildingList } from "../engine/layout/compressList";
 import { buildingStore } from "../data/buildingStore";
 import {
   canUpgrade,
+  isOverlapping,
   moveBuilding,
   placeNewBuilding,
   removeBuilding,
@@ -23,6 +24,7 @@ import {
 import { useState } from "react";
 import { calculateGridPosition } from "../ui-components/composition/Village/Grid";
 import { shiftPosition } from "../data/utils/shiftPosition";
+import { createNextKey } from "../engine/utils/keyStore";
 
 const getTouchPosition = (
   e: React.TouchEvent<HTMLElement>
@@ -70,9 +72,6 @@ export const VillageEditor: React.FC<{
   }>(null);
 
   const [base, updateBase] = useState(startBase);
-
-  // const builder = useRef(layoutBuilder().updateWithLayout(startBase));
-  // const base = builder.current.result();
 
   const townHallLevel = Object.values(base.items).reduce(
     (r, e) => (e.info.type === "townhall" ? e.info.level : r),
@@ -125,28 +124,23 @@ export const VillageEditor: React.FC<{
             );
           }
         });
-      } else {
-        selection.buildings.forEach((buildingInfo) => {
-          const building = base.items[buildingInfo.id];
-          if (buildingInfo.isNew) {
-            updateBase((base) => {
-              const updated = removeBuilding(base, "newBuilding");
-              return placeNewBuilding(
-                updated,
-                building.info.type,
-                building.info.level,
-                building.position
-              );
-            });
-          }
-        });
+        setSelection(null);
       }
-      const allNew = selection.buildings.every((b) => b.isNew);
-      if (allNew) {
-        clearSelection();
-      } else {
-        setDragState(null);
-      }
+      setSelection((s) => {
+        if (s && "buildings" in s) {
+          return {
+            buildings: s.buildings.map((b) => {
+              const building = base.items[b.id];
+              if (b.isNew && !isOverlapping(base, b.id)) {
+                return { ...b, isNew: false, position: building.position };
+              }
+              return b;
+            }),
+          };
+        }
+        return s;
+      });
+      setDragState(null);
     }
   };
 
@@ -160,17 +154,21 @@ export const VillageEditor: React.FC<{
 
     if ("buildingType" in selection) {
       if (position) {
+        const newId = createNextKey(
+          Object.keys(base.items),
+          selection.buildingType
+        );
         updateBase((base) =>
           placeNewBuilding(
             base,
             selection.buildingType,
             selection.level,
             position,
-            "newBuilding"
+            newId
           )
         );
         setSelection({
-          buildings: [{ id: "newBuilding", position, isNew: true }],
+          buildings: [{ id: newId, position, isNew: true }],
         });
         setDragState({ dragStart: position });
       }
@@ -182,14 +180,19 @@ export const VillageEditor: React.FC<{
           dragState.current[0] !== position[0] ||
           dragState.current[1] !== position[1]
         ) {
-          const deltaX = position[0] - dragState.dragStart[0];
-          const deltaY = position[1] - dragState.dragStart[1];
+          const deltaX =
+            position[0] -
+            (dragState.current ? dragState.current[0] : dragState.dragStart[0]);
+          const deltaY =
+            position[1] -
+            (dragState.current ? dragState.current[1] : dragState.dragStart[1]);
           updateBase((base) => {
             let updatingBase = base;
             for (const building of selection.buildings) {
+              const b = updatingBase.items[building.id];
               updatingBase = moveBuilding(updatingBase, building.id, [
-                building.position[0] + deltaX,
-                building.position[1] + deltaY,
+                b.position[0] + deltaX,
+                b.position[1] + deltaY,
               ]);
             }
             return updatingBase;
@@ -201,6 +204,7 @@ export const VillageEditor: React.FC<{
   };
 
   const onSelect = (position: [x: number, y: number]) => {
+    // First check if earlier drag is continued
     const building = Object.values(base.items).find((element) => {
       const xOff = position[0] - element.position[0];
       const yOff = position[1] - element.position[1];
@@ -211,6 +215,48 @@ export const VillageEditor: React.FC<{
         yOff <= element.info.size[1]
       );
     });
+
+    if (selection && "buildings" in selection) {
+      // Check if select target is in selection
+
+      const continueSelection = selection.buildings.some((b) => {
+        const element = base.items[b.id];
+        const xOff = position[0] - element.position[0];
+        const yOff = position[1] - element.position[1];
+        return (
+          xOff >= 0 &&
+          xOff <= element.info.size[0] &&
+          yOff >= 0 &&
+          yOff <= element.info.size[1]
+        );
+      });
+      if (continueSelection) {
+        setDragState({ dragStart: position });
+        return;
+      }
+
+      const hasOverlaps = selection.buildings.some((e) =>
+        isOverlapping(base, e.id)
+      );
+      if (hasOverlaps) {
+        updateBase((base) => {
+          let updatedBase = base;
+          for (const building of selection.buildings) {
+            if (building.isNew) {
+              updatedBase = removeBuilding(updatedBase, building.id);
+            } else {
+              updatedBase = moveBuilding(
+                updatedBase,
+                building.id,
+                building.position
+              );
+            }
+          }
+          return updatedBase;
+        });
+      }
+    }
+
     if (building) {
       setSelection({
         buildings: [{ id: building.buildingId, position: building.position }],

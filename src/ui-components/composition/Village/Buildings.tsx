@@ -1,6 +1,6 @@
 import { Building } from ".";
 import { BaseLayout, BattleBaseData } from "../../../engine/types";
-import { isVisible } from "../../../engine/layout/baseLayout";
+import { isOverlapping, isVisible } from "../../../engine/layout/baseLayout";
 
 export const Buildings: React.FC<{
   showHidden?: boolean;
@@ -37,6 +37,7 @@ export const Buildings: React.FC<{
               size={info.size[0]}
               state={state}
               selected={selection.includes(id)}
+              overlapping={selection.includes(id) && isOverlapping(layout, id)}
             />
           );
         })}

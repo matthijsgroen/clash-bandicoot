@@ -92,6 +92,22 @@ export const moveBuilding = (
   },
 });
 
+export const isOverlapping = (
+  layout: BaseLayout,
+  buildingId: string
+): boolean => {
+  const building = layout.items[buildingId];
+
+  return Object.values(layout.items).some(
+    (element) =>
+      element.buildingId !== buildingId &&
+      element.position[0] < building.position[0] + building.info.size[0] &&
+      element.position[0] + element.info.size[0] > building.position[0] &&
+      element.position[1] < building.position[1] + building.info.size[1] &&
+      element.position[1] + element.info.size[1] > building.position[1]
+  );
+};
+
 export const upgradeBuilding = (
   layout: BaseLayout,
   buildingId: string,
@@ -100,7 +116,7 @@ export const upgradeBuilding = (
   const currentBuilding = layout.items[buildingId];
   const upgradedVersion = buildingStore.getBuilding(
     currentBuilding.info.type,
-    currentBuilding.info.level + 1
+    currentBuilding.info.level + levelIncrease
   );
   if (!upgradedVersion) {
     return layout;

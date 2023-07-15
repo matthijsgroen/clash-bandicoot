@@ -15,10 +15,12 @@
 
 .selected {
   background-color: #ff0a;
+  z-index: 1;
 }
 
 .overlapping {
   background-color: #f44a;
+  z-index: 1;
 }
 
 .building {
@@ -32,7 +34,6 @@
 
   box-shadow: #000 1px 1px 0px;
   cursor: default;
-  width: 1fr;
 
   margin: calc((var(--size) + var(--size)) * 1px - 1px)
     calc((var(--size) + var(--size)) * 1px)
