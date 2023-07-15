@@ -9,24 +9,27 @@
 .placementControl {
   position: fixed;
   bottom: 0;
-  height: 6.5rem;
   left: 0;
 }
 
 .goBack {
   position: absolute;
   left: 0;
-  padding-left: env(safe-area-inset-left, 1rem);
-  bottom: 7rem;
+  padding-left: max(0.5rem, env(safe-area-inset-left));
+  bottom: calc(
+    var(--control-size-large) + env(safe-area-inset-bottom) + 1.5rem
+  );
 }
 .toolBar {
   position: absolute;
   left: 0;
   width: 100%;
-  bottom: 7rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   column-gap: 0.5rem;
+  bottom: calc(
+    var(--control-size-large) + env(safe-area-inset-bottom) + 1.5rem
+  );
 }

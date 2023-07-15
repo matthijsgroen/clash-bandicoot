@@ -13,8 +13,12 @@ import {
 } from "../ui-components/composition/ArmyTray";
 import { buildingList } from "../engine/layout/compressList";
 import { buildingStore } from "../data/buildingStore";
-import { layoutBuilder } from "../engine/layout/baseLayout";
-import { useRef, useState } from "react";
+import {
+  moveBuilding,
+  placeNewBuilding,
+  removeBuilding,
+} from "../engine/layout/baseLayout";
+import { useState } from "react";
 import { calculateGridPosition } from "../ui-components/composition/Village/Grid";
 
 const getTouchPosition = (
@@ -61,8 +65,10 @@ export const VillageEditor: React.FC<{
     current?: [x: number, y: number];
   }>(null);
 
-  const builder = useRef(layoutBuilder().updateWithLayout(startBase));
-  const base = builder.current.result();
+  const [base, updateBase] = useState(startBase);
+
+  // const builder = useRef(layoutBuilder().updateWithLayout(startBase));
+  // const base = builder.current.result();
 
   const townHallLevel = Object.values(base.items).reduce(
     (r, e) => (e.info.type === "townhall" ? e.info.level : r),
@@ -108,11 +114,10 @@ export const VillageEditor: React.FC<{
       if (outOfBounds) {
         selection.buildings.forEach((buildingInfo) => {
           if (buildingInfo.isNew) {
-            builder.current.removeBuilding(buildingInfo.id);
+            updateBase((base) => removeBuilding(base, buildingInfo.id));
           } else {
-            builder.current.moveBuilding(
-              buildingInfo.id,
-              buildingInfo.position
+            updateBase((base) =>
+              moveBuilding(base, buildingInfo.id, buildingInfo.position)
             );
           }
         });
@@ -120,13 +125,15 @@ export const VillageEditor: React.FC<{
         selection.buildings.forEach((buildingInfo) => {
           const building = base.items[buildingInfo.id];
           if (buildingInfo.isNew) {
-            builder.current
-              .removeBuilding("newBuilding")
-              .placeBuilding(
+            updateBase((base) => {
+              const updated = removeBuilding(base, "newBuilding");
+              return placeNewBuilding(
+                updated,
                 building.info.type,
                 building.info.level,
                 building.position
               );
+            });
           }
         });
       }
@@ -149,11 +156,14 @@ export const VillageEditor: React.FC<{
 
     if ("buildingType" in selection) {
       if (position) {
-        builder.current.placeBuilding(
-          selection.buildingType,
-          selection.level,
-          position,
-          "newBuilding"
+        updateBase((base) =>
+          placeNewBuilding(
+            base,
+            selection.buildingType,
+            selection.level,
+            position,
+            "newBuilding"
+          )
         );
         setSelection({
           buildings: [{ id: "newBuilding", position, isNew: true }],
@@ -170,12 +180,16 @@ export const VillageEditor: React.FC<{
         ) {
           const deltaX = position[0] - dragState.dragStart[0];
           const deltaY = position[1] - dragState.dragStart[1];
-          for (const building of selection.buildings) {
-            builder.current.moveBuilding(building.id, [
-              building.position[0] + deltaX,
-              building.position[1] + deltaY,
-            ]);
-          }
+          updateBase((base) => {
+            let updatingBase = base;
+            for (const building of selection.buildings) {
+              updatingBase = moveBuilding(updatingBase, building.id, [
+                building.position[0] + deltaX,
+                building.position[1] + deltaY,
+              ]);
+            }
+            return updatingBase;
+          });
           setDragState((state) => ({ ...state, current: position }));
         }
       }
@@ -183,18 +197,16 @@ export const VillageEditor: React.FC<{
   };
 
   const onSelect = (position: [x: number, y: number]) => {
-    const building = Object.values(builder.current.result().items).find(
-      (element) => {
-        const xOff = position[0] - element.position[0];
-        const yOff = position[1] - element.position[1];
-        return (
-          xOff >= 0 &&
-          xOff <= element.info.size[0] &&
-          yOff >= 0 &&
-          yOff <= element.info.size[1]
-        );
-      }
-    );
+    const building = Object.values(base.items).find((element) => {
+      const xOff = position[0] - element.position[0];
+      const yOff = position[1] - element.position[1];
+      return (
+        xOff >= 0 &&
+        xOff <= element.info.size[0] &&
+        yOff >= 0 &&
+        yOff <= element.info.size[1]
+      );
+    });
     if (building) {
       setSelection({
         buildings: [{ id: building.buildingId, position: building.position }],
@@ -297,10 +309,20 @@ export const VillageEditor: React.FC<{
         </div>
         {dragState === null && selection !== null && (
           <div className={styles.toolBar}>
-            <Button color="#F2E1D9" width="default" height="default">
+            <Button
+              color="#F2E1D9"
+              width="default"
+              height="default"
+              disabled={true}
+            >
               ⬆
             </Button>
-            <Button color="red" width="default" height="default">
+            <Button
+              color="red"
+              width="default"
+              height="default"
+              disabled={true}
+            >
               🗑️
             </Button>
           </div>

@@ -1,6 +1,6 @@
 import "../../data/buildings";
 import { buildingStore } from "../../data/buildingStore";
-import { createKeyStore } from "../utils/keyStore";
+import { createKeyStore, createNextKey } from "../utils/keyStore";
 import { BaseLayout, LayoutBuilding } from "../types";
 import { Building } from "../../data/types";
 
@@ -30,6 +30,51 @@ export const placeBuilding = (
       [building.buildingId]: building,
     },
   };
+};
+
+export const placeNewBuilding = (
+  layout: BaseLayout,
+  type: string,
+  level: number,
+  position: [x: number, y: number],
+  buildingId?: string
+): BaseLayout => {
+  const building = buildingStore.getBuilding(type, level);
+  if (!building) {
+    return layout;
+  }
+  const id = buildingId ?? createNextKey(Object.keys(layout.items), type);
+  return placeBuilding(layout, {
+    info: building,
+    position,
+    buildingId: id,
+  });
+};
+
+export const moveBuilding = (
+  layout: BaseLayout,
+  buildingId: string,
+  newPosition: [x: number, y: number]
+): BaseLayout => ({
+  ...layout,
+  items: {
+    ...layout.items,
+    [buildingId]: {
+      ...layout.items[buildingId],
+      position: newPosition,
+    },
+  },
+});
+
+export const removeBuilding = (layout: BaseLayout, buildingId: string) => {
+  const result = {
+    ...layout,
+    items: {
+      ...layout.items,
+    },
+  };
+  delete result.items[buildingId];
+  return result;
 };
 
 export const layoutBuilder = (
@@ -63,27 +108,12 @@ export const layoutBuilder = (
       });
       return builder;
     },
-    moveBuilding: (buildingId: string, position: [x: number, y: number]) => {
-      layout = {
-        ...layout,
-        items: {
-          ...layout.items,
-          [buildingId]: {
-            ...layout.items[buildingId],
-            position,
-          },
-        },
-      };
+    moveBuilding: (buildingId: string, newPosition: [x: number, y: number]) => {
+      layout = moveBuilding(layout, buildingId, newPosition);
       return builder;
     },
     removeBuilding: (buildingId: string) => {
-      layout = {
-        ...layout,
-        items: {
-          ...layout.items,
-        },
-      };
-      delete layout.items[buildingId];
+      layout = removeBuilding(layout, buildingId);
       return builder;
     },
     moveAll: (deltaX: number, deltaY: number) => {

@@ -15,3 +15,16 @@ export const createKeyStore = (initialKeys: string[] = []) => {
     },
   };
 };
+
+export const createNextKey = (
+  initialKeys: string[],
+  keyType: string
+): string => {
+  let counter = 0;
+  let resultKey = `${keyType}#${counter}`;
+  while (initialKeys.includes(resultKey)) {
+    counter++;
+    resultKey = `${keyType}#${counter}`;
+  }
+  return resultKey;
+};
