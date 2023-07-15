@@ -1,5 +1,7 @@
 .ArmyTray_armyTray__FXipA {
-  height: calc(var(--control-height) + env(safe-area-inset-bottom) + 0.1rem);
+  height: calc(
+    var(--control-size-large) + env(safe-area-inset-bottom) + 0.5rem
+  );
   width: 100%;
   background-color: #0006;
   border-top: 1px solid #aaa;
@@ -20,4 +22,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-composition-ArmyTray-ArmyTray-stories.d1926fab.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-ArmyTray-ArmyTray-stories.f067c25e.chunk.css.map*/

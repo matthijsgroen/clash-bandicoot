@@ -79,7 +79,8 @@ button:active .Button_outer__Zd-2h {
 .Button_button__d3Ync:disabled {
   -webkit-filter: grayscale(1) brightness(70%);
           filter: grayscale(1) brightness(70%);
+  opacity: 50%;
 }
 
 
-/*# sourceMappingURL=ui-components-atoms-Button-stories.706739e0.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-Button-stories.b5eb655d.chunk.css.map*/
