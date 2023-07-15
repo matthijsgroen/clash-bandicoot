@@ -87,6 +87,10 @@
     calc((var(--size) + var(--size)) * 1px - 1px);
 }
 
+.Building_selected__Bo72o .Building_building__zBQXG {
+  outline: 4px solid #ff0a;
+}
+
 .Building_building__zBQXG.Building_size1__GVxRe {
   margin: 0;
 }
@@ -176,4 +180,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-composition-Village-Building-stories.477d4eff.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-Village-Building-stories.e501c0e8.chunk.css.map*/
