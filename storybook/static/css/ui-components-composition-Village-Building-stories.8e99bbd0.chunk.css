@@ -61,10 +61,12 @@
 
 .Building_selected__Bo72o {
   background-color: #ff0a;
+  z-index: 1;
 }
 
 .Building_overlapping__GqqLV {
   background-color: #f44a;
+  z-index: 1;
 }
 
 .Building_building__zBQXG {
@@ -79,7 +81,6 @@
 
   box-shadow: #000 1px 1px 0px;
   cursor: default;
-  width: 1fr;
 
   margin: calc((var(--size) + var(--size)) * 1px - 1px)
     calc((var(--size) + var(--size)) * 1px)
@@ -180,4 +181,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-composition-Village-Building-stories.e501c0e8.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-Village-Building-stories.8e99bbd0.chunk.css.map*/
