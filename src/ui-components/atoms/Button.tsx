@@ -8,6 +8,7 @@ type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   color: string;
   height?: "small" | "default" | "large" | "huge";
   width?: "small" | "default" | "large" | "huge";
+  disabled?: boolean;
 };
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

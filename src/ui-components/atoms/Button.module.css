@@ -77,4 +77,5 @@ button:active .outer {
 
 .button:disabled {
   filter: grayscale(1) brightness(70%);
+  opacity: 50%;
 }
