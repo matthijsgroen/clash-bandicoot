@@ -125,7 +125,12 @@ export const Combat: React.FC<{
         {battleState.state === "ended" && (
           <div style={{ position: "absolute", left: "30dvw", top: "30dvh" }}>
             <p>Yay combat is done!</p>
-            <Button onClick={onClose} color="orange">
+            <Button
+              onClick={onClose}
+              color="orange"
+              height="default"
+              width="huge"
+            >
               Go Back
             </Button>
           </div>

@@ -21,6 +21,32 @@ export type GridEventHandler<T> = (
   ) => [gridX: number, gridY: number] | undefined
 ) => void;
 
+export const getTouchPosition = (
+  e: React.TouchEvent<HTMLElement>,
+  floored = false
+): [x: number, y: number] | undefined => {
+  const mainTouch = e.touches[0];
+  if (!mainTouch) {
+    return undefined;
+  }
+  const element = document.elementFromPoint(
+    mainTouch.clientX,
+    mainTouch.clientY
+  ) as HTMLElement | null;
+
+  if (!element) {
+    return;
+  }
+
+  const position = calculateGridPosition(
+    element,
+    mainTouch.clientX,
+    mainTouch.clientY,
+    floored
+  );
+  return position;
+};
+
 export const calculateGridPosition = (
   element: HTMLElement,
   clientX: number,

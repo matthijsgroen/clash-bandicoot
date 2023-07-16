@@ -22,34 +22,12 @@ import {
   upgradeBuilding,
 } from "../engine/layout/baseLayout";
 import { useState } from "react";
-import { calculateGridPosition } from "../ui-components/composition/Village/Grid";
+import {
+  calculateGridPosition,
+  getTouchPosition,
+} from "../ui-components/composition/Village/Grid";
 import { shiftPosition } from "../data/utils/shiftPosition";
 import { createNextKey } from "../engine/utils/keyStore";
-
-const getTouchPosition = (
-  e: React.TouchEvent<HTMLElement>
-): [x: number, y: number] | undefined => {
-  const mainTouch = e.touches[0];
-  if (!mainTouch) {
-    return undefined;
-  }
-  const element = document.elementFromPoint(
-    mainTouch.clientX,
-    mainTouch.clientY
-  ) as HTMLElement | null;
-
-  if (!element) {
-    return;
-  }
-
-  const position = calculateGridPosition(
-    element,
-    mainTouch.clientX,
-    mainTouch.clientY,
-    true
-  );
-  return position;
-};
 
 export const VillageEditor: React.FC<{
   base: BaseLayout;
@@ -316,7 +294,7 @@ export const VillageEditor: React.FC<{
             if (dragState !== null && selection !== null) {
               onDragRelease();
             }
-            const position = getTouchPosition(e);
+            const position = getTouchPosition(e, true);
 
             if (!position) {
               clearSelection();
@@ -329,7 +307,7 @@ export const VillageEditor: React.FC<{
               return;
             }
 
-            onDrag(shiftPosition(getTouchPosition(e), -2, -2));
+            onDrag(shiftPosition(getTouchPosition(e, true), -2, -2));
           }}
           onTouchEnd={(e) => {
             if (e.stopPropagation) e.stopPropagation();
@@ -417,7 +395,7 @@ export const VillageEditor: React.FC<{
                 if (dragState === null || selection === null) {
                   return;
                 }
-                onDrag(shiftPosition(getTouchPosition(e), -2, -2));
+                onDrag(shiftPosition(getTouchPosition(e, true), -2, -2));
               }}
               onTouchEnd={(e) => {
                 if (e.stopPropagation) e.stopPropagation();
