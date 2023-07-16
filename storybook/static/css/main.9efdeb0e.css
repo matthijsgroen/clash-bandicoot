@@ -5,9 +5,9 @@ body {
 }
 
 :root {
-  --control-size-small: 1.5rem;
+  --control-size-small: 1.25rem;
   --control-size-default: 3rem;
-  --control-size-large: 4rem;
+  --control-size-large: 3.75rem;
   --control-size-huge: 8rem;
 }
 
@@ -22,4 +22,4 @@ body {
 }
 
 
-/*# sourceMappingURL=main.a8895b61.css.map*/
+/*# sourceMappingURL=main.9efdeb0e.css.map*/

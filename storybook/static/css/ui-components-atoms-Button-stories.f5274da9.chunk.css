@@ -5,13 +5,14 @@
   background: transparent;
 }
 
-button:active .Button_outer__Zd-2h {
+button:active:enabled .Button_outer__Zd-2h {
   scale: 0.9;
   -webkit-filter: brightness(130%);
           filter: brightness(130%);
 }
 
 .Button_outer__Zd-2h {
+  transition: scale 100ms;
   padding: 1px 0 0 0;
   border-radius: 5px;
   font-weight: bold;
@@ -83,4 +84,4 @@ button:active .Button_outer__Zd-2h {
 }
 
 
-/*# sourceMappingURL=ui-components-atoms-Button-stories.b5eb655d.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-Button-stories.f5274da9.chunk.css.map*/
