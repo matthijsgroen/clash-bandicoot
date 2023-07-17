@@ -20,7 +20,7 @@ export const createNextKey = (
   initialKeys: string[],
   keyType: string
 ): string => {
-  let counter = 0;
+  let counter = 1;
   let resultKey = `${keyType}#${counter}`;
   while (initialKeys.includes(resultKey)) {
     counter++;
