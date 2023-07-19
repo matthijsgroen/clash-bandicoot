@@ -1,30 +1,23 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Timer as TimerComponent } from "./Timer";
+import { Dialog as DialogComponent } from "./Dialog";
 
 const meta = {
-  title: "Atoms/Timer",
-  component: TimerComponent,
+  title: "Atoms/Dialog",
+  component: DialogComponent,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/react/configure/story-layout
     layout: "fullscreen",
   },
-} satisfies Meta<typeof TimerComponent>;
+} satisfies Meta<typeof DialogComponent>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 // More on interaction testing: https://storybook.js.org/docs/react/writing-tests/interaction-testing
-export const Timer: Story = {
+export const Dialog: Story = {
   args: {
-    label: "Time till end:",
-    timeLeft: 90_000,
-  },
-};
-
-export const TimeUp: Story = {
-  args: {
-    label: "Time till end:",
-    timeLeft: 3_000,
+    title: "Hello",
+    children: <p>Lorem ipsum dolor sit amed.</p>,
   },
 };
