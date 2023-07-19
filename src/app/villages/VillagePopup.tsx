@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "../../ui-components/atoms/Button";
 import { useState } from "react";
-import { VillageEditor } from "../VillageEditor";
+import { VillageEditor } from "../VillageEditor/VillageEditor";
 import { Village, getBases, postBase, putBase } from "../../api/bases";
 
 export const VillagePopup = () => {

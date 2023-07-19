@@ -97,14 +97,16 @@ export const isOverlapping = (
   buildingId: string
 ): boolean => {
   const building = layout.items[buildingId];
+  const [x, y] = building.position;
+  const [w, h] = building.info.size;
 
   return Object.values(layout.items).some(
     (element) =>
       element.buildingId !== buildingId &&
-      element.position[0] < building.position[0] + building.info.size[0] &&
-      element.position[0] + element.info.size[0] > building.position[0] &&
-      element.position[1] < building.position[1] + building.info.size[1] &&
-      element.position[1] + element.info.size[1] > building.position[1]
+      element.position[0] < x + w &&
+      element.position[0] + element.info.size[0] > x &&
+      element.position[1] < y + h &&
+      element.position[1] + element.info.size[1] > y
   );
 };
 

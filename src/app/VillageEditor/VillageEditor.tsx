@@ -1,34 +1,51 @@
 import styles from "./VillageEditor.module.css";
-import { BaseLayout } from "../engine/types";
+import { BaseLayout } from "../../engine/types";
 import {
   Buildings,
   Grid,
   PlacementOutline,
-} from "../ui-components/composition/Village";
-import { Button } from "../ui-components/atoms/Button";
+} from "../../ui-components/composition/Village";
+import { Button } from "../../ui-components/atoms/Button";
 import {
   ArmyTray,
   Group,
   UnitButton,
-} from "../ui-components/composition/ArmyTray";
-import { buildingList } from "../engine/layout/compressList";
-import { buildingStore } from "../data/buildingStore";
+} from "../../ui-components/composition/ArmyTray";
+import { buildingList } from "../../engine/layout/compressList";
+import { buildingStore } from "../../data/buildingStore";
 import {
   canUpgrade,
+  getTownhallLevel,
   isOverlapping,
   moveBuilding,
   placeNewBuilding,
   removeBuilding,
   upgradeBuilding,
-} from "../engine/layout/baseLayout";
+} from "../../engine/layout/baseLayout";
 import { useState } from "react";
 import {
   calculateGridPosition,
   getTouchPosition,
-} from "../ui-components/composition/Village/Grid";
-import { shiftPosition } from "../data/utils/shiftPosition";
-import { createNextKey } from "../engine/utils/keyStore";
-import classNames from "classnames";
+} from "../../ui-components/composition/Village/Grid";
+import { shiftPosition } from "../../data/utils/shiftPosition";
+import { createNextKey } from "../../engine/utils/keyStore";
+import { EditTray } from "./EditTray";
+
+const getIsOutOfBounds = (
+  buildings: { id: string }[],
+  base: BaseLayout
+): boolean =>
+  buildings.some((buildingInfo) => {
+    const building = base.items[buildingInfo.id];
+    const position = building.position;
+    return (
+      !position ||
+      position[0] < 3 ||
+      position[1] < 3 ||
+      position[0] + building.info.size[0] > base.gridSize[0] - 3 ||
+      position[1] + building.info.size[1] > base.gridSize[1] - 3
+    );
+  });
 
 export const VillageEditor: React.FC<{
   base: BaseLayout;
@@ -52,12 +69,8 @@ export const VillageEditor: React.FC<{
   }>(null);
 
   const [base, updateBase] = useState(startBase);
-  const [isPanelOpen, setIsPanelOpen] = useState(false);
 
-  const townHallLevel = Object.values(base.items).reduce(
-    (r, e) => (e.info.type === "townhall" ? e.info.level : r),
-    1
-  );
+  const townHallLevel = Math.max(getTownhallLevel(base), 1);
 
   const typesAndAvailable: Record<string, number> = buildingList.reduce(
     (r, buildingType) => {
@@ -81,59 +94,51 @@ export const VillageEditor: React.FC<{
     {} as Record<string, number>
   );
 
-  const onDragRelease = () => {
-    if (selection && "buildings" in selection) {
-      const outOfBounds = selection.buildings.some((buildingInfo) => {
-        const building = base.items[buildingInfo.id];
-        const position = building.position;
-        return (
-          !position ||
-          position[0] < 3 ||
-          position[1] < 3 ||
-          position[0] + building.info.size[0] > base.gridSize[0] - 3 ||
-          position[1] + building.info.size[1] > base.gridSize[1] - 3
-        );
-      });
-
-      if (outOfBounds) {
-        selection.buildings.forEach((buildingInfo) => {
-          if (buildingInfo.isNew) {
-            updateBase((base) => removeBuilding(base, buildingInfo.id));
-          } else {
-            updateBase((base) =>
-              moveBuilding(base, buildingInfo.id, buildingInfo.position)
-            );
-          }
-        });
-        setSelection(null);
-      }
-      setSelection((s) => {
-        if (s && "buildings" in s) {
-          return {
-            buildings: s.buildings.map((b) => {
-              const building = base.items[b.id];
-              if (b.isNew && !isOverlapping(base, b.id)) {
-                return { ...b, isNew: false, position: building.position };
-              }
-              return b;
-            }),
-          };
-        }
-        return s;
-      });
-      setDragState(null);
-    }
-  };
-
   const clearSelection = () => {
     setSelection(null);
     setDragState(null);
+  };
+
+  const onDragRelease = () => {
+    if (selection && "buildings" in selection) {
+      const outOfBounds = getIsOutOfBounds(selection.buildings, base);
+
+      if (outOfBounds) {
+        updateBase((base) =>
+          selection.buildings.reduce(
+            (base, buildingInfo) =>
+              buildingInfo.isNew
+                ? removeBuilding(base, buildingInfo.id)
+                : moveBuilding(base, buildingInfo.id, buildingInfo.position),
+            base
+          )
+        );
+        clearSelection();
+        return;
+      }
+      // When new & placed on valid position, update selection status
+      if (
+        selection.buildings.some((b) => b.isNew && !isOverlapping(base, b.id))
+      ) {
+        setSelection({
+          buildings: selection.buildings.map((b) => {
+            const building = base.items[b.id];
+            if (b.isNew && !isOverlapping(base, b.id)) {
+              return { ...b, isNew: false, position: building.position };
+            }
+            return b;
+          }),
+        });
+      }
+      setDragState(null);
+    }
   };
 
   const onDrag = (position: [x: number, y: number] | undefined) => {
     if (!selection) return;
 
     if ("buildingType" in selection) {
+      // Start dragging from tray, check if 'cursor' is now over the grid
       if (position) {
         const newId = createNextKey(
           Object.keys(base.items),
@@ -220,21 +225,15 @@ export const VillageEditor: React.FC<{
         isOverlapping(base, e.id)
       );
       if (hasOverlaps) {
-        updateBase((base) => {
-          let updatedBase = base;
-          for (const building of selection.buildings) {
-            if (building.isNew) {
-              updatedBase = removeBuilding(updatedBase, building.id);
-            } else {
-              updatedBase = moveBuilding(
-                updatedBase,
-                building.id,
-                building.position
-              );
-            }
-          }
-          return updatedBase;
-        });
+        updateBase((base) =>
+          selection.buildings.reduce(
+            (base, buildingInfo) =>
+              buildingInfo.isNew
+                ? removeBuilding(base, buildingInfo.id)
+                : moveBuilding(base, buildingInfo.id, buildingInfo.position),
+            base
+          )
+        );
       }
     }
 
@@ -334,60 +333,12 @@ export const VillageEditor: React.FC<{
           />
         </Grid>
 
-        <div className={styles.tray}>
-          <div
-            className={classNames(styles.trayPanel, {
-              [styles.trayOpen]: isPanelOpen,
-            })}
-          >
-            <Button
-              onClick={() => {
-                setIsPanelOpen((state) => !state);
-              }}
-              color="lightgrey"
-              width="small"
-              height="default"
-            >
-              🔧
-            </Button>
-            <div className={styles.panel}>
-              <Button color="orange" height="small" width="huge">
-                Things
-              </Button>
-              <Button color="orange" height="small" width="huge">
-                Things
-              </Button>
-              <Button color="orange" height="small" width="huge">
-                Things
-              </Button>
-              <hr />
-              <Button color="red" height="small" width="huge" onClick={onClose}>
-                Cancel and close
-              </Button>
-              <Button
-                color="green"
-                height="small"
-                width="huge"
-                onClick={() => {
-                  onSave?.(base);
-                }}
-              >
-                Save and close
-              </Button>
-            </div>
-          </div>
-          <Button
-            color="lightgrey"
-            width="small"
-            height="default"
-            className={styles.insetButton}
-            onClick={() => {
-              setIsPanelOpen((state) => !state);
-            }}
-          >
-            🔧
-          </Button>
-        </div>
+        <EditTray
+          onClose={onClose}
+          onSave={() => {
+            onSave?.(base);
+          }}
+        />
 
         {dragState === null &&
           selection !== null &&
