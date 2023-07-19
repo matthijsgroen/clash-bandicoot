@@ -1,4 +1,4 @@
-import { Building } from ".";
+import { Building } from "./Building";
 import { BaseLayout, BattleBaseData } from "../../../engine/types";
 import { isOverlapping, isVisible } from "../../../engine/layout/baseLayout";
 

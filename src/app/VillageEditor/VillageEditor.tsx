@@ -69,6 +69,7 @@ export const VillageEditor: React.FC<{
   }>(null);
 
   const [base, updateBase] = useState(startBase);
+  const [scoutView, updateScoutView] = useState(false);
 
   const townHallLevel = Math.max(getTownhallLevel(base), 1);
 
@@ -321,9 +322,9 @@ export const VillageEditor: React.FC<{
             onDragRelease();
           }}
         >
-          <PlacementOutline mode="light" layout={base} />
+          <PlacementOutline mode={scoutView ? "dark" : "light"} layout={base} />
           <Buildings
-            showHidden
+            showHidden={!scoutView}
             layout={base}
             selection={
               selection !== null && "buildings" in selection
@@ -338,6 +339,8 @@ export const VillageEditor: React.FC<{
           onSave={() => {
             onSave?.(base);
           }}
+          scoutView={scoutView}
+          onScoutViewChange={(newView) => updateScoutView(newView)}
         />
 
         {dragState === null &&

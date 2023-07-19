@@ -6,7 +6,9 @@ import { Button } from "../../ui-components/atoms/Button";
 export const EditTray: React.FC<{
   onClose?: () => void;
   onSave?: () => void;
-}> = ({ onClose, onSave }) => {
+  scoutView?: boolean;
+  onScoutViewChange?: (view: boolean) => void;
+}> = ({ onClose, onSave, scoutView = false, onScoutViewChange }) => {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   return (
     <div className={styles.tray}>
@@ -26,10 +28,18 @@ export const EditTray: React.FC<{
           🔧
         </Button>
         <div className={styles.panel}>
-          <Button color="#7cb342" height="small" width="huge">
+          <Button color="#7cb342" height="small" width="huge" disabled>
             Max all buildings
           </Button>
-          <Button color="#7cb342" height="small" width="huge">
+          <Button
+            color="#7cb342"
+            height="small"
+            width="huge"
+            pressed={scoutView}
+            onClick={() => {
+              onScoutViewChange?.(!scoutView);
+            }}
+          >
             Scout view
           </Button>
           <hr />
