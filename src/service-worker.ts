@@ -24,6 +24,22 @@ clientsClaim();
 // even if you decide not to use precaching. See https://cra.link/PWA
 precacheAndRoute(self.__WB_MANIFEST);
 
+const log =
+  process.env.NODE_ENV === "production"
+    ? () => {}
+    : (message: string) => {
+        const styles = [
+          `background: green`,
+          `border-radius: 0.5em`,
+          `color: white`,
+          `font-weight: bold`,
+          `padding: 2px 0.5em`,
+        ];
+        // When in a group, the workbox prefix is not displayed.
+        const logPrefix = ["%cbandicoot", styles.join(";")];
+        console.log(...logPrefix, message);
+      };
+
 registerRoute(
   ({ url }) => url.pathname.startsWith("/clash-bandicoot/storybook/"),
   new NetworkOnly()
@@ -74,6 +90,125 @@ registerRoute(
     ],
   })
 );
+
+registerRoute(
+  ({ url }) => url.pathname.endsWith("/local-api/bases"),
+  async ({ request }) => {
+    const data = await request.json();
+
+    const cache = await caches.open("bases");
+    const baseEntries = await cache.matchAll("/local-api/bases/", {
+      ignoreSearch: true,
+    });
+    const collectIds: string[] = [];
+    for (const basesData of baseEntries) {
+      const cacheData = (await basesData.json()) as { id: string }[];
+      cacheData.forEach((d) => collectIds.push(d.id));
+    }
+    let id = 1;
+    while (collectIds.includes(`u${id}`)) {
+      id++;
+    }
+
+    const dataObject = {
+      id: `u${id}`,
+      name: data.name ?? "New Village",
+      layout: data.layout,
+      builtIn: false,
+      version: 1,
+    };
+
+    await cache.put(
+      `/local-api/bases/?id=u${id}`,
+      new Response(JSON.stringify([dataObject]))
+    );
+
+    return new Response(JSON.stringify(dataObject), { status: 201 });
+  },
+  "POST"
+);
+
+registerRoute(
+  ({ url }) => url.pathname.endsWith("/local-api/bases"),
+  async () => {
+    const cache = await caches.open("bases");
+    const bases = await cache.matchAll("/local-api/bases/", {
+      ignoreSearch: true,
+    });
+
+    const baseCollection = [];
+    for (const base of bases) {
+      const cachedData = await base.json();
+      baseCollection.push(...cachedData);
+    }
+
+    log(`${baseCollection.length} bases found`);
+
+    return new Response(JSON.stringify(baseCollection));
+  }
+);
+
+registerRoute(
+  ({ url }) => /local-api\/bases\/u\d+$/.test(url.pathname),
+  async ({ url, request }) => {
+    const data = await request.json();
+    const id = url.pathname.split("/").slice(-1)[0];
+    const cache = await caches.open("bases");
+    const base = await cache.match(`/local-api/bases/?id=${id}`);
+
+    const dataObject = {
+      id: id,
+      builtIn: false,
+      version: 1,
+    };
+    if (base) {
+      const previousData = await base.json();
+      Object.assign(dataObject, previousData);
+    }
+    Object.assign(dataObject, data);
+
+    await cache.put(
+      `/local-api/bases/?id=${id}`,
+      new Response(JSON.stringify([dataObject]))
+    );
+    log(`base ${id} updated`);
+
+    return new Response(JSON.stringify(dataObject));
+  },
+  "PUT"
+);
+
+// Seed the cache
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open("bases").then(async (cache) => {
+      // Could be a fetch of JSON data in the public folder, in future versions
+
+      const internalData = [
+        {
+          name: "My Village",
+          layout:
+            "eNodjdENgkAQRHe4t8eBwh4kktiAJtZgGfbfiq58zWSSea997VPUZO-mYNpkR6c4nToSYAfZ1__agjLJbs7INXOWvZxFkt3XARLyCHwfbLvI1KHmlTmbJ6ni2L7InkGDkoSkKccUnx74AfOaBYA",
+        },
+      ];
+
+      log(`placing ${internalData.length} bases in the cache`);
+      return cache.put(
+        `/local-api/bases/?id=builtin`,
+        new Response(
+          JSON.stringify(
+            internalData.map((record, index) => ({
+              ...record,
+              id: `bi${index}`,
+              builtIn: true,
+              version: 1,
+            }))
+          )
+        )
+      );
+    })
+  );
+});
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
