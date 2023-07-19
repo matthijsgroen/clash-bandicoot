@@ -83,3 +83,19 @@
 .unit:disabled {
   filter: grayscale(1) brightness(70%);
 }
+
+.jump {
+  animation: ease-in-out 200ms jump;
+}
+
+@keyframes jump {
+  0% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -1.5rem;
+  }
+  100% {
+    translate: 0 0;
+  }
+}

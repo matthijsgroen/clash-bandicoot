@@ -20,5 +20,27 @@ export const Button: Story = {
     color: "orange",
     disabled: false,
     children: "Hello",
+    width: "default",
+    height: "default",
+  },
+};
+
+export const SmallButton: Story = {
+  args: {
+    color: "red",
+    disabled: false,
+    children: "Delete",
+    width: "default",
+    height: "small",
+  },
+};
+
+export const IconButton: Story = {
+  args: {
+    color: "lightgrey",
+    disabled: false,
+    children: "🗡️",
+    width: "small",
+    height: "small",
   },
 };

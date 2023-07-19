@@ -18,6 +18,7 @@ export const UnitButton: React.FC<
     disabled?: boolean;
     level?: number;
     hidden?: boolean;
+    jump?: boolean;
   } & Omit<
     React.DOMAttributes<HTMLButtonElement>,
     "dangerouslySetInnerHTML" | "children"
@@ -31,12 +32,14 @@ export const UnitButton: React.FC<
   selected,
   disabled,
   hidden,
+  jump,
   ...events
 }) => (
   <button
     className={classNames(styles.unit, {
       [styles.selected]: selected,
       [styles.hidden]: hidden,
+      [styles.jump]: jump,
     })}
     style={{ "--base-color": buttonColor } as ButtonCSSProperties}
     disabled={disabled}

@@ -385,6 +385,7 @@ export const VillageEditor: React.FC<{
               buttonColor="#bbf"
               portraitColor="#bbf"
               label={type}
+              jump
               amount={amount}
               hidden={amount === 0}
               selected={
