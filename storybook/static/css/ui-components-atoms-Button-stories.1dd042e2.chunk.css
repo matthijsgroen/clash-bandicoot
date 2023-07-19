@@ -6,13 +6,13 @@
 }
 
 button:active:enabled .Button_outer__Zd-2h {
-  scale: 0.9;
+  scale: 0.95;
   -webkit-filter: brightness(130%);
           filter: brightness(130%);
 }
 
 .Button_outer__Zd-2h {
-  transition: scale 100ms;
+  transition: scale 50ms;
   padding: 1px 0 0 0;
   border-radius: 5px;
   font-weight: bold;
@@ -84,4 +84,4 @@ button:active:enabled .Button_outer__Zd-2h {
 }
 
 
-/*# sourceMappingURL=ui-components-atoms-Button-stories.f5274da9.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-Button-stories.1dd042e2.chunk.css.map*/
