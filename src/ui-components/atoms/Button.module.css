@@ -6,12 +6,12 @@
 }
 
 button:active:enabled .outer {
-  scale: 0.9;
+  scale: 0.95;
   filter: brightness(130%);
 }
 
 .outer {
-  transition: scale 100ms;
+  transition: scale 50ms;
   padding: 1px 0 0 0;
   border-radius: 5px;
   font-weight: bold;

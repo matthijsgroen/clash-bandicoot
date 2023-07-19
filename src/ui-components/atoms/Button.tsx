@@ -12,7 +12,7 @@ type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {
 };
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ color, height, width, ...props }, ref) => (
+  ({ color, height, width, className, ...props }, ref) => (
     <button
       type="button"
       ref={ref}
@@ -28,6 +28,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         [styles.defaultWidth]: width === "default",
         [styles.largeWidth]: width === "large",
         [styles.hugeWidth]: width === "huge",
+        [className ?? ""]: className,
       })}
     >
       <div className={styles.outer}>
