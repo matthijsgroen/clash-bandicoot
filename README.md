@@ -13,7 +13,8 @@ Interesting bits:
 - Tick loop
 - Path finding
 - Working with the notch on mobile: https://css-tricks.com/the-notch-and-css/
-- drag and drop using mouse or touch
+- Drag and drop using mouse or touch
+- Setting up [service workers in CRA with CRACO](https://stackoverflow.com/questions/65063966/how-to-use-the-service-worker-in-dev-mode-with-create-react-app)
 
 ## Setup
 
