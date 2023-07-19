@@ -12,15 +12,53 @@
   left: 0;
 }
 
-.goBack {
+.tray {
+  pointer-events: none;
   position: absolute;
-  left: 0;
-  padding-left: max(0.5rem, env(safe-area-inset-left));
+  right: 0;
+  top: 0;
   bottom: calc(
     var(--control-size-large) + env(safe-area-inset-bottom) + 1.5rem
   );
   z-index: 1;
+  display: flex;
+  align-items: center;
 }
+
+.trayPanel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  z-index: 1;
+  transition: translate 100ms;
+  translate: calc(
+      var(--control-size-huge) + 1rem + env(safe-area-inset-right) * 2
+    )
+    0;
+}
+.trayOpen {
+  translate: 0 0;
+}
+
+.panel {
+  background: lightgray;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding: 0.5em;
+  padding-right: calc(0.5rem + env(safe-area-inset-right));
+}
+
+.insetButton {
+  position: absolute;
+  right: env(safe-area-inset-right);
+}
+
+.tray button {
+  pointer-events: all;
+}
+
 .toolBar {
   position: absolute;
   left: 0;

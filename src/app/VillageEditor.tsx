@@ -28,11 +28,13 @@ import {
 } from "../ui-components/composition/Village/Grid";
 import { shiftPosition } from "../data/utils/shiftPosition";
 import { createNextKey } from "../engine/utils/keyStore";
+import classNames from "classnames";
 
 export const VillageEditor: React.FC<{
   base: BaseLayout;
   onClose?: () => void;
-}> = ({ base: startBase, onClose }) => {
+  onSave?: (updatedBase: BaseLayout) => void;
+}> = ({ base: startBase, onClose, onSave }) => {
   const [selection, setSelection] = useState<
     | null
     | {
@@ -50,6 +52,7 @@ export const VillageEditor: React.FC<{
   }>(null);
 
   const [base, updateBase] = useState(startBase);
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
 
   const townHallLevel = Object.values(base.items).reduce(
     (r, e) => (e.info.type === "townhall" ? e.info.level : r),
@@ -330,11 +333,62 @@ export const VillageEditor: React.FC<{
             }
           />
         </Grid>
-        <div className={styles.goBack}>
-          <Button onClick={onClose} color="red" width="large" height="small">
-            Go back
+
+        <div className={styles.tray}>
+          <div
+            className={classNames(styles.trayPanel, {
+              [styles.trayOpen]: isPanelOpen,
+            })}
+          >
+            <Button
+              onClick={() => {
+                setIsPanelOpen((state) => !state);
+              }}
+              color="lightgrey"
+              width="small"
+              height="default"
+            >
+              🔧
+            </Button>
+            <div className={styles.panel}>
+              <Button color="orange" height="small" width="huge">
+                Things
+              </Button>
+              <Button color="orange" height="small" width="huge">
+                Things
+              </Button>
+              <Button color="orange" height="small" width="huge">
+                Things
+              </Button>
+              <hr />
+              <Button color="red" height="small" width="huge" onClick={onClose}>
+                Cancel and close
+              </Button>
+              <Button
+                color="green"
+                height="small"
+                width="huge"
+                onClick={() => {
+                  onSave?.(base);
+                }}
+              >
+                Save and close
+              </Button>
+            </div>
+          </div>
+          <Button
+            color="lightgrey"
+            width="small"
+            height="default"
+            className={styles.insetButton}
+            onClick={() => {
+              setIsPanelOpen((state) => !state);
+            }}
+          >
+            🔧
           </Button>
         </div>
+
         {dragState === null &&
           selection !== null &&
           "buildings" in selection && (
