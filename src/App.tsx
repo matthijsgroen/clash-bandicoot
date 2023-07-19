@@ -1,5 +1,5 @@
 import { army, village2 } from "./testScenarios/simpleVillage";
-import { Combat } from "./app/Combat";
+import { Combat } from "./app/Combat/Combat";
 import { useState } from "react";
 import { HomeScreen } from "./app/HomeScreen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

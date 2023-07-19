@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Combat.module.css";
-import { BaseLayout, Replay } from "../engine/types";
-import { handleAttack } from "../engine/combat/attack";
-import { Army } from "../engine/armyComposition";
-import { Timer } from "../ui-components/atoms/Timer";
-import { Destruction } from "../ui-components/atoms/Destruction";
+import { BaseLayout, Replay } from "../../engine/types";
+import { handleAttack } from "../../engine/combat/attack";
+import { Army } from "../../engine/armyComposition";
+import { Timer } from "../../ui-components/atoms/Timer";
+import { Destruction } from "../../ui-components/atoms/Destruction";
 import { ArmyControl } from "./ArmyControl";
 import { useAtom, useAtomValue } from "jotai";
 import { battleAtom } from "./combatState";
@@ -13,10 +13,10 @@ import {
   PlacementOutline,
   Buildings,
   Effects,
-} from "../ui-components/composition/Village";
-import { Units } from "../ui-components/composition/Village/Units";
-import { Button } from "../ui-components/atoms/Button";
-import { calculateGridPosition } from "../ui-components/composition/Village/Grid";
+} from "../../ui-components/composition/Village";
+import { Units } from "../../ui-components/composition/Village/Units";
+import { Button } from "../../ui-components/atoms/Button";
+import { calculateGridPosition } from "../../ui-components/composition/Village/Grid";
 
 const CombatTimer = () => {
   const timeLeft = useAtomValue(battleAtom).timeLeft;
