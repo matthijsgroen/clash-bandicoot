@@ -73,7 +73,6 @@ export const Combat: React.FC<{
       ) {
         const item = placementQueue.current.placement.shift();
         if (item) {
-          console.log("placing unit!", item.unit);
           attack.current.placeUnit(item.unit, item.level, item.position);
         }
       }
@@ -103,7 +102,6 @@ export const Combat: React.FC<{
                 e.clientY
               );
               if (position) {
-                console.log(e.currentTarget, position);
                 attack.current.placeUnit(
                   selectedTroop[0],
                   selectedTroop[1],
