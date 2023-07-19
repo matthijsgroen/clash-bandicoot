@@ -12,7 +12,6 @@ button:active:enabled .outer {
 
 .outer {
   transition: scale 50ms;
-  padding: 1px 0 0 0;
   border-radius: 5px;
   font-weight: bold;
   color: white;
@@ -79,4 +78,20 @@ button:active:enabled .outer {
 .button:disabled {
   filter: grayscale(1) brightness(70%);
   opacity: 50%;
+}
+
+.pressed .inner {
+  box-sizing: border-box;
+  height: 100%;
+  border-bottom: 1px solid color-mix(in hsl, var(--color) 40%, white);
+
+  border-top: 2px solid color-mix(in hsl, var(--color) 70%, black);
+  background: linear-gradient(
+    180deg,
+    #00000013 0%,
+    #00000023 53%,
+    #00000023 73%,
+    #00000043 100%
+  );
+  padding-left: 2px;
 }
