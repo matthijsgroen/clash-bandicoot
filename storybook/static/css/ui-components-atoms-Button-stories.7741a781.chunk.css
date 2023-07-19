@@ -13,7 +13,6 @@ button:active:enabled .Button_outer__Zd-2h {
 
 .Button_outer__Zd-2h {
   transition: scale 50ms;
-  padding: 1px 0 0 0;
   border-radius: 5px;
   font-weight: bold;
   color: white;
@@ -83,5 +82,21 @@ button:active:enabled .Button_outer__Zd-2h {
   opacity: 50%;
 }
 
+.Button_pressed__8kIHu .Button_inner__FQgg0 {
+  box-sizing: border-box;
+  height: 100%;
+  border-bottom: 1px solid color-mix(in hsl, var(--color) 40%, white);
 
-/*# sourceMappingURL=ui-components-atoms-Button-stories.1dd042e2.chunk.css.map*/
+  border-top: 2px solid color-mix(in hsl, var(--color) 70%, black);
+  background: linear-gradient(
+    180deg,
+    #00000013 0%,
+    #00000023 53%,
+    #00000023 73%,
+    #00000043 100%
+  );
+  padding-left: 2px;
+}
+
+
+/*# sourceMappingURL=ui-components-atoms-Button-stories.7741a781.chunk.css.map*/
