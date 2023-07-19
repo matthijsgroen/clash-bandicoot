@@ -123,6 +123,35 @@
           filter: grayscale(1) brightness(70%);
 }
 
+.UnitButton_jump__NczqY {
+  -webkit-animation: ease-in-out 200ms UnitButton_jump__NczqY;
+          animation: ease-in-out 200ms UnitButton_jump__NczqY;
+}
+
+@-webkit-keyframes UnitButton_jump__NczqY {
+  0% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -1.5rem;
+  }
+  100% {
+    translate: 0 0;
+  }
+}
+
+@keyframes UnitButton_jump__NczqY {
+  0% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -1.5rem;
+  }
+  100% {
+    translate: 0 0;
+  }
+}
+
 .Placeholder_empty__wtf-1 {
   border-radius: 0.5rem;
   border: 2px dashed #aaa;
@@ -131,4 +160,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-composition-ArmyTray-UnitButton-stories.8f9f871b.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-ArmyTray-Group-stories.8e040193.chunk.css.map*/
