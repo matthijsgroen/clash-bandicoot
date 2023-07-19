@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { Button } from "../ui-components/atoms/Button";
 import { useAppUpdate } from "./hooks/useAppUpdater";
+import { VillagePopup } from "./villages/VillagePopup";
 
 export const HomeScreen: React.FC<{
-  setActivePopup: (name: string | null) => void;
-}> = ({ setActivePopup }) => {
+  setScreen: (name: string | null) => void;
+}> = ({ setScreen }) => {
   const [hasUpdate, triggerUpdate] = useAppUpdate();
+  const [openPopup, setOpenPopup] = useState<"villages" | null>(null);
 
   return (
     <div>
@@ -20,27 +23,27 @@ export const HomeScreen: React.FC<{
       </header>
       <menu>
         <Button
-          onClick={() => setActivePopup("attack")}
+          onClick={() => setScreen("attack")}
           color="orange"
-          width="huge"
+          width="large"
           height="large"
         >
           Attack
         </Button>
 
         <Button
-          onClick={() => setActivePopup("villageEditor")}
+          onClick={() => setOpenPopup("villages")}
           color="orange"
-          width="huge"
+          width="large"
           height="large"
         >
           Bases
         </Button>
 
         <Button
-          onClick={() => setActivePopup("attack")}
+          onClick={() => setScreen("attack")}
           color="orange"
-          width="huge"
+          width="large"
           height="large"
           disabled
         >
@@ -48,9 +51,9 @@ export const HomeScreen: React.FC<{
         </Button>
 
         <Button
-          onClick={() => setActivePopup("attack")}
+          onClick={() => setScreen("attack")}
           color="orange"
-          width="huge"
+          width="large"
           height="large"
           disabled
         >
@@ -58,9 +61,9 @@ export const HomeScreen: React.FC<{
         </Button>
 
         <Button
-          onClick={() => setActivePopup("attack")}
+          onClick={() => setScreen("attack")}
           color="orange"
-          width="huge"
+          width="large"
           height="large"
           disabled
         >
@@ -94,6 +97,7 @@ export const HomeScreen: React.FC<{
           .
         </p>
       </footer>
+      {openPopup === "villages" && <VillagePopup />}
     </div>
   );
 };
