@@ -1,0 +1,120 @@
+.Button_button__d3Ync {
+  padding: 0;
+  display: inline-block;
+  border: none;
+  background: transparent;
+}
+
+button:active:enabled .Button_outer__Zd-2h {
+  scale: 0.95;
+  -webkit-filter: brightness(130%);
+          filter: brightness(130%);
+}
+
+.Button_outer__Zd-2h {
+  transition: scale 50ms;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  border: 1px solid black;
+  height: calc(100% - 2px);
+  background-color: color-mix(in srgb, var(--color) 80%, transparent);
+  display: flex;
+}
+
+.Button_inner__FQgg0 {
+  position: relative;
+  border-radius: 5px;
+  border-top: 1px solid color-mix(in hsl, var(--color) 40%, white);
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-bottom: 2px solid color-mix(in hsl, var(--color) 70%, black);
+  background: linear-gradient(
+    180deg,
+    /* #ffffff33 0%,
+    #ffffff33 20%,
+    #ffffff66 53%, */ transparent 53%,
+    transparent 80%,
+    #00000033 100%
+  );
+
+  font-family: "Sriracha", cursive;
+  font-weight: bold;
+  text-shadow: 0 2px 0 #000, 1px -1px 0 #0002;
+}
+
+.Button_inner__FQgg0::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 2px;
+  background-color: #fff4;
+  height: 50%;
+  border-radius: 0.5rem;
+  pointer-events: none;
+}
+
+.Button_smallWidth__6Au\+0 {
+  width: var(--control-size-small);
+}
+.Button_smallHeight__2-ayX {
+  height: var(--control-size-small);
+
+  font-size: 0.6rem;
+}
+.Button_smallHeight__2-ayX .Button_inner__FQgg0 {
+  text-shadow: 0 1px 0 #000;
+}
+
+.Button_defaultWidth__YbRjm {
+  width: var(--control-size-default);
+}
+.Button_defaultHeight__z37An {
+  height: var(--control-size-default);
+}
+.Button_largeWidth__85zGu {
+  width: var(--control-size-large);
+}
+.Button_largeHeight__C1xRJ {
+  height: var(--control-size-large);
+}
+.Button_hugeWidth__Uzr0G {
+  width: var(--control-size-huge);
+}
+.Button_hugeHeight__RXekj {
+  height: var(--control-size-huge);
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.Button_button__d3Ync:disabled {
+  -webkit-filter: grayscale(1) brightness(70%);
+          filter: grayscale(1) brightness(70%);
+  opacity: 50%;
+}
+
+.Button_pressed__8kIHu .Button_inner__FQgg0 {
+  box-sizing: border-box;
+  height: 100%;
+  border-bottom: 1px solid color-mix(in hsl, var(--color) 40%, white);
+
+  border-top: 2px solid color-mix(in hsl, var(--color) 70%, black);
+  background: linear-gradient(
+    180deg,
+    #00000013 0%,
+    #00000023 53%,
+    #00000023 73%,
+    #00000043 100%
+  );
+  padding-left: 2px;
+}
+
+.Button_pressed__8kIHu .Button_inner__FQgg0::before {
+  background-color: transparent;
+}
+
+
+/*# sourceMappingURL=ui-components-atoms-Button-stories.2ec534ed.chunk.css.map*/

@@ -65,6 +65,10 @@ button:active:enabled .Button_outer__Zd-2h {
 
   font-size: 0.6rem;
 }
+.Button_smallHeight__2-ayX .Button_inner__FQgg0 {
+  text-shadow: 0 1px 0 #000;
+}
+
 .Button_defaultWidth__YbRjm {
   width: var(--control-size-default);
 }
@@ -112,5 +116,14 @@ button:active:enabled .Button_outer__Zd-2h {
   background-color: transparent;
 }
 
+.Toolbar_toolbar__S2ZMj {
+  display: flex;
+  gap: 0.25rem;
+}
 
-/*# sourceMappingURL=ui-components-atoms-Button-stories.0417cbfb.chunk.css.map*/
+.Toolbar_spacer__0dz8y {
+  flex: 1 1 auto;
+}
+
+
+/*# sourceMappingURL=ui-components-atoms-Toolbar-stories.9ff9a3a5.chunk.css.map*/
