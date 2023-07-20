@@ -21,7 +21,7 @@
   width: 100vmax;
   height: 200vmax;
   translate: 0 -80vmax;
-  transition: translate 1800ms ease-in-out;
+  transition: translate 800ms ease-in-out;
 }
 .layer::after {
   display: block;
@@ -38,7 +38,7 @@
   width: 100vmax;
   height: 100vmax;
 
-  transition: translate 1800ms ease-in-out;
+  transition: translate 800ms ease-in-out;
 }
 
 .open::before {
