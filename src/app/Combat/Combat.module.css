@@ -28,3 +28,11 @@
     var(--control-size-large) + env(safe-area-inset-bottom) + 1.5rem
   );
 }
+
+.stop {
+  position: fixed;
+  left: calc(1rem + env(safe-area-inset-left));
+  bottom: calc(
+    var(--control-size-large) + env(safe-area-inset-bottom) + 1.5rem
+  );
+}

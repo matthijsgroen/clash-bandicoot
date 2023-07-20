@@ -63,6 +63,11 @@ export const Combat: React.FC<{
   });
 
   useEffect(() => {
+    attack.current = handleAttack(base, army);
+    setBattleState({ ...attack.current.getData() });
+  }, [base, army, setBattleState]);
+
+  useEffect(() => {
     if (!battleStarted) {
       setBattleState({ ...attack.current.getData() });
       return;
@@ -145,6 +150,16 @@ export const Combat: React.FC<{
             Next target &raquo;
           </Button>
         )}
+
+        <Button
+          color="red"
+          width="default"
+          height="small"
+          className={styles.stop}
+          onClick={onClose}
+        >
+          {battleStarted ? "Surrender" : "Stop"}
+        </Button>
         {battleState.state === "ended" && (
           <div style={{ position: "absolute", left: "30dvw", top: "30dvh" }}>
             <p>Yay combat is done!</p>
