@@ -1,0 +1,34 @@
+.Timer_timeRemaining__xHPPf {
+  pointer-events: none;
+  text-align: center;
+  --text-color: white;
+}
+
+.Timer_red__GjO5o {
+  --text-color: red;
+}
+
+.Text_text__uZi1L {
+  font-family: "Sriracha", cursive;
+  font-weight: bold;
+  font-size: 0.9rem;
+  line-height: 0.8rem;
+
+  color: white;
+
+  color: var(--text-color, white);
+  text-shadow: 0 2px 0 #000;
+  margin: 0;
+}
+
+.Text_small__TyVhb {
+  font-size: 0.6rem;
+  text-shadow: 0 1px 0 #000;
+}
+
+.Text_large__dnz0d {
+  font-size: 1.2rem;
+}
+
+
+/*# sourceMappingURL=ui-components-atoms-Timer-stories.8d67a213.chunk.css.map*/

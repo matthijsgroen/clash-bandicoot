@@ -1,0 +1,43 @@
+.CloudCurtain_layer__mC1MW {
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+.CloudCurtain_layer__mC1MW::before {
+  display: block;
+  position: absolute;
+  content: "";
+  background: linear-gradient(180deg, #3333, #333 20%);
+  width: 130vw;
+  height: 130vh;
+  -webkit-transform-origin: 30% 0%;
+          transform-origin: 30% 0%;
+  rotate: 45deg;
+  transition: translate 800ms ease-in-out;
+}
+.CloudCurtain_layer__mC1MW::after {
+  display: block;
+  position: absolute;
+  content: "";
+  background: linear-gradient(0deg, #3333, #333 20%);
+  width: 130vw;
+  height: 130vh;
+  -webkit-transform-origin: 30% 0%;
+          transform-origin: 30% 0%;
+  rotate: 45deg;
+  translate: 40vw -40vh;
+  transition: translate 800ms ease-in-out;
+}
+
+.CloudCurtain_open__da6LN::before {
+  translate: -70vw 70vh;
+}
+.CloudCurtain_open__da6LN::after {
+  translate: 120vw -120vh;
+}
+
+
+/*# sourceMappingURL=ui-components-atoms-CloudCurtain-stories.9b942343.chunk.css.map*/

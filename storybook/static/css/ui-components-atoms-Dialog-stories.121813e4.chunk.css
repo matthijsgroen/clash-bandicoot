@@ -283,6 +283,8 @@ button:active:enabled .Button_outer__Zd-2h {
   line-height: 0.8rem;
 
   color: white;
+
+  color: var(--text-color, white);
   text-shadow: 0 2px 0 #000;
   margin: 0;
 }
@@ -292,10 +294,14 @@ button:active:enabled .Button_outer__Zd-2h {
   text-shadow: 0 1px 0 #000;
 }
 
+.Text_large__dnz0d {
+  font-size: 1.2rem;
+}
+
 .DialogTitle_dialogTitle__kmpNd {
   width: 100%;
   text-align: center;
 }
 
 
-/*# sourceMappingURL=ui-components-atoms-Dialog-stories.49523534.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-Dialog-stories.121813e4.chunk.css.map*/

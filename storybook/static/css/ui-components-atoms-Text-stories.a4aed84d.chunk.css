@@ -5,6 +5,8 @@
   line-height: 0.8rem;
 
   color: white;
+
+  color: var(--text-color, white);
   text-shadow: 0 2px 0 #000;
   margin: 0;
 }
@@ -14,5 +16,9 @@
   text-shadow: 0 1px 0 #000;
 }
 
+.Text_large__dnz0d {
+  font-size: 1.2rem;
+}
 
-/*# sourceMappingURL=ui-components-atoms-Text-stories.6ee2d77a.chunk.css.map*/
+
+/*# sourceMappingURL=ui-components-atoms-Text-stories.a4aed84d.chunk.css.map*/
