@@ -1,6 +1,9 @@
 import { PropsWithChildren } from "react";
+import { Text } from "./Text";
 import styles from "./DialogTitle.module.css";
 
 export const DialogTitle: React.FC<PropsWithChildren> = ({ children }) => (
-  <h1 className={styles.dialogTitle}>{children}</h1>
+  <Text element="h1" className={styles.dialogTitle}>
+    {children}
+  </Text>
 );

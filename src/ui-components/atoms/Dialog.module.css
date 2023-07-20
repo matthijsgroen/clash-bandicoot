@@ -77,11 +77,11 @@
 @keyframes popIn {
   0% {
     opacity: 0%;
-    scale: 0.8;
+    scale: 0.9;
   }
   40% {
     opacity: 100%;
-    scale: 1.1;
+    scale: 1.05;
   }
   100% {
     opacity: 100%;
@@ -92,11 +92,11 @@
 @keyframes popOut {
   100% {
     opacity: 0%;
-    scale: 0.8;
+    scale: 0.9;
   }
   60% {
     opacity: 100%;
-    scale: 1.1;
+    scale: 1.05;
   }
   0% {
     opacity: 100%;
