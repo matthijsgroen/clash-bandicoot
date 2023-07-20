@@ -1,3 +1,51 @@
+.Dialog_dimmer__qOlqL {
+  background-color: #0006;
+  width: 100dvw;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.Dialog_dialog__D8YaD {
+  background-color: #444;
+  padding: 2px;
+  border-radius: 0.5rem;
+}
+
+.Dialog_dialogHeader__wiZZI {
+  padding: 0 0.25rem;
+  min-width: 10rem;
+  display: grid;
+  grid-template-columns: 1fr -webkit-min-content;
+  grid-template-columns: 1fr min-content;
+  grid-gap: 0.25rem;
+  gap: 0.25rem;
+  align-items: center;
+  position: relative;
+  min-height: 1.5rem;
+}
+
+.Dialog_dialogHeader__wiZZI::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 2px;
+  background-color: #fff2;
+  height: 50%;
+  border-radius: 0.5rem;
+  pointer-events: none;
+}
+
+.Dialog_dialogBody__u98jY {
+  background-color: lightgray;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+}
+
 .Button_button__d3Ync {
   padding: 0;
   display: inline-block;
@@ -17,16 +65,16 @@ button:active:enabled .Button_outer__Zd-2h {
   font-weight: bold;
   color: white;
   border: 1px solid black;
-  height: 100%;
+  height: calc(100% - 2px);
   background-color: color-mix(in srgb, var(--color) 80%, transparent);
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-auto-rows: 1fr;
+  display: flex;
 }
 
 .Button_inner__FQgg0 {
+  position: relative;
   border-radius: 5px;
   border-top: 1px solid color-mix(in hsl, var(--color) 40%, white);
+  flex: 1 1 auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,10 +82,9 @@ button:active:enabled .Button_outer__Zd-2h {
   border-bottom: 2px solid color-mix(in hsl, var(--color) 70%, black);
   background: linear-gradient(
     180deg,
-    #ffffff33 0%,
+    /* #ffffff33 0%,
     #ffffff33 20%,
-    #ffffff66 53%,
-    transparent 53%,
+    #ffffff66 53%, */ transparent 53%,
     transparent 80%,
     #00000033 100%
   );
@@ -45,6 +92,17 @@ button:active:enabled .Button_outer__Zd-2h {
   font-family: "Sriracha", cursive;
   font-weight: bold;
   text-shadow: 0 2px 0 #000, 1px -1px 0 #0002;
+}
+
+.Button_inner__FQgg0::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 2px;
+  background-color: #fff4;
+  height: 50%;
+  border-radius: 0.5rem;
+  pointer-events: none;
 }
 
 .Button_smallWidth__6Au\+0 {
@@ -98,5 +156,23 @@ button:active:enabled .Button_outer__Zd-2h {
   padding-left: 2px;
 }
 
+.Button_pressed__8kIHu .Button_inner__FQgg0::before {
+  background-color: transparent;
+}
 
-/*# sourceMappingURL=ui-components-atoms-Button-stories.7741a781.chunk.css.map*/
+.DialogTitle_dialogTitle__kmpNd {
+  font-family: "Sriracha", cursive;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.9rem;
+  line-height: 0.8rem;
+
+  color: white;
+  text-shadow: 0 2px 0 #000;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+}
+
+
+/*# sourceMappingURL=ui-components-atoms-Dialog-stories.d00d36fc.chunk.css.map*/
