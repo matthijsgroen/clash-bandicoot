@@ -340,7 +340,7 @@ export const VillageEditor: React.FC<{
 
         <EditTray
           scoutView={scoutView}
-          readOnly={readOnly}
+          readOnly={readOnly || getTownhallLevel(base) === 0}
           onScoutViewChange={(newView) => updateScoutView(newView)}
           onClose={onClose}
           onMaximize={() => updateBase(maximizeBase)}

@@ -1,103 +1,61 @@
 import { Army } from "../../engine/armyComposition";
 import { Combat } from "./Combat";
 import { CloudCurtain } from "../../ui-components/atoms/CloudCurtain";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Village, getBases } from "../../api/bases";
-
-const SEARCH_DELAY = 900; // 800ms for animation, with 100ms wait in between
+import { getTownhallLevel } from "../../engine/layout/baseLayout";
+import { useTargetTransition } from "./hooks/useTargetTransition";
 
 export const TargetSearch: React.FC<{ onClose?: VoidFunction; army: Army }> = ({
   onClose,
   army,
 }) => {
-  const [targetBase, setTargetBase] = useState<Village | null>(null);
-  const [isSearching, setIsSearching] = useState(true);
-
-  const [nextBase, setNextBase] = useState<Village | null | undefined>(
-    undefined
-  );
+  const { base, isSearching, setNextBase, isReady } =
+    useTargetTransition<Village>();
 
   const [targetIndex, setTargetIndex] = useState(0);
 
-  const { data: targets } = useQuery({
+  const { data } = useQuery({
     queryKey: ["villageList"],
     queryFn: getBases,
   });
+  const targets = useMemo(
+    () => (data ? data.filter((v) => getTownhallLevel(v.layout) !== 0) : []),
+    [data]
+  );
 
   useEffect(() => {
-    if (
-      nextBase === undefined &&
-      targetBase === null &&
-      targets &&
-      targets.length > 0
-    ) {
+    if (base === undefined && targets.length > 0 && !isSearching) {
       // InitialBaseSearch
       setNextBase(targets[targetIndex]);
     }
-  }, [nextBase, targetBase, targets, targetIndex]);
+  }, [base, targets, targetIndex, isSearching, setNextBase]);
 
   useEffect(() => {
-    if (nextBase === targetBase && nextBase === null && !isSearching) {
-      const timeout = setTimeout(() => {
-        onClose?.();
-      }, SEARCH_DELAY);
-      return () => clearTimeout(timeout);
+    if (base === null && isReady) {
+      onClose?.();
     }
-    if (nextBase !== targetBase && !isSearching) {
-      // transition to targetBase
-      setIsSearching(true);
-    }
-    if (nextBase !== targetBase && nextBase !== undefined && isSearching) {
-      const timeout = setTimeout(() => {
-        setTargetBase(nextBase);
-        setIsSearching(false);
-      }, SEARCH_DELAY);
-      return () => clearTimeout(timeout);
-    }
-  }, [nextBase, targetBase, isSearching, onClose]);
-
-  // const [hasTarget, setHasTarget] = useState(false);
-  // const [stopping, setStopping] = useState(false);
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     setTargetBase(targets[targetIndex]);
-  //     setHasTarget(true);
-  //   }, SEARCH_DELAY);
-  //   return () => clearTimeout(timeout);
-  // }, [targets, targetIndex]);
-
-  // useEffect(() => {
-  //   if (!hasTarget && targetBase && !stopping) {
-  //     const timeout = setTimeout(() => {
-  //       setTargetIndex((target) => (target + 1) % targets.length);
-  //     }, SEARCH_DELAY);
-  //     return () => clearTimeout(timeout);
-  //   }
-  // }, [hasTarget, targets, targetBase, stopping]);
+  }, [base, isReady, onClose]);
 
   return (
     <>
-      {targetBase && (
+      {base && (
         <Combat
-          base={targetBase.layout}
+          base={base.layout}
           army={army}
           onClose={() => {
             setNextBase(null);
           }}
-          showNext={targets && targets.length > 1}
+          showNext={targets.length > 1}
           onNext={() => {
-            if (!targets) {
-              setNextBase(null);
-              return;
-            }
             const nextTarget = (targetIndex + 1) % targets.length;
             setTargetIndex(nextTarget);
             setNextBase(targets[nextTarget]);
           }}
         />
       )}
-      <CloudCurtain open={!isSearching} />
+      <CloudCurtain open={!isSearching && base !== undefined} />
     </>
   );
 };
