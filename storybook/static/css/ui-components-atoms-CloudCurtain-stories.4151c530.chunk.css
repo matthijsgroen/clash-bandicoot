@@ -21,7 +21,7 @@
   width: 100vmax;
   height: 200vmax;
   translate: 0 -80vmax;
-  transition: translate 1800ms ease-in-out;
+  transition: translate 800ms ease-in-out;
 }
 .CloudCurtain_layer__mC1MW::after {
   display: block;
@@ -38,7 +38,7 @@
   width: 100vmax;
   height: 100vmax;
 
-  transition: translate 1800ms ease-in-out;
+  transition: translate 800ms ease-in-out;
 }
 
 .CloudCurtain_open__da6LN::before {
@@ -52,4 +52,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-atoms-CloudCurtain-stories.a429248e.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-CloudCurtain-stories.4151c530.chunk.css.map*/
