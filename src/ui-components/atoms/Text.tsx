@@ -2,8 +2,17 @@ import classNames from "classnames";
 import { PropsWithChildren, createElement } from "react";
 import styles from "./Text.module.css";
 
-export type HTMLTextElement = "p" | "h1" | "h2" | "h3" | "h4" | "h5" | "span";
-export type TextSize = "default" | "small";
+export type HTMLTextElement =
+  | "p"
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "h5"
+  | "span"
+  | "output";
+
+export type TextSize = "default" | "small" | "large";
 
 export const Text: React.FC<
   PropsWithChildren<{
@@ -16,8 +25,9 @@ export const Text: React.FC<
     element,
     {
       className: classNames(styles.text, {
-        [className ?? ""]: className,
         [styles.small]: size === "small",
+        [styles.large]: size === "large",
+        [className ?? ""]: className,
       }),
     },
     children
