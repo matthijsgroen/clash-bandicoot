@@ -1,0 +1,38 @@
+.layer {
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+.layer::before {
+  display: block;
+  position: absolute;
+  content: "";
+  background: linear-gradient(180deg, #3333, #333 20%);
+  width: 130vw;
+  height: 130vh;
+  transform-origin: 30% 0%;
+  rotate: 45deg;
+  transition: translate 800ms ease-in-out;
+}
+.layer::after {
+  display: block;
+  position: absolute;
+  content: "";
+  background: linear-gradient(0deg, #3333, #333 20%);
+  width: 130vw;
+  height: 130vh;
+  transform-origin: 30% 0%;
+  rotate: 45deg;
+  translate: 40vw -40vh;
+  transition: translate 800ms ease-in-out;
+}
+
+.open::before {
+  translate: -70vw 70vh;
+}
+.open::after {
+  translate: 120vw -120vh;
+}
