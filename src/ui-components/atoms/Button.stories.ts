@@ -44,3 +44,14 @@ export const IconButton: Story = {
     height: "small",
   },
 };
+
+export const PressedButton: Story = {
+  args: {
+    color: "orange",
+    disabled: false,
+    children: "Hello",
+    width: "huge",
+    height: "small",
+    pressed: true,
+  },
+};
