@@ -77,6 +77,40 @@ export const canUpgrade = (layout: BaseLayout, buildingId: string): boolean => {
   return upgradedVersion.thRequirement <= townhallLevel;
 };
 
+export const maximizeBase = (layout: BaseLayout): BaseLayout => {
+  const townhallLevel = getTownhallLevel(layout);
+
+  const upgraded: BaseLayout = {
+    ...layout,
+    items: Object.fromEntries<LayoutBuilding>(
+      Object.entries(layout.items).map<[string, LayoutBuilding]>((element) => {
+        const [id, placedBuilding] = element;
+        const maxLevel = buildingStore.getMaxBuildingLevel(
+          townhallLevel,
+          placedBuilding.info.type
+        );
+        if (
+          placedBuilding.info.level >= maxLevel ||
+          placedBuilding.info.type === "townhall" // we don't auto upgrade the townhall
+        ) {
+          return element;
+        }
+        const upgraded = buildingStore.getBuilding(
+          placedBuilding.info.type,
+          maxLevel
+        );
+        if (!upgraded) {
+          return element;
+        }
+
+        return [id, { ...placedBuilding, info: upgraded }];
+      })
+    ),
+  };
+
+  return upgraded;
+};
+
 export const moveBuilding = (
   layout: BaseLayout,
   buildingId: string,
