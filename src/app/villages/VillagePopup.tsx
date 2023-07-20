@@ -1,9 +1,29 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "../../ui-components/atoms/Button";
-import { useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import { VillageEditor } from "../VillageEditor/VillageEditor";
 import { Village, getBases, postBase, putBase } from "../../api/bases";
 import { Dialog } from "../../ui-components/atoms/Dialog";
+
+export const Inset: React.FC<PropsWithChildren> = ({ children }) => (
+  <span
+    style={{
+      flex: "1 1 auto",
+      borderLeft: "1px solid #777",
+      borderRight: "1px solid white",
+      borderTop: "1px solid #777",
+      borderBottom: "1px solid white",
+      borderRadius: "5px",
+      backgroundColor: "#0001",
+    }}
+  >
+    {children}
+  </span>
+);
+
+export const Row: React.FC<PropsWithChildren> = ({ children }) => (
+  <div style={{ display: "flex", gap: "0.5rem" }}>{children}</div>
+);
 
 export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
   onClose,
@@ -30,63 +50,100 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
 
   return (
     <>
-      <Dialog title="Bases" onClose={onClose}>
-        <ol>
-          {data &&
-            data.map((village) => (
-              <li
-                key={village.id}
-                style={{
-                  background:
-                    selectedVillage && selectedVillage.id === village.id
-                      ? "green"
-                      : "transparent",
+      <Dialog
+        title="Bases"
+        onClose={onClose}
+        width="min(80vw, 30rem)"
+        height="min(80vh, 30rem)"
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.5rem",
+            padding: "0.5rem",
+          }}
+        >
+          <Row>
+            <Inset>&lt;no name&gt;</Inset>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.25rem",
+              }}
+            >
+              <Button
+                color="orange"
+                width="default"
+                height="default"
+                onClick={() => {
+                  createMutation.mutate({ name: "New Village" });
+                  // set as selected, and start editing
                 }}
               >
-                {village.name}
-                <Button
-                  color="green"
-                  width="default"
-                  height="small"
-                  onClick={() => setSelectedVillage(village)}
-                >
-                  Select
-                </Button>
-              </li>
+                + New
+              </Button>
+            </div>
+          </Row>
+          {data &&
+            data.map((village) => (
+              <Row key={village.id}>
+                <Inset>{village.name}</Inset>
+                {village.builtIn && (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "0.25rem",
+                    }}
+                  >
+                    <Button
+                      color="orange"
+                      width="default"
+                      height="small"
+                      onClick={() => {
+                        setSelectedVillage(village);
+                        setIsEditing(true);
+                      }}
+                    >
+                      View
+                    </Button>
+                    <Button
+                      color="cornflowerblue"
+                      width="default"
+                      height="small"
+                    >
+                      Copy
+                    </Button>
+                  </div>
+                )}
+                {!village.builtIn && (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "0.25rem",
+                    }}
+                  >
+                    <Button
+                      color="orange"
+                      width="default"
+                      height="small"
+                      onClick={() => {
+                        setSelectedVillage(village);
+                        setIsEditing(true);
+                      }}
+                    >
+                      Edit
+                    </Button>
+                    <Button color="red" width="default" height="small" disabled>
+                      Delete
+                    </Button>
+                  </div>
+                )}
+              </Row>
             ))}
-        </ol>
-        <div>
-          <Button
-            color="orange"
-            width="default"
-            height="small"
-            onClick={() => {
-              createMutation.mutate({ name: "New Village" });
-              // set as selected, and start editing
-            }}
-          >
-            + New
-          </Button>
-
-          <Button
-            color="orange"
-            width="default"
-            height="small"
-            disabled={selectedVillage === null || selectedVillage.builtIn}
-            onClick={() => {
-              setIsEditing(true);
-            }}
-          >
-            Edit
-          </Button>
-          <Button
-            color="red"
-            width="default"
-            height="small"
-            disabled={selectedVillage === null || selectedVillage.builtIn}
-          >
-            Delete
-          </Button>
         </div>
       </Dialog>
 
@@ -96,8 +153,8 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
           onClose={() => {
             setIsEditing(false);
           }}
+          readOnly={selectedVillage.builtIn}
           onSave={async (updatedBase) => {
-            console.log("Saving village");
             updateMutation.mutate({ ...selectedVillage, layout: updatedBase });
             setIsEditing(false);
           }}

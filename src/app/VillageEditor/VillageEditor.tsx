@@ -51,7 +51,8 @@ export const VillageEditor: React.FC<{
   base: BaseLayout;
   onClose?: () => void;
   onSave?: (updatedBase: BaseLayout) => void;
-}> = ({ base: startBase, onClose, onSave }) => {
+  readOnly?: boolean;
+}> = ({ base: startBase, onClose, onSave, readOnly = false }) => {
   const [selection, setSelection] = useState<
     | null
     | {
@@ -197,9 +198,9 @@ export const VillageEditor: React.FC<{
       const yOff = position[1] - element.position[1];
       return (
         xOff >= 0 &&
-        xOff <= element.info.size[0] &&
+        xOff < element.info.size[0] &&
         yOff >= 0 &&
-        yOff <= element.info.size[1]
+        yOff < element.info.size[1]
       );
     });
 
@@ -212,9 +213,9 @@ export const VillageEditor: React.FC<{
         const yOff = position[1] - element.position[1];
         return (
           xOff >= 0 &&
-          xOff <= element.info.size[0] &&
+          xOff < element.info.size[0] &&
           yOff >= 0 &&
-          yOff <= element.info.size[1]
+          yOff < element.info.size[1]
         );
       });
       if (continueSelection) {
@@ -273,7 +274,7 @@ export const VillageEditor: React.FC<{
             if (e.stopPropagation) e.stopPropagation();
             if (e.preventDefault) e.preventDefault();
 
-            if (dragState === null || selection === null) {
+            if (dragState === null || selection === null || readOnly) {
               return;
             }
             if (e.buttons === 0) {
@@ -288,7 +289,7 @@ export const VillageEditor: React.FC<{
             if (e.stopPropagation) e.stopPropagation();
             if (e.preventDefault) e.preventDefault();
 
-            if (dragState === null || selection === null) {
+            if (dragState === null || selection === null || readOnly) {
               return;
             }
             onDragRelease();
@@ -306,7 +307,7 @@ export const VillageEditor: React.FC<{
             onSelect(position);
           }}
           onTouchMove={(e) => {
-            if (dragState === null || selection === null) {
+            if (dragState === null || selection === null || readOnly) {
               return;
             }
 
@@ -316,7 +317,7 @@ export const VillageEditor: React.FC<{
             if (e.stopPropagation) e.stopPropagation();
             if (e.preventDefault) e.preventDefault();
 
-            if (dragState === null || selection === null) {
+            if (dragState === null || selection === null || readOnly) {
               return;
             }
             onDragRelease();
@@ -335,19 +336,20 @@ export const VillageEditor: React.FC<{
         </Grid>
 
         <EditTray
+          scoutView={scoutView}
+          readOnly={readOnly}
+          onScoutViewChange={(newView) => updateScoutView(newView)}
           onClose={onClose}
           onSave={() => {
             onSave?.(base);
           }}
-          scoutView={scoutView}
-          onScoutViewChange={(newView) => updateScoutView(newView)}
         />
 
         {dragState === null &&
           selection !== null &&
           "buildings" in selection && (
             <div className={styles.toolBar}>
-              {selection.buildings.length === 1 && (
+              {selection.buildings.length === 1 && !readOnly && (
                 <Button
                   color="#F2E1D9"
                   width="default"
@@ -362,7 +364,7 @@ export const VillageEditor: React.FC<{
                   ⬆
                 </Button>
               )}
-              {selection.buildings.length === 1 && (
+              {selection.buildings.length === 1 && !readOnly && (
                 <Button
                   color="red"
                   width="default"
@@ -380,49 +382,51 @@ export const VillageEditor: React.FC<{
             </div>
           )}
       </main>
-      <ArmyTray className={styles.placementControl}>
-        <Group>
-          {Object.entries(typesAndAvailable).map(([type, amount]) => (
-            <UnitButton
-              key={type}
-              buttonColor="#bbf"
-              portraitColor="#bbf"
-              label={type}
-              jump
-              amount={amount}
-              hidden={amount === 0}
-              selected={
-                selection !== null &&
-                "buildingType" in selection &&
-                selection.buildingType === type
-              }
-              onTouchStart={() => {
-                setSelection({ buildingType: type, level: 1 });
-                setDragState({});
-              }}
-              onTouchMove={(e) => {
-                if (dragState === null || selection === null) {
-                  return;
+      {!readOnly && (
+        <ArmyTray className={styles.placementControl}>
+          <Group>
+            {Object.entries(typesAndAvailable).map(([type, amount]) => (
+              <UnitButton
+                key={type}
+                buttonColor="#bbf"
+                portraitColor="#bbf"
+                label={type}
+                jump
+                amount={amount}
+                hidden={amount === 0}
+                selected={
+                  selection !== null &&
+                  "buildingType" in selection &&
+                  selection.buildingType === type
                 }
-                onDrag(shiftPosition(getTouchPosition(e, true), -2, -2));
-              }}
-              onTouchEnd={(e) => {
-                if (e.stopPropagation) e.stopPropagation();
-                if (e.preventDefault) e.preventDefault();
+                onTouchStart={() => {
+                  setSelection({ buildingType: type, level: 1 });
+                  setDragState({});
+                }}
+                onTouchMove={(e) => {
+                  if (dragState === null || selection === null) {
+                    return;
+                  }
+                  onDrag(shiftPosition(getTouchPosition(e, true), -2, -2));
+                }}
+                onTouchEnd={(e) => {
+                  if (e.stopPropagation) e.stopPropagation();
+                  if (e.preventDefault) e.preventDefault();
 
-                if (dragState === null || selection === null) {
-                  return;
-                }
-                onDragRelease();
-              }}
-              onMouseDown={() => {
-                setSelection({ buildingType: type, level: 1 });
-                setDragState({});
-              }}
-            />
-          ))}
-        </Group>
-      </ArmyTray>
+                  if (dragState === null || selection === null) {
+                    return;
+                  }
+                  onDragRelease();
+                }}
+                onMouseDown={() => {
+                  setSelection({ buildingType: type, level: 1 });
+                  setDragState({});
+                }}
+              />
+            ))}
+          </Group>
+        </ArmyTray>
+      )}
     </div>
   );
 };

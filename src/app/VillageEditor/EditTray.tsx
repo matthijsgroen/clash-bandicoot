@@ -7,8 +7,15 @@ export const EditTray: React.FC<{
   onClose?: () => void;
   onSave?: () => void;
   scoutView?: boolean;
+  readOnly?: boolean;
   onScoutViewChange?: (view: boolean) => void;
-}> = ({ onClose, onSave, scoutView = false, onScoutViewChange }) => {
+}> = ({
+  onClose,
+  onSave,
+  scoutView = false,
+  onScoutViewChange,
+  readOnly = false,
+}) => {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   return (
     <div className={styles.tray}>
@@ -43,7 +50,13 @@ export const EditTray: React.FC<{
             Scout view
           </Button>
           <hr />
-          <Button color="#7cb342" height="small" width="huge" onClick={onSave}>
+          <Button
+            color="#7cb342"
+            height="small"
+            width="huge"
+            onClick={onSave}
+            disabled={readOnly}
+          >
             Save
           </Button>
           <Button color="red" height="small" width="huge" onClick={onClose}>

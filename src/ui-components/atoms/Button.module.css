@@ -64,6 +64,10 @@ button:active:enabled .outer {
 
   font-size: 0.6rem;
 }
+.smallHeight .inner {
+  text-shadow: 0 1px 0 #000;
+}
+
 .defaultWidth {
   width: var(--control-size-default);
 }
