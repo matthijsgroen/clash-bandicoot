@@ -20,3 +20,11 @@
     var(--control-size-large) + env(safe-area-inset-bottom) + 1.5rem
   );
 }
+
+.nextTarget {
+  position: fixed;
+  right: calc(1rem + env(safe-area-inset-right));
+  bottom: calc(
+    var(--control-size-large) + env(safe-area-inset-bottom) + 1.5rem
+  );
+}

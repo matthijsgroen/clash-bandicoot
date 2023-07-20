@@ -44,13 +44,17 @@ export const Combat: React.FC<{
   base: BaseLayout;
   army: Army;
   replay?: Replay;
-  onClose?: () => void;
-}> = ({ base, replay, army, onClose }) => {
+  showNext?: boolean;
+  onClose?: VoidFunction;
+  onNext?: VoidFunction;
+}> = ({ base, replay, army, showNext = false, onClose, onNext }) => {
   const [selectedTroop, setSelectedTroop] = useState<
     [string, number] | undefined
   >(undefined);
+
   const [battleState, setBattleState] = useAtom(battleAtom);
   const attack = useRef(handleAttack(base, army));
+  const [battleStarted, setBattleStarted] = useState(false);
 
   const placementQueue = useRef<Replay>({
     placement: ([] as Replay["placement"]).concat(
@@ -59,6 +63,11 @@ export const Combat: React.FC<{
   });
 
   useEffect(() => {
+    if (!battleStarted) {
+      setBattleState({ ...attack.current.getData() });
+      return;
+    }
+
     const int = setInterval(() => {
       if (attack.current.getData().state === "ended") {
         clearInterval(int);
@@ -82,7 +91,7 @@ export const Combat: React.FC<{
     return () => {
       clearInterval(int);
     };
-  }, [army, attack, setBattleState]);
+  }, [army, attack, setBattleState, battleStarted]);
 
   const layout = battleState.layout;
   const buildingStatus = battleState.baseData;
@@ -102,6 +111,7 @@ export const Combat: React.FC<{
                 e.clientY
               );
               if (position) {
+                setBattleStarted(true);
                 attack.current.placeUnit(
                   selectedTroop[0],
                   selectedTroop[1],
@@ -118,8 +128,23 @@ export const Combat: React.FC<{
         </Grid>
       </main>
       <aside>
-        <CombatTimer />
-        <DestructionMeter />
+        {battleStarted && (
+          <>
+            <CombatTimer />
+            <DestructionMeter />
+          </>
+        )}
+        {!battleStarted && showNext && (
+          <Button
+            color="orange"
+            width="huge"
+            height="default"
+            className={styles.nextTarget}
+            onClick={onNext}
+          >
+            Next target &raquo;
+          </Button>
+        )}
         {battleState.state === "ended" && (
           <div style={{ position: "absolute", left: "30dvw", top: "30dvh" }}>
             <p>Yay combat is done!</p>
