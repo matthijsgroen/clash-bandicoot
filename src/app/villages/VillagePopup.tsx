@@ -2,8 +2,15 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "../../ui-components/atoms/Button";
 import { PropsWithChildren, useState } from "react";
 import { VillageEditor } from "../VillageEditor/VillageEditor";
-import { Village, getBases, postBase, putBase } from "../../api/bases";
+import {
+  Village,
+  deleteBase,
+  getBases,
+  postBase,
+  putBase,
+} from "../../api/bases";
 import { Dialog } from "../../ui-components/atoms/Dialog";
+import { Text } from "../../ui-components/atoms/Text";
 
 export const Inset: React.FC<PropsWithChildren> = ({ children }) => (
   <span
@@ -33,13 +40,22 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
 
   const createMutation = useMutation({
     mutationFn: postBase,
-    onSuccess: () => {
+    onSuccess: (village) => {
       queryClient.invalidateQueries({ queryKey: ["villageList"] });
+      setSelectedVillage(village);
+      setIsEditing(true);
     },
   });
 
   const updateMutation = useMutation({
     mutationFn: putBase,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["villageList"] });
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteBase,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["villageList"] });
     },
@@ -65,7 +81,9 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
           }}
         >
           <Row>
-            <Inset>&lt;no name&gt;</Inset>
+            <Inset>
+              <Text>&lt;no name&gt;</Text>
+            </Inset>
             <div
               style={{
                 display: "flex",
@@ -89,7 +107,9 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
           {data &&
             data.map((village) => (
               <Row key={village.id}>
-                <Inset>{village.name}</Inset>
+                <Inset>
+                  <Text>{village.name}</Text>
+                </Inset>
                 {village.builtIn && (
                   <div
                     style={{
@@ -137,7 +157,14 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
                     >
                       Edit
                     </Button>
-                    <Button color="red" width="default" height="small" disabled>
+                    <Button
+                      color="red"
+                      width="default"
+                      height="small"
+                      onClick={() => {
+                        deleteMutation.mutate(village);
+                      }}
+                    >
                       Delete
                     </Button>
                   </div>
@@ -149,6 +176,7 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
 
       {isEditing && selectedVillage && (
         <VillageEditor
+          name={selectedVillage.name}
           base={selectedVillage.layout}
           onClose={() => {
             setIsEditing(false);

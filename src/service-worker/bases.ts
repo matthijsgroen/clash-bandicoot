@@ -79,3 +79,13 @@ export const putBase: RouteHandler = async ({ url, request }) => {
 
   return new Response(JSON.stringify(dataObject));
 };
+
+export const deleteBase: RouteHandler = async ({ url }) => {
+  const id = url.pathname.split("/").slice(-1)[0];
+  const cache = await caches.open("bases");
+  await cache.delete(`/local-api/bases/?id=${id}`);
+
+  return new Response(
+    JSON.stringify({ status: "ok", id, message: "base deleted" })
+  );
+};
