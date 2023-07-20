@@ -84,6 +84,7 @@ export const deleteBase: RouteHandler = async ({ url }) => {
   const id = url.pathname.split("/").slice(-1)[0];
   const cache = await caches.open("bases");
   await cache.delete(`/local-api/bases/?id=${id}`);
+  log(`base ${id} deleted`);
 
   return new Response(
     JSON.stringify({ status: "ok", id, message: "base deleted" })
