@@ -8,3 +8,8 @@
   text-shadow: 0 2px 0 #000;
   margin: 0;
 }
+
+.small {
+  font-size: 0.6rem;
+  text-shadow: 0 1px 0 #000;
+}

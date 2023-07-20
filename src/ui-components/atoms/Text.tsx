@@ -8,13 +8,17 @@ export type TextSize = "default" | "small";
 export const Text: React.FC<
   PropsWithChildren<{
     element?: HTMLTextElement;
-    allowSelection?: boolean;
     size?: TextSize;
     className?: string;
   }>
-> = ({ element = "p", allowSelection = false, className, children }) =>
+> = ({ element = "p", className, size, children }) =>
   createElement(
     element,
-    { className: classNames(styles.text, { [className ?? ""]: className }) },
+    {
+      className: classNames(styles.text, {
+        [className ?? ""]: className,
+        [styles.small]: size === "small",
+      }),
+    },
     children
   );
