@@ -97,7 +97,9 @@ export const HomeScreen: React.FC<{
           .
         </p>
       </footer>
-      {openPopup === "villages" && <VillagePopup />}
+      {openPopup === "villages" && (
+        <VillagePopup onClose={() => setOpenPopup(null)} />
+      )}
     </div>
   );
 };
