@@ -11,6 +11,7 @@ import {
 } from "../../api/bases";
 import { Dialog } from "../../ui-components/atoms/Dialog";
 import { Text } from "../../ui-components/atoms/Text";
+import { getTownhallLevel } from "../../engine/layout/baseLayout";
 
 export const Inset: React.FC<PropsWithChildren> = ({ children }) => (
   <span
@@ -83,6 +84,7 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
           <Row>
             <Inset>
               <Text>&lt;no name&gt;</Text>
+              <Text size="small">Your new village</Text>
             </Inset>
             <div
               style={{
@@ -109,6 +111,9 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
               <Row key={village.id}>
                 <Inset>
                   <Text>{village.name}</Text>
+                  <Text size="small">
+                    TH: {getTownhallLevel(village.layout)}
+                  </Text>
                 </Inset>
                 {village.builtIn && (
                   <div
