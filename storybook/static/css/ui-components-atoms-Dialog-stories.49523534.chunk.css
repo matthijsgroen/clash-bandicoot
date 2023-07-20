@@ -8,12 +8,12 @@
   position: fixed;
   top: 0;
   left: 0;
-  -webkit-animation: Dialog_fadeIn__2Qmeg 150ms ease-out;
-          animation: Dialog_fadeIn__2Qmeg 150ms ease-out;
+  -webkit-animation: Dialog_fadeIn__2Qmeg 200ms ease-out;
+          animation: Dialog_fadeIn__2Qmeg 200ms ease-out;
 }
 .Dialog_close__Aj8L2 {
-  -webkit-animation: Dialog_fadeOut__6IHKb 150ms ease-out forwards;
-          animation: Dialog_fadeOut__6IHKb 150ms ease-out forwards;
+  -webkit-animation: Dialog_fadeOut__6IHKb 200ms ease-out forwards;
+          animation: Dialog_fadeOut__6IHKb 200ms ease-out forwards;
 }
 
 .Dialog_dialog__D8YaD {
@@ -101,11 +101,11 @@
 @-webkit-keyframes Dialog_popIn__BunBT {
   0% {
     opacity: 0%;
-    scale: 0.8;
+    scale: 0.9;
   }
   40% {
     opacity: 100%;
-    scale: 1.1;
+    scale: 1.05;
   }
   100% {
     opacity: 100%;
@@ -116,11 +116,11 @@
 @keyframes Dialog_popIn__BunBT {
   0% {
     opacity: 0%;
-    scale: 0.8;
+    scale: 0.9;
   }
   40% {
     opacity: 100%;
-    scale: 1.1;
+    scale: 1.05;
   }
   100% {
     opacity: 100%;
@@ -131,11 +131,11 @@
 @-webkit-keyframes Dialog_popOut__Y87sz {
   100% {
     opacity: 0%;
-    scale: 0.8;
+    scale: 0.9;
   }
   60% {
     opacity: 100%;
-    scale: 1.1;
+    scale: 1.05;
   }
   0% {
     opacity: 100%;
@@ -146,11 +146,11 @@
 @keyframes Dialog_popOut__Y87sz {
   100% {
     opacity: 0%;
-    scale: 0.8;
+    scale: 0.9;
   }
   60% {
     opacity: 100%;
-    scale: 1.1;
+    scale: 1.05;
   }
   0% {
     opacity: 100%;
@@ -276,19 +276,26 @@ button:active:enabled .Button_outer__Zd-2h {
   background-color: transparent;
 }
 
-.DialogTitle_dialogTitle__kmpNd {
+.Text_text__uZi1L {
   font-family: "Sriracha", cursive;
-  text-transform: uppercase;
   font-weight: bold;
   font-size: 0.9rem;
   line-height: 0.8rem;
 
   color: white;
   text-shadow: 0 2px 0 #000;
-  width: 100%;
-  text-align: center;
   margin: 0;
 }
 
+.Text_small__TyVhb {
+  font-size: 0.6rem;
+  text-shadow: 0 1px 0 #000;
+}
 
-/*# sourceMappingURL=ui-components-atoms-Dialog-stories.8481dd39.chunk.css.map*/
+.DialogTitle_dialogTitle__kmpNd {
+  width: 100%;
+  text-align: center;
+}
+
+
+/*# sourceMappingURL=ui-components-atoms-Dialog-stories.49523534.chunk.css.map*/
