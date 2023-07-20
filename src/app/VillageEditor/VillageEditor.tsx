@@ -17,6 +17,7 @@ import {
   canUpgrade,
   getTownhallLevel,
   isOverlapping,
+  maximizeBase,
   moveBuilding,
   placeNewBuilding,
   removeBuilding,
@@ -29,6 +30,7 @@ import {
 } from "../../ui-components/composition/Village/Grid";
 import { shiftPosition } from "../../data/utils/shiftPosition";
 import { createNextKey } from "../../engine/utils/keyStore";
+import { Text } from "../../ui-components/atoms/Text";
 import { EditTray } from "./EditTray";
 
 const getIsOutOfBounds = (
@@ -52,7 +54,8 @@ export const VillageEditor: React.FC<{
   onClose?: () => void;
   onSave?: (updatedBase: BaseLayout) => void;
   readOnly?: boolean;
-}> = ({ base: startBase, onClose, onSave, readOnly = false }) => {
+  name?: string;
+}> = ({ base: startBase, onClose, onSave, readOnly = false, name }) => {
   const [selection, setSelection] = useState<
     | null
     | {
@@ -340,10 +343,16 @@ export const VillageEditor: React.FC<{
           readOnly={readOnly}
           onScoutViewChange={(newView) => updateScoutView(newView)}
           onClose={onClose}
+          onMaximize={() => updateBase(maximizeBase)}
           onSave={() => {
             onSave?.(base);
           }}
         />
+        {name && (
+          <div className={styles.name}>
+            <Text>{name}</Text>
+          </div>
+        )}
 
         {dragState === null &&
           selection !== null &&

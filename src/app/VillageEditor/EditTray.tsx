@@ -4,16 +4,18 @@ import { useState } from "react";
 import { Button } from "../../ui-components/atoms/Button";
 
 export const EditTray: React.FC<{
-  onClose?: () => void;
-  onSave?: () => void;
   scoutView?: boolean;
   readOnly?: boolean;
+  onClose?: VoidFunction;
+  onSave?: VoidFunction;
+  onMaximize?: VoidFunction;
   onScoutViewChange?: (view: boolean) => void;
 }> = ({
   onClose,
   onSave,
-  scoutView = false,
   onScoutViewChange,
+  onMaximize,
+  scoutView = false,
   readOnly = false,
 }) => {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
@@ -35,7 +37,13 @@ export const EditTray: React.FC<{
           🔧
         </Button>
         <div className={styles.panel}>
-          <Button color="#7cb342" height="small" width="huge" disabled>
+          <Button
+            color="#7cb342"
+            height="small"
+            width="huge"
+            disabled={readOnly}
+            onClick={onMaximize}
+          >
             Max all buildings
           </Button>
           <Button
