@@ -13,7 +13,12 @@ import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { NetworkOnly, StaleWhileRevalidate } from "workbox-strategies";
-import { getBases, postBase, putBase } from "./service-worker/bases";
+import {
+  deleteBase,
+  getBases,
+  postBase,
+  putBase,
+} from "./service-worker/bases";
 import { log } from "./service-worker/log";
 
 declare const self: ServiceWorkerGlobalScope;
@@ -87,6 +92,11 @@ registerRoute(
   ({ url }) => /local-api\/bases\/u\d+$/.test(url.pathname),
   putBase,
   "PUT"
+);
+registerRoute(
+  ({ url }) => /local-api\/bases\/u\d+$/.test(url.pathname),
+  deleteBase,
+  "DELETE"
 );
 
 // Seed the cache

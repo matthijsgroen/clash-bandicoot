@@ -54,3 +54,9 @@ export const putBase = async (data: Village): Promise<Village> => {
   const result = (await response.json()) as VillageRequestData;
   return convertFromRequest(result);
 };
+
+export const deleteBase = async (data: Village): Promise<void> => {
+  await fetch(`/local-api/bases/${data.id}`, {
+    method: "DELETE",
+  });
+};
