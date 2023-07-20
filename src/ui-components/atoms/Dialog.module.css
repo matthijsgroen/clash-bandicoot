@@ -8,10 +8,10 @@
   position: fixed;
   top: 0;
   left: 0;
-  animation: fadeIn 150ms ease-out;
+  animation: fadeIn 200ms ease-out;
 }
 .close {
-  animation: fadeOut 150ms ease-out forwards;
+  animation: fadeOut 200ms ease-out forwards;
 }
 
 .dialog {
