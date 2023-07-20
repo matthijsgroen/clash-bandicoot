@@ -1,15 +1,20 @@
 import { PropsWithChildren } from "react";
 import styles from "./Dialog.module.css";
 import { Button } from "./Button";
+import { DialogTitle } from "./DialogTitle";
 
 export const Dialog: React.FC<
-  PropsWithChildren<{ title: React.ReactNode; onClose: () => void }>
+  PropsWithChildren<{ title: React.ReactNode; onClose?: VoidFunction }>
 > = ({ title, children, onClose }) => {
   return (
     <div className={styles.dimmer}>
       <div role="dialog" className={styles.dialog}>
         <header className={styles.dialogHeader}>
-          {title}
+          {typeof title === "string" ? (
+            <DialogTitle>{title}</DialogTitle>
+          ) : (
+            title
+          )}
           <Button
             color="red"
             onClick={onClose}

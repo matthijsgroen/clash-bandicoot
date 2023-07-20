@@ -3,8 +3,11 @@ import { Button } from "../../ui-components/atoms/Button";
 import { useState } from "react";
 import { VillageEditor } from "../VillageEditor/VillageEditor";
 import { Village, getBases, postBase, putBase } from "../../api/bases";
+import { Dialog } from "../../ui-components/atoms/Dialog";
 
-export const VillagePopup = () => {
+export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
+  onClose,
+}) => {
   const queryClient = useQueryClient();
   const { data } = useQuery({ queryKey: ["villageList"], queryFn: getBases });
 
@@ -27,8 +30,7 @@ export const VillagePopup = () => {
 
   return (
     <>
-      <div>
-        <h1>Bases</h1>
+      <Dialog title="Bases" onClose={onClose}>
         <ol>
           {data &&
             data.map((village) => (
@@ -86,7 +88,8 @@ export const VillagePopup = () => {
             Delete
           </Button>
         </div>
-      </div>
+      </Dialog>
+
       {isEditing && selectedVillage && (
         <VillageEditor
           base={selectedVillage.layout}

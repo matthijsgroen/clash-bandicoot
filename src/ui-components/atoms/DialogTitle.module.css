@@ -1,0 +1,13 @@
+.dialogTitle {
+  font-family: "Sriracha", cursive;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.9rem;
+  line-height: 0.8rem;
+
+  color: white;
+  text-shadow: 0 2px 0 #000;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+}
