@@ -11,8 +11,8 @@
   position: absolute;
   content: "";
   background: linear-gradient(180deg, #3333, #333 20%);
-  width: 130vw;
-  height: 130vh;
+  width: 200vw;
+  height: 150vh;
   -webkit-transform-origin: 30% 0%;
           transform-origin: 30% 0%;
   rotate: 45deg;
@@ -23,8 +23,8 @@
   position: absolute;
   content: "";
   background: linear-gradient(0deg, #3333, #333 20%);
-  width: 130vw;
-  height: 130vh;
+  width: 200vw;
+  height: 150vh;
   -webkit-transform-origin: 30% 0%;
           transform-origin: 30% 0%;
   rotate: 45deg;
@@ -33,11 +33,14 @@
 }
 
 .CloudCurtain_open__da6LN::before {
-  translate: -70vw 70vh;
+  translate: -100vw 100vh;
 }
 .CloudCurtain_open__da6LN::after {
-  translate: 120vw -120vh;
+  translate: 150vw -150vh;
+}
+.CloudCurtain_clickThrough__NZ\+Kc {
+  pointer-events: none;
 }
 
 
-/*# sourceMappingURL=ui-components-atoms-CloudCurtain-stories.9b942343.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-CloudCurtain-stories.85e5d0fc.chunk.css.map*/
