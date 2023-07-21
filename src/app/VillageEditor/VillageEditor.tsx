@@ -67,6 +67,9 @@ export const VillageEditor: React.FC<{
       }
     | { buildingType: string; level: number }
   >(null);
+  const [interactionMode, setInteractionMode] = useState<"selection" | "drag">(
+    "selection"
+  );
   const [dragState, setDragState] = useState<null | {
     dragStart?: [x: number, y: number];
     current?: [x: number, y: number];
@@ -102,6 +105,7 @@ export const VillageEditor: React.FC<{
   const clearSelection = () => {
     setSelection(null);
     setDragState(null);
+    setInteractionMode("selection");
   };
 
   const onDragRelease = () => {
@@ -136,6 +140,7 @@ export const VillageEditor: React.FC<{
         });
       }
       setDragState(null);
+      setInteractionMode("selection");
     }
   };
 
@@ -223,6 +228,7 @@ export const VillageEditor: React.FC<{
       });
       if (continueSelection) {
         setDragState({ dragStart: position });
+        setInteractionMode("drag");
         return;
       }
 
@@ -258,7 +264,7 @@ export const VillageEditor: React.FC<{
         <Grid
           width={base.gridSize[0]}
           height={base.gridSize[1]}
-          scrollable={dragState === null}
+          scrollable={interactionMode !== "drag"}
           onMouseDown={(e) => {
             if (dragState !== null && selection !== null) {
               onDragRelease();
@@ -310,17 +316,24 @@ export const VillageEditor: React.FC<{
             onSelect(position);
           }}
           onTouchMove={(e) => {
-            if (dragState === null || selection === null || readOnly) {
+            if (
+              dragState === null ||
+              selection === null ||
+              readOnly ||
+              interactionMode === "selection"
+            ) {
               return;
             }
 
             onDrag(shiftPosition(getTouchPosition(e, true), -2, -2));
           }}
           onTouchEnd={(e) => {
-            if (e.stopPropagation) e.stopPropagation();
-            if (e.preventDefault) e.preventDefault();
-
-            if (dragState === null || selection === null || readOnly) {
+            if (
+              dragState === null ||
+              selection === null ||
+              readOnly ||
+              interactionMode === "selection"
+            ) {
               return;
             }
             onDragRelease();
