@@ -99,7 +99,6 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
                 height="default"
                 onClick={() => {
                   createMutation.mutate({ name: "New Village" });
-                  // set as selected, and start editing
                 }}
               >
                 + New
@@ -138,6 +137,12 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
                       color="cornflowerblue"
                       width="default"
                       height="small"
+                      onClick={() => {
+                        createMutation.mutate({
+                          name: `${village.name} copy`,
+                          layout: village.layout,
+                        });
+                      }}
                     >
                       Copy
                     </Button>
