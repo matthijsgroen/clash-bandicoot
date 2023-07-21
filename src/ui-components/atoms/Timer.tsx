@@ -16,8 +16,12 @@ export const Timer: React.FC<{
         [styles.red]: red,
       })}
     >
-      {label && <Text size="small">{label}</Text>}
-      <Text element="output" size="large">
+      {label && (
+        <Text size="small" centered>
+          {label}
+        </Text>
+      )}
+      <Text element="output" size="large" centered>
         {minutesLeft > 0 && `${minutesLeft}m `}
         {secondsLeft}s
       </Text>

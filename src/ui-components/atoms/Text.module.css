@@ -2,7 +2,7 @@
   font-family: "Sriracha", cursive;
   font-weight: bold;
   font-size: 0.9rem;
-  line-height: 0.8rem;
+  line-height: 1rem;
 
   color: var(--text-color, white);
   text-shadow: 0 2px 0 #000;
@@ -11,9 +11,15 @@
 
 .small {
   font-size: 0.6rem;
+  line-height: 1rem;
   text-shadow: 0 1px 0 #000;
 }
 
 .large {
   font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+.centered {
+  text-align: center;
 }

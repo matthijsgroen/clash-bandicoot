@@ -20,3 +20,10 @@ export const Text: Story = {
     children: "Lorem ipsum dolor sit amed.",
   },
 };
+
+export const TextWithColor: Story = {
+  args: {
+    children: "Lorem ipsum dolor sit amed.",
+    color: "cornflowerblue",
+  },
+};
