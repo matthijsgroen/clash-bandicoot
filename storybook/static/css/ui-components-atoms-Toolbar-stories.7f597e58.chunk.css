@@ -2,6 +2,7 @@
   padding: 0;
   display: inline-block;
   border: none;
+  pointer-events: all;
   background: transparent;
 }
 
@@ -126,4 +127,4 @@ button:active:enabled .Button_outer__Zd-2h {
 }
 
 
-/*# sourceMappingURL=ui-components-atoms-Toolbar-stories.9ff9a3a5.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-Toolbar-stories.7f597e58.chunk.css.map*/
