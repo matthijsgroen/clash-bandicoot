@@ -280,7 +280,7 @@ button:active:enabled .Button_outer__Zd-2h {
   font-family: "Sriracha", cursive;
   font-weight: bold;
   font-size: 0.9rem;
-  line-height: 0.8rem;
+  line-height: 1rem;
 
   color: white;
 
@@ -291,11 +291,17 @@ button:active:enabled .Button_outer__Zd-2h {
 
 .Text_small__TyVhb {
   font-size: 0.6rem;
+  line-height: 1rem;
   text-shadow: 0 1px 0 #000;
 }
 
 .Text_large__dnz0d {
   font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+.Text_centered__Mj3sn {
+  text-align: center;
 }
 
 .DialogTitle_dialogTitle__kmpNd {
@@ -304,4 +310,4 @@ button:active:enabled .Button_outer__Zd-2h {
 }
 
 
-/*# sourceMappingURL=ui-components-atoms-Dialog-stories.121813e4.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-Dialog-stories.445684cd.chunk.css.map*/

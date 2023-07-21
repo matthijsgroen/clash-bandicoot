@@ -159,6 +159,24 @@
   }
 }
 
+.Building_anchorPoint__q5lnz {
+  position: absolute;
+  bottom: 1rem;
+  left: -1rem;
+  width: 1px;
+  position: absolute;
+  rotate: -45deg;
+  scale: 0.75 1;
+  -webkit-transform-origin: 50% 100%;
+          transform-origin: 50% 100%;
+  z-index: 1;
+}
+
+.Building_floatingContent__wPx00 {
+  width: -webkit-max-content;
+  width: max-content;
+}
+
 .Building_elixirstorage__ffL18,
 .Building_elixircollector__HJcgy {
   background-color: pink;
@@ -180,5 +198,33 @@
   background-color: #999;
 }
 
+.Text_text__uZi1L {
+  font-family: "Sriracha", cursive;
+  font-weight: bold;
+  font-size: 0.9rem;
+  line-height: 1rem;
 
-/*# sourceMappingURL=ui-components-composition-Village-Building-stories.8e99bbd0.chunk.css.map*/
+  color: white;
+
+  color: var(--text-color, white);
+  text-shadow: 0 2px 0 #000;
+  margin: 0;
+}
+
+.Text_small__TyVhb {
+  font-size: 0.6rem;
+  line-height: 1rem;
+  text-shadow: 0 1px 0 #000;
+}
+
+.Text_large__dnz0d {
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+.Text_centered__Mj3sn {
+  text-align: center;
+}
+
+
+/*# sourceMappingURL=ui-components-composition-Village-Building-stories.dd896480.chunk.css.map*/

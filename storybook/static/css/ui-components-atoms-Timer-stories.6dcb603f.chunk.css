@@ -12,7 +12,7 @@
   font-family: "Sriracha", cursive;
   font-weight: bold;
   font-size: 0.9rem;
-  line-height: 0.8rem;
+  line-height: 1rem;
 
   color: white;
 
@@ -23,12 +23,18 @@
 
 .Text_small__TyVhb {
   font-size: 0.6rem;
+  line-height: 1rem;
   text-shadow: 0 1px 0 #000;
 }
 
 .Text_large__dnz0d {
   font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+.Text_centered__Mj3sn {
+  text-align: center;
 }
 
 
-/*# sourceMappingURL=ui-components-atoms-Timer-stories.8d67a213.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-Timer-stories.6dcb603f.chunk.css.map*/
