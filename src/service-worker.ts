@@ -20,6 +20,7 @@ import {
   putBase,
 } from "./service-worker/bases";
 import { log } from "./service-worker/log";
+import { factoryBases } from "./service-worker/factory-bases";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -103,22 +104,12 @@ registerRoute(
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open("bases").then(async (cache) => {
-      // Could be a fetch of JSON data in the public folder, in future versions
-
-      const internalData = [
-        {
-          name: "My Village",
-          layout:
-            "eNodjdENgkAQRHe4t8eBwh4kktiAJtZgGfbfiq58zWSSea997VPUZO-mYNpkR6c4nToSYAfZ1__agjLJbs7INXOWvZxFkt3XARLyCHwfbLvI1KHmlTmbJ6ni2L7InkGDkoSkKccUnx74AfOaBYA",
-        },
-      ];
-
-      log(`placing ${internalData.length} bases in the cache`);
+      log(`placing ${factoryBases.length} bases in the cache`);
       return cache.put(
         `/local-api/bases/?id=builtin`,
         new Response(
           JSON.stringify(
-            internalData.map((record, index) => ({
+            factoryBases.map((record, index) => ({
               ...record,
               id: `bi${index}`,
               builtIn: true,
