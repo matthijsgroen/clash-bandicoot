@@ -348,6 +348,7 @@ export const VillageEditor: React.FC<{
                 ? selection.buildings.map((b) => b.id)
                 : []
             }
+            showSelectedDetails
           />
         </Grid>
 

@@ -5,14 +5,14 @@
   line-height: 1rem;
 
   color: var(--text-color, white);
-  text-shadow: 0 2px 0 #000;
+  text-shadow: 0 2px 0 #000, 0 0 2px #0009;
   margin: 0;
 }
 
 .small {
   font-size: 0.6rem;
   line-height: 1rem;
-  text-shadow: 0 1px 0 #000;
+  text-shadow: 0 1px 0 #000, 0 0 1px #0009;
 }
 
 .large {

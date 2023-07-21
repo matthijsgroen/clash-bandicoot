@@ -1,13 +1,21 @@
 import { Building } from "./Building";
 import { BaseLayout, BattleBaseData } from "../../../engine/types";
 import { isOverlapping, isVisible } from "../../../engine/layout/baseLayout";
+import { Text } from "../../atoms/Text";
 
 export const Buildings: React.FC<{
   showHidden?: boolean;
   layout: BaseLayout;
   battleBaseData?: BattleBaseData;
   selection?: string[];
-}> = ({ showHidden = false, layout, battleBaseData, selection = [] }) => {
+  showSelectedDetails?: boolean;
+}> = ({
+  showHidden = false,
+  layout,
+  battleBaseData,
+  selection = [],
+  showSelectedDetails = false,
+}) => {
   const buildings = Object.entries(layout.items);
   return (
     <>
@@ -25,6 +33,7 @@ export const Buildings: React.FC<{
 
           const hitPoints = battleInfo ? battleInfo.hitPoints : info.hitPoints;
           const state = battleInfo ? battleInfo.state : "idle";
+          const showDetails = showSelectedDetails && id === selection[0];
 
           return (
             <Building
@@ -38,6 +47,18 @@ export const Buildings: React.FC<{
               state={state}
               selected={selection.includes(id)}
               overlapping={selection.includes(id) && isOverlapping(layout, id)}
+              floatingContent={
+                showDetails ? (
+                  <>
+                    <Text centered element="h1" color="palegreen">
+                      {info.type}
+                    </Text>
+                    <Text centered size="small" color="springgreen">
+                      level {info.level}
+                    </Text>
+                  </>
+                ) : undefined
+              }
             />
           );
         })}
