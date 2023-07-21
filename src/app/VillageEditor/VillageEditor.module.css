@@ -21,6 +21,7 @@
   align-items: center;
   justify-content: center;
   column-gap: 0.5rem;
+  pointer-events: none;
   bottom: calc(
     var(--control-size-large) + env(safe-area-inset-bottom) + 1.5rem
   );

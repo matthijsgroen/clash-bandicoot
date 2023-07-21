@@ -325,7 +325,7 @@ export const VillageEditor: React.FC<{
               return;
             }
 
-            onDrag(shiftPosition(getTouchPosition(e, true), -2, -2));
+            onDrag(shiftPosition(getTouchPosition(e, true), -1, -1));
           }}
           onTouchEnd={(e) => {
             if (

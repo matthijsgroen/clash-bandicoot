@@ -2,6 +2,7 @@
   padding: 0;
   display: inline-block;
   border: none;
+  pointer-events: all;
   background: transparent;
 }
 
