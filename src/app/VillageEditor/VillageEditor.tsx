@@ -253,8 +253,6 @@ export const VillageEditor: React.FC<{
         buildings: [{ id: building.buildingId, position: building.position }],
       });
       setDragState({ dragStart: position });
-    } else {
-      clearSelection();
     }
   };
 
@@ -310,7 +308,6 @@ export const VillageEditor: React.FC<{
             const position = getTouchPosition(e, true);
 
             if (!position) {
-              clearSelection();
               return;
             }
             onSelect(position);
