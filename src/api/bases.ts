@@ -30,13 +30,13 @@ export const getBases = async (): Promise<Village[]> => {
 };
 
 export const postBase = async (
-  options: { name: string } = { name: "New Village" }
+  options: { name: string; layout?: BaseLayout } = { name: "New Village" }
 ): Promise<Village> => {
   const response = await fetch("/local-api/bases", {
     method: "POST",
     body: JSON.stringify({
       name: options.name,
-      layout: pack(newLayout()),
+      layout: pack(options.layout ?? newLayout()),
     }),
   });
   const data = (await response.json()) as VillageRequestData;
