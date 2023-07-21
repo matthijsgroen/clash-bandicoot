@@ -43,49 +43,6 @@
   rotate: 45deg;
 }
 
-.PlacementOutline_outline__EK09Q {
-  left: 0;
-  top: 0;
-  translate: calc((var(--x) - 1) * var(--tile-size) - 1px)
-    calc((var(--y) - 1) * var(--tile-size) - 1px);
-  transition: translate 100ms;
-}
-.PlacementOutline_size1__jSK5\+ {
-  width: calc(var(--tile-size) * 3 + 1px);
-  height: calc(var(--tile-size) * 3 + 1px);
-}
-.PlacementOutline_size2__LB4XN {
-  width: calc(var(--tile-size) * 4 + 1px);
-  height: calc(var(--tile-size) * 4 + 1px);
-}
-.PlacementOutline_size3__qetT4 {
-  width: calc(var(--tile-size) * 5 + 1px);
-  height: calc(var(--tile-size) * 5 + 1px);
-}
-.PlacementOutline_size4__iEUMD {
-  width: calc(var(--tile-size) * 6 + 1px);
-  height: calc(var(--tile-size) * 6 + 1px);
-}
-.PlacementOutline_outlineBox__ciU4c {
-  translate: calc(var(--tile-size) * -3) calc(var(--tile-size) * -3);
-}
-.PlacementOutline_dark__t2mRV .PlacementOutline_outline__EK09Q {
-  background-color: white;
-}
-.PlacementOutline_light__T8L18 .PlacementOutline_outline__EK09Q {
-  background-color: #0f0f0f;
-}
-.PlacementOutline_dark__t2mRV {
-  -webkit-filter: drop-shadow(0px 0px 1px black);
-          filter: drop-shadow(0px 0px 1px black);
-  mix-blend-mode: darken;
-}
-.PlacementOutline_light__T8L18 {
-  -webkit-filter: drop-shadow(0px 0px 1px white);
-          filter: drop-shadow(0px 0px 1px white);
-  mix-blend-mode: plus-lighter;
-}
-
 .Building_ground__PK5fN {
   left: 0;
   top: 0;
@@ -241,5 +198,33 @@
   background-color: #999;
 }
 
+.Text_text__uZi1L {
+  font-family: "Sriracha", cursive;
+  font-weight: bold;
+  font-size: 0.9rem;
+  line-height: 1rem;
 
-/*# sourceMappingURL=ui-components-composition-Village-PlacementOutline-stories.c14ab0ef.chunk.css.map*/
+  color: white;
+
+  color: var(--text-color, white);
+  text-shadow: 0 2px 0 #000, 0 0 2px #0009;
+  margin: 0;
+}
+
+.Text_small__TyVhb {
+  font-size: 0.6rem;
+  line-height: 1rem;
+  text-shadow: 0 1px 0 #000, 0 0 1px #0009;
+}
+
+.Text_large__dnz0d {
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+.Text_centered__Mj3sn {
+  text-align: center;
+}
+
+
+/*# sourceMappingURL=ui-components-composition-Village-Building-stories.a4c0ed77.chunk.css.map*/
