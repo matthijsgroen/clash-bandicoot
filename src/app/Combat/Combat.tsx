@@ -153,7 +153,7 @@ export const Combat: React.FC<{
 
         <Button
           color="red"
-          width="default"
+          width="large"
           height="small"
           className={styles.stop}
           onClick={onClose}

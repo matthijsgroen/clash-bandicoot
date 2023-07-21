@@ -4,7 +4,7 @@ import { Grid } from "./Grid";
 import { Building as BuildingComponent } from "./Building";
 
 const meta = {
-  title: "Compositions/Village",
+  title: "Compositions/Village/Building",
   component: BuildingComponent,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/react/configure/story-layout
@@ -24,6 +24,24 @@ export const Building: Story = {
     buildingType: "name",
     level: 1,
     hitPoints: 30,
+  },
+  decorators: [
+    (Story) => (
+      <Grid width={16} height={16}>
+        <Story />
+      </Grid>
+    ),
+  ],
+};
+
+export const DestroyedBuilding: Story = {
+  args: {
+    x: 5,
+    y: 5,
+    size: 2,
+    buildingType: "name",
+    level: 1,
+    hitPoints: 0,
   },
   decorators: [
     (Story) => (
