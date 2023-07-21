@@ -89,9 +89,10 @@
 
 .anchorPoint {
   position: absolute;
-  bottom: 1rem;
-  left: -1rem;
-  width: 1px;
+  top: -0.25rem;
+  left: -0.25rem;
+  width: 0px;
+  height: 0px;
   position: absolute;
   rotate: -45deg;
   scale: 0.75 1;
@@ -101,6 +102,10 @@
 
 .floatingContent {
   width: max-content;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-50%);
 }
 
 .elixirstorage,
