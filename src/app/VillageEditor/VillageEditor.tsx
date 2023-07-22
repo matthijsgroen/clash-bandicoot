@@ -32,6 +32,7 @@ import { shiftPosition } from "../../data/utils/shiftPosition";
 import { createNextKey } from "../../engine/utils/keyStore";
 import { Text } from "../../ui-components/atoms/Text";
 import { EditTray } from "./EditTray";
+import { GridFloat } from "../../ui-components/composition/Village/GridFloat";
 
 const getIsOutOfBounds = (
   buildings: { id: string }[],
@@ -255,6 +256,10 @@ export const VillageEditor: React.FC<{
       setDragState({ dragStart: position });
     }
   };
+  const labelItem =
+    selection !== null &&
+    "buildings" in selection &&
+    base.items[selection.buildings[0].id];
 
   return (
     <div className={styles.editor}>
@@ -347,6 +352,16 @@ export const VillageEditor: React.FC<{
             }
             showSelectedDetails
           />
+          {labelItem && (
+            <GridFloat x={labelItem.position[0]} y={labelItem.position[1]}>
+              <Text centered element="h1" color="palegreen">
+                {labelItem.info.type}
+              </Text>
+              <Text centered size="small" color="springgreen">
+                level {labelItem.info.level}
+              </Text>
+            </GridFloat>
+          )}
         </Grid>
 
         <EditTray

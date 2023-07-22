@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { Grid } from "./Grid";
 import { Building as BuildingComponent } from "./Building";
-import { Text } from "../../atoms/Text";
 
 const meta = {
   title: "Compositions/Village/Building",
@@ -33,24 +31,6 @@ export const Building: Story = {
     buildingType: "name",
     level: 1,
     hitPoints: 30,
-  },
-  decorators,
-};
-
-export const BuildingWithFloat: Story = {
-  args: {
-    x: 5,
-    y: 5,
-    size: 2,
-    buildingType: "name",
-    level: 1,
-    hitPoints: 40,
-    floatingContent: [
-      <Text centered>My building</Text>,
-      <Text size="small" centered>
-        Level 1
-      </Text>,
-    ],
   },
   decorators,
 };

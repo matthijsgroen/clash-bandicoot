@@ -19,7 +19,6 @@ export const Building: React.FC<{
   state?: string;
   selected?: boolean;
   overlapping?: boolean;
-  floatingContent?: React.ReactNode;
 }> = ({
   x,
   y,
@@ -31,7 +30,6 @@ export const Building: React.FC<{
   state,
   selected,
   overlapping,
-  floatingContent,
 }) => {
   return (
     <div
@@ -40,7 +38,6 @@ export const Building: React.FC<{
           "--x": x,
           "--y": y,
           "--size": size,
-          position: "absolute",
         } as PlacementCSS
       }
       className={classNames(styles.ground, {
@@ -48,11 +45,6 @@ export const Building: React.FC<{
         [styles.overlapping]: overlapping && selected,
       })}
     >
-      {floatingContent && (
-        <div className={styles.anchorPoint}>
-          <div className={styles.floatingContent}>{floatingContent}</div>
-        </div>
-      )}
       <div
         className={classNames(
           {
