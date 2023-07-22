@@ -22,13 +22,13 @@
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
-  -webkit-animation: Dialog_popIn__BunBT 150ms ease-out;
-          animation: Dialog_popIn__BunBT 150ms ease-out;
+  -webkit-animation: Dialog_popIn__BunBT 200ms ease-out;
+          animation: Dialog_popIn__BunBT 200ms ease-out;
   box-shadow: 0 3px 0 #0003;
 }
 .Dialog_close__Aj8L2 .Dialog_dialog__D8YaD {
-  -webkit-animation: Dialog_popOut__Y87sz 150ms ease-out forwards;
-          animation: Dialog_popOut__Y87sz 150ms ease-out forwards;
+  -webkit-animation: Dialog_popOut__Y87sz 200ms ease-out forwards;
+          animation: Dialog_popOut__Y87sz 200ms ease-out forwards;
 }
 
 .Dialog_dialogHeader__wiZZI {
@@ -314,4 +314,4 @@ button:active:enabled .Button_outer__Zd-2h {
 }
 
 
-/*# sourceMappingURL=ui-components-atoms-Dialog-stories.839857c4.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-Dialog-stories.6fbdc20f.chunk.css.map*/
