@@ -73,116 +73,114 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
         width="min(80vw, 30rem)"
         height="min(80vh, 30rem)"
       >
-        <div style={{ overflowY: "scroll", overscrollBehaviorY: "contain" }}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.5rem",
-              padding: "0.5rem",
-            }}
-          >
-            <Row>
-              <Inset>
-                <Text>&lt;no name&gt;</Text>
-                <Text size="small">Your new village</Text>
-              </Inset>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.25rem",
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.5rem",
+            padding: "0.5rem",
+          }}
+        >
+          <Row>
+            <Inset>
+              <Text>&lt;no name&gt;</Text>
+              <Text size="small">Your new village</Text>
+            </Inset>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.25rem",
+              }}
+            >
+              <Button
+                color="orange"
+                width="default"
+                height="default"
+                onClick={() => {
+                  createMutation.mutate({ name: "New Village" });
                 }}
               >
-                <Button
-                  color="orange"
-                  width="default"
-                  height="default"
-                  onClick={() => {
-                    createMutation.mutate({ name: "New Village" });
-                  }}
-                >
-                  + New
-                </Button>
-              </div>
-            </Row>
-            {data &&
-              data.map((village) => (
-                <Row key={village.id}>
-                  <Inset>
-                    <Text>{village.name}</Text>
-                    <Text size="small">
-                      TH: {getTownhallLevel(village.layout)}
-                    </Text>
-                  </Inset>
-                  {village.builtIn && (
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "0.25rem",
+                + New
+              </Button>
+            </div>
+          </Row>
+          {data &&
+            data.map((village) => (
+              <Row key={village.id}>
+                <Inset>
+                  <Text>{village.name}</Text>
+                  <Text size="small">
+                    TH: {getTownhallLevel(village.layout)}
+                  </Text>
+                </Inset>
+                {village.builtIn && (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "0.25rem",
+                    }}
+                  >
+                    <Button
+                      color="orange"
+                      width="default"
+                      height="small"
+                      onClick={() => {
+                        setSelectedVillage(village);
+                        setIsEditing(true);
                       }}
                     >
-                      <Button
-                        color="orange"
-                        width="default"
-                        height="small"
-                        onClick={() => {
-                          setSelectedVillage(village);
-                          setIsEditing(true);
-                        }}
-                      >
-                        View
-                      </Button>
-                      <Button
-                        color="cornflowerblue"
-                        width="default"
-                        height="small"
-                        onClick={() => {
-                          createMutation.mutate({
-                            name: `${village.name} copy`,
-                            layout: village.layout,
-                          });
-                        }}
-                      >
-                        Copy
-                      </Button>
-                    </div>
-                  )}
-                  {!village.builtIn && (
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "0.25rem",
+                      View
+                    </Button>
+                    <Button
+                      color="cornflowerblue"
+                      width="default"
+                      height="small"
+                      onClick={() => {
+                        createMutation.mutate({
+                          name: `${village.name} copy`,
+                          layout: village.layout,
+                        });
                       }}
                     >
-                      <Button
-                        color="orange"
-                        width="default"
-                        height="small"
-                        onClick={() => {
-                          setSelectedVillage(village);
-                          setIsEditing(true);
-                        }}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        color="red"
-                        width="default"
-                        height="small"
-                        onClick={() => {
-                          deleteMutation.mutate(village);
-                        }}
-                      >
-                        Delete
-                      </Button>
-                    </div>
-                  )}
-                </Row>
-              ))}
-          </div>
+                      Copy
+                    </Button>
+                  </div>
+                )}
+                {!village.builtIn && (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "0.25rem",
+                    }}
+                  >
+                    <Button
+                      color="orange"
+                      width="default"
+                      height="small"
+                      onClick={() => {
+                        setSelectedVillage(village);
+                        setIsEditing(true);
+                      }}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      color="red"
+                      width="default"
+                      height="small"
+                      onClick={() => {
+                        deleteMutation.mutate(village);
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                )}
+              </Row>
+            ))}
         </div>
       </Dialog>
 
