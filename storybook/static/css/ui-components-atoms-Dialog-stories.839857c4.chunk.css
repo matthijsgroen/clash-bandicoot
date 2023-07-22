@@ -61,7 +61,7 @@
   border-radius: 0.5rem;
   flex: 1 1 auto;
 
-  overflow-y: auto;
+  overflow-y: scroll;
   overscroll-behavior-y: "contain";
 }
 
@@ -108,7 +108,7 @@
   }
   40% {
     opacity: 100%;
-    scale: 1.05;
+    scale: 1.15;
   }
   100% {
     opacity: 100%;
@@ -123,7 +123,7 @@
   }
   40% {
     opacity: 100%;
-    scale: 1.05;
+    scale: 1.15;
   }
   100% {
     opacity: 100%;
@@ -138,7 +138,7 @@
   }
   60% {
     opacity: 100%;
-    scale: 1.05;
+    scale: 1.15;
   }
   0% {
     opacity: 100%;
@@ -153,7 +153,7 @@
   }
   60% {
     opacity: 100%;
-    scale: 1.05;
+    scale: 1.15;
   }
   0% {
     opacity: 100%;
@@ -314,4 +314,4 @@ button:active:enabled .Button_outer__Zd-2h {
 }
 
 
-/*# sourceMappingURL=ui-components-atoms-Dialog-stories.a8802893.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-Dialog-stories.839857c4.chunk.css.map*/
