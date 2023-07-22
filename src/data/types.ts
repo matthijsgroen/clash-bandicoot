@@ -23,6 +23,7 @@ export type Building<
   cost: Cost;
   hitPoints: number;
   triggerRadius?: number;
+  triggerDeadZone?: number;
 
   aiType?: string;
   aiSettings: Settings;

@@ -1,0 +1,30 @@
+.activationRange {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  translate: calc(var(--x) * var(--tile-size) - 1px)
+    calc(var(--y) * var(--tile-size) - 1px);
+  transition: translate 100ms;
+
+  width: calc(var(--tile-size) * var(--max-range) * 2);
+  height: calc(var(--tile-size) * var(--max-range) * 2);
+  transform: translateX(-50%) translateY(-50%);
+  background: radial-gradient(transparent, #fff0 60%, #fff 78%);
+  border-radius: 50%;
+
+  z-index: 1;
+}
+.minRange::before {
+  content: "";
+  display: block;
+  width: calc(var(--tile-size) * var(--min-range) * 2);
+  height: calc(var(--tile-size) * var(--min-range) * 2);
+  transform: translateX(
+      calc(var(--tile-size) * (var(--max-range) - var(--min-range)))
+    )
+    translateY(calc(var(--tile-size) * (var(--max-range) - var(--min-range))));
+
+  background: radial-gradient(transparent, #f000 60%, #f00 78%);
+  border-radius: 50%;
+}

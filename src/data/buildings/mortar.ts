@@ -31,10 +31,10 @@ buildingLevels.forEach(([hitPoints, cost, timeStr, damage, th], lvl) => {
       time: time(timeStr),
     },
     triggerRadius: 11,
+    triggerDeadZone: 4,
     aiType: "mortar",
     aiSettings: {
       firingRate: 5,
-      deadZone: 4,
       damage,
       unitGroup: "ground",
       splash: 1.5,

@@ -33,6 +33,7 @@ import { createNextKey } from "../../engine/utils/keyStore";
 import { Text } from "../../ui-components/atoms/Text";
 import { EditTray } from "./EditTray";
 import { GridFloat } from "../../ui-components/composition/Village/GridFloat";
+import { ActivationRange } from "../../ui-components/composition/Village/ActivationRange";
 
 const getIsOutOfBounds = (
   buildings: { id: string }[],
@@ -352,6 +353,14 @@ export const VillageEditor: React.FC<{
             }
             showSelectedDetails
           />
+          {labelItem && labelItem.info.triggerRadius && (
+            <ActivationRange
+              x={labelItem.position[0] + labelItem.info.size[0] / 2}
+              y={labelItem.position[1] + labelItem.info.size[1] / 2}
+              maxRange={labelItem.info.triggerRadius}
+              minRange={labelItem.info.triggerDeadZone}
+            />
+          )}
           {labelItem && (
             <GridFloat x={labelItem.position[0]} y={labelItem.position[1]}>
               <Text centered element="h1" color="palegreen">

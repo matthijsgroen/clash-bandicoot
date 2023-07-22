@@ -10,7 +10,6 @@ type MortarData = {
 type MortarSettings = {
   firingRate: number;
   damage: number;
-  deadZone: number;
   unitGroup: "ground" | "all";
   splash: number;
 };
@@ -25,7 +24,7 @@ export const mortar: EntityAI = (state, buildingId, delta) => {
   }
   const buildingInfo = building.building.info;
   const buildingRange = buildingInfo.triggerRadius ?? 0;
-  const deadZone = buildingInfo.aiSettings.deadZone ?? 0;
+  const deadZone = buildingInfo.triggerDeadZone ?? 0;
 
   if (!building.buildingData.currentTarget) {
     const unitGroup = buildingInfo.aiSettings.unitGroup;
