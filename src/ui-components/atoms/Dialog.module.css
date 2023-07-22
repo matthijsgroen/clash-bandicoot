@@ -20,11 +20,11 @@
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
-  animation: popIn 150ms ease-out;
+  animation: popIn 200ms ease-out;
   box-shadow: 0 3px 0 #0003;
 }
 .close .dialog {
-  animation: popOut 150ms ease-out forwards;
+  animation: popOut 200ms ease-out forwards;
 }
 
 .dialogHeader {

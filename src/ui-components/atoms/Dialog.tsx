@@ -26,7 +26,7 @@ export const Dialog: React.FC<
     if (isClosing && onClose) {
       const timer = setTimeout(() => {
         onClose();
-      }, 200);
+      }, 210);
       return () => {
         clearTimeout(timer);
       };
