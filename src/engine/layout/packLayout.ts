@@ -163,8 +163,10 @@ export const decompressLayout = (buffer: Uint8Array): BaseLayout => {
         const count = bytes.shift() ?? 1;
 
         for (let hx = 0; hx < count; hx++) {
-          handled[x + hx][y] = true;
-          builder.placeBuilding("wall", levelOrLength, [x + hx, y]);
+          if (!handled[x + hx][y]) {
+            handled[x + hx][y] = true;
+            builder.placeBuilding("wall", levelOrLength, [x + hx, y]);
+          }
         }
         continue;
       }
@@ -172,8 +174,10 @@ export const decompressLayout = (buffer: Uint8Array): BaseLayout => {
         const count = bytes.shift() ?? 1;
 
         for (let hy = 0; hy < count; hy++) {
-          handled[x][y + hy] = true;
-          builder.placeBuilding("wall", levelOrLength, [x, y + hy]);
+          if (!handled[x][y + hy]) {
+            handled[x][y + hy] = true;
+            builder.placeBuilding("wall", levelOrLength, [x, y + hy]);
+          }
         }
         continue;
       }
