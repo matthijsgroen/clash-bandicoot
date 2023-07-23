@@ -88,8 +88,10 @@ export const groundUnit: EntityAI = (state, unitId, delta) => {
     let limitCounter = 0;
 
     const graph = createGraph(state.grid);
-    const xOff = unit.position[0] % 1;
-    const yOff = unit.position[1] % 1;
+    const roundX = Math.floor(unit.position[0]);
+    const roundY = Math.floor(unit.position[1]);
+    const xOff = unit.position[0] - roundX;
+    const yOff = unit.position[1] - roundY;
 
     let searchDone = false;
     const paths: { path: Path; target: string; cost: number }[] = [];
@@ -98,31 +100,26 @@ export const groundUnit: EntityAI = (state, unitId, delta) => {
       limitCounter++;
       let currentTarget: null | string = null;
 
-      let path = findPath(
-        graph,
-        [Math.floor(unit.position[0]), Math.floor(unit.position[1])],
-        ([x, y]) => {
-          const coord: [number, number] = [x + xOff, y + yOff];
-          for (let [id, target] of targets) {
-            if (
-              isInRange(target, unit, coord) &&
-              paths.every((p) => p.target !== id)
-            ) {
-              currentTarget = id;
-              return true;
-            }
+      let path = findPath(graph, [roundX, roundY], ([x, y]) => {
+        const coord: [number, number] = [x + xOff, y + yOff];
+        for (let [id, target] of targets) {
+          if (
+            isInRange(target, unit, coord) &&
+            paths.every((p) => p.target !== id)
+          ) {
+            currentTarget = id;
+            return true;
           }
-          return false;
         }
-      );
+        return false;
+      });
       if (path && path.length === 0) {
         break;
       }
       if (path && path.length > 0 && currentTarget) {
-        const sPath: Path = simplifyPath(path, state.grid).map(([x, y]) => [
-          x + xOff,
-          y + yOff,
-        ]);
+        const sPath: Path = simplifyPath(path, state.grid).map(([x, y], i, l) =>
+          i === 0 || i === l.length - 1 ? [x + xOff, y + yOff] : [x, y]
+        );
         const pathCost = roughPathLength(sPath);
 
         if (
