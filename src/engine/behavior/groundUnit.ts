@@ -4,12 +4,15 @@ import { BattleBuildingState, BattleState, BattleUnitState } from "../types";
 import { findPath } from "../pathfinding/pathfinding";
 import { createGraph } from "../pathfinding/graph";
 import { Path } from "../pathfinding/types";
-import { simplifyPath } from "../pathfinding/path";
+import { roughPathLength, simplifyPath } from "../pathfinding/path";
 import { createObstacleGrid } from "../pathfinding/obstacleGrid";
 import { applyDamage } from "./utils";
 
+const TARGET_SELECTION_TOLERANCE = 0.5;
+
 type GroundUnitData = {
   currentTarget?: string;
+  groupIndex?: number;
   path?: [x: number, y: number][];
   currentAngle?: [sin: number, cos: number];
   attackDelay: number;
@@ -21,10 +24,9 @@ const isInRange = (
   position?: [x: number, y: number]
 ) => {
   const pos = position ?? unit.position;
-  return (
-    getDistance(pos, building.center) - building.building.info.size[0] / 2.05 <
-    unit.info.hitRadius
-  );
+  const distance =
+    getDistance(pos, building.center) - building.building.info.size[0] / 2.05;
+  return distance < unit.info.hitRadius;
 };
 
 const attack = (
@@ -76,41 +78,83 @@ export const groundUnit: EntityAI = (state, unitId, delta) => {
 
     if (targets.length === 0) {
       targets = Object.entries(state.baseData).filter(
-        ([, b]) => b.hitPoints > 0 && b.building.info.type !== "wall" // also skip traps / hidden tesla's
+        ([, b]) =>
+          b.hitPoints > 0 &&
+          b.building.info.type !== "wall" &&
+          !b.building.info.categories.includes("trap") // also skip hidden tesla's
       );
     }
 
     let limitCounter = 0;
-    let path: Path | undefined = undefined;
 
     const graph = createGraph(state.grid);
     const xOff = unit.position[0] % 1;
     const yOff = unit.position[1] % 1;
 
-    while (path === undefined && limitCounter < 3000) {
+    let searchDone = false;
+    const paths: { path: Path; target: string; cost: number }[] = [];
+
+    while (!searchDone && limitCounter < 3000) {
       limitCounter++;
-      path = findPath(
+      let currentTarget: null | string = null;
+
+      let path = findPath(
         graph,
         [Math.floor(unit.position[0]), Math.floor(unit.position[1])],
         ([x, y]) => {
-          const coord: [number, number] = [x, y];
+          const coord: [number, number] = [x + xOff, y + yOff];
           for (let [id, target] of targets) {
-            if (isInRange(target, unit, coord)) {
-              unit.unitData.currentTarget = id;
+            if (
+              isInRange(target, unit, coord) &&
+              paths.every((p) => p.target !== id)
+            ) {
+              currentTarget = id;
               return true;
             }
           }
           return false;
         }
       );
+      if (path && path.length === 0) {
+        break;
+      }
+      if (path && path.length > 0 && currentTarget) {
+        const sPath: Path = simplifyPath(path, state.grid).map(([x, y]) => [
+          x + xOff,
+          y + yOff,
+        ]);
+        const pathCost = roughPathLength(sPath);
+
+        if (
+          paths.length > 0 &&
+          paths[0].cost < pathCost - TARGET_SELECTION_TOLERANCE
+        ) {
+          searchDone = true;
+          break;
+        } else {
+          paths.push({ path: sPath, target: currentTarget, cost: pathCost });
+        }
+      }
     }
 
-    if (path && path.length > 1) {
-      unit.unitData.path = simplifyPath(path, state.grid).map(([x, y]) => [
-        x + xOff,
-        y + yOff,
-      ]);
+    if (paths && paths.length > 0) {
+      const path = paths[(unit.unitData.groupIndex ?? 0) % paths.length];
+
+      unit.unitData.currentTarget = path.target;
+      unit.unitData.path = path.path;
       unit.unitData.attackDelay = unit.info.attackSpeed * 1000;
+
+      let groupIndex = 0;
+      for (const battleUnit of Object.values(state.unitData)) {
+        if (battleUnit.type !== unit.type) continue;
+        if (
+          (battleUnit as BattleUnitState<GroundUnitData>).unitData
+            .currentTarget === path.target
+        ) {
+          groupIndex++;
+        }
+      }
+      unit.unitData.groupIndex = groupIndex;
     }
   } else {
     // TODO: Target could be another unit

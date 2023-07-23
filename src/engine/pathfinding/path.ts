@@ -76,3 +76,12 @@ export const simplifyPath = (path: Path, grid: ObstacleGrid): Path => {
 
   return newPath;
 };
+
+export const roughPathLength = (path: Path) => {
+  let cost = 0;
+  for (let i = 1; i < path.length; ++i) {
+    cost += Math.abs(path[i][0] - path[i - 1][0]);
+    cost += Math.abs(path[i][1] - path[i - 1][1]);
+  }
+  return cost;
+};
