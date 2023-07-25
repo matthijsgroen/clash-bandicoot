@@ -6,16 +6,18 @@ export const Effects: React.FC<{ effects: BattleEffectData }> = ({
 }) => {
   return (
     <>
-      {Object.entries(effects).map(([id, effect]) => (
-        <Effect
-          key={id}
-          x={effect.position[0]}
-          y={effect.position[1]}
-          radius={effect.range}
-          effectType={effect.type}
-          state={effect.state}
-        />
-      ))}
+      {Object.entries(effects)
+        .filter(([, effect]) => effect.delay === 0)
+        .map(([id, effect]) => (
+          <Effect
+            key={id}
+            x={effect.position[0]}
+            y={effect.position[1]}
+            radius={effect.range}
+            effectType={effect.type}
+            state={effect.state}
+          />
+        ))}
     </>
   );
 };

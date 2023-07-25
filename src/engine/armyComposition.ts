@@ -103,8 +103,8 @@ export const placeUnit = (
   army: Army,
   unitType: string,
   unitLevel: number
-): Army => {
-  let placed = false;
+): [Army, ArmyTroop | null] => {
+  let placed: ArmyTroop | null = null;
   const update: Army = {
     units: army.units.map((unit) => {
       if (
@@ -113,16 +113,16 @@ export const placeUnit = (
         unit.troop.level === unitLevel &&
         unit.state === "ready"
       ) {
-        placed = true;
-        return {
+        placed = {
           ...unit,
           state: "placed",
         };
+        return placed;
       }
       return unit;
     }),
   };
-  return placed ? update : army;
+  return placed ? [update, placed] : [army, null];
 };
 
 export const canDeployTroops = (army: Army) =>
@@ -137,7 +137,7 @@ export const armyBuilder = () => {
       return builder;
     },
     placeTroop: (type: string, lvl: number) => {
-      result = placeUnit(result, type, lvl);
+      result = placeUnit(result, type, lvl)[0];
       return builder;
     },
     result: () => result,

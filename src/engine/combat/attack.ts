@@ -1,6 +1,6 @@
 import "../../data/troops";
 import { troopStore } from "../../data/troopStore";
-import { createKeyStore } from "../utils/keyStore";
+import { createNextKey } from "../utils/keyStore";
 import { aiHandlers } from "../behavior";
 import { getDestruction, getStars } from "./attackResult";
 import {
@@ -12,7 +12,6 @@ import {
 import { createObstacleGrid } from "../pathfinding/obstacleGrid";
 import { Army, canDeployTroops, placeUnit } from "../armyComposition";
 import { createPlacementGrid } from "../layout/placementGrid";
-import { Troop } from "../../data/types";
 import { isVisible } from "../layout/baseLayout";
 
 export const createInitialBaseData = (layout: BaseLayout): BattleBaseData =>
@@ -66,25 +65,43 @@ export const createBattleState = (
 export const unitsAlive = (unitData: BattleUnitData): number =>
   Object.values(unitData).filter((unit) => unit.hitPoints > 0).length;
 
+/**
+ * Function for testing to add a troop to the battle to test behaviors
+ * @returns key of unit placed
+ */
 export const addTroopToState = (
   state: BattleState,
-  key: string,
-  troop: Troop,
+  unitType: string,
+  level: number,
   position: [x: number, y: number]
-) => {
+): string | null => {
+  const [updatedArmy, armyTroop] = placeUnit(state.army, unitType, level);
+  if (armyTroop === null) {
+    return null;
+  }
+  const placementKey = createNextKey(Object.keys(state.unitData), unitType);
+  state.army = updatedArmy;
+  state.replay.placement.push({
+    level,
+    unit: unitType,
+    position,
+    timestamp: state.timeSpent,
+  });
+
   state.unitData = {
     ...state.unitData,
-    [key]: {
-      type: troop.type,
-      level: troop.level,
+    [placementKey]: {
+      type: armyTroop.troop.type,
+      level: armyTroop.troop.level,
       position,
       effects: [],
-      hitPoints: troop.hitPoints,
-      info: troop,
+      hitPoints: armyTroop.troop.hitPoints,
+      info: armyTroop.troop,
       unitData: {},
       state: "idle",
     },
   };
+  return placementKey;
 };
 
 export const handleAttack = (
@@ -92,7 +109,6 @@ export const handleAttack = (
   army: Army,
   duration = DEFAULT_DURATION
 ) => {
-  const unitKeys = createKeyStore();
   const state = createBattleState(layout, army, duration);
   const placementGrid = createPlacementGrid(layout);
 
@@ -171,22 +187,8 @@ export const handleAttack = (
       const [x, y] = [Math.floor(position[0]), Math.floor(position[1])];
       if (!placementGrid[y][x]) return;
       // Troops need to be placed away from buildings
-      const updatedArmy = placeUnit(state.army, type, level);
-      if (updatedArmy === state.army) {
-        // not placed
-        return;
-      }
 
-      state.army = updatedArmy;
-
-      state.replay.placement.push({
-        level,
-        unit: type,
-        position,
-        timestamp: state.timeSpent,
-      });
-      const key = unitKeys.getKey(type);
-      addTroopToState(state, key, troop, position);
+      addTroopToState(state, type, level, position);
     },
   };
 };

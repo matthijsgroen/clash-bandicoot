@@ -117,9 +117,10 @@ export const groundUnit: EntityAI = (state, unitId, delta) => {
         break;
       }
       if (path && path.length > 0 && currentTarget) {
-        const sPath: Path = simplifyPath(path, state.grid).map(([x, y], i, l) =>
-          i === 0 || i === l.length - 1 ? [x + xOff, y + yOff] : [x, y]
-        );
+        const sPath: Path = simplifyPath(path, state.grid).map(([x, y]) => [
+          x + xOff,
+          y + yOff,
+        ]);
         const pathCost = roughPathLength(sPath);
 
         if (

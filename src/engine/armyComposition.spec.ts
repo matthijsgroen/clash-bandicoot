@@ -101,11 +101,11 @@ describe("Army composition", () => {
     it("marks first available unit as placed", () => {
       const army = armyBuilder().addTroops("barbarian", 1, 3).result();
 
-      const updatedArmy = placeUnit(army, "barbarian", 1);
+      const [updatedArmy] = placeUnit(army, "barbarian", 1);
       const placementState = updatedArmy.units.map((t) => t.state);
       expect(placementState).toEqual(["placed", "ready", "ready"]);
 
-      const updatedArmy2 = placeUnit(updatedArmy, "barbarian", 1);
+      const [updatedArmy2] = placeUnit(updatedArmy, "barbarian", 1);
       const placementState2 = updatedArmy2.units.map((t) => t.state);
       expect(placementState2).toEqual(["placed", "placed", "ready"]);
     });

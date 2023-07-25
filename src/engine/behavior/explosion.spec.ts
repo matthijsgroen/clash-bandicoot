@@ -1,4 +1,3 @@
-import { troopStore } from "../../data/troopStore";
 import { armyBuilder } from "../armyComposition";
 import { addTroopToState, createBattleState } from "../combat/attack";
 import { layoutBuilder } from "../layout/baseLayout";
@@ -7,16 +6,13 @@ import { ExplosionEntity, explosion } from "./explosion";
 
 describe("explosion behavior", () => {
   const setupBattle = (): BattleState => {
-    const layout = layoutBuilder().result();
+    const layout = layoutBuilder().result(); // Empty field
     const army = armyBuilder().addTroops("barbarian", 1, 3).result();
     const battleState = createBattleState(layout, army);
-    const troop = troopStore.getTroop("barbarian", 1);
-    if (!troop) {
-      throw new Error("Troop not found");
-    }
-    addTroopToState(battleState, "barb#1", troop, [5, 5]);
-    addTroopToState(battleState, "barb#2", troop, [7, 5]);
-    addTroopToState(battleState, "barb#3", troop, [10, 5]);
+
+    addTroopToState(battleState, "barbarian", 1, [5, 5]);
+    addTroopToState(battleState, "barbarian", 1, [7, 5]);
+    addTroopToState(battleState, "barbarian", 1, [10, 5]);
 
     return battleState;
   };
@@ -47,9 +43,9 @@ describe("explosion behavior", () => {
     explosion(battle, "test-explosion", 20);
 
     expect(explosionData.delay).toEqual(280);
-    expect(battle.unitData["barb#1"].hitPoints).toEqual(45);
-    expect(battle.unitData["barb#2"].hitPoints).toEqual(45);
-    expect(battle.unitData["barb#3"].hitPoints).toEqual(45);
+    expect(battle.unitData["barbarian#1"].hitPoints).toEqual(45);
+    expect(battle.unitData["barbarian#2"].hitPoints).toEqual(45);
+    expect(battle.unitData["barbarian#3"].hitPoints).toEqual(45);
   });
 
   it("hits all units within the splash range", () => {
@@ -60,14 +56,14 @@ describe("explosion behavior", () => {
     explosion(battle, "test-explosion", 20);
 
     expect(explosionData.delay).toEqual(0);
-    expect(battle.unitData["barb#1"].hitPoints).toEqual(0);
-    expect(battle.unitData["barb#2"].hitPoints).toEqual(0);
-    expect(battle.unitData["barb#3"].hitPoints).toEqual(45);
+    expect(battle.unitData["barbarian#1"].hitPoints).toEqual(0);
+    expect(battle.unitData["barbarian#2"].hitPoints).toEqual(0);
+    expect(battle.unitData["barbarian#3"].hitPoints).toEqual(45);
     expect(explosionData.effectData.damageDealt).toBe(true);
     expect(explosionData.duration).toEqual(180);
   });
 
-  it("removes itset from effect data when done", () => {
+  it("removes itself from effect data when done", () => {
     const battle = setupBattle();
     const explosionData = setupExplosion({ delay: 0, duration: 0, range: 3 });
 

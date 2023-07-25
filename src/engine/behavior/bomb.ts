@@ -4,6 +4,7 @@ import { getDistance } from "../utils/getDistance";
 
 type BombData = {
   triggered: boolean;
+  explosionDelay: number;
 };
 
 type BombSettings = {
@@ -13,7 +14,7 @@ type BombSettings = {
   firingRate: number;
 };
 
-export const bomb: EntityAI = (state, buildingId) => {
+export const bomb: EntityAI = (state, buildingId, delta) => {
   const building = state.baseData[buildingId] as BattleBuildingState<
     BombData,
     BombSettings
@@ -24,7 +25,12 @@ export const bomb: EntityAI = (state, buildingId) => {
   const buildingInfo = building.building.info;
   const buildingRange = buildingInfo.triggerRadius ?? 0;
 
-  if (!building.buildingData.triggered) {
+  if (building.buildingData.triggered) {
+    building.buildingData.explosionDelay -= delta;
+    if (building.buildingData.explosionDelay <= 0) {
+      building.hitPoints = 0;
+    }
+  } else {
     const unitGroup = buildingInfo.aiSettings.unitGroup;
     // check if something is in range.
 
@@ -62,7 +68,8 @@ export const bomb: EntityAI = (state, buildingId) => {
       };
       state.effectData[`${buildingId}-explosion`] = explosion;
       building.visible = true;
-      building.hitPoints = 0;
+      building.buildingData.explosionDelay =
+        building.building.info.aiSettings.firingRate * 1000;
     }
   }
 };
