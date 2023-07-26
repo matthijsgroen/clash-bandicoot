@@ -1,0 +1,291 @@
+.Grid_scrollContainer__fn6VR {
+  height: 100dvh;
+  width: 100dvw;
+  background-color: #667120;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  --tile-size: 15px;
+}
+.Grid_scrollable__pMnbC {
+  overflow: scroll;
+}
+
+.Grid_rotationContainer__-y0BG {
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+  scale: 1.5 1;
+  width: -webkit-max-content;
+  width: max-content;
+  height: -webkit-max-content;
+  height: max-content;
+  padding: calc(9em + 9em) calc((9em + 9em) * 0.8);
+}
+
+.Grid_grid__D4ak3 {
+  background: repeating-conic-gradient(#aab841 0% 25%, #99af47 0% 50%) 50% /
+    calc(2 * var(--tile-size)) calc(2 * var(--tile-size));
+  background-position: calc(var(--tile-size) * 3) calc(var(--tile-size) * 3);
+  background-clip: content-box;
+  padding: calc(var(--tile-size) * 3);
+  background-color: #acbe4a;
+
+  position: relative;
+}
+
+.Grid_tilted__\+V9nI {
+  width: -webkit-max-content;
+  width: max-content;
+  height: -webkit-max-content;
+  height: max-content;
+  background-color: #7f9e3a;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  rotate: 45deg;
+}
+
+.GridFloat_gridFloat__Ge4Lw {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  translate: calc(var(--x) * var(--tile-size) - 1px)
+    calc(var(--y) * var(--tile-size) - 1px);
+  transition: translate 100ms;
+  z-index: 1;
+}
+
+.GridFloat_anchorPoint__wDWUP {
+  position: absolute;
+  top: -0.25rem;
+  left: -0.25rem;
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  rotate: -45deg;
+  scale: 0.75 1;
+  -webkit-transform-origin: 50% 100%;
+          transform-origin: 50% 100%;
+  z-index: 2;
+}
+
+.GridFloat_floatingContent__OjQLd {
+  width: -webkit-max-content;
+  width: max-content;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.Building_ground__PK5fN {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  translate: calc(var(--x) * var(--tile-size) - 1px)
+    calc(var(--y) * var(--tile-size) - 1px);
+  transition: translate 100ms;
+  width: calc(var(--tile-size) * var(--size) + 1px);
+  height: calc(var(--tile-size) * var(--size) + 1px);
+  padding: 0;
+  display: grid;
+  pointer-events: none;
+  -webkit-user-select: none;
+          user-select: none;
+}
+
+.Building_selected__Bo72o {
+  background-color: #ff0a;
+  z-index: 1;
+}
+
+.Building_overlapping__GqqLV {
+  background-color: #f44a;
+  z-index: 1;
+}
+
+.Building_building__zBQXG {
+  pointer-events: none;
+  -webkit-user-select: none;
+          user-select: none;
+  font-size: 8px;
+  border: 1px solid black;
+  box-sizing: border-box;
+  background-color: white;
+  overflow: hidden;
+
+  box-shadow: #000 1px 1px 0px;
+  cursor: default;
+
+  margin: calc((var(--size) + var(--size)) * 1px - 1px)
+    calc((var(--size) + var(--size)) * 1px)
+    calc((var(--size) + var(--size)) * 1px)
+    calc((var(--size) + var(--size)) * 1px - 1px);
+}
+
+.Building_selected__Bo72o .Building_building__zBQXG {
+  outline: 4px solid #ff0a;
+}
+
+.Building_building__zBQXG.Building_size1__GVxRe {
+  margin: 0;
+}
+
+.Building_attacking__LPaLB {
+  -webkit-animation: Building_attackBuilding__NSe0S 300ms alternate infinite;
+          animation: Building_attackBuilding__NSe0S 300ms alternate infinite;
+}
+
+.Building_overlapping__GqqLV.Building_building__zBQXG {
+  -webkit-animation: Building_overlapBuilding__L8C2o 1600ms alternate infinite;
+          animation: Building_overlapBuilding__L8C2o 1600ms alternate infinite;
+}
+
+.Building_building__zBQXG.Building_destroyed__nxsTS {
+  background-color: #777;
+  opacity: 0.3;
+  border: 2px dotted #888;
+  box-shadow: none;
+  -webkit-animation: none;
+          animation: none;
+}
+
+@-webkit-keyframes Building_attackBuilding__NSe0S {
+  0% {
+    border: 1px solid black;
+    box-shadow: #000 1px 1px 0px, inset 0px 0px 0px black;
+  }
+  100% {
+    border: 1px solid red;
+    box-shadow: #000 1px 1px 0px, inset 0px 0px 4px red;
+  }
+}
+
+@keyframes Building_attackBuilding__NSe0S {
+  0% {
+    border: 1px solid black;
+    box-shadow: #000 1px 1px 0px, inset 0px 0px 0px black;
+  }
+  100% {
+    border: 1px solid red;
+    box-shadow: #000 1px 1px 0px, inset 0px 0px 4px red;
+  }
+}
+
+@-webkit-keyframes Building_overlapBuilding__L8C2o {
+  0% {
+    border: 1px solid black;
+    box-shadow: #000 1px 1px 0px, inset 0px 0px 0px black;
+  }
+  100% {
+    border: 1px solid red;
+    box-shadow: #000 1px 1px 0px, inset 0px 0px 1rem red;
+  }
+}
+
+@keyframes Building_overlapBuilding__L8C2o {
+  0% {
+    border: 1px solid black;
+    box-shadow: #000 1px 1px 0px, inset 0px 0px 0px black;
+  }
+  100% {
+    border: 1px solid red;
+    box-shadow: #000 1px 1px 0px, inset 0px 0px 1rem red;
+  }
+}
+
+.Building_elixirstorage__ffL18,
+.Building_elixircollector__HJcgy {
+  background-color: pink;
+}
+.Building_goldmine__GZTmA,
+.Building_goldstorage__vjLya {
+  background-color: gold;
+}
+.Building_townhall__jPETY {
+  background-color: #90ff90;
+}
+.Building_cannon__bQz3N,
+.Building_mortar__AObK5,
+.Building_archertower__XOS9Q,
+.Building_airdefense__R2jiu {
+  background-color: #ffaaaa;
+}
+.Building_wall__6PBMR {
+  background-color: #999;
+}
+.Building_bomb__E4RI5 {
+  background-color: #444;
+}
+
+.Text_text__uZi1L {
+  font-family: "Sriracha", cursive;
+  font-weight: bold;
+  font-size: 0.9rem;
+  line-height: 1rem;
+
+  color: white;
+
+  color: var(--text-color, white);
+  text-shadow: 0 2px 0 #000, 0 0 2px #0009;
+  margin: 0;
+}
+
+.Text_small__TyVhb {
+  font-size: 0.6rem;
+  line-height: 1rem;
+  text-shadow: 0 1px 0 #000, 0 0 1px #0009;
+}
+
+.Text_large__dnz0d {
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+.Text_centered__Mj3sn {
+  text-align: center;
+}
+
+.HealthBar_healthBar__uET35 {
+  width: 2rem;
+  padding: 1px;
+  height: 0.25rem;
+  background-color: #000a;
+  border-radius: 2px;
+  position: relative;
+}
+
+.HealthBar_healthBar__uET35::before {
+  content: "";
+  display: block;
+  background-color: color-mix(
+    in srgb,
+    limegreen calc(100% * (1 + 0.3)),
+    crimson
+  );
+  background-color: color-mix(
+    in srgb,
+    var(--color, limegreen) calc(100% * (var(--progress, 1) + 0.3)),
+    crimson
+  );
+  width: calc(100% * 1);
+  width: calc(100% * var(--progress, 1));
+  height: 100%;
+  border-radius: 2px;
+}
+
+.HealthBar_healthBar__uET35::after {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  right: 1px;
+  content: "";
+  display: block;
+  background-color: #fff3;
+  height: 30%;
+  border-radius: 2px;
+}
+
+
+/*# sourceMappingURL=ui-components-composition-Village-GridFloat-stories.f0fa1913.chunk.css.map*/
