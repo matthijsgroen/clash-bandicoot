@@ -17,6 +17,8 @@ import {
 import { Units } from "../../ui-components/composition/Village/Units";
 import { Button } from "../../ui-components/atoms/Button";
 import { calculateGridPosition } from "../../ui-components/composition/Village/Grid";
+import { GridFloat } from "../../ui-components/composition/Village/GridFloat";
+import { HealthBar } from "../../ui-components/atoms/HealthBar";
 
 const CombatTimer = () => {
   const timeLeft = useAtomValue(battleAtom).timeLeft;
@@ -130,6 +132,46 @@ export const Combat: React.FC<{
           <Buildings layout={layout} battleBaseData={buildingStatus} />
           <Units units={units} />
           <Effects effects={battleState.effectData} />
+          {Object.entries(battleState.unitData)
+            .filter(
+              ([, s]) =>
+                s.lastHitAt !== -1 &&
+                s.lastHitAt > battleState.timeSpent - 3000 &&
+                s.hitPoints > 0
+            )
+            .map(([id, unit]) => (
+              <GridFloat
+                key={`health-${id}`}
+                x={unit.position[0]}
+                y={unit.position[1]}
+              >
+                <HealthBar
+                  baseColor="limegreen"
+                  progress={unit.hitPoints / unit.info.hitPoints}
+                />
+              </GridFloat>
+            ))}
+          {Object.entries(battleState.baseData)
+            .filter(
+              ([, s]) =>
+                s.lastHitAt !== -1 &&
+                s.lastHitAt > battleState.timeSpent - 3000 &&
+                s.hitPoints > 0
+            )
+            .map(([id, building]) => (
+              <GridFloat
+                key={`health-${id}`}
+                x={building.building.position[0]}
+                y={building.building.position[1]}
+              >
+                <HealthBar
+                  baseColor="royalblue"
+                  progress={
+                    building.hitPoints / building.building.info.hitPoints
+                  }
+                />
+              </GridFloat>
+            ))}
         </Grid>
       </main>
       <aside>
@@ -151,15 +193,17 @@ export const Combat: React.FC<{
           </Button>
         )}
 
-        <Button
-          color="red"
-          width="large"
-          height="small"
-          className={styles.stop}
-          onClick={onClose}
-        >
-          {battleStarted ? "Surrender" : "Stop"}
-        </Button>
+        {battleState.state !== "ended" && (
+          <Button
+            color="red"
+            width="large"
+            height="small"
+            className={styles.stop}
+            onClick={onClose}
+          >
+            {battleStarted ? "Surrender" : "Stop"}
+          </Button>
+        )}
         {battleState.state === "ended" && (
           <div style={{ position: "absolute", left: "30dvw", top: "30dvh" }}>
             <p>Yay combat is done!</p>
