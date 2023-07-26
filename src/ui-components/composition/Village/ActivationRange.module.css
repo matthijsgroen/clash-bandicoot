@@ -10,10 +10,8 @@
   width: calc(var(--tile-size) * var(--max-range) * 2);
   height: calc(var(--tile-size) * var(--max-range) * 2);
   transform: translateX(-50%) translateY(-50%);
-  background: radial-gradient(transparent, #fff0 60%, #fff 78%);
+  background: radial-gradient(transparent, #fff0 65%, #fffb 70%);
   border-radius: 50%;
-
-  z-index: 1;
 }
 .minRange::before {
   content: "";
@@ -25,6 +23,6 @@
     )
     translateY(calc(var(--tile-size) * (var(--max-range) - var(--min-range))));
 
-  background: radial-gradient(transparent, #f000 60%, #f00 78%);
+  background: radial-gradient(transparent, #f000 65%, #f00b 70%);
   border-radius: 50%;
 }
