@@ -21,6 +21,7 @@ export const createInitialBaseData = (layout: BaseLayout): BattleBaseData =>
         id,
         {
           hitPoints: building.info.hitPoints,
+          lastHitAt: -1,
           building,
           center: [
             building.position[0] + building.info.size[0] / 2,
@@ -96,6 +97,7 @@ export const addTroopToState = (
       position,
       effects: [],
       hitPoints: armyTroop.troop.hitPoints,
+      lastHitAt: -1,
       info: armyTroop.troop,
       unitData: {},
       state: "idle",

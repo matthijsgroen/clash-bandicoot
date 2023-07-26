@@ -19,6 +19,7 @@ describe("attack", () => {
       expect(result.baseData).toEqual({
         "townhall#1": {
           hitPoints: 450,
+          lastHitAt: -1,
           effects: [],
           center: [37, 37],
           state: "idle",
@@ -86,6 +87,7 @@ describe("attack", () => {
           type: "barbarian",
           level: 1,
           hitPoints: 45,
+          lastHitAt: -1,
           position: [1, 1],
           effects: [],
           info: troopInfo,

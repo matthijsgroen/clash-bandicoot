@@ -45,7 +45,7 @@ const attack = (
         building.building.info.categories.some((c) => c === p.category)
       );
       const multiplier = preferenceActive?.multiplier ?? 1;
-      applyDamage(building, unit.info.damage * multiplier);
+      applyDamage(building, unit.info.damage * multiplier, state.timeSpent);
       if (building.hitPoints === 0) {
         state.grid = createObstacleGrid(state.layout, state.baseData);
         unit.state = "idle";

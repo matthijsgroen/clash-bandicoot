@@ -33,6 +33,7 @@ export type BattleBuildingState<
   Settings extends Record<string, unknown> = Record<string, unknown>
 > = {
   hitPoints: number;
+  lastHitAt: number;
   effects: [];
   center: [x: number, y: number];
   building: LayoutBuilding<Settings>;
@@ -47,6 +48,7 @@ export type BattleUnitState<
   T extends Record<string, unknown> = Record<string, unknown>
 > = {
   hitPoints: number;
+  lastHitAt: number;
   effects: [];
   type: string;
   level: number;

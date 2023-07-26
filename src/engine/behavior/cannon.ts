@@ -51,7 +51,11 @@ export const cannon: EntityAI = (state, buildingId, delta) => {
     if (building.buildingData.attackDelay > 0) {
       building.buildingData.attackDelay -= delta;
     } else {
-      applyDamage(target, building.building.info.aiSettings.damage);
+      applyDamage(
+        target,
+        building.building.info.aiSettings.damage,
+        state.timeSpent
+      );
       building.buildingData.attackDelay =
         building.building.info.aiSettings.firingRate * 1000;
     }

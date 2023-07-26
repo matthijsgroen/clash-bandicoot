@@ -24,7 +24,7 @@ export const explosion: EntityAI = (state, effectId, delta) => {
             getDistance(target.position, effect.position) <= effect.range
         );
         for (const target of inRange) {
-          applyDamage(target, effect.effectData.damage);
+          applyDamage(target, effect.effectData.damage, state.timeSpent);
         }
         effect.effectData.damageDealt = true;
       }
