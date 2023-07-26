@@ -1,8 +1,8 @@
 import { armyBuilder } from "../armyComposition";
 import { addTroopToState, createBattleState } from "../combat/attack";
 import { layoutBuilder } from "../layout/baseLayout";
-import { BattleState } from "../types";
-import { groundUnit } from "./groundUnit";
+import { BattleState, BattleUnitState } from "../types";
+import { GroundUnitData, groundUnit } from "./groundUnit";
 
 const setupBattle = (
   setupBase: (
@@ -72,9 +72,53 @@ describe("Ground Unit behavior", () => {
       });
     });
 
-    it.todo(
-      "selects target from viable options with equal distance based on groupIndex"
-    );
+    describe("troop distribution on targets", () => {
+      const createBase = () =>
+        setupBattle((base) =>
+          base
+            .placeBuilding("elixirstorage", 1, [13, 10])
+            .placeBuilding("elixirstorage", 1, [10, 13])
+        );
+
+      it("selects target from viable options with equal distance based on groupIndex", () => {
+        const battleState = createBase();
+        const goblin1 = addTroopToState(
+          battleState,
+          "goblin",
+          1,
+          [10, 10]
+        ) as string;
+        expect(goblin1).not.toBeNull();
+        const groundUnit1 = battleState.unitData[
+          goblin1
+        ] as BattleUnitState<GroundUnitData>;
+        groundUnit1.unitData.groupIndex = 1;
+
+        const goblin2 = addTroopToState(
+          battleState,
+          "goblin",
+          1,
+          [10, 10]
+        ) as string;
+        expect(goblin2).not.toBeNull();
+        const groundUnit2 = battleState.unitData[
+          goblin2
+        ] as BattleUnitState<GroundUnitData>;
+        groundUnit2.unitData.groupIndex = 0;
+
+        // Both are at the same location, but have different groupIndices. Resulting in different targets
+
+        groundUnit(battleState, "goblin#1", 20);
+        groundUnit(battleState, "goblin#2", 20);
+
+        const target1 = battleState.unitData["goblin#1"].unitData.currentTarget;
+        const target2 = battleState.unitData["goblin#2"].unitData.currentTarget;
+
+        expect(target1).toEqual("elixirstorage#2");
+        expect(target2).toEqual("elixirstorage#1");
+      });
+    });
+
     it.todo("takes into account its attack range for pathfinding");
     it.todo("assigns a groupIndex based on other units having the same target");
   });

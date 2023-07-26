@@ -10,7 +10,7 @@ import { applyDamage } from "./utils";
 
 const TARGET_SELECTION_TOLERANCE = 0.5;
 
-type GroundUnitData = {
+export type GroundUnitData = {
   currentTarget?: string;
   groupIndex?: number;
   path?: [x: number, y: number][];
