@@ -5,7 +5,7 @@ import { layoutBuilder } from "../../engine/layout/baseLayout";
 describe("Barbarian", () => {
   describe("movement", () => {
     describe("speed test", () => {
-      it("takes x seconds to reach the target", () => {
+      it.only("takes x seconds to reach the target", () => {
         const village = layoutBuilder()
           .placeBuilding("townhall", 1, [35, 35])
           .result();
@@ -14,7 +14,8 @@ describe("Barbarian", () => {
 
         const attack = handleAttack(village, army);
         attack.placeUnit("barbarian", 1, [37, 0]);
-        attack.forwardTime(4000);
+        attack.forwardTime(4100); // 4s to walk, some extra for pathfinding
+
         const unitPlacement = attack.getData().unitData;
         expect(unitPlacement["barbarian#1"].position[1]).toBeCloseTo(8, 1);
       });

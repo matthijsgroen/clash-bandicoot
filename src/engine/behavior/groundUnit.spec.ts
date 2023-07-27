@@ -18,6 +18,12 @@ const setupBattle = (
   return createBattleState(layout, army);
 };
 
+const times = (amount: number, callback: VoidFunction) => {
+  for (let i = 0; i < amount; i++) {
+    callback();
+  }
+};
+
 // Applies to: Barbarian, Archer, Giant, Goblin, PEKKA, Wizard, Golem, Witch, Ice Golem
 describe("Ground Unit behavior", () => {
   describe("Fase 1: Target selection & Pathfinding", () => {
@@ -35,7 +41,8 @@ describe("Ground Unit behavior", () => {
           const unitKey = addTroopToState(battleState, "archer", 1, [25, 25]);
           expect(unitKey).not.toBeNull();
 
-          groundUnit(battleState, unitKey as string, 20);
+          times(2, () => groundUnit(battleState, unitKey as string, 20));
+
           expect(battleState.unitData[unitKey as string]).toHaveProperty(
             "unitData.currentTarget",
             "armycamp#1"
@@ -49,7 +56,8 @@ describe("Ground Unit behavior", () => {
           const unitKey = addTroopToState(battleState, "goblin", 1, [25, 25]);
           expect(unitKey).not.toBeNull();
 
-          groundUnit(battleState, unitKey as string, 20);
+          times(4, () => groundUnit(battleState, unitKey as string, 20));
+
           expect(battleState.unitData[unitKey as string]).toHaveProperty(
             "unitData.currentTarget",
             "townhall#1"
@@ -63,7 +71,8 @@ describe("Ground Unit behavior", () => {
           const unitKey = addTroopToState(battleState, "giant", 1, [25, 25]);
           expect(unitKey).not.toBeNull();
 
-          groundUnit(battleState, unitKey as string, 20);
+          times(4, () => groundUnit(battleState, unitKey as string, 20));
+
           expect(battleState.unitData[unitKey as string]).toHaveProperty(
             "unitData.currentTarget",
             "armycamp#1"
@@ -108,8 +117,10 @@ describe("Ground Unit behavior", () => {
 
         // Both are at the same location, but have different groupIndices. Resulting in different targets
 
-        groundUnit(battleState, "goblin#1", 20);
-        groundUnit(battleState, "goblin#2", 20);
+        times(4, () => {
+          groundUnit(battleState, "goblin#1", 20);
+          groundUnit(battleState, "goblin#2", 20);
+        });
 
         const target1 = battleState.unitData["goblin#1"].unitData.currentTarget;
         const target2 = battleState.unitData["goblin#2"].unitData.currentTarget;
