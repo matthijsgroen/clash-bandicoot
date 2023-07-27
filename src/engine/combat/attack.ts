@@ -13,6 +13,7 @@ import { createObstacleGrid } from "../pathfinding/obstacleGrid";
 import { Army, canDeployTroops, placeUnit } from "../armyComposition";
 import { createPlacementGrid } from "../layout/placementGrid";
 import { isVisible } from "../layout/baseLayout";
+import { TroopType } from "../../data/types";
 
 export const createInitialBaseData = (layout: BaseLayout): BattleBaseData =>
   Object.fromEntries(
@@ -72,7 +73,7 @@ export const unitsAlive = (unitData: BattleUnitData): number =>
  */
 export const addTroopToState = (
   state: BattleState,
-  unitType: string,
+  unitType: TroopType,
   level: number,
   position: [x: number, y: number]
 ): string | null => {
@@ -143,21 +144,21 @@ export const handleAttack = (
       const unit = state.unitData[unitId];
       const aiHandler = unit.info.aiType;
       if (aiHandler) {
-        aiHandlers[aiHandler](state, unitId, TICK_SPEED);
+        aiHandlers[aiHandler]?.(state, unitId, TICK_SPEED);
       }
     }
     for (const buildingId in state.baseData) {
       const building = state.baseData[buildingId];
       const aiHandler = building.building.info.aiType;
       if (aiHandler) {
-        aiHandlers[aiHandler](state, buildingId, TICK_SPEED);
+        aiHandlers[aiHandler]?.(state, buildingId, TICK_SPEED);
       }
     }
     for (const effectId in state.effectData) {
       const effect = state.effectData[effectId];
       const aiHandler = effect.aiType;
       if (aiHandler) {
-        aiHandlers[aiHandler](state, effectId, TICK_SPEED);
+        aiHandlers[aiHandler]?.(state, effectId, TICK_SPEED);
       }
     }
 
@@ -180,7 +181,7 @@ export const handleAttack = (
     },
     getData: (): BattleState => state,
     placeUnit: (
-      type: string,
+      type: TroopType,
       level: number,
       position: [x: number, y: number]
     ) => {

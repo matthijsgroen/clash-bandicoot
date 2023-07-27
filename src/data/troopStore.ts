@@ -1,8 +1,8 @@
-import { Troop } from "./types";
+import { Troop, TroopType } from "./types";
 
 export type TroopStore = {
   addTroop: (troop: Troop) => void;
-  getTroop: (type: string, level: number) => Troop | undefined;
+  getTroop: (type: TroopType, level: number) => Troop | undefined;
 };
 
 export const createTroopStore = (): TroopStore => {

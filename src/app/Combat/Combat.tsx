@@ -19,6 +19,7 @@ import { Button } from "../../ui-components/atoms/Button";
 import { calculateGridPosition } from "../../ui-components/composition/Village/Grid";
 import { GridFloat } from "../../ui-components/composition/Village/GridFloat";
 import { HealthBar } from "../../ui-components/atoms/HealthBar";
+import { TroopType } from "../../data/types";
 
 const CombatTimer = () => {
   const timeLeft = useAtomValue(battleAtom).timeLeft;
@@ -51,7 +52,7 @@ export const Combat: React.FC<{
   onNext?: VoidFunction;
 }> = ({ base, replay, army, showNext = false, onClose, onNext }) => {
   const [selectedTroop, setSelectedTroop] = useState<
-    [string, number] | undefined
+    [TroopType, number] | undefined
   >(undefined);
 
   const [battleState, setBattleState] = useAtom(battleAtom);

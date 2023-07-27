@@ -8,6 +8,7 @@ import {
 import { getPlacementOverview } from "../../engine/armyComposition";
 import styles from "./ArmyControl.module.css";
 import { armyAtom } from "./combatState";
+import { TroopType } from "../../data/types";
 
 const colorMap: Record<string, string> = {
   giant: "red",
@@ -17,8 +18,8 @@ const colorMap: Record<string, string> = {
 };
 
 export const ArmyControl: React.FC<{
-  onSelect?: (type: string, level: number) => void;
-  selected?: [type: string, level: number];
+  onSelect?: (type: TroopType, level: number) => void;
+  selected?: [type: TroopType, level: number];
 }> = ({ onSelect, selected }) => {
   const army = useAtomValue(armyAtom);
   const placement = getPlacementOverview(army);

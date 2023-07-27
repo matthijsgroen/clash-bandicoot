@@ -29,14 +29,26 @@ export type Building<
   aiSettings: Settings;
 };
 
+export type TroopType =
+  | "barbarian"
+  | "archer"
+  | "giant"
+  | "goblin"
+  | "wallbreaker";
+
 export type BuildingLimit = {
   thLevel: number;
   type: string;
   amount: number;
 };
 
+export type TargetPreference = {
+  category: BuildingCategory;
+  multiplier?: number;
+};
+
 export type Troop = {
-  type: string;
+  type: TroopType;
   level: number;
   size: number;
   category: "ground" | "air";
@@ -47,7 +59,7 @@ export type Troop = {
   barrackRequirement: number;
   laboratoryRequirement: number;
 
-  targetPreference: { category: BuildingCategory; multiplier?: number }[];
+  targetPreference: TargetPreference[];
   trainingTime: number;
 
   researchCost: Cost;
