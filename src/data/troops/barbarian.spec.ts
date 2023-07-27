@@ -5,7 +5,7 @@ import { layoutBuilder } from "../../engine/layout/baseLayout";
 describe("Barbarian", () => {
   describe("movement", () => {
     describe("speed test", () => {
-      it.only("takes x seconds to reach the target", () => {
+      it("takes x seconds to reach the target", () => {
         const village = layoutBuilder()
           .placeBuilding("townhall", 1, [35, 35])
           .result();
