@@ -163,10 +163,10 @@ export const wallBreaker: EntityAI = (state, unitId, delta) => {
       walk(
         state,
         unit,
-        () => {
+        ([, wall]) => {
           attack(
             unit,
-            shiftPosition(unit.position, building.center, 0.5),
+            shiftPosition(unit.position, wall.center, 0.7),
             unitId,
             state,
             delta
@@ -182,7 +182,7 @@ export const wallBreaker: EntityAI = (state, unitId, delta) => {
     } else {
       attack(
         unit,
-        shiftPosition(unit.position, building.center, 0.2),
+        shiftPosition(unit.position, building.center, 0.5),
         unitId,
         state,
         delta
