@@ -34,16 +34,14 @@ button:active:enabled .outer {
   border-bottom: 2px solid color-mix(in hsl, var(--color) 70%, black);
   background: linear-gradient(
     180deg,
-    /* #ffffff33 0%,
-    #ffffff33 20%,
-    #ffffff66 53%, */ transparent 53%,
+    transparent 53%,
     transparent 80%,
     #00000033 100%
   );
 
   font-family: "Sriracha", cursive;
   font-weight: bold;
-  text-shadow: 0 2px 0 #000, 1px -1px 0 #0002;
+  text-shadow: 0 2px 0 #000, 0px -1px 0 #000;
 }
 
 .inner::before {

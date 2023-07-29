@@ -65,7 +65,6 @@ const attack = (
   } else {
     explosion(unit, position, unitId, unit.info.damage, state);
     unit.hitPoints = 0;
-    unit.state = "dead";
   }
 };
 

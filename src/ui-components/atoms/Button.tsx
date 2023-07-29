@@ -34,7 +34,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       })}
     >
       <div className={styles.outer}>
-        <div className={styles.inner}>{props.children}</div>
+        <div className={styles.inner} aria-label={props.children?.toString()}>
+          {props.children}
+        </div>
       </div>
     </button>
   )
