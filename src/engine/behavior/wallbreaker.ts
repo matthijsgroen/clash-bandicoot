@@ -9,6 +9,7 @@ import { PathFindingData, getPaths, isUnitInRange } from "./modules/getPaths";
 import { selectTargets } from "./modules/selectTargets";
 import { walk } from "./modules/walking";
 import { EntityAI } from "./type";
+import { floorPosition, shiftPosition } from "./utils";
 
 export type GroundUnitData = {
   currentTarget?: string;
@@ -23,8 +24,37 @@ type UnitAISettings = {
   damageRadius: number;
 };
 
+const explosion = (
+  unit: BattleUnitState<GroundUnitData, UnitAISettings>,
+  position: [x: number, y: number],
+  unitId: string,
+  damage: number,
+  state: BattleState
+) => {
+  const explosion: BattleEffectState<{
+    damage: number;
+    damageDealt: boolean;
+  }> = {
+    type: "explosion",
+    level: unit.level,
+    position,
+    aiType: "attackerExplosion",
+    effectData: {
+      damage,
+      damageDealt: false,
+    },
+    targetModifiers: unit.info.targetPreference,
+    range: unit.info.aiSettings?.damageRadius ?? 1,
+    delay: 0,
+    duration: 200,
+    state: "idle",
+  };
+  state.effectData[`${unitId}-explosion`] = explosion;
+};
+
 const attack = (
   unit: BattleUnitState<GroundUnitData, UnitAISettings>,
+  position: [x: number, y: number],
   unitId: string,
   state: BattleState,
   delta: number
@@ -33,26 +63,7 @@ const attack = (
   if (unit.unitData.attackDelay > 0) {
     unit.unitData.attackDelay -= delta;
   } else {
-    const explosion: BattleEffectState<{
-      damage: number;
-      damageDealt: boolean;
-    }> = {
-      type: "explosion",
-      level: unit.level,
-      position: unit.position,
-      aiType: "attackerExplosion",
-      effectData: {
-        damage: unit.info.damage,
-        damageDealt: false,
-      },
-      targetModifiers: unit.info.targetPreference,
-      range: unit.info.aiSettings?.damageRadius ?? 1,
-      delay: 0,
-      duration: 200,
-      state: "idle",
-    };
-    state.effectData[`${unitId}-explosion`] = explosion;
-
+    explosion(unit, position, unitId, unit.info.damage, state);
     unit.hitPoints = 0;
     unit.state = "dead";
   }
@@ -69,6 +80,15 @@ export const wallBreaker: EntityAI = (state, unitId, delta) => {
   }
   if (unit.hitPoints <= 0 && unit.state !== "dead") {
     // Add 'dying' behavior here
+    if (unit.info.aiSettings) {
+      explosion(
+        unit,
+        unit.position,
+        unitId,
+        unit.info.aiSettings?.damageWhenDestroyed,
+        state
+      );
+    }
     unit.state = "dead";
     return;
   }
@@ -77,9 +97,7 @@ export const wallBreaker: EntityAI = (state, unitId, delta) => {
     unit.state = "idle";
     const grid = state.grid;
 
-    const flooredPos: [x: number, y: number] = unit.position.map(
-      Math.floor
-    ) as [x: number, y: number];
+    const flooredPos: [x: number, y: number] = floorPosition(unit.position);
 
     const preferredTargets = Object.entries(state.baseData)
       .filter(([, b]) => {
@@ -123,7 +141,6 @@ export const wallBreaker: EntityAI = (state, unitId, delta) => {
     const paths = getPaths(state, unit, targets, 0.5);
 
     if (paths.length > 0) {
-      console.log(paths);
       const path = paths[(unit.unitData.groupIndex ?? 0) % paths.length];
       unit.unitData.currentTarget = path.target;
       unit.unitData.path = path.path;
@@ -147,7 +164,13 @@ export const wallBreaker: EntityAI = (state, unitId, delta) => {
         state,
         unit,
         () => {
-          attack(unit, unitId, state, delta);
+          attack(
+            unit,
+            shiftPosition(unit.position, building.center, 0.5),
+            unitId,
+            state,
+            delta
+          );
           return true;
         },
         delta
@@ -157,7 +180,13 @@ export const wallBreaker: EntityAI = (state, unitId, delta) => {
         unit.unitData.currentTarget = undefined;
       }
     } else {
-      attack(unit, unitId, state, delta);
+      attack(
+        unit,
+        shiftPosition(unit.position, building.center, 0.2),
+        unitId,
+        state,
+        delta
+      );
     }
   }
 };

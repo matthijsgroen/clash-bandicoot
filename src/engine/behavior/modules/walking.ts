@@ -1,6 +1,7 @@
 import { Path } from "../../pathfinding/types";
 import { BattleBuildingState, BattleState, BattleUnitState } from "../../types";
 import { getDistance } from "../../utils/getDistance";
+import { floorPosition } from "../utils";
 import { isUnitInRange } from "./getPaths";
 
 export type MovementData = {
@@ -31,7 +32,7 @@ export const walk = (
   }
 
   // is next step a wall? start breaking through
-  const tileCoord = [Math.floor(nextPoint[0]), Math.floor(nextPoint[1])];
+  const tileCoord = floorPosition(nextPoint);
   const tileValue = state.grid[tileCoord[1]][tileCoord[0]];
   if (tileValue > 0) {
     const wall = Object.entries(state.baseData).find(
