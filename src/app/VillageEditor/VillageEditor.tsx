@@ -234,19 +234,21 @@ export const VillageEditor: React.FC<{
         return;
       }
 
-      const hasOverlaps = selection.buildings.some((e) =>
-        isOverlapping(base, e.id)
-      );
-      if (hasOverlaps) {
-        updateBase((base) =>
-          selection.buildings.reduce(
-            (base, buildingInfo) =>
-              buildingInfo.isNew
-                ? removeBuilding(base, buildingInfo.id)
-                : moveBuilding(base, buildingInfo.id, buildingInfo.position),
-            base
-          )
+      if (building) {
+        const hasOverlaps = selection.buildings.some((e) =>
+          isOverlapping(base, e.id)
         );
+        if (hasOverlaps) {
+          updateBase((base) =>
+            selection.buildings.reduce(
+              (base, buildingInfo) =>
+                buildingInfo.isNew
+                  ? removeBuilding(base, buildingInfo.id)
+                  : moveBuilding(base, buildingInfo.id, buildingInfo.position),
+              base
+            )
+          );
+        }
       }
     }
 
