@@ -75,6 +75,7 @@ export const mortar: EntityAI = (state, buildingId, delta) => {
           damage: buildingInfo.aiSettings.damage,
           damageDealt: false,
         },
+        targetModifiers: [],
         range: buildingInfo.aiSettings.splash,
         delay: distance * 100,
         duration: 200,

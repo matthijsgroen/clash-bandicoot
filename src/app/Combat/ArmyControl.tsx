@@ -15,6 +15,7 @@ const colorMap: Record<string, string> = {
   archer: "pink",
   barbarian: "#bb0",
   goblin: "green",
+  wallbreaker: "white",
 };
 
 export const ArmyControl: React.FC<{

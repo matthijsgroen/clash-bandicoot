@@ -1,4 +1,4 @@
-import { Building, Troop, TroopType } from "../data/types";
+import { Building, TargetPreference, Troop, TroopType } from "../data/types";
 import { Army } from "./armyComposition";
 import { ObstacleGrid } from "./pathfinding/types";
 
@@ -45,7 +45,8 @@ export type BattleBuildingState<
 export type BattleBaseData = Record<string, BattleBuildingState>;
 
 export type BattleUnitState<
-  T extends Record<string, unknown> = Record<string, unknown>
+  T extends Record<string, unknown> = Record<string, unknown>,
+  AISettings extends Record<string, unknown> = Record<string, unknown>
 > = {
   hitPoints: number;
   lastHitAt: number;
@@ -53,7 +54,7 @@ export type BattleUnitState<
   type: string;
   level: number;
   position: [x: number, y: number];
-  info: Troop;
+  info: Troop<AISettings>;
   unitData: T;
   state: string;
 };
@@ -69,6 +70,7 @@ export type BattleEffectState<
   position: [x: number, y: number];
   range: number;
   info?: unknown; //Spell;
+  targetModifiers: TargetPreference[];
   aiType: string;
   effectData: T;
   delay: number;

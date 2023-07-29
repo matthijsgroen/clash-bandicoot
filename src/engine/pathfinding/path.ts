@@ -2,7 +2,7 @@ import { ObstacleGrid, Path } from "./types";
 
 const abs = Math.abs;
 
-const interpolate = (
+export const interpolate = (
   [x0, y0]: [x: number, y: number],
   [x1, y1]: [x: number, b: number]
 ): Path => {

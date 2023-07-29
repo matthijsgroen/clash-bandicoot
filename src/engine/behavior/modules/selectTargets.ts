@@ -18,10 +18,7 @@ export const selectTargets = (
 
   if (targets.length === 0) {
     targets = Object.entries(state.baseData).filter(
-      ([, b]) =>
-        b.hitPoints > 0 &&
-        b.building.info.type !== "wall" &&
-        !b.building.info.categories.includes("trap") // also skip hidden tesla's
+      ([, b]) => b.hitPoints > 0 && b.building.info.type !== "wall" && b.visible
     );
   }
   return targets;

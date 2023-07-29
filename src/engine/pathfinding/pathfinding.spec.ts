@@ -62,4 +62,31 @@ describe("findPath", () => {
       ]);
     });
   });
+
+  describe("debug usecase, walkaround wall", () => {
+    const grid: ObstacleGrid = [
+      [0, 0, 0, 0, 0],
+      [20, 20, 20, 20, 20],
+      [0, 0, 0, 0, 0],
+      [0, 20, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+    ];
+
+    it("finds a path when process is repeated", () => {
+      const graph = createGraph(grid);
+
+      let result = undefined;
+      while (result === undefined) {
+        result = findPath(graph, [1, 4], (pos) => pos[0] === 1 && pos[1] === 0);
+      }
+
+      expect(result).toEqual([
+        [1, 4],
+        [0, 3],
+        [0, 2],
+        [0, 1],
+        [1, 0],
+      ]);
+    });
+  });
 });

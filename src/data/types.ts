@@ -47,7 +47,9 @@ export type TargetPreference = {
   multiplier?: number;
 };
 
-export type Troop = {
+export type Troop<
+  AISettings extends Record<string, unknown> = Record<string, unknown>
+> = {
   type: TroopType;
   level: number;
   size: number;
@@ -68,5 +70,5 @@ export type Troop = {
   hitRadius: number;
 
   aiType?: string;
-  aiSettings?: Record<string, unknown>;
+  aiSettings?: AISettings;
 };

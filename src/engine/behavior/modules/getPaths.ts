@@ -5,15 +5,21 @@ import { Graph, Path } from "../../pathfinding/types";
 import { BattleBuildingState, BattleState, BattleUnitState } from "../../types";
 import { getDistance } from "../../utils/getDistance";
 
-export const isInRange = (
+export const isUnitInRange = (
   building: BattleBuildingState,
   unit: BattleUnitState,
   position?: [x: number, y: number]
+) => inRange(building, position ?? unit.position, unit.info.hitRadius);
+
+export const inRange = (
+  building: BattleBuildingState,
+  position: [x: number, y: number],
+  radius: number
 ) => {
-  const pos = position ?? unit.position;
   const distance =
-    getDistance(pos, building.center) - building.building.info.size[0] / 2.05;
-  return distance < unit.info.hitRadius;
+    getDistance(position, building.center) -
+    building.building.info.size[0] / 2.05;
+  return distance < radius;
 };
 
 const TARGET_SELECTION_TOLERANCE = 0.5;
@@ -27,7 +33,8 @@ export type PathFindingData = {
 export const getPaths = (
   state: BattleState,
   unit: BattleUnitState<PathFindingData>,
-  targets: [string, BattleBuildingState][]
+  targets: [string, BattleBuildingState][],
+  wallWeight: number = 1
 ): { path: Path; target: string; cost: number }[] => {
   unit.unitData.pathIterations ??= 0;
   let limitCounter = 0;
@@ -51,19 +58,24 @@ export const getPaths = (
     limitCounter++;
     let currentTarget: null | string = null;
 
-    let path = findPath(graph, [roundX, roundY], ([x, y]) => {
-      const coord: [number, number] = [x + xOff, y + yOff];
-      for (let [id, target] of targets) {
-        if (
-          isInRange(target, unit, coord) &&
-          paths.every((p) => p.target !== id)
-        ) {
-          currentTarget = id;
-          return true;
+    let path = findPath(
+      graph,
+      [roundX, roundY],
+      ([x, y]) => {
+        const coord: [number, number] = [x + xOff, y + yOff];
+        for (let [id, target] of targets) {
+          if (
+            isUnitInRange(target, unit, coord) &&
+            paths.every((p) => p.target !== id)
+          ) {
+            currentTarget = id;
+            return true;
+          }
         }
-      }
-      return false;
-    });
+        return false;
+      },
+      wallWeight
+    );
     if (path && path.length === 0) {
       searchDone = true;
       break;

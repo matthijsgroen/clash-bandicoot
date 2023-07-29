@@ -68,4 +68,31 @@ describe("simplifyPath", () => {
       [4, 2],
     ]);
   });
+
+  it("keeps steps that are walls (2)", () => {
+    const grid: ObstacleGrid = [
+      [0, 0, 0, 0, 0],
+      [20, 20, 20, 20, 20],
+      [0, 0, 0, 0, 0],
+      [0, 20, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+    ];
+
+    const path: Path = [
+      [1, 4],
+      [0, 3],
+      [0, 2],
+      [0, 1],
+      [1, 0],
+    ];
+
+    const result = simplifyPath(path, grid);
+    expect(result).toEqual([
+      [1, 4],
+      [0, 3],
+      [0, 2],
+      [0, 1],
+      [1, 0],
+    ]);
+  });
 });

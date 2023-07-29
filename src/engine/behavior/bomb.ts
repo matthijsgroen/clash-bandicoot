@@ -61,6 +61,7 @@ export const bomb: EntityAI = (state, buildingId, delta) => {
           damage: buildingInfo.aiSettings.damage,
           damageDealt: false,
         },
+        targetModifiers: [],
         range: buildingInfo.aiSettings.splash,
         delay: building.building.info.aiSettings.firingRate * 1000,
         duration: 200,

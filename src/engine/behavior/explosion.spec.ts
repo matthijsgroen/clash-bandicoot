@@ -28,6 +28,7 @@ describe("explosion behavior", () => {
       damage: 400,
       damageDealt: false,
     },
+    targetModifiers: [],
     level: 99,
     position: [5, 5],
     range: 3,

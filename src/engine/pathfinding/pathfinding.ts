@@ -5,7 +5,8 @@ const TILE_TRAVEL_COST = 1;
 export const findPath = (
   graph: Graph,
   start: [x: number, y: number],
-  reachTarget: (pos: [x: number, y: number]) => boolean
+  reachTarget: (pos: [x: number, y: number]) => boolean,
+  weightFactor: number = 1
 ): Path | undefined => {
   if (graph.openNodes.length === 0 && graph.closedNodes.length === 0) {
     // clean graph, start with start node.
@@ -49,7 +50,7 @@ export const findPath = (
       neighbor.weight !== -1
     ) {
       neighbor.travelCost = travelCost;
-      neighbor.totalCost = travelCost + neighbor.weight;
+      neighbor.totalCost = travelCost + neighbor.weight * weightFactor;
       neighbor.parent = currentNode;
 
       graph.open(neighbor);
