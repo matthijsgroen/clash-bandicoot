@@ -7,14 +7,7 @@ export const Buildings: React.FC<{
   layout: BaseLayout;
   battleBaseData?: BattleBaseData;
   selection?: string[];
-  showSelectedDetails?: boolean;
-}> = ({
-  showHidden = false,
-  layout,
-  battleBaseData,
-  selection = [],
-  showSelectedDetails = false,
-}) => {
+}> = ({ showHidden = false, layout, battleBaseData, selection = [] }) => {
   const buildings = Object.entries(layout.items);
   return (
     <>
@@ -38,11 +31,11 @@ export const Buildings: React.FC<{
               key={id}
               x={buildingState.position[0]}
               y={buildingState.position[1]}
-              hitPoints={hitPoints}
               buildingType={info.type}
               level={info.level}
               size={info.size[0]}
-              state={state}
+              attacking={state === "attacking"}
+              destroyed={hitPoints === 0}
               selected={selection.includes(id)}
               overlapping={selection.includes(id) && isOverlapping(layout, id)}
             />

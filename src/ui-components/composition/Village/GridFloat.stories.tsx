@@ -27,7 +27,6 @@ const decorators: Story["decorators"] = [
         size={2}
         level={3}
         buildingType={"Townhall"}
-        hitPoints={450}
       />
     </Grid>
   ),
@@ -39,7 +38,7 @@ export const BuildingName: Story = {
     x: 5,
     y: 5,
     children: [
-      <Text size="default" key="label">
+      <Text size="default" key="label" element="h3">
         Townhall
       </Text>,
       <Text size="small" key="level" centered>

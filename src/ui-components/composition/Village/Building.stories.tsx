@@ -30,7 +30,6 @@ export const Building: Story = {
     size: 2,
     buildingType: "name",
     level: 1,
-    hitPoints: 30,
   },
   decorators,
 };
@@ -42,7 +41,7 @@ export const DestroyedBuilding: Story = {
     size: 2,
     buildingType: "name",
     level: 1,
-    hitPoints: 0,
+    destroyed: true,
   },
   decorators,
 };

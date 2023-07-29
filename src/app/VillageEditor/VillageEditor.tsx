@@ -353,7 +353,6 @@ export const VillageEditor: React.FC<{
                 ? selection.buildings.map((b) => b.id)
                 : []
             }
-            showSelectedDetails
           />
           {labelItem && labelItem.info.triggerRadius && (
             <ActivationRange

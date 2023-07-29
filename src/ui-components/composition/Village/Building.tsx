@@ -15,8 +15,9 @@ export const Building: React.FC<{
   className?: string;
   buildingType: string;
   level: number;
-  hitPoints: number;
-  state?: string;
+  destroyed?: boolean;
+  attacking?: boolean;
+
   selected?: boolean;
   overlapping?: boolean;
 }> = ({
@@ -24,10 +25,11 @@ export const Building: React.FC<{
   y,
   size,
   className,
-  hitPoints,
   level,
   buildingType,
-  state,
+  destroyed,
+  attacking,
+  // state,
   selected,
   overlapping,
 }) => {
@@ -48,8 +50,9 @@ export const Building: React.FC<{
       <div
         className={classNames(
           {
-            [styles.destroyed]: hitPoints === 0,
-            [styles[state ?? "none"]]: state,
+            [styles.destroyed]: destroyed,
+            [styles.attacking]: attacking,
+            // [styles[state ?? "none"]]: state,
             [styles[buildingType]]: styles[buildingType],
             [`${className}`]: className,
             [styles.overlapping]: overlapping,
@@ -58,7 +61,7 @@ export const Building: React.FC<{
           styles[`size${size}`]
         )}
       >
-        {buildingType} {level} {hitPoints}
+        {buildingType} {level}
       </div>
     </div>
   );
