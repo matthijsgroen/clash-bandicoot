@@ -19,10 +19,19 @@ export const Text: React.FC<
     element?: HTMLTextElement;
     size?: TextSize;
     color?: CSSProperties["color"];
+    skipOutline?: boolean;
     centered?: boolean;
     className?: string;
   }>
-> = ({ element = "p", centered = false, className, size, children, color }) =>
+> = ({
+  element = "p",
+  centered = false,
+  className,
+  size,
+  children,
+  color,
+  skipOutline = false,
+}) =>
   createElement(
     element,
     {
@@ -30,6 +39,7 @@ export const Text: React.FC<
         [styles.small]: size === "small",
         [styles.large]: size === "large",
         [styles.centered]: centered,
+        [styles.outline]: !skipOutline,
         [className ?? ""]: className,
       }),
       ...(color ? { style: { "--text-color": color } } : {}),

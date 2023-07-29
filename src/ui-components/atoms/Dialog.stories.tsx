@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Dialog as DialogComponent } from "./Dialog";
+import { Text } from "./Text";
+import { Toolbar, ToolbarSpacer } from "./Toolbar";
+import { Button } from "./Button";
 
 const meta = {
   title: "Atoms/Dialog",
@@ -18,6 +21,34 @@ type Story = StoryObj<typeof meta>;
 export const Dialog: Story = {
   args: {
     title: "Hello",
-    children: <p>Lorem ipsum dolor sit amed.</p>,
+    children: [
+      <Text skipOutline color="#222">
+        Lorem ipsum dolor sid amed.
+      </Text>,
+    ],
+  },
+};
+
+export const DialogWithoutTitle: Story = {
+  args: {
+    onClose: undefined,
+    children: [
+      <Text element="h1" size="large">
+        Lorem ipsum dolor sid amed.
+      </Text>,
+      <Text skipOutline color="#222">
+        Lorem ipsum dolor sid amed.
+      </Text>,
+      <Toolbar>
+        <ToolbarSpacer />
+        <Button color={"red"} height="default" width="large">
+          Cancel
+        </Button>
+        <Button color={"limegreen"} height="default" width="large">
+          Yes
+        </Button>
+        <ToolbarSpacer />
+      </Toolbar>,
+    ],
   },
 };

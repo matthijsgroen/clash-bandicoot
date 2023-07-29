@@ -5,8 +5,19 @@
   line-height: 1rem;
 
   color: var(--text-color, white);
-  text-shadow: 0 2px 0 #000, 0 0 2px #0009;
+}
+
+h1.text,
+h2.text {
   margin: 0;
+}
+h3.text,
+h4.text {
+  margin-bottom: 0;
+}
+
+.outline {
+  text-shadow: 0 2px 0 #000, 0 0 2px #0009;
 }
 
 .small {

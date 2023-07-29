@@ -6,7 +6,7 @@ import classnames from "classnames";
 
 export const Dialog: React.FC<
   PropsWithChildren<{
-    title: React.ReactNode;
+    title?: React.ReactNode;
     onClose?: VoidFunction;
     width?: CSSProperties["width"];
     height?: CSSProperties["height"];
@@ -36,26 +36,28 @@ export const Dialog: React.FC<
   return (
     <div className={classnames(styles.dimmer, { [styles.close]: isClosing })}>
       <div role="dialog" className={styles.dialog} style={sizeProps}>
-        <header className={styles.dialogHeader}>
-          {typeof title === "string" ? (
-            <DialogTitle>{title}</DialogTitle>
-          ) : (
-            title
-          )}
-          <Button
-            color="red"
-            onClick={() => {
-              if (onClose) {
-                setIsClosing(true);
-              }
-            }}
-            width="small"
-            height="small"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">×</span>
-          </Button>
-        </header>
+        {(title !== undefined || onClose) && (
+          <header className={styles.dialogHeader}>
+            {typeof title === "string" ? (
+              <DialogTitle>{title}</DialogTitle>
+            ) : (
+              title
+            )}
+            <Button
+              color="red"
+              onClick={() => {
+                if (onClose) {
+                  setIsClosing(true);
+                }
+              }}
+              width="small"
+              height="small"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </Button>
+          </header>
+        )}
         <main className={styles.dialogBody}>{children}</main>
       </div>
     </div>
