@@ -73,17 +73,15 @@ export const HomeScreen: React.FC<{
 
       {hasUpdate && (
         <div>
-          <p>
-            The app has an update!
-            <Button
-              color="orange"
-              onClick={() => triggerUpdate()}
-              width="large"
-              height="default"
-            >
-              Update now
-            </Button>
-          </p>
+          <p>The app has an update!</p>
+          <Button
+            color="orange"
+            onClick={() => triggerUpdate()}
+            width="huge"
+            height="default"
+          >
+            Update now
+          </Button>
         </div>
       )}
 
