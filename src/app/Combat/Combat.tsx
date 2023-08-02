@@ -13,8 +13,8 @@ import {
   PlacementOutline,
   // Effects,
   Building,
+  Unit,
 } from "../../ui-components/composition/Village";
-// import { Units } from "../../ui-components/composition/Village/Units";
 import { Button } from "../../ui-components/atoms/Button";
 import { calculateGridPosition } from "../../ui-components/composition/Village/Grid";
 import { GridFloat } from "../../ui-components/composition/Village/GridFloat";
@@ -54,6 +54,9 @@ const CombatBuilding: React.FC<{
   const stateAtoms = useMemo(
     () => ({
       building: atom((get) => get(battleAtom).layout.items[buildingId]),
+      visible: atom(
+        (get) => get(battleAtom).baseData[buildingId]?.visible ?? false
+      ),
       destroyed: atom((get) => {
         const state = get(battleAtom).baseData[buildingId];
         return !state || state.hitPoints <= 0;
@@ -68,8 +71,9 @@ const CombatBuilding: React.FC<{
   const building = useAtomValue(stateAtoms.building);
   const attacking = useAtomValue(stateAtoms.attacking);
   const destroyed = useAtomValue(stateAtoms.destroyed);
+  const visible = useAtomValue(stateAtoms.visible);
 
-  if (!building) {
+  if (!building || !visible) {
     return null;
   }
 
@@ -99,6 +103,7 @@ export const CombatBuildingHealthBar: React.FC<{ buildingId: string }> = ({
         const battleState = get(battleAtom);
         const buildingState = battleState.baseData[buildingId];
         return (
+          buildingState &&
           buildingState.lastHitAt !== -1 &&
           buildingState.lastHitAt > battleState.timeSpent - 3000 &&
           buildingState.hitPoints > 0
@@ -107,6 +112,7 @@ export const CombatBuildingHealthBar: React.FC<{ buildingId: string }> = ({
       health: atom((get) => {
         const battleState = get(battleAtom);
         const buildingState = battleState.baseData[buildingId];
+        if (!buildingState) return 1;
         return buildingState.hitPoints / buildingState.building.info.hitPoints;
       }),
     }),
@@ -123,6 +129,23 @@ export const CombatBuildingHealthBar: React.FC<{ buildingId: string }> = ({
     <GridFloat key={`health-${buildingId}`} x={position[0]} y={position[1]}>
       <HealthBar baseColor="royalblue" progress={health} />
     </GridFloat>
+  );
+};
+
+export const Units: React.FC = () => {
+  const units = useAtomValue(battleAtom).unitData;
+  return (
+    <>
+      {Object.entries(units).map(([id, unit]) => (
+        <Unit
+          key={id}
+          x={unit.position[0]}
+          y={unit.position[1]}
+          unitType={unit.info.type}
+          state={unit.state}
+        />
+      ))}
+    </>
   );
 };
 
@@ -187,9 +210,6 @@ export const Combat: React.FC<{
   const battleState = useAtomValue(battleStateAtom);
 
   const buildingKeys = Object.keys(base.items);
-  // const layout = battleState.layout;
-  // const buildingStatus = battleState.baseData;
-  // const units = battleState.unitData;
 
   return (
     <div className={styles.combat}>
@@ -219,6 +239,7 @@ export const Combat: React.FC<{
           {buildingKeys.map((key) => (
             <CombatBuilding buildingId={key} key={key} />
           ))}
+          <Units />
           {/* 
           <Units units={units} />
           <Effects effects={battleState.effectData} />
