@@ -21,6 +21,8 @@ export const Text: React.FC<
     color?: CSSProperties["color"];
     skipOutline?: boolean;
     centered?: boolean;
+    marginTop?: boolean;
+    marginBottom?: boolean;
     className?: string;
   }>
 > = ({
@@ -31,6 +33,8 @@ export const Text: React.FC<
   children,
   color,
   skipOutline = false,
+  marginTop = false,
+  marginBottom = false,
 }) =>
   createElement(
     element,
@@ -40,6 +44,8 @@ export const Text: React.FC<
         [styles.large]: size === "large",
         [styles.centered]: centered,
         [styles.outline]: !skipOutline,
+        [styles.removeMarginTop]: !marginTop,
+        [styles.removeMarginBottom]: !marginBottom,
         [className ?? ""]: className,
       }),
       ...(color ? { style: { "--text-color": color } } : {}),

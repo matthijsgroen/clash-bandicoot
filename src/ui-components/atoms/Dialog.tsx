@@ -3,15 +3,26 @@ import styles from "./Dialog.module.css";
 import { Button } from "./Button";
 import { DialogTitle } from "./DialogTitle";
 import classnames from "classnames";
+import { Panel } from "./Panel";
 
 export const Dialog: React.FC<
   PropsWithChildren<{
     title?: React.ReactNode;
+    closing?: boolean;
     onClose?: VoidFunction;
+    showHeader?: boolean;
     width?: CSSProperties["width"];
     height?: CSSProperties["height"];
   }>
-> = ({ title, children, onClose, width, height }) => {
+> = ({
+  title,
+  children,
+  showHeader = true,
+  closing = false,
+  onClose,
+  width,
+  height,
+}) => {
   const sizeProps: CSSProperties = {};
   if (width) {
     sizeProps.width = width;
@@ -23,20 +34,25 @@ export const Dialog: React.FC<
   const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
-    if (isClosing && onClose) {
+    if ((isClosing || closing) && onClose) {
       const timer = setTimeout(() => {
         onClose();
       }, 210);
       return () => {
+        console.log("clearing timeout");
         clearTimeout(timer);
       };
     }
-  }, [isClosing, onClose]);
+  }, [isClosing, closing, showHeader, onClose]);
 
   return (
-    <div className={classnames(styles.dimmer, { [styles.close]: isClosing })}>
+    <div
+      className={classnames(styles.dimmer, {
+        [styles.close]: isClosing || closing,
+      })}
+    >
       <div role="dialog" className={styles.dialog} style={sizeProps}>
-        {(title !== undefined || onClose) && (
+        {(title !== undefined || onClose) && showHeader && (
           <header className={styles.dialogHeader}>
             {typeof title === "string" ? (
               <DialogTitle>{title}</DialogTitle>
@@ -58,7 +74,7 @@ export const Dialog: React.FC<
             </Button>
           </header>
         )}
-        <main className={styles.dialogBody}>{children}</main>
+        <Panel scrollable>{children}</Panel>
       </div>
     </div>
   );
