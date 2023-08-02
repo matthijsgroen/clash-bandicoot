@@ -12,6 +12,9 @@ import {
 import { Dialog } from "../../ui-components/atoms/Dialog";
 import { Text } from "../../ui-components/atoms/Text";
 import { getTownhallLevel } from "../../engine/layout/baseLayout";
+import { Panel } from "../../ui-components/atoms/Panel";
+import { Toolbar, ToolbarSpacer } from "../../ui-components/atoms/Toolbar";
+import { ButtonWithConfirm } from "../../ui-components/composition/ButtonWithConfirm";
 
 export const Inset: React.FC<PropsWithChildren> = ({ children }) => (
   <span
@@ -37,7 +40,11 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
   onClose,
 }) => {
   const queryClient = useQueryClient();
-  const { data } = useQuery({ queryKey: ["villageList"], queryFn: getBases });
+  const { data } = useQuery({
+    queryKey: ["villageList"],
+    queryFn: getBases,
+    networkMode: "always",
+  });
 
   const createMutation = useMutation({
     mutationFn: postBase,
@@ -46,6 +53,7 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
       setSelectedVillage(village);
       setIsEditing(true);
     },
+    networkMode: "always",
   });
 
   const updateMutation = useMutation({
@@ -53,6 +61,7 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["villageList"] });
     },
+    networkMode: "always",
   });
 
   const deleteMutation = useMutation({
@@ -60,6 +69,7 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["villageList"] });
     },
+    networkMode: "always",
   });
 
   const [selectedVillage, setSelectedVillage] = useState<Village | null>(null);
@@ -81,36 +91,30 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
             padding: "0.5rem",
           }}
         >
-          <Row>
-            <Inset>
-              <Text>&lt;no name&gt;</Text>
-              <Text size="small">Your new village</Text>
-            </Inset>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.25rem",
-              }}
-            >
+          <Panel color="seagreen">
+            <Text size="small">
+              Here you can create villages of your own to attack.
+            </Text>
+            <Toolbar>
+              <ToolbarSpacer />
               <Button
                 color="orange"
                 width="default"
-                height="default"
+                height="small"
                 onClick={() => {
                   createMutation.mutate({ name: "New Village" });
                 }}
               >
                 + New
               </Button>
-            </div>
-          </Row>
+            </Toolbar>
+          </Panel>
           {data &&
             data.map((village) => (
               <Row key={village.id}>
                 <Inset>
                   <Text>{village.name}</Text>
-                  <Text size="small">
+                  <Text size="small" color="#333" skipOutline>
                     TH: {getTownhallLevel(village.layout)}
                   </Text>
                 </Inset>
@@ -167,16 +171,18 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
                     >
                       Edit
                     </Button>
-                    <Button
+                    <ButtonWithConfirm
                       color="red"
                       width="default"
                       height="small"
                       onClick={() => {
                         deleteMutation.mutate(village);
                       }}
+                      confirmTitle="Are you sure?"
+                      confirmMessage="This cannot be undone! The village will be removed forever."
                     >
                       Delete
-                    </Button>
+                    </ButtonWithConfirm>
                   </div>
                 )}
               </Row>
