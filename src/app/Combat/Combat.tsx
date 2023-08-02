@@ -149,6 +149,33 @@ export const Units: React.FC = () => {
   );
 };
 
+export const UnitHealthBars: React.FC = () => {
+  const battleState = useAtomValue(battleAtom);
+  return (
+    <>
+      {Object.entries(battleState.unitData)
+        .filter(
+          ([, s]) =>
+            s.lastHitAt !== -1 &&
+            s.lastHitAt > battleState.timeSpent - 3000 &&
+            s.hitPoints > 0
+        )
+        .map(([id, unit]) => (
+          <GridFloat
+            key={`health-${id}`}
+            x={unit.position[0]}
+            y={unit.position[1]}
+          >
+            <HealthBar
+              baseColor="limegreen"
+              progress={unit.hitPoints / unit.info.hitPoints}
+            />
+          </GridFloat>
+        ))}
+    </>
+  );
+};
+
 export const Combat: React.FC<{
   base: BaseLayout;
   army: Army;
@@ -240,28 +267,8 @@ export const Combat: React.FC<{
             <CombatBuilding buildingId={key} key={key} />
           ))}
           <Units />
-          {/* 
-          <Units units={units} />
-          <Effects effects={battleState.effectData} />
-          {Object.entries(battleState.unitData)
-            .filter(
-              ([, s]) =>
-                s.lastHitAt !== -1 &&
-                s.lastHitAt > battleState.timeSpent - 3000 &&
-                s.hitPoints > 0
-            )
-            .map(([id, unit]) => (
-              <GridFloat
-                key={`health-${id}`}
-                x={unit.position[0]}
-                y={unit.position[1]}
-              >
-                <HealthBar
-                  baseColor="limegreen"
-                  progress={unit.hitPoints / unit.info.hitPoints}
-                />
-              </GridFloat>
-            ))} */}
+          {/* <Effects effects={battleState.effectData} /> */}
+          <UnitHealthBars />
           {buildingKeys.map((key) => (
             <CombatBuildingHealthBar buildingId={key} key={key} />
           ))}
