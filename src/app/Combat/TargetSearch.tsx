@@ -19,6 +19,7 @@ export const TargetSearch: React.FC<{ onClose?: VoidFunction; army: Army }> = ({
   const { data } = useQuery({
     queryKey: ["villageList"],
     queryFn: getBases,
+    networkMode: "always",
   });
   const targets = useMemo(
     () => (data ? data.filter((v) => getTownhallLevel(v.layout) !== 0) : []),

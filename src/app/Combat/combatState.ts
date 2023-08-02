@@ -14,6 +14,11 @@ export const layoutAtom = atom((get) => {
   return state.layout;
 });
 
+export const battleStateAtom = atom((get) => {
+  const state = get(battleAtom);
+  return state.state;
+});
+
 export const buildingsAtom = atom((get) => {
   const attack = get(battleAtom);
   return Object.entries(attack.baseData);

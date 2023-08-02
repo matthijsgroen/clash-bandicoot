@@ -1,7 +1,7 @@
 import { EntityAI } from "./type";
 import { BattleState, BattleUnitState } from "../types";
 import { createObstacleGrid } from "../pathfinding/obstacleGrid";
-import { applyBuildingDamage, applyDamage } from "./utils";
+import { applyBuildingDamage } from "./utils";
 import { selectTargets } from "./modules/selectTargets";
 import { PathFindingData, getPaths, isUnitInRange } from "./modules/getPaths";
 import { getGroupIndex } from "./modules/getGroupIndex";
