@@ -1,7 +1,7 @@
 import { EntityAI } from "./type";
 import { BattleState, BattleUnitState } from "../types";
 import { createObstacleGrid } from "../pathfinding/obstacleGrid";
-import { applyDamage } from "./utils";
+import { applyBuildingDamage, applyDamage } from "./utils";
 import { selectTargets } from "./modules/selectTargets";
 import { PathFindingData, getPaths, isUnitInRange } from "./modules/getPaths";
 import { getGroupIndex } from "./modules/getGroupIndex";
@@ -30,7 +30,12 @@ const attack = (
         building.building.info.categories.some((c) => c === p.category)
       );
       const multiplier = preferenceActive?.multiplier ?? 1;
-      applyDamage(building, unit.info.damage * multiplier, state.timeSpent);
+      applyBuildingDamage(
+        targetId,
+        state,
+        unit.info.damage * multiplier,
+        state.timeSpent
+      );
       if (building.hitPoints === 0) {
         state.grid = createObstacleGrid(state.layout, state.baseData);
         unit.state = "idle";

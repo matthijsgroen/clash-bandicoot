@@ -193,5 +193,8 @@ export const handleAttack = (
 
       addTroopToState(state, type, level, position);
     },
+    stop: () => {
+      state.timeLeft = 0;
+    },
   };
 };

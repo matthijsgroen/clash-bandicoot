@@ -1,3 +1,5 @@
+import { BattleState } from "../types";
+
 export const applyDamage = (
   target: { hitPoints: number; lastHitAt: number },
   damage: number,
@@ -5,6 +7,20 @@ export const applyDamage = (
 ) => {
   target.hitPoints = Math.max(target.hitPoints - damage, 0);
   target.lastHitAt = time;
+};
+
+export const applyBuildingDamage = (
+  targetId: string,
+  state: BattleState,
+  damage: number,
+  time: number
+) => {
+  const building = state.baseData[targetId];
+  state.baseData[targetId] = {
+    ...building,
+    hitPoints: Math.max(building.hitPoints - damage, 0),
+    lastHitAt: time,
+  };
 };
 
 export type Position = [x: number, y: number];
