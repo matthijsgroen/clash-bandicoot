@@ -1,3 +1,13 @@
+.Timer_timeRemaining__xHPPf {
+  pointer-events: none;
+  text-align: center;
+  --text-color: white;
+}
+
+.Timer_red__GjO5o {
+  --text-color: red;
+}
+
 .Text_text__uZi1L {
   font-family: "Sriracha", cursive;
   font-weight: bold;
@@ -7,13 +17,25 @@
   color: white;
 
   color: var(--text-color, white);
+}
+
+.Text_removeMarginTop__NvHKv {
+  margin-top: 0;
+}
+.Text_removeMarginBottom__69llE {
+  margin-bottom: 0;
+}
+
+.Text_outline__nwuQi {
   text-shadow: 0 2px 0 #000, 0 0 2px #0009;
-  margin: 0;
 }
 
 .Text_small__TyVhb {
   font-size: 0.6rem;
   line-height: 1rem;
+}
+
+.Text_small__TyVhb.Text_outline__nwuQi {
   text-shadow: 0 1px 0 #000, 0 0 1px #0009;
 }
 
@@ -27,4 +49,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-atoms-Text-stories.72d705fb.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-Timer-stories.d7c2f967.chunk.css.map*/

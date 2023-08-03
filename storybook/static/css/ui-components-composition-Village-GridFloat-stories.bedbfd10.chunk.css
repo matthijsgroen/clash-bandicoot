@@ -228,13 +228,25 @@
   color: white;
 
   color: var(--text-color, white);
+}
+
+.Text_removeMarginTop__NvHKv {
+  margin-top: 0;
+}
+.Text_removeMarginBottom__69llE {
+  margin-bottom: 0;
+}
+
+.Text_outline__nwuQi {
   text-shadow: 0 2px 0 #000, 0 0 2px #0009;
-  margin: 0;
 }
 
 .Text_small__TyVhb {
   font-size: 0.6rem;
   line-height: 1rem;
+}
+
+.Text_small__TyVhb.Text_outline__nwuQi {
   text-shadow: 0 1px 0 #000, 0 0 1px #0009;
 }
 
@@ -288,4 +300,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-composition-Village-GridFloat-stories.f0fa1913.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-Village-GridFloat-stories.bedbfd10.chunk.css.map*/
