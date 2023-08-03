@@ -178,7 +178,7 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
                       onClick={() => {
                         deleteMutation.mutate(village);
                       }}
-                      confirmTitle="Are you sure?"
+                      confirmTitle="Delete village?"
                       confirmMessage="This cannot be undone! The village will be removed forever."
                     >
                       Delete

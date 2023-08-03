@@ -25,6 +25,7 @@ export const ConfirmDialog: React.FC<{
     <Dialog
       closing={choice !== null}
       showHeader={false}
+      width={"calc(40ch + 1rem)"}
       onClose={() => {
         onClose(choice === "confirmed");
       }}
@@ -32,9 +33,11 @@ export const ConfirmDialog: React.FC<{
       <Text element="h1" size="large" centered>
         {title}
       </Text>
-      <Text skipOutline color="#222" marginBottom marginTop>
-        {message}
-      </Text>
+      <div style={{ padding: "0 1rem 1rem" }}>
+        <Text skipOutline color="#222" marginBottom marginTop>
+          {message}
+        </Text>
+      </div>
       <Toolbar>
         <ToolbarSpacer />
         <Button

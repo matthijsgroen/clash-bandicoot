@@ -14,10 +14,9 @@ interface PlacementCSS extends CSSProperties {
 export const Effect: React.FC<{
   x: number;
   y: number;
-  state?: string;
   radius: number;
   effectType: string;
-}> = ({ x, y, state, effectType, radius }) => {
+}> = ({ x, y, effectType, radius }) => {
   return (
     <div
       style={

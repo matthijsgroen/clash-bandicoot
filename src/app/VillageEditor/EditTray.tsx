@@ -2,6 +2,7 @@ import classNames from "classnames";
 import styles from "./EditTray.module.css";
 import { useState } from "react";
 import { Button } from "../../ui-components/atoms/Button";
+import { ButtonWithConfirm } from "../../ui-components/composition/ButtonWithConfirm";
 
 export const EditTray: React.FC<{
   scoutView?: boolean;
@@ -67,9 +68,17 @@ export const EditTray: React.FC<{
           >
             Save
           </Button>
-          <Button color="red" height="small" width="huge" onClick={onClose}>
+
+          <ButtonWithConfirm
+            color="red"
+            height="small"
+            width="huge"
+            confirmTitle="Cancel editing?"
+            confirmMessage="Are you sure you want to ignore your changes and close the village editor?"
+            onClick={onClose}
+          >
             Cancel
-          </Button>
+          </ButtonWithConfirm>
         </div>
       </div>
       <Button
