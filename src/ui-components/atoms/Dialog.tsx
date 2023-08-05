@@ -39,7 +39,6 @@ export const Dialog: React.FC<
         onClose();
       }, 210);
       return () => {
-        console.log("clearing timeout");
         clearTimeout(timer);
       };
     }

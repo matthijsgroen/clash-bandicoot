@@ -28,7 +28,7 @@ export const Group: Story = {
   },
   decorators: [
     (Story) => (
-      <ArmyTray>
+      <ArmyTray darkOverlay>
         <Story />
         <GroupComponent>
           <Placeholder />

@@ -428,7 +428,7 @@ export const VillageEditor: React.FC<{
           )}
       </main>
       {!readOnly && (
-        <ArmyTray className={styles.placementControl}>
+        <ArmyTray className={styles.placementControl} darkOverlay>
           <Group>
             {Object.entries(typesAndAvailable).map(([type, amount]) => (
               <UnitButton

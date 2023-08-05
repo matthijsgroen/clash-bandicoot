@@ -1,0 +1,9 @@
+.inset {
+  flex: 1 1 auto;
+  border-left: 1px solid #777;
+  border-right: 1px solid white;
+  border-top: 1px solid #777;
+  border-bottom: 1px solid white;
+  border-radius: 5px;
+  background-color: #0001;
+}

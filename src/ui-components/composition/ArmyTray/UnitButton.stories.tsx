@@ -4,6 +4,7 @@ import { Group } from "./Group";
 import { ArmyTray } from "./ArmyTray";
 import { DEFAULT_COLOR, UnitButton as UnitButtonComponent } from "./UnitButton";
 import { Placeholder } from "./Placeholder";
+import { Inset } from "../../atoms/Inset";
 
 const meta = {
   title: "Compositions/ArmyTray/UnitButton",
@@ -19,7 +20,7 @@ type Story = StoryObj<typeof meta>;
 
 const decorators: Story["decorators"] = [
   (Story) => (
-    <ArmyTray>
+    <ArmyTray darkOverlay>
       <Group>
         <Story />
       </Group>
@@ -29,6 +30,17 @@ const decorators: Story["decorators"] = [
         <Placeholder />
       </Group>
     </ArmyTray>
+  ),
+];
+const insetDecorators: Story["decorators"] = [
+  (Story) => (
+    <Inset>
+      <ArmyTray>
+        <Group>
+          <Story />
+        </Group>
+      </ArmyTray>
+    </Inset>
   ),
 ];
 
@@ -50,6 +62,16 @@ export const UnitButtonWithLevel: Story = {
     level: 1,
   },
   decorators,
+};
+
+export const UnitButtonInset: Story = {
+  args: {
+    portraitColor: "pink",
+    label: "Archer",
+    buttonColor: DEFAULT_COLOR,
+    level: 1,
+  },
+  decorators: insetDecorators,
 };
 
 export const UnitButtonWithAmount: Story = {

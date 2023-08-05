@@ -9,14 +9,7 @@ import { getPlacementOverview } from "../../engine/armyComposition";
 import styles from "./ArmyControl.module.css";
 import { armyAtom } from "./combatState";
 import { TroopType } from "../../data/types";
-
-const colorMap: Record<string, string> = {
-  giant: "red",
-  archer: "pink",
-  barbarian: "#bb0",
-  goblin: "green",
-  wallbreaker: "white",
-};
+import { colorMap } from "../consts/unitColors";
 
 export const ArmyControl: React.FC<{
   onSelect?: (type: TroopType, level: number) => void;
@@ -31,7 +24,7 @@ export const ArmyControl: React.FC<{
   const fillSpots = Math.max(11 - placement.length, 0);
 
   return (
-    <ArmyTray className={styles.armyControl}>
+    <ArmyTray className={styles.armyControl} darkOverlay>
       {groups.map((g, i, l) => (
         <Group key={g}>
           {placement

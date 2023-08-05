@@ -35,6 +35,16 @@ export const SmallButton: Story = {
   },
 };
 
+export const TinyButton: Story = {
+  args: {
+    color: "red",
+    disabled: false,
+    children: "-",
+    width: "tiny",
+    height: "tiny",
+  },
+};
+
 export const IconButton: Story = {
   args: {
     color: "lightgrey",

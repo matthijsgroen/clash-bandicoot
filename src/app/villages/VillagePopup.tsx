@@ -15,22 +15,7 @@ import { getTownhallLevel } from "../../engine/layout/baseLayout";
 import { Panel } from "../../ui-components/atoms/Panel";
 import { Toolbar, ToolbarSpacer } from "../../ui-components/atoms/Toolbar";
 import { ButtonWithConfirm } from "../../ui-components/composition/ButtonWithConfirm";
-
-export const Inset: React.FC<PropsWithChildren> = ({ children }) => (
-  <span
-    style={{
-      flex: "1 1 auto",
-      borderLeft: "1px solid #777",
-      borderRight: "1px solid white",
-      borderTop: "1px solid #777",
-      borderBottom: "1px solid white",
-      borderRadius: "5px",
-      backgroundColor: "#0001",
-    }}
-  >
-    {children}
-  </span>
-);
+import { Inset } from "../../ui-components/atoms/Inset";
 
 export const Row: React.FC<PropsWithChildren> = ({ children }) => (
   <div style={{ display: "flex", gap: "0.5rem" }}>{children}</div>
