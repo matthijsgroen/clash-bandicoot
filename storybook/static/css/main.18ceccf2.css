@@ -4,6 +4,7 @@ body {
 }
 
 :root {
+  --control-size-tiny: 0.5rem;
   --control-size-small: 1.5rem;
   --control-size-default: 3rem;
   --control-size-large: 3.75rem;
@@ -32,4 +33,4 @@ body {
 }
 
 
-/*# sourceMappingURL=main.0d7830a9.css.map*/
+/*# sourceMappingURL=main.18ceccf2.css.map*/

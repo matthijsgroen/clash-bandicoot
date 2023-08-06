@@ -219,6 +219,22 @@ button:active:enabled .Button_outer__Zd-2h {
   pointer-events: none;
 }
 
+.Button_tinyWidth__Ml8ih {
+  width: var(--control-size-tiny);
+}
+.Button_tinyHeight__MdMxE .Button_outer__Zd-2h {
+  border-radius: 3px;
+}
+.Button_tinyHeight__MdMxE .Button_inner__FQgg0 {
+  font-weight: normal;
+  text-shadow: 0 1px 0 #000;
+}
+
+.Button_tinyHeight__MdMxE {
+  height: var(--control-size-tiny);
+  line-height: var(--control-size-tiny);
+  font-size: var(--control-size-tiny);
+}
 .Button_smallWidth__6Au\+0 {
   width: var(--control-size-small);
 }
@@ -351,4 +367,4 @@ button:active:enabled .Button_outer__Zd-2h {
 }
 
 
-/*# sourceMappingURL=ui-components-atoms-Dialog-stories.9af0c755.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-Dialog-stories.18e73847.chunk.css.map*/

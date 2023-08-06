@@ -12,19 +12,24 @@
 }
 
 .ArmyTray_armyTray__FXipA {
-  height: calc(
-    var(--control-size-large) + env(safe-area-inset-bottom) + 0.5rem
-  );
+  height: calc(var(--control-size-large) + 0.5rem);
   width: 100%;
-  background-color: #0006;
-  border-top: 1px solid #aaa;
   overflow-y: hidden;
   overflow-x: auto;
+  padding: 0 0.25rem;
+}
+
+.ArmyTray_darkOverlay__2-5o4 {
+  background-color: #0006;
+  border-top: 1px solid #aaa;
+  padding: 0 max(1rem, env(safe-area-inset-right))
+    calc(env(safe-area-inset-bottom));
+}
+.ArmyTray_darkOverlay__2-5o4 .ArmyTray_scrollArea__aS\+GD {
+  margin: 0 auto;
 }
 
 .ArmyTray_scrollArea__aS\+GD {
-  margin: 0 auto;
-  padding: 0 max(1rem, env(safe-area-inset-right));
   display: grid;
   height: 100%;
   width: -webkit-max-content;
@@ -108,14 +113,14 @@
   left: 2px;
 
   font-weight: normal;
-  font-size: 0.5rem;
-  line-height: 0.5rem;
+  font-size: var(--control-size-tiny);
+  line-height: var(--control-size-tiny);
   background-color: #333;
   border: 1px solid black;
   box-shadow: 0 0 2px 0 white;
   border-radius: 3px;
-  width: 0.5rem;
-  height: 0.5rem;
+  width: var(--control-size-tiny);
+  height: var(--control-size-tiny);
 }
 
 .UnitButton_unit__r93h7:disabled {
@@ -160,4 +165,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-composition-ArmyTray-UnitButton-stories.8e040193.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-ArmyTray-Group-stories.4c89bef9.chunk.css.map*/

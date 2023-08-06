@@ -1,0 +1,52 @@
+.Inset_inset__H3p6A {
+  flex: 1 1 auto;
+  border-left: 1px solid #777;
+  border-right: 1px solid white;
+  border-top: 1px solid #777;
+  border-bottom: 1px solid white;
+  border-radius: 5px;
+  background-color: #0001;
+}
+
+.Text_text__uZi1L {
+  font-family: "Sriracha", cursive;
+  font-weight: bold;
+  font-size: 0.9rem;
+  line-height: 1rem;
+
+  color: white;
+
+  color: var(--text-color, white);
+}
+
+.Text_removeMarginTop__NvHKv {
+  margin-top: 0;
+}
+.Text_removeMarginBottom__69llE {
+  margin-bottom: 0;
+}
+
+.Text_outline__nwuQi {
+  text-shadow: 0 2px 0 #000, 0 0 2px #0009;
+}
+
+.Text_small__TyVhb {
+  font-size: 0.6rem;
+  line-height: 1rem;
+}
+
+.Text_small__TyVhb.Text_outline__nwuQi {
+  text-shadow: 0 1px 0 #000, 0 0 1px #0009;
+}
+
+.Text_large__dnz0d {
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+.Text_centered__Mj3sn {
+  text-align: center;
+}
+
+
+/*# sourceMappingURL=ui-components-atoms-Inset-stories.c86e4cb2.chunk.css.map*/
