@@ -10,15 +10,29 @@
   overflow: scroll;
 }
 
+.boundingBox {
+  width: calc(
+    ((var(--width) * 1.4 * var(--tile-size)) + (2 * var(--tile-size))) * 1.5
+  );
+  height: calc(
+    (var(--height) * 1.4 * var(--tile-size)) + (2 * var(--tile-size))
+  );
+}
+
 .rotationContainer {
   transform-origin: 0 0;
   scale: 1.5 1;
-  width: max-content;
-  height: max-content;
-  padding: calc(9em + 9em) calc((9em + 9em) * 0.8);
+  width: calc(var(--width) * var(--tile-size));
+
+  padding: calc(
+    (var(--width) * 0.2 * var(--tile-size)) + var(--tile-size)
+  ); /* diagonal */
 }
 
 .grid {
+  width: calc((var(--width) - 6) * var(--tile-size));
+  height: calc((var(--height) - 6) * var(--tile-size));
+
   background: repeating-conic-gradient(#aab841 0% 25%, #99af47 0% 50%) 50% /
     calc(2 * var(--tile-size)) calc(2 * var(--tile-size));
   background-position: calc(var(--tile-size) * 3) calc(var(--tile-size) * 3);

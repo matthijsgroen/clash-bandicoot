@@ -1,16 +1,18 @@
 import classNames from "classnames";
 import styles from "./Grid.module.css";
 import React, {
+  CSSProperties,
   MouseEventHandler,
   PropsWithChildren,
   TouchEventHandler,
-  useEffect,
-  useRef,
 } from "react";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 export const OFFSET = 3;
 export const TILE_SIZE = 15;
 const rad1 = Math.PI / 180;
+
+type GridCSS = { "--width": number; "--height": number } & CSSProperties;
 
 export type GridEventHandler<T> = (
   e: T,
@@ -113,44 +115,38 @@ export const Grid: React.FC<
     onTouchEnd?: TouchEventHandler<HTMLDivElement>;
   }>
 > = ({ width, height, scrollable = true, children, ...eventHandlers }) => {
-  const fieldRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!fieldRef.current || !fieldRef.current.parentElement) {
-      return;
-    }
-    const scrollContainer = fieldRef.current.parentElement;
-    const rect = scrollContainer.getBoundingClientRect();
-
-    const scrollWidth = scrollContainer.scrollWidth;
-    const scrollHeight = scrollContainer.scrollHeight;
-
-    scrollContainer.scroll({
-      top: scrollHeight / 2 - rect.height / 2,
-      left: scrollWidth / 2 - rect.width / 2,
-    });
-  }, []);
-
   return (
     <div
       className={classNames(styles.scrollContainer, {
         [styles.scrollable]: scrollable,
       })}
     >
-      <div className={styles.rotationContainer} ref={fieldRef}>
-        <div className={styles.tilted}>
+      <TransformWrapper
+        centerOnInit
+        centerZoomedOut
+        maxScale={2.5}
+        minScale={0.6}
+      >
+        <TransformComponent>
           <div
-            style={{
-              width: (width - OFFSET - OFFSET) * TILE_SIZE,
-              height: (height - OFFSET - OFFSET) * TILE_SIZE,
-            }}
-            className={styles.grid}
-            {...eventHandlers}
+            style={
+              {
+                "--width": width,
+                "--height": height,
+              } as GridCSS
+            }
+            className={styles.boundingBox}
           >
-            {children}
+            <div className={styles.rotationContainer}>
+              <div className={styles.tilted}>
+                <div className={styles.grid} {...eventHandlers}>
+                  {children}
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </TransformComponent>
+      </TransformWrapper>
     </div>
   );
 };
