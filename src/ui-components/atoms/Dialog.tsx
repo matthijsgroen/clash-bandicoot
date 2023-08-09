@@ -60,6 +60,7 @@ export const Dialog: React.FC<
             )}
             <Button
               color="red"
+              icon
               onClick={() => {
                 if (onClose) {
                   setIsClosing(true);

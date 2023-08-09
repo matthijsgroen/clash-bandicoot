@@ -79,6 +79,9 @@ button:active:enabled .outer {
 
   font-size: 0.6rem;
 }
+.icon.smallHeight {
+  font-size: 1rem;
+}
 .smallHeight .inner {
   text-shadow: 0 1px 0 #000;
 }

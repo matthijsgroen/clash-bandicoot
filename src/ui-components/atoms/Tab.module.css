@@ -1,0 +1,37 @@
+.tab {
+  position: relative;
+  border: 1px solid;
+  border-color: color-mix(in srgb, var(--color, lightgrey) 70%, black);
+  border-top-color: color-mix(in srgb, var(--color, lightgrey) 50%, white);
+  border-bottom-color: transparent;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+
+  background-color: var(--color);
+  margin-bottom: -3px;
+  margin-top: 3px;
+  width: 7.5rem;
+  height: 2.2rem;
+}
+
+.tab::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 2px;
+  background-color: #fff4;
+  height: 50%;
+  border-radius: 0.5rem;
+  pointer-events: none;
+}
+
+.inactive {
+  background-color: color-mix(in srgb, var(--color, lightgrey) 45%, black);
+  border-color: color-mix(in srgb, var(--color, lightgrey) 60%, black);
+  margin-top: 4px;
+  margin-bottom: 0px;
+}
+
+.tab.inactive::before {
+  background-color: #fff2;
+}
