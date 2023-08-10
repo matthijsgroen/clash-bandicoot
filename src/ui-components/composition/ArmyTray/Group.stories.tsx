@@ -39,3 +39,28 @@ export const Group: Story = {
     ),
   ],
 };
+
+export const MultiRowGroup: Story = {
+  args: {
+    children: [
+      <UnitButton portraitColor="pink" key="1" />,
+      <UnitButton portraitColor="#bb0" key="2" />,
+      <UnitButton portraitColor="red" key="3" />,
+      <Placeholder />,
+    ],
+    rows: 2,
+  },
+  decorators: [
+    (Story, context) => (
+      <ArmyTray darkOverlay>
+        <Story />
+        <GroupComponent rows={context.args.rows}>
+          <Placeholder />
+          <Placeholder />
+          <Placeholder />
+          <Placeholder />
+        </GroupComponent>
+      </ArmyTray>
+    ),
+  ],
+};

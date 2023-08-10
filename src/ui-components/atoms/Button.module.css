@@ -131,3 +131,6 @@ button:active:enabled .outer {
 .pressed .inner::before {
   background-color: transparent;
 }
+.invisible {
+  visibility: hidden;
+}

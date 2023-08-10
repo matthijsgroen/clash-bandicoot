@@ -1,6 +1,16 @@
 import styles from "./Group.module.css";
-import { PropsWithChildren } from "react";
+import { CSSProperties, PropsWithChildren } from "react";
 
-export const Group: React.FC<PropsWithChildren> = ({ children }) => (
-  <div className={styles.group}>{children}</div>
+type GroupRowProperties = { "--rows": number } & CSSProperties;
+
+export const Group: React.FC<PropsWithChildren<{ rows?: number }>> = ({
+  children,
+  rows = 1,
+}) => (
+  <div
+    className={styles.group}
+    style={{ "--rows": rows } as GroupRowProperties}
+  >
+    {children}
+  </div>
 );

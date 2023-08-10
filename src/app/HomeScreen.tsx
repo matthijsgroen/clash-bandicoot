@@ -2,12 +2,15 @@ import { useState } from "react";
 import { Button } from "../ui-components/atoms/Button";
 import { useAppUpdate } from "./hooks/useAppUpdater";
 import { VillagePopup } from "./villages/VillagePopup";
+import { ArmyPopup } from "./armies/ArmyPopup";
 
 export const HomeScreen: React.FC<{
   setScreen: (name: string | null) => void;
 }> = ({ setScreen }) => {
   const [hasUpdate, triggerUpdate] = useAppUpdate();
-  const [openPopup, setOpenPopup] = useState<"villages" | null>(null);
+  const [openPopup, setOpenPopup] = useState<"villages" | "armies" | null>(
+    null
+  );
 
   return (
     <div>
@@ -41,11 +44,10 @@ export const HomeScreen: React.FC<{
         </Button>
 
         <Button
-          onClick={() => setScreen("attack")}
+          onClick={() => setOpenPopup("armies")}
           color="orange"
           width="large"
           height="large"
-          disabled
         >
           Armies
         </Button>
@@ -97,6 +99,9 @@ export const HomeScreen: React.FC<{
       </footer>
       {openPopup === "villages" && (
         <VillagePopup onClose={() => setOpenPopup(null)} />
+      )}
+      {openPopup === "armies" && (
+        <ArmyPopup onClose={() => setOpenPopup(null)} />
       )}
     </div>
   );

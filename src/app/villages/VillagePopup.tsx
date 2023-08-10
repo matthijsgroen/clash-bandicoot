@@ -21,6 +21,18 @@ export const Row: React.FC<PropsWithChildren> = ({ children }) => (
   <div style={{ display: "flex", gap: "0.5rem" }}>{children}</div>
 );
 
+export const Column: React.FC<PropsWithChildren> = ({ children }) => (
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.25rem",
+    }}
+  >
+    {children}
+  </div>
+);
+
 export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
   onClose,
 }) => {
@@ -104,13 +116,7 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
                   </Text>
                 </Inset>
                 {village.builtIn && (
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "0.25rem",
-                    }}
-                  >
+                  <Column>
                     <Button
                       color="orange"
                       width="default"
@@ -135,16 +141,10 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
                     >
                       Copy
                     </Button>
-                  </div>
+                  </Column>
                 )}
                 {!village.builtIn && (
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "0.25rem",
-                    }}
-                  >
+                  <Column>
                     <Button
                       color="orange"
                       width="default"
@@ -168,7 +168,7 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
                     >
                       Delete
                     </ButtonWithConfirm>
-                  </div>
+                  </Column>
                 )}
               </Row>
             ))}

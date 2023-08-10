@@ -9,13 +9,15 @@ export const Tab: React.FC<
   PropsWithChildren<{
     active?: boolean;
     color?: string;
+    onClick?: VoidFunction;
   }>
-> = ({ children, active = false, color = "lightgrey" }) => {
+> = ({ children, active = false, color = "lightgrey", onClick }) => {
   return (
     <button
       className={classNames(styles.tab, { [styles.inactive]: !active })}
       role="tab"
       style={{ "--color": color } as PanelProperties}
+      onClick={onClick}
     >
       {typeof children === "string" ? <Text>{children}</Text> : children}
     </button>

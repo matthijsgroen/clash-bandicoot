@@ -11,12 +11,16 @@ type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   height?: ButtonSize;
   width?: ButtonSize;
   disabled?: boolean;
+  invisible?: boolean;
   pressed?: boolean;
   icon?: boolean;
 };
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ color, height, width, pressed, icon, className, ...props }, ref) => (
+  (
+    { color, height, width, pressed, invisible, icon, className, ...props },
+    ref
+  ) => (
     <button
       type="button"
       ref={ref}
@@ -29,6 +33,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         [styles.largeHeight]: height === "large",
         [styles.hugeHeight]: height === "huge",
         [styles.icon]: icon,
+        [styles.invisible]: invisible,
 
         [styles.tinyWidth]: width === "tiny",
         [styles.smallWidth]: width === "small",
