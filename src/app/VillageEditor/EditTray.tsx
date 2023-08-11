@@ -68,17 +68,22 @@ export const EditTray: React.FC<{
           >
             Save
           </Button>
-
-          <ButtonWithConfirm
-            color="red"
-            height="small"
-            width="huge"
-            confirmTitle="Cancel editing?"
-            confirmMessage="Are you sure you want to ignore your changes and close the village editor?"
-            onClick={onClose}
-          >
-            Cancel
-          </ButtonWithConfirm>
+          {readOnly ? (
+            <Button color="red" height="small" width="huge" onClick={onClose}>
+              Cancel
+            </Button>
+          ) : (
+            <ButtonWithConfirm
+              color="red"
+              height="small"
+              width="huge"
+              confirmTitle="Cancel editing?"
+              confirmMessage="Are you sure you want to ignore your changes and close the village editor?"
+              onClick={onClose}
+            >
+              Cancel
+            </ButtonWithConfirm>
+          )}
         </div>
       </div>
       <Button
