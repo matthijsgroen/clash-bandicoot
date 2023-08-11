@@ -13,7 +13,7 @@ import {
   UnitButton,
 } from "../../ui-components/composition/ArmyTray";
 import { colorMap } from "../consts/unitColors";
-import { Column } from "../villages/VillagePopup";
+import { Column } from "../components/Column";
 
 const ArmyRow: React.FC<PropsWithChildren> = ({ children }) => (
   <div
