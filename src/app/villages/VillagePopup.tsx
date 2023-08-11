@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "../../ui-components/atoms/Button";
-import { PropsWithChildren, useState } from "react";
+import { useState } from "react";
 import { VillageEditor } from "../VillageEditor/VillageEditor";
 import {
   Village,
@@ -11,27 +11,10 @@ import {
 } from "../../api/bases";
 import { Dialog } from "../../ui-components/atoms/Dialog";
 import { Text } from "../../ui-components/atoms/Text";
-import { getTownhallLevel } from "../../engine/layout/baseLayout";
 import { Panel } from "../../ui-components/atoms/Panel";
 import { Toolbar, ToolbarSpacer } from "../../ui-components/atoms/Toolbar";
-import { ButtonWithConfirm } from "../../ui-components/composition/ButtonWithConfirm";
-import { Inset } from "../../ui-components/atoms/Inset";
-
-export const Row: React.FC<PropsWithChildren> = ({ children }) => (
-  <div style={{ display: "flex", gap: "0.5rem" }}>{children}</div>
-);
-
-export const Column: React.FC<PropsWithChildren> = ({ children }) => (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.25rem",
-    }}
-  >
-    {children}
-  </div>
-);
+import { VillageList } from "./VillageList";
+import { Tab } from "../../ui-components/atoms/Tab";
 
 export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
   onClose,
@@ -71,108 +54,119 @@ export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
 
   const [selectedVillage, setSelectedVillage] = useState<Village | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<"profile" | "own" | "premade">(
+    "own"
+  );
 
   return (
     <>
       <Dialog
-        title="Bases"
         onClose={onClose}
         width="min(80vw, 30rem)"
         height="min(80vh, 30rem)"
+        title={
+          <Toolbar>
+            <Button
+              color="limegreen"
+              icon
+              width="default"
+              height="small"
+              disabled={true}
+              invisible={true}
+            >
+              ⬅
+            </Button>
+            <Tab
+              active={activeTab === "own"}
+              onClick={() => setActiveTab("own")}
+            >
+              Custom
+            </Tab>
+            <Tab
+              active={activeTab === "premade"}
+              onClick={() => setActiveTab("premade")}
+            >
+              Pre-made
+            </Tab>
+          </Toolbar>
+        }
       >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "0.5rem",
-            padding: "0.5rem",
-          }}
-        >
-          <Panel color="seagreen">
-            <Text size="small">
-              Here you can create villages of your own to attack.
-            </Text>
-            <Toolbar>
-              <ToolbarSpacer />
-              <Button
-                color="orange"
-                width="default"
-                height="small"
-                onClick={() => {
-                  createMutation.mutate({ name: "New Village" });
+        {activeTab === "own" && (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.5rem",
+              padding: "0.5rem",
+            }}
+          >
+            <Panel color="seagreen">
+              <Text size="small">
+                Here you can create villages of your own to attack.
+              </Text>
+              <Toolbar>
+                <ToolbarSpacer />
+                <Button
+                  color="orange"
+                  width="default"
+                  height="small"
+                  onClick={() => {
+                    createMutation.mutate({ name: "New Village" });
+                  }}
+                >
+                  + New
+                </Button>
+              </Toolbar>
+            </Panel>
+            {data && (
+              <VillageList
+                villages={data.filter((v) => !v.builtIn)}
+                onSelect={(village) => {
+                  setSelectedVillage(village);
+                  setIsEditing(true);
                 }}
-              >
-                + New
-              </Button>
-            </Toolbar>
-          </Panel>
-          {data &&
-            data.map((village) => (
-              <Row key={village.id}>
-                <Inset>
-                  <Text>{village.name}</Text>
-                  <Text size="small" color="#333" skipOutline>
-                    TH: {getTownhallLevel(village.layout)}
-                  </Text>
-                </Inset>
-                {village.builtIn && (
-                  <Column>
-                    <Button
-                      color="orange"
-                      width="default"
-                      height="small"
-                      onClick={() => {
-                        setSelectedVillage(village);
-                        setIsEditing(true);
-                      }}
-                    >
-                      View
-                    </Button>
-                    <Button
-                      color="cornflowerblue"
-                      width="default"
-                      height="small"
-                      onClick={() => {
-                        createMutation.mutate({
-                          name: `${village.name} copy`,
-                          layout: village.layout,
-                        });
-                      }}
-                    >
-                      Copy
-                    </Button>
-                  </Column>
-                )}
-                {!village.builtIn && (
-                  <Column>
-                    <Button
-                      color="orange"
-                      width="default"
-                      height="small"
-                      onClick={() => {
-                        setSelectedVillage(village);
-                        setIsEditing(true);
-                      }}
-                    >
-                      Edit
-                    </Button>
-                    <ButtonWithConfirm
-                      color="red"
-                      width="default"
-                      height="small"
-                      onClick={() => {
-                        deleteMutation.mutate(village);
-                      }}
-                      confirmTitle="Delete village?"
-                      confirmMessage="This cannot be undone! The village will be removed forever."
-                    >
-                      Delete
-                    </ButtonWithConfirm>
-                  </Column>
-                )}
-              </Row>
-            ))}
-        </div>
+                onCopy={(village) => {
+                  createMutation.mutate({
+                    name: `${village.name} copy`,
+                    layout: village.layout,
+                  });
+                }}
+                onDelete={(village) => {
+                  deleteMutation.mutate(village);
+                }}
+              />
+            )}
+          </div>
+        )}
+        {activeTab === "premade" && (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.5rem",
+              padding: "0.5rem",
+            }}
+          >
+            {data && (
+              <VillageList
+                villages={data.filter((v) => v.builtIn)}
+                onSelect={(village) => {
+                  setSelectedVillage(village);
+                  setIsEditing(true);
+                }}
+                onCopy={(village) => {
+                  createMutation.mutate({
+                    name: `${village.name} copy`,
+                    layout: village.layout,
+                  });
+                }}
+                onDelete={(village) => {
+                  deleteMutation.mutate(village);
+                }}
+              />
+            )}
+          </div>
+        )}
       </Dialog>
 
       {isEditing && selectedVillage && (
