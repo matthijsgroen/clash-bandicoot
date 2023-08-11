@@ -2,9 +2,11 @@ import { buildingStore } from "../../data/buildingStore";
 import { LayoutBuilding } from "../types";
 import {
   getTownhallLevel,
+  layoutBuilder,
   newLayout,
   placeBuilding,
   placeNewBuilding,
+  getArmySize,
 } from "./baseLayout";
 
 describe("newLayout", () => {
@@ -63,5 +65,19 @@ describe("getTownhallLevel", () => {
   it("returns 0 if there is no townhall", () => {
     const layout = placeNewBuilding(newLayout(), "goldmine", 3, [10, 10]);
     expect(getTownhallLevel(layout)).toEqual(0);
+  });
+});
+
+describe("getArmySize", () => {
+  it("returns the army size available in a layout", () => {
+    const layout = layoutBuilder()
+      .placeBuilding("townhall", 9, [20, 20])
+      .placeBuilding("armycamp", 7, [16, 20])
+      .placeBuilding("armycamp", 7, [20, 16])
+      .placeBuilding("armycamp", 7, [24, 20])
+      .placeBuilding("armycamp", 7, [20, 24])
+      .result();
+
+    expect(getArmySize(layout)).toEqual(220);
   });
 });
