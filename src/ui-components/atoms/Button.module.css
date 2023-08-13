@@ -6,7 +6,7 @@
   background: transparent;
 }
 
-button:active:enabled .outer {
+.button:active:enabled .outer {
   scale: 0.95;
   filter: brightness(130%);
 }
@@ -65,12 +65,29 @@ button:active:enabled .outer {
   font-weight: normal;
   text-shadow: 0 1px 0 #000;
 }
-
 .tinyHeight {
   height: var(--control-size-tiny);
   line-height: var(--control-size-tiny);
   font-size: var(--control-size-tiny);
 }
+
+.miniWidth {
+  width: var(--control-size-mini);
+}
+.miniHeight .outer {
+  border-radius: 3px;
+}
+.miniHeight .inner {
+  border-radius: 3px;
+  font-weight: normal;
+  text-shadow: 0 1px 0 #000;
+}
+.miniHeight {
+  height: var(--control-size-mini);
+  line-height: var(--control-size-mini);
+  font-size: var(--control-size-mini);
+}
+
 .smallWidth {
   width: var(--control-size-small);
 }

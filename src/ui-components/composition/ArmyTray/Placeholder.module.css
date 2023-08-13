@@ -1,6 +1,6 @@
 .empty {
   border-radius: 0.5rem;
   border: 2px dashed #aaa;
-  height: var(--control-size-large);
+  height: 100%;
   box-sizing: border-box;
 }

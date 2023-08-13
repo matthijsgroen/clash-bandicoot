@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 type ButtonCSSProperties = { "--color": string } & CSSProperties;
 
-type ButtonSize = "tiny" | "small" | "default" | "large" | "huge";
+type ButtonSize = "tiny" | "mini" | "small" | "default" | "large" | "huge";
 
 type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   color: string;
@@ -28,6 +28,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       style={{ "--color": color } as ButtonCSSProperties}
       className={classNames(styles.button, {
         [styles.tinyHeight]: height === "tiny",
+        [styles.miniHeight]: height === "mini",
         [styles.smallHeight]: height === "small",
         [styles.defaultHeight]: height === "default",
         [styles.largeHeight]: height === "large",
@@ -36,6 +37,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         [styles.invisible]: invisible,
 
         [styles.tinyWidth]: width === "tiny",
+        [styles.miniWidth]: width === "mini",
         [styles.smallWidth]: width === "small",
         [styles.defaultWidth]: width === "default",
         [styles.largeWidth]: width === "large",

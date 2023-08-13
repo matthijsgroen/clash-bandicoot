@@ -1,6 +1,6 @@
 .group {
   display: grid;
-  grid-auto-columns: var(--control-size-default);
+  grid-auto-columns: var(--width);
   grid-template-rows: repeat(var(--rows), 1fr);
   padding: 0.25rem 0 max(0.25rem, env(safe-area-inset-right, 0.25rem)) 0;
 

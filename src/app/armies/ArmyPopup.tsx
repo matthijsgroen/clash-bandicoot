@@ -14,6 +14,8 @@ import {
 } from "../../ui-components/composition/ArmyTray";
 import { colorMap } from "../consts/unitColors";
 import { Column } from "../components/Column";
+import { DEFAULT_COLOR } from "../../ui-components/composition/ArmyTray/UnitButton";
+import { Icon } from "../../ui-components/atoms/Icon";
 
 const ArmyRow: React.FC<PropsWithChildren> = ({ children }) => (
   <div
@@ -26,6 +28,168 @@ const ArmyRow: React.FC<PropsWithChildren> = ({ children }) => (
     }}
   >
     {children}
+  </div>
+);
+
+export const ArmyList: React.FC<{ onSelect?: VoidFunction }> = ({
+  onSelect,
+}) => (
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.5rem",
+      padding: "0.5rem",
+    }}
+  >
+    <Panel color="seagreen">
+      <Text size="small">
+        Here you can create armies of your own to attack.
+      </Text>
+      <Toolbar>
+        <ToolbarSpacer />
+        <Button
+          color="orange"
+          width="default"
+          height="small"
+          onClick={() => {
+            // createMutation.mutate({ name: "New Village" });
+          }}
+        >
+          + New
+        </Button>
+      </Toolbar>
+    </Panel>
+    <ArmyRow>
+      <Toolbar>
+        <Text size="small">GoWiPe</Text>
+        <ToolbarSpacer />
+        <Text size="small">2 / 220</Text>
+      </Toolbar>
+      <span />
+      <Inset>
+        <ArmyTray>
+          <Group>
+            <UnitButton
+              portraitColor={colorMap["barbarian"]}
+              label="Barbarian"
+              amount={1}
+              level={2}
+            />
+            <UnitButton
+              portraitColor={colorMap["archer"]}
+              label="Archer"
+              amount={1}
+            />
+            <Placeholder />
+            <Placeholder />
+            <Placeholder />
+            <Placeholder />
+            <Placeholder />
+            <Placeholder />
+          </Group>
+        </ArmyTray>
+      </Inset>
+      <Column>
+        <Button color="limegreen" width="default" height="small">
+          Select
+        </Button>
+        <Button
+          color="orange"
+          width="default"
+          height="small"
+          onClick={() => onSelect?.()}
+        >
+          Edit
+        </Button>
+      </Column>
+    </ArmyRow>
+  </div>
+);
+
+const EditArmy: React.FC<{ onClose?: VoidFunction }> = ({ onClose }) => (
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.5rem",
+    }}
+  >
+    <Toolbar>
+      <Text size="small">GoWiPe</Text>
+      <ToolbarSpacer />
+      <Text size="small">2 / 220</Text>
+    </Toolbar>
+    <Inset>
+      <ArmyTray>
+        <Group>
+          <UnitButton
+            portraitColor={colorMap["barbarian"]}
+            label="Barbarian"
+            amount={1}
+            level={2}
+          >
+            <Button color={"red"} icon width="mini" height="mini">
+              -
+            </Button>
+          </UnitButton>
+          <UnitButton
+            portraitColor={colorMap["archer"]}
+            label="Archer"
+            amount={1}
+          >
+            <Button color={"red"} icon width="mini" height="mini">
+              -
+            </Button>
+          </UnitButton>
+          <Placeholder />
+          <Placeholder />
+          <Placeholder />
+          <Placeholder />
+          <Placeholder />
+          <Placeholder />
+        </Group>
+      </ArmyTray>
+    </Inset>
+    <Toolbar>
+      <ToolbarSpacer />
+      <Button color="red" width="default" height="default">
+        <Icon>🗑️</Icon>
+      </Button>
+      <Button color="red" width="large" height="default">
+        Cancel
+      </Button>
+      <Button color="limegreen" width="large" height="default">
+        ⬇ Save
+      </Button>
+    </Toolbar>
+    <Inset>
+      <ArmyTray>
+        <Group rows={2} width="large">
+          <UnitButton
+            portraitColor={colorMap["barbarian"]}
+            label="Barbarian"
+            level={2}
+            size={1}
+          >
+            <Button color={DEFAULT_COLOR} icon width="mini" height="mini">
+              i
+            </Button>
+          </UnitButton>
+          <UnitButton
+            portraitColor={colorMap["archer"]}
+            label="Archer"
+            size={1}
+          >
+            <Button color={DEFAULT_COLOR} icon width="mini" height="mini">
+              i
+            </Button>
+          </UnitButton>
+          <Placeholder />
+          <Placeholder />
+        </Group>
+      </ArmyTray>
+    </Inset>
   </div>
 );
 
@@ -57,124 +221,10 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
         }
         onClose={onClose}
         width="min(80vw, 30rem)"
-        height="min(80vh, 22.5rem)"
+        height="min(90vh, 22.5rem)"
       >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "0.5rem",
-            padding: "0.5rem",
-          }}
-        >
-          {!editMode && (
-            <Panel color="seagreen">
-              <Text size="small">
-                Here you can create armies of your own to attack.
-              </Text>
-              <Toolbar>
-                <ToolbarSpacer />
-                <Button
-                  color="orange"
-                  width="default"
-                  height="small"
-                  onClick={() => {
-                    // createMutation.mutate({ name: "New Village" });
-                  }}
-                >
-                  + New
-                </Button>
-              </Toolbar>
-            </Panel>
-          )}
-          <ArmyRow>
-            <Toolbar>
-              <Text size="small">GoWiPe</Text>
-              <ToolbarSpacer />
-              <Text size="small">2 / 220</Text>
-            </Toolbar>
-            <span />
-            <Inset>
-              <ArmyTray>
-                <Group>
-                  <UnitButton
-                    portraitColor={colorMap["barbarian"]}
-                    label="Barbarian"
-                    amount={1}
-                    level={2}
-                  />
-                  <UnitButton
-                    portraitColor={colorMap["archer"]}
-                    label="Archer"
-                    amount={1}
-                  />
-                  <Placeholder />
-                  <Placeholder />
-                  <Placeholder />
-                  <Placeholder />
-                  <Placeholder />
-                  <Placeholder />
-                </Group>
-              </ArmyTray>
-            </Inset>
-            <Column>
-              <Button color="limegreen" width="default" height="small">
-                Select
-              </Button>
-              <Button
-                color="orange"
-                width="default"
-                height="small"
-                onClick={() => setEditMode(true)}
-              >
-                Edit
-              </Button>
-            </Column>
-          </ArmyRow>
-          {editMode && (
-            <Toolbar>
-              <ToolbarSpacer />
-              <Button color="red" width="default" height="default">
-                🗑️
-              </Button>
-              <Button
-                color="red"
-                width="large"
-                height="default"
-                onClick={() => setEditMode(false)}
-              >
-                Cancel
-              </Button>
-              <Button
-                color="limegreen"
-                width="large"
-                height="default"
-                onClick={() => setEditMode(false)}
-              >
-                ⬇ Save
-              </Button>
-            </Toolbar>
-          )}
-          {editMode && (
-            <Inset>
-              <ArmyTray>
-                <Group rows={2}>
-                  <UnitButton
-                    portraitColor={colorMap["barbarian"]}
-                    label="Barbarian"
-                    level={2}
-                  />
-                  <UnitButton
-                    portraitColor={colorMap["archer"]}
-                    label="Archer"
-                  />
-                  <Placeholder />
-                  <Placeholder />
-                </Group>
-              </ArmyTray>
-            </Inset>
-          )}
-        </div>
+        {!editMode && <ArmyList onSelect={() => setEditMode(true)} />}
+        {editMode && <EditArmy />}
       </Dialog>
     </>
   );
