@@ -14,8 +14,7 @@ import {
 } from "../../ui-components/composition/ArmyTray";
 import { colorMap } from "../consts/unitColors";
 import { Column } from "../components/Column";
-import { DEFAULT_COLOR } from "../../ui-components/composition/ArmyTray/UnitButton";
-import { Icon } from "../../ui-components/atoms/Icon";
+import { EditArmy } from "./EditArmy";
 
 const ArmyRow: React.FC<PropsWithChildren> = ({ children }) => (
   <div
@@ -104,92 +103,6 @@ export const ArmyList: React.FC<{ onSelect?: VoidFunction }> = ({
         </Button>
       </Column>
     </ArmyRow>
-  </div>
-);
-
-const EditArmy: React.FC<{ onClose?: VoidFunction }> = ({ onClose }) => (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.5rem",
-    }}
-  >
-    <Toolbar>
-      <Text size="small">GoWiPe</Text>
-      <ToolbarSpacer />
-      <Text size="small">2 / 220</Text>
-    </Toolbar>
-    <Inset>
-      <ArmyTray>
-        <Group>
-          <UnitButton
-            portraitColor={colorMap["barbarian"]}
-            label="Barbarian"
-            amount={1}
-            level={2}
-          >
-            <Button color={"red"} icon width="mini" height="mini">
-              -
-            </Button>
-          </UnitButton>
-          <UnitButton
-            portraitColor={colorMap["archer"]}
-            label="Archer"
-            amount={1}
-          >
-            <Button color={"red"} icon width="mini" height="mini">
-              -
-            </Button>
-          </UnitButton>
-          <Placeholder />
-          <Placeholder />
-          <Placeholder />
-          <Placeholder />
-          <Placeholder />
-          <Placeholder />
-        </Group>
-      </ArmyTray>
-    </Inset>
-    <Toolbar>
-      <ToolbarSpacer />
-      <Button color="red" width="default" height="default">
-        <Icon>🗑️</Icon>
-      </Button>
-      <Button color="red" width="large" height="default">
-        Cancel
-      </Button>
-      <Button color="limegreen" width="large" height="default">
-        ⬇ Save
-      </Button>
-    </Toolbar>
-    <Inset>
-      <ArmyTray>
-        <Group rows={2} width="large">
-          <UnitButton
-            portraitColor={colorMap["barbarian"]}
-            label="Barbarian"
-            level={2}
-            size={1}
-          >
-            <Button color={DEFAULT_COLOR} icon width="mini" height="mini">
-              i
-            </Button>
-          </UnitButton>
-          <UnitButton
-            portraitColor={colorMap["archer"]}
-            label="Archer"
-            size={1}
-          >
-            <Button color={DEFAULT_COLOR} icon width="mini" height="mini">
-              i
-            </Button>
-          </UnitButton>
-          <Placeholder />
-          <Placeholder />
-        </Group>
-      </ArmyTray>
-    </Inset>
   </div>
 );
 
