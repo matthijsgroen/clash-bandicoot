@@ -15,6 +15,7 @@ import {
 import { colorMap } from "../consts/unitColors";
 import { Column } from "../components/Column";
 import { EditArmy } from "./EditArmy";
+import { createArmy } from "../../engine/armyComposition";
 
 const ArmyRow: React.FC<PropsWithChildren> = ({ children }) => (
   <div
@@ -106,6 +107,7 @@ export const ArmyList: React.FC<{ onSelect?: VoidFunction }> = ({
   </div>
 );
 
+const army = createArmy();
 export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
   onClose,
 }) => {
@@ -137,7 +139,7 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
         height="min(90vh, 22.5rem)"
       >
         {!editMode && <ArmyList onSelect={() => setEditMode(true)} />}
-        {editMode && <EditArmy />}
+        {editMode && <EditArmy army={army} />}
       </Dialog>
     </>
   );

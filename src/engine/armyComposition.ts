@@ -22,9 +22,10 @@ export type ArmyTroop = {
 
 export type Army = {
   units: ArmyTroop[];
+  name: string;
 };
 
-export const createArmy = (): Army => ({ units: [] });
+export const createArmy = (): Army => ({ units: [], name: "New army" });
 
 export const addTroop = (
   army: Army,
@@ -43,6 +44,29 @@ export const addTroop = (
         .fill(0)
         .map(() => ({ troop, state: "ready" }))
     ),
+  };
+};
+
+export const removeTroop = (
+  army: Army,
+  unitType: TroopType,
+  level: number,
+  amount = 1
+): Army => {
+  let toRemove = amount;
+  return {
+    ...army,
+    units: army.units.filter((unit) => {
+      const match =
+        unit.troop.type === unitType &&
+        unit.troop.level === level &&
+        unit.state === "ready";
+      if (match && toRemove > 0) {
+        toRemove--;
+        return false;
+      }
+      return true;
+    }),
   };
 };
 
@@ -113,6 +137,7 @@ export const placeUnit = (
 ): [Army, ArmyTroop | null] => {
   let placed: ArmyTroop | null = null;
   const update: Army = {
+    ...army,
     units: army.units.map((unit) => {
       if (
         !placed &&
