@@ -15,8 +15,14 @@ import {
 import { colorMap } from "../consts/unitColors";
 import { Column } from "../components/Column";
 import { EditArmy } from "./EditArmy";
-import { createArmy } from "../../engine/army/armyComposition";
-import { ArmyItem } from "../../api/armies";
+import {
+  getArmySize,
+  getPlacementOverview,
+} from "../../engine/army/armyComposition";
+import { ArmyItem, getArmies, postArmy, putArmy } from "../../api/armies";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getTownhallLevel } from "../../engine/army/townhallLevel";
+import { getMaxArmySize } from "../../engine/army/armySize";
 
 const ArmyRow: React.FC<PropsWithChildren> = ({ children }) => (
   <div
@@ -32,87 +38,135 @@ const ArmyRow: React.FC<PropsWithChildren> = ({ children }) => (
   </div>
 );
 
-export const ArmyList: React.FC<{ onSelect?: VoidFunction }> = ({
-  onSelect,
-}) => (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.5rem",
-      padding: "0.5rem",
-    }}
-  >
-    <Panel color="seagreen">
-      <Text size="small">
-        Here you can create armies of your own to attack.
-      </Text>
-      <Toolbar>
-        <ToolbarSpacer />
-        <Button
-          color="orange"
-          width="default"
-          height="small"
-          onClick={() => {
-            // createMutation.mutate({ name: "New Village" });
-          }}
-        >
-          + New
-        </Button>
-      </Toolbar>
-    </Panel>
-    <ArmyRow>
-      <Toolbar>
-        <Text size="small">GoWiPe</Text>
-        <ToolbarSpacer />
-        <Text size="small">2 / 220</Text>
-      </Toolbar>
-      <span />
-      <Inset>
-        <ArmyTray>
-          <Group>
-            <UnitButton
-              portraitColor={colorMap["barbarian"]}
-              label="Barbarian"
-              amount={1}
-              level={2}
-            />
-            <UnitButton
-              portraitColor={colorMap["archer"]}
-              label="Archer"
-              amount={1}
-            />
-            <Placeholder />
-            <Placeholder />
-            <Placeholder />
-            <Placeholder />
-            <Placeholder />
-            <Placeholder />
-          </Group>
-        </ArmyTray>
-      </Inset>
-      <Column>
-        <Button color="limegreen" width="default" height="small">
-          Select
-        </Button>
-        <Button
-          color="orange"
-          width="default"
-          height="small"
-          onClick={() => onSelect?.()}
-        >
-          Edit
-        </Button>
-      </Column>
-    </ArmyRow>
-  </div>
-);
+export const ArmyList: React.FC<{
+  onEdit?: (item: ArmyItem) => void;
+  armies?: ArmyItem[];
+}> = ({ onEdit, armies = [] }) => {
+  const queryClient = useQueryClient();
+  const createMutation = useMutation({
+    mutationFn: postArmy,
+    onSuccess: (armyItem) => {
+      queryClient.invalidateQueries({ queryKey: ["armyList"] });
+      onEdit?.(armyItem);
+    },
+    networkMode: "always",
+  });
 
-const army: ArmyItem = { name: "New Army", army: createArmy(), id: "new" };
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.5rem",
+        padding: "0.5rem",
+      }}
+    >
+      <Panel color="seagreen">
+        <Text size="small">
+          Here you can create armies of your own to attack.
+        </Text>
+        <Toolbar>
+          <ToolbarSpacer />
+          <Button
+            color="orange"
+            width="default"
+            height="small"
+            onClick={() => {
+              createMutation.mutate({ name: "New Army" });
+            }}
+          >
+            + New
+          </Button>
+        </Toolbar>
+      </Panel>
+      {armies.map((armyItem) => {
+        const armyTh = getTownhallLevel(armyItem.army);
+        const placement = getPlacementOverview(armyItem.army);
+        const groups = placement.reduce<string[]>(
+          (r, u) => (r.includes(u.category) ? r : r.concat(u.category)),
+          placement.length === 0 ? ["elixirTroops"] : []
+        );
+        const fillSpots = Math.max(7 - placement.length, 0);
+
+        return (
+          <ArmyRow>
+            <Toolbar>
+              <Text size="small">{armyItem.name}</Text>
+              <ToolbarSpacer />
+              <Text size="small">TH: {armyTh}</Text>
+              <Text size="small">
+                {getArmySize(armyItem.army)} / {getMaxArmySize(armyTh)}
+              </Text>
+            </Toolbar>
+            <span />
+            <Inset>
+              <ArmyTray>
+                {groups.map((g, i, l) => (
+                  <Group key={g}>
+                    {placement
+                      .filter((p) => p.category === g)
+                      .map((p) => (
+                        <UnitButton
+                          portraitColor={colorMap[p.type]}
+                          label={p.type}
+                          amount={p.available}
+                          level={p.level === 1 ? undefined : p.level}
+                        />
+                      ))}
+                    {i === l.length - 1 &&
+                      Array(fillSpots)
+                        .fill(null)
+                        .map((_v, i) => <Placeholder key={i} size="large" />)}
+                  </Group>
+                ))}
+              </ArmyTray>
+            </Inset>
+            <Column>
+              <Button
+                color="limegreen"
+                width="default"
+                height={armyItem.builtIn ? "default" : "small"}
+              >
+                Select
+              </Button>
+              {!armyItem.builtIn && (
+                <Button
+                  color="orange"
+                  width="default"
+                  height="small"
+                  onClick={() => onEdit?.(armyItem)}
+                >
+                  Edit
+                </Button>
+              )}
+            </Column>
+          </ArmyRow>
+        );
+      })}
+    </div>
+  );
+};
+
 export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
   onClose,
 }) => {
-  const [editMode, setEditMode] = useState(false);
+  const [editItem, setEditItem] = useState<null | ArmyItem>(null);
+
+  const { data } = useQuery({
+    queryKey: ["armyList"],
+    queryFn: getArmies,
+    networkMode: "always",
+  });
+
+  const queryClient = useQueryClient();
+  const updateMutation = useMutation({
+    mutationFn: putArmy,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["armyList"] });
+    },
+    networkMode: "always",
+  });
+
   return (
     <>
       <Dialog
@@ -123,10 +177,10 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
               icon
               width="default"
               height="small"
-              disabled={!editMode}
-              invisible={!editMode}
+              disabled={!editItem}
+              invisible={!editItem}
               onClick={() => {
-                setEditMode(false);
+                setEditItem(null);
               }}
             >
               ⬅
@@ -139,8 +193,21 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
         width="min(80vw, 30rem)"
         height="min(90vh, 22.5rem)"
       >
-        {!editMode && <ArmyList onSelect={() => setEditMode(true)} />}
-        {editMode && <EditArmy army={army} />}
+        {!editItem && (
+          <ArmyList onEdit={(item) => setEditItem(item)} armies={data} />
+        )}
+        {editItem && (
+          <EditArmy
+            army={editItem}
+            onCancel={() => {
+              setEditItem(null);
+            }}
+            onChange={(item) => {
+              updateMutation.mutate(item);
+              setEditItem(null);
+            }}
+          />
+        )}
       </Dialog>
     </>
   );
