@@ -1,4 +1,4 @@
-import { Army } from "../../engine/armyComposition";
+import { Army } from "../../engine/army/armyComposition";
 import { Combat } from "./Combat";
 import { CloudCurtain } from "../../ui-components/atoms/CloudCurtain";
 import { useEffect, useMemo, useState } from "react";

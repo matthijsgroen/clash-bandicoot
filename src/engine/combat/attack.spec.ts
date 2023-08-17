@@ -1,4 +1,4 @@
-import { armyBuilder } from "../armyComposition";
+import { armyBuilder } from "../army/armyComposition";
 import { layoutBuilder } from "../layout/baseLayout";
 import { troopStore } from "../../data/troopStore";
 import { handleAttack, unitsAlive } from "./attack";

@@ -1,6 +1,6 @@
-import "../data/troops";
-import { troopStore } from "../data/troopStore";
-import { Troop, TroopType } from "../data/types";
+import "../../data/troops";
+import { troopStore } from "../../data/troopStore";
+import { Troop, TroopType } from "../../data/types";
 
 export const elixirTroops: TroopType[] = [
   "barbarian",

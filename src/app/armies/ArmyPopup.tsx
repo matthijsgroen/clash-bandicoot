@@ -15,7 +15,7 @@ import {
 import { colorMap } from "../consts/unitColors";
 import { Column } from "../components/Column";
 import { EditArmy } from "./EditArmy";
-import { createArmy } from "../../engine/armyComposition";
+import { createArmy } from "../../engine/army/armyComposition";
 
 const ArmyRow: React.FC<PropsWithChildren> = ({ children }) => (
   <div

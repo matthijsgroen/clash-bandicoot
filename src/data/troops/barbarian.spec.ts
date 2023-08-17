@@ -1,4 +1,4 @@
-import { armyBuilder } from "../../engine/armyComposition";
+import { armyBuilder } from "../../engine/army/armyComposition";
 import { handleAttack } from "../../engine/combat/attack";
 import { layoutBuilder } from "../../engine/layout/baseLayout";
 

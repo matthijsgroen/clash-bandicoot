@@ -1,5 +1,5 @@
 import { buildingStore } from "../../data/buildingStore";
-import { Army, getArmySize } from "../armyComposition";
+import { Army, getArmySize } from "./armyComposition";
 import { getMaxArmySize } from "./armySize";
 
 export const getTownhallLevel = (army: Army) => {

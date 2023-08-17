@@ -1,6 +1,6 @@
 import { troopStore } from "../../data/troopStore";
 import { TroopType } from "../../data/types";
-import { Army } from "../armyComposition";
+import { Army } from "./armyComposition";
 
 export const setUnitTypeLevel = (
   army: Army,

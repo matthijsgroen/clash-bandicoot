@@ -1,4 +1,4 @@
-import { armyBuilder } from "../engine/armyComposition";
+import { armyBuilder } from "../engine/army/armyComposition";
 
 export const army = armyBuilder()
   .addTroops("giant", 2, 13)

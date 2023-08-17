@@ -8,7 +8,7 @@ import {
   getArmySize,
   getPlacementOverview,
   removeTroop,
-} from "../../engine/armyComposition";
+} from "../../engine/army/armyComposition";
 import { Button } from "../../ui-components/atoms/Button";
 import { Icon } from "../../ui-components/atoms/Icon";
 import { Inset } from "../../ui-components/atoms/Inset";
@@ -192,55 +192,61 @@ export const EditArmy: React.FC<{
               troopInfo.level
             })`}
             onClose={() => setShowTroopInfo(null)}
-            height={"10em"}
+            height={"14rem"}
           >
             <Text element="p" marginBottom marginTop>
-              ⚔️
-              {troopInfo.damage / troopInfo.attackSpeed} damage per second
+              Damage per second:
+              {troopInfo.damage / troopInfo.attackSpeed}
             </Text>
             <Text element="p" marginBottom marginTop>
-              ❤️ {troopInfo.hitPoints} hitpoints
+              Hitpoints: {troopInfo.hitPoints}
             </Text>
-            <Button
-              color="limegreen"
-              width="huge"
-              height="default"
-              disabled={
-                !troopStore.getTroop(troopInfo.type, troopInfo.level + 1)
-              }
-              onClick={() => {
-                setArmy((army) =>
-                  setUnitTypeLevel(army, troopInfo.type, troopInfo.level + 1)
-                );
-                setTroopLevels((levels) => {
-                  return {
-                    ...levels,
-                    [troopInfo.type]: troopInfo.level + 1,
-                  };
-                });
-              }}
-            >
-              Level up
-            </Button>
-            <Button
-              color="limegreen"
-              width="huge"
-              height="default"
-              disabled={!(troopInfo.level > 1)}
-              onClick={() => {
-                setArmy((army) =>
-                  setUnitTypeLevel(army, troopInfo.type, troopInfo.level - 1)
-                );
-                setTroopLevels((levels) => {
-                  return {
-                    ...levels,
-                    [troopInfo.type]: troopInfo.level - 1,
-                  };
-                });
-              }}
-            >
-              Level down
-            </Button>
+            <Text element="p" marginBottom marginTop>
+              Housing space: {troopInfo.size}
+            </Text>
+            <Toolbar>
+              <Button
+                color="limegreen"
+                width="large"
+                height="default"
+                disabled={
+                  !troopStore.getTroop(troopInfo.type, troopInfo.level + 1)
+                }
+                onClick={() => {
+                  setArmy((army) =>
+                    setUnitTypeLevel(army, troopInfo.type, troopInfo.level + 1)
+                  );
+                  setTroopLevels((levels) => {
+                    return {
+                      ...levels,
+                      [troopInfo.type]: troopInfo.level + 1,
+                    };
+                  });
+                }}
+              >
+                Level up
+              </Button>
+              <ToolbarSpacer />
+              <Button
+                color="limegreen"
+                width="large"
+                height="default"
+                disabled={!(troopInfo.level > 1)}
+                onClick={() => {
+                  setArmy((army) =>
+                    setUnitTypeLevel(army, troopInfo.type, troopInfo.level - 1)
+                  );
+                  setTroopLevels((levels) => {
+                    return {
+                      ...levels,
+                      [troopInfo.type]: troopInfo.level - 1,
+                    };
+                  });
+                }}
+              >
+                Level down
+              </Button>
+            </Toolbar>
           </Dialog>,
           document.body
         )}

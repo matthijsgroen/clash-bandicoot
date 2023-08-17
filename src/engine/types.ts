@@ -1,5 +1,5 @@
 import { Building, TargetPreference, Troop, TroopType } from "../data/types";
-import { Army } from "./armyComposition";
+import { Army } from "./army/armyComposition";
 import { ObstacleGrid } from "./pathfinding/types";
 
 export type Placement = {

@@ -1,9 +1,5 @@
-import {
-  compressLayout,
-  decompressLayout,
-  packLayout,
-  unpackLayout,
-} from "./packLayout";
+import { compressLayout, decompressLayout } from "./packLayout";
+import { pack as packLayout, unpack as unpackLayout } from "../utils/pack";
 import { layoutBuilder } from "./baseLayout";
 
 describe("compressLayout", () => {
