@@ -5,7 +5,6 @@ import { ArmyTray } from "./ArmyTray";
 import { DEFAULT_COLOR, UnitButton as UnitButtonComponent } from "./UnitButton";
 import { Placeholder } from "./Placeholder";
 import { Inset } from "../../atoms/Inset";
-import { Button } from "../../atoms/Button";
 
 const meta = {
   title: "Compositions/ArmyTray/UnitButton",
@@ -91,38 +90,6 @@ export const BuildingButton: Story = {
     portraitColor: "#bbf",
     label: "Townhall",
     amount: 1,
-  },
-  decorators,
-};
-
-export const UnitButtonWithDelete: Story = {
-  args: {
-    portraitColor: "pink",
-    label: "Archer",
-    amount: 12,
-    level: 2,
-    buttonColor: DEFAULT_COLOR,
-    children: [
-      <Button color="red" icon width="mini" height="mini">
-        -
-      </Button>,
-    ],
-  },
-  decorators,
-};
-
-export const UnitButtonWithInfo: Story = {
-  args: {
-    portraitColor: "pink",
-    label: "Archer",
-    amount: 12,
-    level: 2,
-    buttonColor: DEFAULT_COLOR,
-    children: [
-      <Button color={DEFAULT_COLOR} icon width="mini" height="mini">
-        i
-      </Button>,
-    ],
   },
   decorators,
 };

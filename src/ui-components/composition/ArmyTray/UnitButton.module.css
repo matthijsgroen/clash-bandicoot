@@ -141,3 +141,18 @@
     translate: 0 0;
   }
 }
+
+.buttonLayout {
+  display: grid;
+  position: relative;
+}
+
+.buttonLayout > :nth-child(2) {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.25rem;
+}
+
+.buttonLayout.buttonLayoutBottom > :nth-child(2) {
+  bottom: 1.25rem;
+}

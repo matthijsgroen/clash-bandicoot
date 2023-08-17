@@ -20,7 +20,10 @@ export const UnitButton: React.FC<
     level?: number;
     hidden?: boolean;
     jump?: boolean;
-  } & Omit<React.DOMAttributes<HTMLButtonElement>, "dangerouslySetInnerHTML">
+  } & Omit<
+    React.DOMAttributes<HTMLButtonElement>,
+    "dangerouslySetInnerHTML" | "children"
+  >
 > = ({
   portraitColor,
   buttonColor = DEFAULT_COLOR,
@@ -32,7 +35,6 @@ export const UnitButton: React.FC<
   disabled,
   hidden,
   jump,
-  children,
   ...events
 }) => (
   <button
@@ -57,11 +59,23 @@ export const UnitButton: React.FC<
       >
         {label}
         {level !== undefined && <div className={styles.level}>{level}</div>}
-        {children !== undefined && (
-          <div className={styles.child}>{children}</div>
-        )}
       </div>
     </div>
     {size !== undefined && <div className={styles.size}>{size}</div>}
   </button>
+);
+
+export const UnitButtonLayout: React.FC<{
+  unitButton: React.ReactElement;
+  miniButton: React.ReactElement;
+  bottomAmount?: boolean;
+}> = ({ unitButton, miniButton, bottomAmount = false }) => (
+  <span
+    className={classNames(styles.buttonLayout, {
+      [styles.buttonLayoutBottom]: bottomAmount,
+    })}
+  >
+    {unitButton}
+    {miniButton}
+  </span>
 );
