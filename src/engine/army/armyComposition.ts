@@ -10,10 +10,18 @@ export const elixirTroops: TroopType[] = [
   "wallbreaker",
 ];
 
-export const darkElixirTroops = [];
-export const heros = [];
-export const spells = [];
-export const darkSpells = [];
+export const darkElixirTroops: string[] = [];
+export const heros: string[] = [];
+export const spells: string[] = [];
+export const darkSpells: string[] = [];
+
+export const categories = {
+  elixirTroops,
+  darkElixirTroops,
+  heros,
+  spells,
+  darkSpells,
+};
 
 export type ArmyTroop = {
   troop: Troop;
@@ -22,10 +30,9 @@ export type ArmyTroop = {
 
 export type Army = {
   units: ArmyTroop[];
-  name: string;
 };
 
-export const createArmy = (): Army => ({ units: [], name: "New army" });
+export const createArmy = (): Army => ({ units: [] });
 
 export const addTroop = (
   army: Army,
@@ -81,14 +88,6 @@ export const getPlacementOverview = (army: Army) => {
     category: string;
     categoryIndex: number;
   }[] = [];
-
-  const categories = {
-    elixirTroops,
-    darkElixirTroops,
-    heros,
-    spells,
-    darkSpells,
-  };
 
   army.units.forEach((unit) => {
     const index = placement.findIndex(

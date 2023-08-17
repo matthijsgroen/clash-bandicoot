@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { troopStore } from "../../data/troopStore";
 import {
-  Army,
   addTroop,
   createArmy,
   elixirTroops,
@@ -31,17 +30,18 @@ import { TroopType } from "../../data/types";
 import { getMaxArmySize } from "../../engine/army/armySize";
 import { getTownhallLevel } from "../../engine/army/townhallLevel";
 import { setUnitTypeLevel } from "../../engine/army/unitLevels";
+import { ArmyItem } from "../../api/armies";
 
 export const EditArmy: React.FC<{
-  onChange?: (army: Army) => void;
+  onChange?: (army: ArmyItem) => void;
   onCancel?: VoidFunction;
-  army: Army;
+  army: ArmyItem;
 }> = ({ army: initialArmy, onChange, onCancel }) => {
   const [troopLevels, setTroopLevels] = useState<Record<string, number>>({});
   const [showTroopInfo, setShowTroopInfo] = useState<null | TroopType>(null);
-  const [army, setArmy] = useState(initialArmy);
+  const [armyObject, setArmy] = useState(initialArmy);
 
-  const placement = getPlacementOverview(army);
+  const placement = getPlacementOverview(armyObject.army);
   const groups = placement.reduce<string[]>(
     (r, u) => (r.includes(u.category) ? r : r.concat(u.category)),
     placement.length === 0 ? ["elixirTroops"] : []
@@ -53,7 +53,7 @@ export const EditArmy: React.FC<{
 
   const fillSpots = Math.max(9 - placement.length, 0);
 
-  const townhall = getTownhallLevel(army);
+  const townhall = getTownhallLevel(armyObject.army);
 
   return (
     <div
@@ -64,11 +64,11 @@ export const EditArmy: React.FC<{
       }}
     >
       <Toolbar>
-        <Text size="small">{army.name}</Text>
+        <Text size="small">{armyObject.name}</Text>
         <ToolbarSpacer />
         <Text size="small">Townhall: {townhall}</Text>
         <Text size="small">
-          Capacity: {getArmySize(army)} / {getMaxArmySize(townhall)}
+          Capacity: {getArmySize(armyObject.army)} / {getMaxArmySize(townhall)}
         </Text>
       </Toolbar>
       <Inset>
@@ -96,7 +96,10 @@ export const EditArmy: React.FC<{
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          setArmy((army) => removeTroop(army, p.type, p.level));
+                          setArmy((obj) => ({
+                            ...obj,
+                            army: removeTroop(obj.army, p.type, p.level),
+                          }));
                         }}
                       >
                         -
@@ -118,7 +121,7 @@ export const EditArmy: React.FC<{
           color="red"
           width="default"
           height="default"
-          onClick={() => setArmy(createArmy())}
+          onClick={() => setArmy((obj) => ({ ...obj, army: createArmy() }))}
         >
           <Icon>🗑️</Icon>
         </Button>
@@ -136,7 +139,7 @@ export const EditArmy: React.FC<{
           width="large"
           height="default"
           disabled={!onChange}
-          onClick={() => onChange?.(army)}
+          onClick={() => onChange?.(armyObject)}
         >
           ⬇ Save
         </Button>
@@ -158,7 +161,10 @@ export const EditArmy: React.FC<{
                       level={level === 1 ? undefined : level}
                       size={info?.size}
                       onClick={() => {
-                        setArmy((army) => addTroop(army, type, level, 1));
+                        setArmy((obj) => ({
+                          ...obj,
+                          army: addTroop(obj.army, type, level, 1),
+                        }));
                       }}
                     />
                   }
@@ -213,9 +219,14 @@ export const EditArmy: React.FC<{
                   !troopStore.getTroop(troopInfo.type, troopInfo.level + 1)
                 }
                 onClick={() => {
-                  setArmy((army) =>
-                    setUnitTypeLevel(army, troopInfo.type, troopInfo.level + 1)
-                  );
+                  setArmy((obj) => ({
+                    ...obj,
+                    army: setUnitTypeLevel(
+                      obj.army,
+                      troopInfo.type,
+                      troopInfo.level + 1
+                    ),
+                  }));
                   setTroopLevels((levels) => {
                     return {
                       ...levels,
@@ -233,9 +244,14 @@ export const EditArmy: React.FC<{
                 height="default"
                 disabled={!(troopInfo.level > 1)}
                 onClick={() => {
-                  setArmy((army) =>
-                    setUnitTypeLevel(army, troopInfo.type, troopInfo.level - 1)
-                  );
+                  setArmy((obj) => ({
+                    ...obj,
+                    army: setUnitTypeLevel(
+                      obj.army,
+                      troopInfo.type,
+                      troopInfo.level - 1
+                    ),
+                  }));
                   setTroopLevels((levels) => {
                     return {
                       ...levels,

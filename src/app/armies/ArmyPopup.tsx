@@ -16,6 +16,7 @@ import { colorMap } from "../consts/unitColors";
 import { Column } from "../components/Column";
 import { EditArmy } from "./EditArmy";
 import { createArmy } from "../../engine/army/armyComposition";
+import { ArmyItem } from "../../api/armies";
 
 const ArmyRow: React.FC<PropsWithChildren> = ({ children }) => (
   <div
@@ -107,7 +108,7 @@ export const ArmyList: React.FC<{ onSelect?: VoidFunction }> = ({
   </div>
 );
 
-const army = createArmy();
+const army: ArmyItem = { name: "New Army", army: createArmy(), id: "new" };
 export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
   onClose,
 }) => {

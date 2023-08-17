@@ -21,6 +21,13 @@ import {
 } from "./service-worker/bases";
 import { log } from "./service-worker/log";
 import { factoryBases } from "./service-worker/factory-bases";
+import {
+  deleteArmy,
+  getArmies,
+  postArmy,
+  putArmy,
+} from "./service-worker/armies";
+import { challengeArmies } from "./service-worker/factory-armies";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -100,26 +107,63 @@ registerRoute(
   "DELETE"
 );
 
+registerRoute(
+  ({ url }) => url.pathname.endsWith("/local-api/armies"),
+  getArmies
+);
+registerRoute(
+  ({ url }) => url.pathname.endsWith("/local-api/armies"),
+  postArmy,
+  "POST"
+);
+registerRoute(
+  ({ url }) => /local-api\/armies\/u\d+$/.test(url.pathname),
+  putArmy,
+  "PUT"
+);
+registerRoute(
+  ({ url }) => /local-api\/armies\/u\d+$/.test(url.pathname),
+  deleteArmy,
+  "DELETE"
+);
+
 // Seed the cache
 self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open("bases").then(async (cache) => {
-      log(`placing ${factoryBases.length} bases in the cache`);
-      return cache.put(
-        `/local-api/bases/?id=builtin`,
-        new Response(
-          JSON.stringify(
-            factoryBases.map((record, index) => ({
-              ...record,
-              id: `bi${index}`,
-              builtIn: true,
-              version: 1,
-            }))
-          )
+  const install = async () => {
+    const baseCache = await caches.open("bases");
+    log(`placing ${factoryBases.length} bases in the cache`);
+    await baseCache.put(
+      `/local-api/bases/?id=builtin`,
+      new Response(
+        JSON.stringify(
+          factoryBases.map((record, index) => ({
+            ...record,
+            id: `bi${index}`,
+            builtIn: true,
+            version: 1,
+          }))
         )
-      );
-    })
-  );
+      )
+    );
+
+    const armyCache = await caches.open("armies");
+    log(`placing ${challengeArmies.length} armies in the cache`);
+    await armyCache.put(
+      `/local-api/armies/?id=builtin`,
+      new Response(
+        JSON.stringify(
+          challengeArmies.map((record, index) => ({
+            ...record,
+            id: `bi${index}`,
+            builtIn: true,
+            version: 1,
+          }))
+        )
+      )
+    );
+  };
+
+  event.waitUntil(install());
 });
 
 // This allows the web app to trigger skipWaiting via
