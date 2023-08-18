@@ -23,6 +23,9 @@ import { ArmyItem, getArmies, postArmy, putArmy } from "../../api/armies";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getTownhallLevel } from "../../engine/army/townhallLevel";
 import { getMaxArmySize } from "../../engine/army/armySize";
+import { useSetAtom } from "jotai";
+import { armyAtom } from "./armyState";
+import { ShowActiveArmy } from "./ShowActiveArmy";
 
 const ArmyRow: React.FC<PropsWithChildren> = ({ children }) => (
   <div
@@ -40,8 +43,9 @@ const ArmyRow: React.FC<PropsWithChildren> = ({ children }) => (
 
 export const ArmyList: React.FC<{
   onEdit?: (item: ArmyItem) => void;
+  onTrain?: (item: ArmyItem) => void;
   armies?: ArmyItem[];
-}> = ({ onEdit, armies = [] }) => {
+}> = ({ onEdit, onTrain, armies = [] }) => {
   const queryClient = useQueryClient();
   const createMutation = useMutation({
     mutationFn: postArmy,
@@ -126,8 +130,9 @@ export const ArmyList: React.FC<{
                 color="limegreen"
                 width="default"
                 height={armyItem.builtIn ? "default" : "small"}
+                onClick={() => onTrain?.(armyItem)}
               >
-                Select
+                Train
               </Button>
               {!armyItem.builtIn && (
                 <Button
@@ -151,6 +156,7 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
   onClose,
 }) => {
   const [editItem, setEditItem] = useState<null | ArmyItem>(null);
+  const [activeTab, setActiveTab] = useState<"Army" | "Quick Train">("Army");
 
   const { data } = useQuery({
     queryKey: ["armyList"],
@@ -166,6 +172,8 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
     },
     networkMode: "always",
   });
+
+  const updateArmy = useSetAtom(armyAtom);
 
   return (
     <>
@@ -185,18 +193,35 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
             >
               ⬅
             </Button>
-            <Tab>Army</Tab>
-            <Tab active>Quick training</Tab>
+            <Tab
+              active={activeTab === "Army"}
+              onClick={() => setActiveTab("Army")}
+            >
+              Army
+            </Tab>
+            <Tab
+              active={activeTab === "Quick Train"}
+              onClick={() => setActiveTab("Quick Train")}
+            >
+              Quick training
+            </Tab>
           </Toolbar>
         }
         onClose={onClose}
         width="min(80vw, 30rem)"
         height="min(90vh, 22.5rem)"
       >
-        {!editItem && (
-          <ArmyList onEdit={(item) => setEditItem(item)} armies={data} />
+        {!editItem && activeTab === "Quick Train" && (
+          <ArmyList
+            onEdit={(item) => setEditItem(item)}
+            armies={data}
+            onTrain={(item) => {
+              updateArmy(item);
+              setActiveTab("Army");
+            }}
+          />
         )}
-        {editItem && (
+        {editItem && activeTab === "Quick Train" && (
           <EditArmy
             army={editItem}
             onCancel={() => {
@@ -208,6 +233,7 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
             }}
           />
         )}
+        {activeTab === "Army" && <ShowActiveArmy />}
       </Dialog>
     </>
   );

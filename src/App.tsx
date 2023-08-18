@@ -1,4 +1,3 @@
-import { army } from "./testScenarios/fixedArmy";
 import { useState } from "react";
 import { HomeScreen } from "./app/HomeScreen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -19,7 +18,6 @@ const App = () => {
         />
         {popupActive === "attack" && (
           <TargetSearch
-            army={army}
             onClose={() => {
               setActivePopup(null);
             }}

@@ -3,6 +3,8 @@ import { Button } from "../ui-components/atoms/Button";
 import { useAppUpdate } from "./hooks/useAppUpdater";
 import { VillagePopup } from "./villages/VillagePopup";
 import { ArmyPopup } from "./armies/ArmyPopup";
+import { useAtomValue } from "jotai";
+import { armyAtom } from "./armies/armyState";
 
 export const HomeScreen: React.FC<{
   setScreen: (name: string | null) => void;
@@ -11,6 +13,7 @@ export const HomeScreen: React.FC<{
   const [openPopup, setOpenPopup] = useState<"villages" | "armies" | null>(
     null
   );
+  const armyItem = useAtomValue(armyAtom);
 
   return (
     <div>
@@ -30,6 +33,7 @@ export const HomeScreen: React.FC<{
           color="orange"
           width="large"
           height="large"
+          disabled={armyItem === null}
         >
           Attack
         </Button>
