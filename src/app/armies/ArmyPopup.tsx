@@ -191,7 +191,7 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
                 setEditItem(null);
               }}
             >
-              ⬅
+              ⬅&#65038;
             </Button>
             <Tab
               active={activeTab === "Army"}
