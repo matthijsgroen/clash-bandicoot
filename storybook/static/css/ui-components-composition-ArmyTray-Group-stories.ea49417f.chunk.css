@@ -2,7 +2,8 @@
   display: grid;
   grid-auto-columns: var(--width);
   grid-template-rows: repeat(var(--rows), 1fr);
-  padding: 0.25rem 0 max(0.25rem, env(safe-area-inset-right, 0.25rem)) 0;
+  /* padding: 0.25rem 0 max(0.25rem, env(safe-area-inset-right, 0.25rem)) 0; */
+  padding: 0.25rem 0;
 
   width: -webkit-max-content;
 
@@ -224,15 +225,5 @@
   height: var(--control-size-large);
 }
 
-.Inset_inset__H3p6A {
-  flex: 1 1 auto;
-  border-left: 1px solid #777;
-  border-right: 1px solid white;
-  border-top: 1px solid #777;
-  border-bottom: 1px solid white;
-  border-radius: 5px;
-  background-color: #0001;
-}
 
-
-/*# sourceMappingURL=ui-components-composition-ArmyTray-UnitButton-stories.3b579127.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-ArmyTray-Group-stories.ea49417f.chunk.css.map*/

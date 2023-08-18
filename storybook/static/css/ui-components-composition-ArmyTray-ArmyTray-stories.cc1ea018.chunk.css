@@ -29,7 +29,8 @@
   display: grid;
   grid-auto-columns: var(--width);
   grid-template-rows: repeat(var(--rows), 1fr);
-  padding: 0.25rem 0 max(0.25rem, env(safe-area-inset-right, 0.25rem)) 0;
+  /* padding: 0.25rem 0 max(0.25rem, env(safe-area-inset-right, 0.25rem)) 0; */
+  padding: 0.25rem 0;
 
   width: -webkit-max-content;
 
@@ -215,4 +216,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-composition-ArmyTray-ArmyTray-stories.8bef214c.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-ArmyTray-ArmyTray-stories.cc1ea018.chunk.css.map*/
