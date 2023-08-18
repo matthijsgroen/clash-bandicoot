@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./Combat.module.css";
 import { BaseLayout, BattleState, Replay } from "../../engine/types";
 import { handleAttack } from "../../engine/combat/attack";
-import { Army } from "../../engine/armyComposition";
+import { Army } from "../../engine/army/armyComposition";
 import { Timer } from "../../ui-components/atoms/Timer";
 import { Destruction } from "../../ui-components/atoms/Destruction";
 import { ArmyControl } from "./ArmyControl";

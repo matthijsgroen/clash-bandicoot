@@ -58,6 +58,15 @@ export const getTownhallLevel = (layout: BaseLayout): number => {
   return townhall ? townhall.info.level : 0;
 };
 
+export const getArmySize = (layout: BaseLayout): number =>
+  Object.values(layout.items).reduce(
+    (r, b) =>
+      b.info.type === "armycamp"
+        ? r + (b.info.aiSettings.capacity as number)
+        : r,
+    0
+  );
+
 export const canUpgrade = (layout: BaseLayout, buildingId: string): boolean => {
   const currentBuilding = layout.items[buildingId];
   if (!currentBuilding) return false;

@@ -28,6 +28,7 @@
 }
 
 .dialogHeader {
+  flex: 0 0 min-content;
   padding: 0 0.25rem;
   min-width: 10rem;
   display: grid;

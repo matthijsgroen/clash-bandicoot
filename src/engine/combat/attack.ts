@@ -10,7 +10,7 @@ import {
   BattleUnitData,
 } from "../types";
 import { createObstacleGrid } from "../pathfinding/obstacleGrid";
-import { Army, canDeployTroops, placeUnit } from "../armyComposition";
+import { Army, canDeployTroops, placeUnit } from "../army/armyComposition";
 import { createPlacementGrid } from "../layout/placementGrid";
 import { isVisible } from "../layout/baseLayout";
 import { TroopType } from "../../data/types";

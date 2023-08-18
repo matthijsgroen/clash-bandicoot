@@ -1,4 +1,4 @@
-import { troopStore } from "../data/troopStore";
+import { troopStore } from "../../data/troopStore";
 import {
   createArmy,
   addTroop,

@@ -1,4 +1,3 @@
-import { Army } from "../../engine/armyComposition";
 import { Combat } from "./Combat";
 import { CloudCurtain } from "../../ui-components/atoms/CloudCurtain";
 import { useEffect, useMemo, useState } from "react";
@@ -6,13 +5,16 @@ import { useQuery } from "@tanstack/react-query";
 import { Village, getBases } from "../../api/bases";
 import { getTownhallLevel } from "../../engine/layout/baseLayout";
 import { useTargetTransition } from "./hooks/useTargetTransition";
+import { useAtomValue } from "jotai";
+import { armyAtom } from "../armies/armyState";
 
-export const TargetSearch: React.FC<{ onClose?: VoidFunction; army: Army }> = ({
+export const TargetSearch: React.FC<{ onClose?: VoidFunction }> = ({
   onClose,
-  army,
 }) => {
   const { base, isSearching, setNextBase, isReady } =
     useTargetTransition<Village>();
+
+  const armyItem = useAtomValue(armyAtom);
 
   const [targetIndex, setTargetIndex] = useState(0);
 
@@ -41,10 +43,10 @@ export const TargetSearch: React.FC<{ onClose?: VoidFunction; army: Army }> = ({
 
   return (
     <>
-      {base && (
+      {base && armyItem && (
         <Combat
           base={base.layout}
-          army={army}
+          army={armyItem.army}
           onClose={() => {
             setNextBase(null);
           }}

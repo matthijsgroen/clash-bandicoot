@@ -5,7 +5,7 @@ import {
   Placeholder,
   UnitButton,
 } from "../../ui-components/composition/ArmyTray";
-import { getPlacementOverview } from "../../engine/armyComposition";
+import { getPlacementOverview } from "../../engine/army/armyComposition";
 import styles from "./ArmyControl.module.css";
 import { armyAtom } from "./combatState";
 import { TroopType } from "../../data/types";

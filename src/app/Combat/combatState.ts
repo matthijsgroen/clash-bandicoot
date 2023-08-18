@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { createBattleState } from "../../engine/combat/attack";
 import { newLayout } from "../../engine/layout/baseLayout";
-import { createArmy } from "../../engine/armyComposition";
+import { createArmy } from "../../engine/army/armyComposition";
 
 export const battleAtom = atom(createBattleState(newLayout(), createArmy()));
 

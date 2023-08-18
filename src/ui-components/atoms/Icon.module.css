@@ -1,0 +1,6 @@
+.icon {
+  text-shadow: 0 0 0 white;
+  color: #fff0;
+  filter: drop-shadow(1px 1px 2px black);
+  font-size: 160%;
+}

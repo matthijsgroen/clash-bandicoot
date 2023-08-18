@@ -1,4 +1,4 @@
-import { armyBuilder } from "../armyComposition";
+import { armyBuilder } from "../army/armyComposition";
 import { addTroopToState, createBattleState } from "../combat/attack";
 import { layoutBuilder } from "../layout/baseLayout";
 import { BattleState, BattleUnitState } from "../types";

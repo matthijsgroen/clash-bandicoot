@@ -1,6 +1,6 @@
-import "../data/troops";
-import { troopStore } from "../data/troopStore";
-import { Troop, TroopType } from "../data/types";
+import "../../data/troops";
+import { troopStore } from "../../data/troopStore";
+import { Troop, TroopType } from "../../data/types";
 
 export const elixirTroops: TroopType[] = [
   "barbarian",
@@ -10,10 +10,18 @@ export const elixirTroops: TroopType[] = [
   "wallbreaker",
 ];
 
-export const darkElixirTroops = [];
-export const heros = [];
-export const spells = [];
-export const darkSpells = [];
+export const darkElixirTroops: string[] = [];
+export const heros: string[] = [];
+export const spells: string[] = [];
+export const darkSpells: string[] = [];
+
+export const categories = {
+  elixirTroops,
+  darkElixirTroops,
+  heros,
+  spells,
+  darkSpells,
+};
 
 export type ArmyTroop = {
   troop: Troop;
@@ -46,6 +54,29 @@ export const addTroop = (
   };
 };
 
+export const removeTroop = (
+  army: Army,
+  unitType: TroopType,
+  level: number,
+  amount = 1
+): Army => {
+  let toRemove = amount;
+  return {
+    ...army,
+    units: army.units.filter((unit) => {
+      const match =
+        unit.troop.type === unitType &&
+        unit.troop.level === level &&
+        unit.state === "ready";
+      if (match && toRemove > 0) {
+        toRemove--;
+        return false;
+      }
+      return true;
+    }),
+  };
+};
+
 export const getArmySize = (army: Army) =>
   army.units.reduce((size, unit) => size + unit.troop.size, 0);
 
@@ -57,14 +88,6 @@ export const getPlacementOverview = (army: Army) => {
     category: string;
     categoryIndex: number;
   }[] = [];
-
-  const categories = {
-    elixirTroops,
-    darkElixirTroops,
-    heros,
-    spells,
-    darkSpells,
-  };
 
   army.units.forEach((unit) => {
     const index = placement.findIndex(
@@ -113,6 +136,7 @@ export const placeUnit = (
 ): [Army, ArmyTroop | null] => {
   let placed: ArmyTroop | null = null;
   const update: Army = {
+    ...army,
     units: army.units.map((unit) => {
       if (
         !placed &&

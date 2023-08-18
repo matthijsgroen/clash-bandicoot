@@ -1,13 +1,21 @@
 .unit {
   border-radius: 0.5rem;
-  height: var(--control-size-large);
+  height: var(--control-size-default);
   border: 1px solid black;
   display: grid;
-  grid-template-rows: 1.25em 1fr;
+  grid-template-rows: 1fr;
   padding: 0;
   scale: 1;
   background-color: color-mix(in hsl, var(--base-color) 80%, black);
   transition: scale 50ms ease-in-out;
+}
+.unit:has(.amounts) {
+  height: var(--control-size-large);
+  grid-template-rows: 1.25em 1fr;
+}
+.unit:has(.size) {
+  height: var(--control-size-large);
+  grid-template-rows: 1fr;
 }
 
 .unit.selected {
@@ -43,11 +51,14 @@
   height: 100%;
   box-sizing: border-box;
   padding: 3px 3px 4px 3px;
-  border-top: 1px solid color-mix(in hsl, var(--base-color) 80%, white);
   background: var(--base-color);
   border-bottom: 2px solid color-mix(in hsl, var(--base-color) 70%, black);
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
+  border-radius: 0.5rem;
+}
+.unit:has(.amounts) .portraitBox {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: 1px solid color-mix(in hsl, var(--base-color) 80%, white);
 }
 
 .portrait {
@@ -66,8 +77,8 @@
 
 .level {
   position: absolute;
-  bottom: 2px;
-  left: 2px;
+  bottom: 1px;
+  left: 1px;
 
   font-weight: normal;
   font-size: var(--control-size-tiny);
@@ -79,7 +90,38 @@
   width: var(--control-size-tiny);
   height: var(--control-size-tiny);
 }
+.unit:has(.size) .level {
+  bottom: calc(1px + var(--control-size-mini));
+}
 
+.child {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+.unit:has(.size) .child {
+  bottom: var(--control-size-mini);
+}
+
+.size {
+  position: absolute;
+  bottom: 5px;
+  left: 3px;
+  right: 3px;
+  height: 0.8rem;
+
+  border-top: 1px solid color-mix(in hsl, var(--base-color) 60%, white);
+  background: #fff8;
+
+  font-family: "Sriracha", cursive;
+  font-weight: bold;
+  font-size: 0.6rem;
+  line-height: 0.8rem;
+  color: white;
+  text-shadow: 0 2px 0 #000, 0 0 2px #0009;
+  text-align: center;
+  padding-right: 0.3rem;
+}
 .unit:disabled {
   filter: grayscale(1) brightness(70%);
 }
@@ -98,4 +140,19 @@
   100% {
     translate: 0 0;
   }
+}
+
+.buttonLayout {
+  display: grid;
+  position: relative;
+}
+
+.buttonLayout > :nth-child(2) {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.25rem;
+}
+
+.buttonLayout.buttonLayoutBottom > :nth-child(2) {
+  bottom: 1.25rem;
 }
