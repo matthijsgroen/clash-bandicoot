@@ -1,6 +1,7 @@
 .Group_group__DI3f6 {
   display: grid;
-  grid-auto-columns: var(--control-size-default);
+  grid-auto-columns: var(--width);
+  grid-template-rows: repeat(var(--rows), 1fr);
   padding: 0.25rem 0 max(0.25rem, env(safe-area-inset-right, 0.25rem)) 0;
 
   width: -webkit-max-content;
@@ -12,8 +13,6 @@
 }
 
 .ArmyTray_armyTray__FXipA {
-  height: calc(var(--control-size-large) + 0.5rem);
-  width: 100%;
   overflow-y: hidden;
   overflow-x: auto;
   padding: 0 0.25rem;
@@ -24,6 +23,7 @@
   border-top: 1px solid #aaa;
   padding: 0 max(1rem, env(safe-area-inset-right))
     calc(env(safe-area-inset-bottom));
+  width: 100%;
 }
 .ArmyTray_darkOverlay__2-5o4 .ArmyTray_scrollArea__aS\+GD {
   margin: 0 auto;
@@ -41,14 +41,22 @@
 
 .UnitButton_unit__r93h7 {
   border-radius: 0.5rem;
-  height: var(--control-size-large);
+  height: var(--control-size-default);
   border: 1px solid black;
   display: grid;
-  grid-template-rows: 1.25em 1fr;
+  grid-template-rows: 1fr;
   padding: 0;
   scale: 1;
   background-color: color-mix(in hsl, var(--base-color) 80%, black);
   transition: scale 50ms ease-in-out;
+}
+.UnitButton_unit__r93h7:has(.UnitButton_amounts__fpO3p) {
+  height: var(--control-size-large);
+  grid-template-rows: 1.25em 1fr;
+}
+.UnitButton_unit__r93h7:has(.UnitButton_size__lAtvD) {
+  height: var(--control-size-large);
+  grid-template-rows: 1fr;
 }
 
 .UnitButton_unit__r93h7.UnitButton_selected__jL\+i\+ {
@@ -86,11 +94,14 @@
   height: 100%;
   box-sizing: border-box;
   padding: 3px 3px 4px 3px;
-  border-top: 1px solid color-mix(in hsl, var(--base-color) 80%, white);
   background: var(--base-color);
   border-bottom: 2px solid color-mix(in hsl, var(--base-color) 70%, black);
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
+  border-radius: 0.5rem;
+}
+.UnitButton_unit__r93h7:has(.UnitButton_amounts__fpO3p) .UnitButton_portraitBox__bzTsd {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: 1px solid color-mix(in hsl, var(--base-color) 80%, white);
 }
 
 .UnitButton_portrait__basiw {
@@ -109,8 +120,8 @@
 
 .UnitButton_level__d\+Z-J {
   position: absolute;
-  bottom: 2px;
-  left: 2px;
+  bottom: 1px;
+  left: 1px;
 
   font-weight: normal;
   font-size: var(--control-size-tiny);
@@ -122,7 +133,38 @@
   width: var(--control-size-tiny);
   height: var(--control-size-tiny);
 }
+.UnitButton_unit__r93h7:has(.UnitButton_size__lAtvD) .UnitButton_level__d\+Z-J {
+  bottom: calc(1px + var(--control-size-mini));
+}
 
+.UnitButton_child__9AN2T {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+.UnitButton_unit__r93h7:has(.UnitButton_size__lAtvD) .UnitButton_child__9AN2T {
+  bottom: var(--control-size-mini);
+}
+
+.UnitButton_size__lAtvD {
+  position: absolute;
+  bottom: 5px;
+  left: 3px;
+  right: 3px;
+  height: 0.8rem;
+
+  border-top: 1px solid color-mix(in hsl, var(--base-color) 60%, white);
+  background: #fff8;
+
+  font-family: "Sriracha", cursive;
+  font-weight: bold;
+  font-size: 0.6rem;
+  line-height: 0.8rem;
+  color: white;
+  text-shadow: 0 2px 0 #000, 0 0 2px #0009;
+  text-align: center;
+  padding-right: 0.3rem;
+}
 .UnitButton_unit__r93h7:disabled {
   -webkit-filter: grayscale(1) brightness(70%);
           filter: grayscale(1) brightness(70%);
@@ -157,12 +199,40 @@
   }
 }
 
+.UnitButton_buttonLayout__rjNYT {
+  display: grid;
+  position: relative;
+}
+
+.UnitButton_buttonLayout__rjNYT > :nth-child(2) {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.25rem;
+}
+
+.UnitButton_buttonLayout__rjNYT.UnitButton_buttonLayoutBottom__zzsTP > :nth-child(2) {
+  bottom: 1.25rem;
+}
+
 .Placeholder_empty__wtf-1 {
   border-radius: 0.5rem;
   border: 2px dashed #aaa;
-  height: var(--control-size-large);
+  height: 100%;
   box-sizing: border-box;
+}
+.Placeholder_large__7ZTQf {
+  height: var(--control-size-large);
+}
+
+.Inset_inset__H3p6A {
+  flex: 1 1 auto;
+  border-left: 1px solid #777;
+  border-right: 1px solid white;
+  border-top: 1px solid #777;
+  border-bottom: 1px solid white;
+  border-radius: 5px;
+  background-color: #0001;
 }
 
 
-/*# sourceMappingURL=ui-components-composition-ArmyTray-Group-stories.4c89bef9.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-ArmyTray-UnitButton-stories.3b579127.chunk.css.map*/

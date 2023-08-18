@@ -6,7 +6,7 @@
   background: transparent;
 }
 
-button:active:enabled .Button_outer__Zd-2h {
+.Button_button__d3Ync:active:enabled .Button_outer__Zd-2h {
   scale: 0.95;
   -webkit-filter: brightness(130%);
           filter: brightness(130%);
@@ -66,12 +66,29 @@ button:active:enabled .Button_outer__Zd-2h {
   font-weight: normal;
   text-shadow: 0 1px 0 #000;
 }
-
 .Button_tinyHeight__MdMxE {
   height: var(--control-size-tiny);
   line-height: var(--control-size-tiny);
   font-size: var(--control-size-tiny);
 }
+
+.Button_miniWidth__kkMPb {
+  width: var(--control-size-mini);
+}
+.Button_miniHeight__Xy1IS .Button_outer__Zd-2h {
+  border-radius: 3px;
+}
+.Button_miniHeight__Xy1IS .Button_inner__FQgg0 {
+  border-radius: 3px;
+  font-weight: normal;
+  text-shadow: 0 1px 0 #000;
+}
+.Button_miniHeight__Xy1IS {
+  height: var(--control-size-mini);
+  line-height: var(--control-size-mini);
+  font-size: var(--control-size-mini);
+}
+
 .Button_smallWidth__6Au\+0 {
   width: var(--control-size-small);
 }
@@ -79,6 +96,9 @@ button:active:enabled .Button_outer__Zd-2h {
   height: var(--control-size-small);
 
   font-size: 0.6rem;
+}
+.Button_icon__8toTl.Button_smallHeight__2-ayX {
+  font-size: 1rem;
 }
 .Button_smallHeight__2-ayX .Button_inner__FQgg0 {
   text-shadow: 0 1px 0 #000;
@@ -130,6 +150,19 @@ button:active:enabled .Button_outer__Zd-2h {
 .Button_pressed__8kIHu .Button_inner__FQgg0::before {
   background-color: transparent;
 }
+.Button_invisible__FmPTx {
+  visibility: hidden;
+}
+
+.Toolbar_toolbar__S2ZMj {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.Toolbar_spacer__0dz8y {
+  flex: 1 1 auto;
+}
 
 
-/*# sourceMappingURL=ui-components-atoms-Button-stories.24f99906.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-Toolbar-stories.d8b385af.chunk.css.map*/

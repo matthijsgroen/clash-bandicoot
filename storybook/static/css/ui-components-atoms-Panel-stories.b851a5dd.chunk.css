@@ -13,7 +13,7 @@
 
 .Panel_scrollable__ofdug {
   overflow-y: auto;
-  overscroll-behavior-y: "contain";
+  overscroll-behavior-y: contain;
 }
 
 .Text_text__uZi1L {
@@ -57,4 +57,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-atoms-Panel-stories.3c7c2077.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-Panel-stories.b851a5dd.chunk.css.map*/
