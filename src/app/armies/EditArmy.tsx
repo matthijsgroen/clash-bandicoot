@@ -2,7 +2,6 @@ import { useState } from "react";
 import { troopStore } from "../../data/troopStore";
 import {
   addTroop,
-  createArmy,
   elixirTroops,
   getArmySize,
   getPlacementOverview,
@@ -31,12 +30,14 @@ import { getMaxArmySize } from "../../engine/army/armySize";
 import { getTownhallLevel } from "../../engine/army/townhallLevel";
 import { setUnitTypeLevel } from "../../engine/army/unitLevels";
 import { ArmyItem } from "../../api/armies";
+import { ButtonWithConfirm } from "../../ui-components/composition/ButtonWithConfirm";
 
 export const EditArmy: React.FC<{
   onChange?: (army: ArmyItem) => void;
   onCancel?: VoidFunction;
+  onDelete?: VoidFunction;
   army: ArmyItem;
-}> = ({ army: initialArmy, onChange, onCancel }) => {
+}> = ({ army: initialArmy, onChange, onCancel, onDelete }) => {
   const [troopLevels, setTroopLevels] = useState<Record<string, number>>({});
   const [showTroopInfo, setShowTroopInfo] = useState<null | TroopType>(null);
   const [armyObject, setArmy] = useState(initialArmy);
@@ -117,20 +118,23 @@ export const EditArmy: React.FC<{
       </Inset>
       <Toolbar>
         <ToolbarSpacer />
-        <Button
+        <ButtonWithConfirm
           color="red"
           width="default"
           height="default"
-          onClick={() => setArmy((obj) => ({ ...obj, army: createArmy() }))}
+          disabled={!onDelete}
+          onClick={onDelete}
+          confirmTitle="Delete army?"
+          confirmMessage="Are you sure to delete this army?"
         >
           <Icon>🗑️</Icon>
-        </Button>
+        </ButtonWithConfirm>
         <Button
           color="red"
           width="large"
           height="default"
           disabled={!onCancel}
-          onClick={() => onCancel?.()}
+          onClick={onCancel}
         >
           Cancel
         </Button>
@@ -141,7 +145,7 @@ export const EditArmy: React.FC<{
           disabled={!onChange}
           onClick={() => onChange?.(armyObject)}
         >
-          ⬇ Save
+          ⬇&#65038; Save
         </Button>
       </Toolbar>
       <Inset>

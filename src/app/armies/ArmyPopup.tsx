@@ -19,7 +19,13 @@ import {
   getArmySize,
   getPlacementOverview,
 } from "../../engine/army/armyComposition";
-import { ArmyItem, getArmies, postArmy, putArmy } from "../../api/armies";
+import {
+  ArmyItem,
+  deleteArmy,
+  getArmies,
+  postArmy,
+  putArmy,
+} from "../../api/armies";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getTownhallLevel } from "../../engine/army/townhallLevel";
 import { getMaxArmySize } from "../../engine/army/armySize";
@@ -172,6 +178,13 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
     },
     networkMode: "always",
   });
+  const deleteMutation = useMutation({
+    mutationFn: deleteArmy,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["armyList"] });
+    },
+    networkMode: "always",
+  });
 
   const updateArmy = useSetAtom(armyAtom);
 
@@ -229,6 +242,10 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
             }}
             onChange={(item) => {
               updateMutation.mutate(item);
+              setEditItem(null);
+            }}
+            onDelete={() => {
+              deleteMutation.mutate(editItem);
               setEditItem(null);
             }}
           />
