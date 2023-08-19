@@ -208,7 +208,7 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
         }
         onClose={onClose}
         width="min(90vw, 30rem)"
-        height="min(93vh, 24.5rem)"
+        height="min(93vh, 22.6rem)"
       >
         {!editItem && activeTab === "Quick Train" && (
           <ArmyList
