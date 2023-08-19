@@ -23,7 +23,11 @@ export const ShowActiveArmy: React.FC = () => {
   const fillSpots = Math.max(7 - placement.length, 0);
 
   return (
-    <>
+    <div
+      style={{
+        padding: "0.5rem",
+      }}
+    >
       <ArmyStats armyItem={armyItem ?? undefined} />
       <Inset>
         <ArmyTray>
@@ -47,6 +51,6 @@ export const ShowActiveArmy: React.FC = () => {
           ))}
         </ArmyTray>
       </Inset>
-    </>
+    </div>
   );
 };

@@ -59,6 +59,7 @@ export const EditArmy: React.FC<{
         display: "flex",
         flexDirection: "column",
         gap: "0.5rem",
+        padding: "0.5rem",
       }}
     >
       <ArmyStats armyItem={armyObject} />
@@ -194,73 +195,79 @@ export const EditArmy: React.FC<{
             onClose={() => setShowTroopInfo(null)}
             height={"14rem"}
           >
-            <UnitStat
-              label={"Damage per second:"}
-              stat={`${troopInfo.damage / troopInfo.attackSpeed}`}
-            />
-            <UnitStat label={"Hitpoints:"} stat={`${troopInfo.hitPoints}`} />
-            <UnitStat label={"Housing space:"} stat={`${troopInfo.size}`} />
-            <UnitStat
-              label={"Movement speed:"}
-              stat={`${troopInfo.movementSpeed}`}
-            />
-            <UnitStat
-              label={"Townhall needed:"}
-              stat={`${getTroopTownhallLevel(troopInfo)}`}
-            />
-            <Toolbar>
-              <Button
-                color="limegreen"
-                width="huge"
-                height="small"
-                disabled={
-                  !troopStore.getTroop(troopInfo.type, troopInfo.level + 1)
-                }
-                onClick={() => {
-                  setArmy((obj) => ({
-                    ...obj,
-                    army: setUnitTypeLevel(
-                      obj.army,
-                      troopInfo.type,
-                      troopInfo.level + 1
-                    ),
-                  }));
-                  setTroopLevels((levels) => {
-                    return {
-                      ...levels,
-                      [troopInfo.type]: troopInfo.level + 1,
-                    };
-                  });
-                }}
-              >
-                Level up
-              </Button>
-              <ToolbarSpacer />
-              <Button
-                color="limegreen"
-                width="huge"
-                height="small"
-                disabled={!(troopInfo.level > 1)}
-                onClick={() => {
-                  setArmy((obj) => ({
-                    ...obj,
-                    army: setUnitTypeLevel(
-                      obj.army,
-                      troopInfo.type,
-                      troopInfo.level - 1
-                    ),
-                  }));
-                  setTroopLevels((levels) => {
-                    return {
-                      ...levels,
-                      [troopInfo.type]: troopInfo.level - 1,
-                    };
-                  });
-                }}
-              >
-                Level down
-              </Button>
-            </Toolbar>
+            <div
+              style={{
+                padding: "1rem",
+              }}
+            >
+              <UnitStat
+                label={"Damage per second:"}
+                stat={`${troopInfo.damage / troopInfo.attackSpeed}`}
+              />
+              <UnitStat label={"Hitpoints:"} stat={`${troopInfo.hitPoints}`} />
+              <UnitStat label={"Housing space:"} stat={`${troopInfo.size}`} />
+              <UnitStat
+                label={"Movement speed:"}
+                stat={`${troopInfo.movementSpeed}`}
+              />
+              <UnitStat
+                label={"Townhall needed:"}
+                stat={`${getTroopTownhallLevel(troopInfo)}`}
+              />
+              <Toolbar>
+                <Button
+                  color="limegreen"
+                  width="huge"
+                  height="small"
+                  disabled={
+                    !troopStore.getTroop(troopInfo.type, troopInfo.level + 1)
+                  }
+                  onClick={() => {
+                    setArmy((obj) => ({
+                      ...obj,
+                      army: setUnitTypeLevel(
+                        obj.army,
+                        troopInfo.type,
+                        troopInfo.level + 1
+                      ),
+                    }));
+                    setTroopLevels((levels) => {
+                      return {
+                        ...levels,
+                        [troopInfo.type]: troopInfo.level + 1,
+                      };
+                    });
+                  }}
+                >
+                  Level up
+                </Button>
+                <ToolbarSpacer />
+                <Button
+                  color="limegreen"
+                  width="huge"
+                  height="small"
+                  disabled={!(troopInfo.level > 1)}
+                  onClick={() => {
+                    setArmy((obj) => ({
+                      ...obj,
+                      army: setUnitTypeLevel(
+                        obj.army,
+                        troopInfo.type,
+                        troopInfo.level - 1
+                      ),
+                    }));
+                    setTroopLevels((levels) => {
+                      return {
+                        ...levels,
+                        [troopInfo.type]: troopInfo.level - 1,
+                      };
+                    });
+                  }}
+                >
+                  Level down
+                </Button>
+              </Toolbar>
+            </div>
           </Dialog>,
           document.body
         )}

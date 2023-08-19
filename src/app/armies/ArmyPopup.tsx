@@ -196,7 +196,10 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
             </Button>
             <Tab
               active={activeTab === "Army"}
-              onClick={() => setActiveTab("Army")}
+              onClick={() => {
+                setActiveTab("Army");
+                setEditItem(null);
+              }}
             >
               Army
             </Tab>
@@ -210,7 +213,7 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
         }
         onClose={onClose}
         width="min(90vw, 30rem)"
-        height="min(90vh, 22.5rem)"
+        height="min(93vh, 24.5rem)"
       >
         {!editItem && activeTab === "Quick Train" && (
           <ArmyList
