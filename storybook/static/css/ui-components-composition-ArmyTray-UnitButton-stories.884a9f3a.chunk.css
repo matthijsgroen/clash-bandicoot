@@ -228,12 +228,17 @@
 .Inset_inset__H3p6A {
   flex: 1 1 auto;
   border-left: 1px solid #777;
-  border-right: 1px solid white;
+  border-right: 1px solid #fff9;
   border-top: 1px solid #777;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #fff9;
   border-radius: 5px;
   background-color: #0001;
 }
+.Inset_inline__rJFO9 {
+  padding: 0 0.25rem;
+  line-height: 1.2em;
+  display: inline-block;
+}
 
 
-/*# sourceMappingURL=ui-components-composition-ArmyTray-UnitButton-stories.de2789ea.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-ArmyTray-UnitButton-stories.884a9f3a.chunk.css.map*/
