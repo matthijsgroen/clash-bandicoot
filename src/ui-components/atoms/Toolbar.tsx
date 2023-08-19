@@ -1,8 +1,15 @@
-import { PropsWithChildren } from "react";
+import { CSSProperties, PropsWithChildren } from "react";
 import styles from "./Toolbar.module.css";
+import classNames from "classnames";
 
-export const Toolbar: React.FC<PropsWithChildren> = ({ children }) => (
-  <div role="toolbar" className={styles.toolbar}>
+export const Toolbar: React.FC<
+  PropsWithChildren<{ className?: string; style?: CSSProperties }>
+> = ({ children, className, style }) => (
+  <div
+    role="toolbar"
+    className={classNames(styles.toolbar, className)}
+    style={style}
+  >
     {children}
   </div>
 );

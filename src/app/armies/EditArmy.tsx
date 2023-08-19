@@ -3,14 +3,12 @@ import { troopStore } from "../../data/troopStore";
 import {
   addTroop,
   elixirTroops,
-  getArmySize,
   getPlacementOverview,
   removeTroop,
 } from "../../engine/army/armyComposition";
 import { Button } from "../../ui-components/atoms/Button";
 import { Icon } from "../../ui-components/atoms/Icon";
 import { Inset } from "../../ui-components/atoms/Inset";
-import { Text } from "../../ui-components/atoms/Text";
 import { Toolbar, ToolbarSpacer } from "../../ui-components/atoms/Toolbar";
 import {
   ArmyTray,
@@ -26,11 +24,12 @@ import { colorMap } from "../consts/unitColors";
 import { createPortal } from "react-dom";
 import { Dialog } from "../../ui-components/atoms/Dialog";
 import { TroopType } from "../../data/types";
-import { getMaxArmySize } from "../../engine/army/armySize";
-import { getTownhallLevel } from "../../engine/army/townhallLevel";
 import { setUnitTypeLevel } from "../../engine/army/unitLevels";
 import { ArmyItem } from "../../api/armies";
 import { ButtonWithConfirm } from "../../ui-components/composition/ButtonWithConfirm";
+import { ArmyStats } from "./ArmyStats";
+import { UnitStat } from "../../ui-components/composition/UnitStat";
+import { getTroopTownhallLevel } from "../../engine/army/townhallLevel";
 
 export const EditArmy: React.FC<{
   onChange?: (army: ArmyItem) => void;
@@ -54,8 +53,6 @@ export const EditArmy: React.FC<{
 
   const fillSpots = Math.max(9 - placement.length, 0);
 
-  const townhall = getTownhallLevel(armyObject.army);
-
   return (
     <div
       style={{
@@ -64,14 +61,7 @@ export const EditArmy: React.FC<{
         gap: "0.5rem",
       }}
     >
-      <Toolbar>
-        <Text size="small">{armyObject.name}</Text>
-        <ToolbarSpacer />
-        <Text size="small">Townhall: {townhall}</Text>
-        <Text size="small">
-          Capacity: {getArmySize(armyObject.army)} / {getMaxArmySize(townhall)}
-        </Text>
-      </Toolbar>
+      <ArmyStats armyItem={armyObject} />
       <Inset>
         <ArmyTray>
           {groups.map((g, i, l) => (
@@ -204,21 +194,25 @@ export const EditArmy: React.FC<{
             onClose={() => setShowTroopInfo(null)}
             height={"14rem"}
           >
-            <Text element="p" marginBottom marginTop>
-              Damage per second:
-              {troopInfo.damage / troopInfo.attackSpeed}
-            </Text>
-            <Text element="p" marginBottom marginTop>
-              Hitpoints: {troopInfo.hitPoints}
-            </Text>
-            <Text element="p" marginBottom marginTop>
-              Housing space: {troopInfo.size}
-            </Text>
+            <UnitStat
+              label={"Damage per second:"}
+              stat={`${troopInfo.damage / troopInfo.attackSpeed}`}
+            />
+            <UnitStat label={"Hitpoints:"} stat={`${troopInfo.hitPoints}`} />
+            <UnitStat label={"Housing space:"} stat={`${troopInfo.size}`} />
+            <UnitStat
+              label={"Movement speed:"}
+              stat={`${troopInfo.movementSpeed}`}
+            />
+            <UnitStat
+              label={"Townhall needed:"}
+              stat={`${getTroopTownhallLevel(troopInfo)}`}
+            />
             <Toolbar>
               <Button
                 color="limegreen"
-                width="large"
-                height="default"
+                width="huge"
+                height="small"
                 disabled={
                   !troopStore.getTroop(troopInfo.type, troopInfo.level + 1)
                 }
@@ -244,8 +238,8 @@ export const EditArmy: React.FC<{
               <ToolbarSpacer />
               <Button
                 color="limegreen"
-                width="large"
-                height="default"
+                width="huge"
+                height="small"
                 disabled={!(troopInfo.level > 1)}
                 onClick={() => {
                   setArmy((obj) => ({

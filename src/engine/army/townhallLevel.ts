@@ -1,27 +1,32 @@
 import { buildingStore } from "../../data/buildingStore";
+import { Troop } from "../../data/types";
 import { Army, getArmySize } from "./armyComposition";
 import { getMaxArmySize } from "./armySize";
 
-export const getTownhallLevel = (army: Army) => {
+export const getTroopTownhallLevel = (troop: Troop): number => {
+  const labNeeded = troop.laboratoryRequirement;
+  if (labNeeded > 0) {
+    const labInfo = buildingStore.getBuilding("laboratory", labNeeded);
+
+    if (labInfo) {
+      return labInfo.thRequirement;
+    }
+  } else {
+    const barrackNeeded = troop.barrackRequirement;
+    // Needs check later for normal or dark troop barrack -- same with spells
+    const barrackInfo = buildingStore.getBuilding("barracks", barrackNeeded);
+    if (barrackInfo) {
+      return barrackInfo.thRequirement;
+    }
+  }
+  return 1;
+};
+
+export const getArmyTownhallLevel = (army: Army): number => {
   let townhall = 1;
 
   for (const unit of army.units) {
-    const g = unit.troop;
-    const labNeeded = g.laboratoryRequirement;
-    if (labNeeded > 0) {
-      const labInfo = buildingStore.getBuilding("laboratory", labNeeded);
-
-      if (labInfo) {
-        townhall = Math.max(labInfo.thRequirement, townhall);
-      }
-    } else {
-      const barrackNeeded = g.barrackRequirement;
-      // Needs check later for normal or dark troop barrack -- same with spells
-      const barrackInfo = buildingStore.getBuilding("barracks", barrackNeeded);
-      if (barrackInfo) {
-        townhall = Math.max(barrackInfo.thRequirement, townhall);
-      }
-    }
+    townhall = Math.max(getTroopTownhallLevel(unit.troop), townhall);
   }
   const size = getArmySize(army);
   let fit = getMaxArmySize(townhall);

@@ -7,15 +7,9 @@ import {
   Placeholder,
   UnitButton,
 } from "../../ui-components/composition/ArmyTray";
-import {
-  getArmySize,
-  getPlacementOverview,
-} from "../../engine/army/armyComposition";
+import { getPlacementOverview } from "../../engine/army/armyComposition";
 import { colorMap } from "../consts/unitColors";
-import { Toolbar, ToolbarSpacer } from "../../ui-components/atoms/Toolbar";
-import { Text } from "../../ui-components/atoms/Text";
-import { getMaxArmySize } from "../../engine/army/armySize";
-import { getTownhallLevel } from "../../engine/army/townhallLevel";
+import { ArmyStats } from "./ArmyStats";
 
 export const ShowActiveArmy: React.FC = () => {
   const armyItem = useAtomValue(armyAtom);
@@ -27,20 +21,10 @@ export const ShowActiveArmy: React.FC = () => {
     placement.length === 0 ? ["elixirTroops"] : []
   );
   const fillSpots = Math.max(7 - placement.length, 0);
-  const armyTh = armyItem ? getTownhallLevel(armyItem.army) : 1;
 
   return (
     <>
-      <Toolbar>
-        <Text size="small">
-          {armyItem === null ? "Nothing trained" : armyItem.name}
-        </Text>
-        <ToolbarSpacer />
-        <Text size="small">TH: {armyTh}</Text>
-        <Text size="small">
-          {armyItem ? getArmySize(armyItem.army) : 0} / {getMaxArmySize(armyTh)}
-        </Text>
-      </Toolbar>
+      <ArmyStats armyItem={armyItem ?? undefined} />
       <Inset>
         <ArmyTray>
           {groups.map((g, i, l) => (

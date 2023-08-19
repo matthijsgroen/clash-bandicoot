@@ -15,10 +15,7 @@ import {
 import { colorMap } from "../consts/unitColors";
 import { Column } from "../components/Column";
 import { EditArmy } from "./EditArmy";
-import {
-  getArmySize,
-  getPlacementOverview,
-} from "../../engine/army/armyComposition";
+import { getPlacementOverview } from "../../engine/army/armyComposition";
 import {
   ArmyItem,
   deleteArmy,
@@ -27,11 +24,10 @@ import {
   putArmy,
 } from "../../api/armies";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getTownhallLevel } from "../../engine/army/townhallLevel";
-import { getMaxArmySize } from "../../engine/army/armySize";
 import { useSetAtom } from "jotai";
 import { armyAtom } from "./armyState";
 import { ShowActiveArmy } from "./ShowActiveArmy";
+import { ArmyStats } from "./ArmyStats";
 
 const ArmyRow: React.FC<PropsWithChildren> = ({ children }) => (
   <div
@@ -90,7 +86,6 @@ export const ArmyList: React.FC<{
         </Toolbar>
       </Panel>
       {armies.map((armyItem) => {
-        const armyTh = getTownhallLevel(armyItem.army);
         const placement = getPlacementOverview(armyItem.army);
         const groups = placement.reduce<string[]>(
           (r, u) => (r.includes(u.category) ? r : r.concat(u.category)),
@@ -100,14 +95,7 @@ export const ArmyList: React.FC<{
 
         return (
           <ArmyRow>
-            <Toolbar>
-              <Text size="small">{armyItem.name}</Text>
-              <ToolbarSpacer />
-              <Text size="small">TH: {armyTh}</Text>
-              <Text size="small">
-                {getArmySize(armyItem.army)} / {getMaxArmySize(armyTh)}
-              </Text>
-            </Toolbar>
+            <ArmyStats armyItem={armyItem} />
             <span />
             <Inset>
               <ArmyTray>
@@ -216,7 +204,7 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
               active={activeTab === "Quick Train"}
               onClick={() => setActiveTab("Quick Train")}
             >
-              Quick training
+              Quick train
             </Tab>
           </Toolbar>
         }
