@@ -28,6 +28,7 @@ import { useSetAtom } from "jotai";
 import { armyAtom } from "./armyState";
 import { ShowActiveArmy } from "./ShowActiveArmy";
 import { ArmyStats } from "./ArmyStats";
+import { BackButton } from "../components/BackButton";
 
 const ArmyRow: React.FC<PropsWithChildren> = ({ children }) => (
   <div
@@ -181,19 +182,13 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
       <Dialog
         title={
           <Toolbar>
-            <Button
-              color="limegreen"
-              icon
-              width="default"
-              height="small"
+            <BackButton
               disabled={!editItem}
               invisible={!editItem}
               onClick={() => {
                 setEditItem(null);
               }}
-            >
-              ⬅&#65038;
-            </Button>
+            />
             <Tab
               active={activeTab === "Army"}
               onClick={() => {
