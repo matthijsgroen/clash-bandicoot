@@ -85,6 +85,7 @@ export const EditArmy: React.FC<{
                         icon
                         width="mini"
                         height="mini"
+                        longPress
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
@@ -161,6 +162,7 @@ export const EditArmy: React.FC<{
                           army: addTroop(obj.army, type, level, 1),
                         }));
                       }}
+                      longPress
                     />
                   }
                   miniButton={
