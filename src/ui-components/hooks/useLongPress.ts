@@ -60,6 +60,7 @@ export const useLongPress = <T extends Events>(
     ...events,
     onPointerDown,
     onPointerUp,
+    onPointerCancel: onPointerUp,
     onContextMenu,
   };
   return augmentedEvents;
