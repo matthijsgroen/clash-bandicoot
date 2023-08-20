@@ -35,7 +35,7 @@ export const useLongPress = <T extends Events>(
       timerRef.current.timer = setInterval(() => {
         timerRef.current.triggered++;
         onClick?.(e as unknown as React.MouseEvent<HTMLButtonElement>);
-      }, 200);
+      }, 150);
     },
     [onClick]
   );
