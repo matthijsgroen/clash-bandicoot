@@ -16,9 +16,8 @@ export const useLongPress = <T extends Events>(
   enabled: boolean
 ): T => {
   const timerRef = useRef<{
-    triggered: number;
     timer?: ReturnType<typeof setInterval>;
-  }>({ triggered: 0 });
+  }>({});
   const onClick = events.onClick;
 
   useEffect(
@@ -33,7 +32,6 @@ export const useLongPress = <T extends Events>(
       e.preventDefault();
       clearInterval(timerRef.current.timer);
       timerRef.current.timer = setInterval(() => {
-        timerRef.current.triggered++;
         onClick?.(e as unknown as React.MouseEvent<HTMLButtonElement>);
       }, 150);
     },
@@ -44,11 +42,8 @@ export const useLongPress = <T extends Events>(
     (e) => {
       e.preventDefault();
       clearInterval(timerRef.current.timer);
-      if (timerRef.current.triggered === 0) {
-        onClick?.(e as unknown as React.MouseEvent<HTMLButtonElement>);
-      }
     },
-    [onClick]
+    []
   );
   const onContextMenu: MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
@@ -66,7 +61,6 @@ export const useLongPress = <T extends Events>(
     onPointerDown,
     onPointerUp,
     onContextMenu,
-    onClick: undefined,
   };
   return augmentedEvents;
 };
