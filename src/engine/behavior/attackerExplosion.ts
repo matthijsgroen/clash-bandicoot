@@ -1,3 +1,4 @@
+import { BuildingCategory } from "../../data/types";
 import { BattleEffectState } from "../types";
 import { inRange } from "./modules/getPaths";
 import { EntityAI } from "./type";
@@ -24,7 +25,9 @@ export const attackerExplosion: EntityAI = (state, effectId, delta) => {
         );
         for (const target of targets) {
           const modifier = effect.targetModifiers.find((m) =>
-            target.building.info.categories.includes(m.category)
+            target.building.info.categories.includes(
+              m.category as BuildingCategory
+            )
           );
           const factor = modifier ? modifier.multiplier ?? 1 : 1;
           applyDamage(

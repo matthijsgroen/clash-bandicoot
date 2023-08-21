@@ -144,21 +144,35 @@ export const handleAttack = (
       const unit = state.unitData[unitId];
       const aiHandler = unit.info.aiType;
       if (aiHandler) {
-        aiHandlers[aiHandler]?.(state, unitId, TICK_SPEED);
+        const handler = aiHandlers[aiHandler];
+        if (!handler) {
+          console.warn(`Handler ${aiHandler} not found for unit ${unitId}`);
+        }
+        handler?.(state, unitId, TICK_SPEED);
       }
     }
     for (const buildingId in state.baseData) {
       const building = state.baseData[buildingId];
       const aiHandler = building.building.info.aiType;
       if (aiHandler) {
-        aiHandlers[aiHandler]?.(state, buildingId, TICK_SPEED);
+        const handler = aiHandlers[aiHandler];
+        if (!handler) {
+          console.warn(
+            `Handler ${aiHandler} not found for building ${buildingId}`
+          );
+        }
+        handler?.(state, buildingId, TICK_SPEED);
       }
     }
     for (const effectId in state.effectData) {
       const effect = state.effectData[effectId];
       const aiHandler = effect.aiType;
       if (aiHandler) {
-        aiHandlers[aiHandler]?.(state, effectId, TICK_SPEED);
+        const handler = aiHandlers[aiHandler];
+        if (!handler) {
+          console.warn(`Handler ${aiHandler} not found for effect ${effectId}`);
+        }
+        handler?.(state, effectId, TICK_SPEED);
       }
     }
 

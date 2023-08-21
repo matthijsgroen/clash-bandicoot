@@ -106,18 +106,21 @@ const CombatBuildingHealthBar: React.FC<{ buildingId: string }> = ({
 
 const Effects: React.FC = () => (
   <>
-    {Object.values(useAtomValue(battleAtom).effectData).map((effectData) => {
-      if (effectData.delay > 0) return null;
+    {Object.entries(useAtomValue(battleAtom).effectData).map(
+      ([key, effectData]) => {
+        if (effectData.delay > 0) return null;
 
-      return (
-        <Effect
-          x={effectData.position[0]}
-          y={effectData.position[1]}
-          radius={effectData.range}
-          effectType={effectData.type}
-        />
-      );
-    })}
+        return (
+          <Effect
+            key={key}
+            x={effectData.position[0]}
+            y={effectData.position[1]}
+            radius={effectData.range}
+            effectType={effectData.type}
+          />
+        );
+      }
+    )}
   </>
 );
 

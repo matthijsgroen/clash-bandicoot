@@ -12,6 +12,8 @@ export type BuildingCategory =
   | "army"
   | "trap";
 
+export type UnitCategory = "ground" | "air";
+
 export type Building<
   Settings extends Record<string, unknown> = Record<string, unknown>
 > = {
@@ -43,7 +45,7 @@ export type BuildingLimit = {
 };
 
 export type TargetPreference = {
-  category: BuildingCategory;
+  category: BuildingCategory | UnitCategory;
   multiplier?: number;
 };
 
@@ -53,7 +55,7 @@ export type Troop<
   type: TroopType;
   level: number;
   size: number;
-  category: "ground" | "air";
+  category: UnitCategory;
   movementSpeed: number;
   attackSpeed: number;
   damage: number;

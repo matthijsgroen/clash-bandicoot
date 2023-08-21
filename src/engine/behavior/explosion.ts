@@ -19,7 +19,10 @@ export const explosion: EntityAI = (state, effectId, delta) => {
         // apply damage and delete
         const inRange = Object.values(state.unitData).filter(
           (target) =>
-            target.info.category === "ground" &&
+            (effect.targetModifiers.length === 0 ||
+              effect.targetModifiers.find(
+                (m) => m.category === target.info.category
+              )) &&
             target.hitPoints > 0 &&
             getDistance(target.position, effect.position) <= effect.range
         );

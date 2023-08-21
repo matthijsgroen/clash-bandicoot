@@ -95,7 +95,7 @@ export const ArmyList: React.FC<{
         const fillSpots = Math.max(7 - placement.length, 0);
 
         return (
-          <ArmyRow>
+          <ArmyRow key={armyItem.id}>
             <ArmyStats armyItem={armyItem} />
             <span />
             <Inset>
