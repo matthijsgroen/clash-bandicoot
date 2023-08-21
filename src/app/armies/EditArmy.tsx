@@ -37,7 +37,15 @@ export const EditArmy: React.FC<{
   onDelete?: VoidFunction;
   army: ArmyItem;
 }> = ({ army: initialArmy, onChange, onCancel, onDelete }) => {
-  const [troopLevels, setTroopLevels] = useState<Record<string, number>>({});
+  const [troopLevels, setTroopLevels] = useState<Record<string, number>>(() =>
+    initialArmy.army.units.reduce<Record<string, number>>(
+      (result, unit) => ({
+        ...result,
+        [unit.troop.type]: unit.troop.level,
+      }),
+      {}
+    )
+  );
   const [showTroopInfo, setShowTroopInfo] = useState<null | TroopType>(null);
   const [armyObject, setArmy] = useState(initialArmy);
 
