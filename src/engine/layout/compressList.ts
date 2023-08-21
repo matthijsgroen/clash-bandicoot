@@ -19,4 +19,5 @@ export const buildingList = [
   "clancastle",
   "bomb",
   "spellfactory",
+  "wizardtower",
 ];
