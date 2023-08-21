@@ -18,4 +18,5 @@ export const buildingList = [
   "wallV",
   "clancastle",
   "bomb",
+  "spellfactory",
 ];

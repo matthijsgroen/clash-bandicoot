@@ -14,3 +14,4 @@ import "./wall";
 import "./laboratory";
 import "./clanCastle";
 import "./bomb";
+import "./spellFactory";
