@@ -89,7 +89,6 @@ export const fireballs: EntityAI = (state, buildingId, delta) => {
       };
 
       state.effectData[`${buildingId}-fireball`] = explosion;
-      // building.buildingData.currentTarget = undefined;
       building.buildingData.attackDelay =
         building.building.info.aiSettings.firingRate * 1000;
       building.state = "idle";
