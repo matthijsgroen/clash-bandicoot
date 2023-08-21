@@ -52,7 +52,7 @@ export const UnitButton: React.FC<
     >
       {amount !== undefined && (
         <div className={styles.amounts}>
-          {amount !== undefined && `x${amount}`}
+          {amount !== undefined && `x${amount === Infinity ? "∞" : amount}`}
         </div>
       )}
       <div className={styles.portraitBox}>

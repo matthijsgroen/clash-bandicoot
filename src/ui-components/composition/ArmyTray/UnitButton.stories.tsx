@@ -84,6 +84,16 @@ export const UnitButtonWithAmount: Story = {
   decorators,
 };
 
+export const UnitButtonWithInfiniteAmount: Story = {
+  args: {
+    portraitColor: "pink",
+    label: "Archer",
+    amount: Infinity,
+    buttonColor: DEFAULT_COLOR,
+  },
+  decorators,
+};
+
 export const BuildingButton: Story = {
   args: {
     buttonColor: "#bbf",
