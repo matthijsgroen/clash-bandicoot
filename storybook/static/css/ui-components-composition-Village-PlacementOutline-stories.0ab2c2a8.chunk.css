@@ -43,6 +43,49 @@
   rotate: 45deg;
 }
 
+.PlacementOutline_outline__EK09Q {
+  left: 0;
+  top: 0;
+  translate: calc((var(--x) - 1) * var(--tile-size) - 1px)
+    calc((var(--y) - 1) * var(--tile-size) - 1px);
+  transition: translate 100ms;
+}
+.PlacementOutline_size1__jSK5\+ {
+  width: calc(var(--tile-size) * 3 + 1px);
+  height: calc(var(--tile-size) * 3 + 1px);
+}
+.PlacementOutline_size2__LB4XN {
+  width: calc(var(--tile-size) * 4 + 1px);
+  height: calc(var(--tile-size) * 4 + 1px);
+}
+.PlacementOutline_size3__qetT4 {
+  width: calc(var(--tile-size) * 5 + 1px);
+  height: calc(var(--tile-size) * 5 + 1px);
+}
+.PlacementOutline_size4__iEUMD {
+  width: calc(var(--tile-size) * 6 + 1px);
+  height: calc(var(--tile-size) * 6 + 1px);
+}
+.PlacementOutline_outlineBox__ciU4c {
+  translate: calc(var(--tile-size) * -3) calc(var(--tile-size) * -3);
+}
+.PlacementOutline_dark__t2mRV .PlacementOutline_outline__EK09Q {
+  background-color: white;
+}
+.PlacementOutline_light__T8L18 .PlacementOutline_outline__EK09Q {
+  background-color: #0f0f0f;
+}
+.PlacementOutline_dark__t2mRV {
+  -webkit-filter: drop-shadow(0px 0px 1px black);
+          filter: drop-shadow(0px 0px 1px black);
+  mix-blend-mode: darken;
+}
+.PlacementOutline_light__T8L18 {
+  -webkit-filter: drop-shadow(0px 0px 1px white);
+          filter: drop-shadow(0px 0px 1px white);
+  mix-blend-mode: plus-lighter;
+}
+
 .Building_ground__PK5fN {
   position: absolute;
   left: 0;
@@ -180,9 +223,13 @@
 .Building_wall__6PBMR {
   background-color: #999;
 }
+.Building_wall-0__N4i3y {
+  background-color: #99f;
+  opacity: 0.3;
+}
 .Building_bomb__E4RI5 {
   background-color: #444;
 }
 
 
-/*# sourceMappingURL=ui-components-composition-Village-Building-stories.7ef3be84.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-Village-PlacementOutline-stories.0ab2c2a8.chunk.css.map*/
