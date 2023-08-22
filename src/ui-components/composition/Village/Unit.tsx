@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import styles from "./Unit.module.css";
 
-export const OFFSET = 3;
 export const TILE_SIZE = 15;
 
 export const Unit: React.FC<{
