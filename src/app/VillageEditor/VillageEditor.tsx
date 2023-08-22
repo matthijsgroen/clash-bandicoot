@@ -11,8 +11,6 @@ import {
   Group,
   UnitButton,
 } from "../../ui-components/composition/ArmyTray";
-import { buildingList } from "../../engine/layout/compressList";
-import { buildingStore } from "../../data/buildingStore";
 import {
   canUpgrade,
   getTownhallLevel,
@@ -34,6 +32,10 @@ import { Text } from "../../ui-components/atoms/Text";
 import { EditTray } from "./EditTray";
 import { GridFloat } from "../../ui-components/composition/Village/GridFloat";
 import { ActivationRange } from "../../ui-components/composition/Village/ActivationRange";
+import { WallPlacement } from "./WallPlacement";
+import { findBuilding } from "../../engine/layout/findBuilding";
+import { getBuildingTypesAndAvailableAmount } from "../../engine/layout/typesAndAvailable";
+import { Position } from "../../engine/behavior/utils";
 
 const getIsOutOfBounds = (
   buildings: { id: string }[],
@@ -79,30 +81,12 @@ export const VillageEditor: React.FC<{
 
   const [base, updateBase] = useState(startBase);
   const [scoutView, updateScoutView] = useState(false);
+  const typesAndAvailable = getBuildingTypesAndAvailableAmount(base);
 
-  const townHallLevel = Math.max(getTownhallLevel(base), 1);
-
-  const typesAndAvailable: Record<string, number> = buildingList.reduce(
-    (r, buildingType) => {
-      const amountUsed = Object.values(base.items).reduce(
-        (r, e) => (e.info.type === buildingType ? r + 1 : r),
-        0
-      );
-      const amountAvailable = buildingStore.getMaxBuildingAmount(
-        townHallLevel,
-        buildingType
-      );
-
-      if (amountAvailable > 0) {
-        return {
-          ...r,
-          [buildingType]: amountAvailable - amountUsed,
-        };
-      }
-      return r;
-    },
-    {} as Record<string, number>
-  );
+  const labelItem =
+    selection !== null &&
+    "buildings" in selection &&
+    base.items[selection.buildings[0].id];
 
   const clearSelection = () => {
     setSelection(null);
@@ -146,7 +130,7 @@ export const VillageEditor: React.FC<{
     }
   };
 
-  const onDrag = (position: [x: number, y: number] | undefined) => {
+  const onDrag = (position: Position | undefined) => {
     if (!selection) return;
 
     if ("buildingType" in selection) {
@@ -201,18 +185,9 @@ export const VillageEditor: React.FC<{
     }
   };
 
-  const onSelect = (position: [x: number, y: number]) => {
+  const onSelect = (position: Position) => {
     // First check if earlier drag is continued
-    const building = Object.values(base.items).find((element) => {
-      const xOff = position[0] - element.position[0];
-      const yOff = position[1] - element.position[1];
-      return (
-        xOff >= 0 &&
-        xOff < element.info.size[0] &&
-        yOff >= 0 &&
-        yOff < element.info.size[1]
-      );
-    });
+    const building = findBuilding(base, position);
 
     if (selection && "buildings" in selection) {
       // Check if select target is in selection
@@ -257,12 +232,69 @@ export const VillageEditor: React.FC<{
         buildings: [{ id: building.buildingId, position: building.position }],
       });
       setDragState({ dragStart: position });
+    } else {
+      if (
+        labelItem &&
+        labelItem.info.type === "wall" &&
+        typesAndAvailable["wall"] > 0
+      ) {
+        const wallPos = labelItem.position;
+
+        const isDirectNeighbor =
+          (wallPos[0] === position[0] &&
+            Math.abs(wallPos[1] - position[1]) === 1) ||
+          (wallPos[1] === position[1] &&
+            Math.abs(wallPos[0] - position[0]) === 1);
+        const isDirectNeighbor2 =
+          (wallPos[0] === position[0] &&
+            Math.abs(wallPos[1] - position[1]) === 2) ||
+          (wallPos[1] === position[1] &&
+            Math.abs(wallPos[0] - position[0]) === 2);
+        const inBetween: Position = [
+          (position[0] + wallPos[0]) / 2,
+          (position[1] + wallPos[1]) / 2,
+        ];
+
+        if (
+          isDirectNeighbor ||
+          (isDirectNeighbor2 && !findBuilding(base, inBetween))
+        ) {
+          const newId = createNextKey(Object.keys(base.items), "wall");
+
+          const newId2 = createNextKey(
+            Object.keys(base.items).concat(newId),
+            "wall"
+          );
+
+          updateBase((base) => {
+            let result = placeNewBuilding(
+              base,
+              "wall",
+              labelItem.info.level,
+              position,
+              newId
+            );
+
+            if (isDirectNeighbor2) {
+              result = placeNewBuilding(
+                result,
+                "wall",
+                labelItem.info.level,
+                inBetween,
+                newId2
+              );
+            }
+
+            return result;
+          });
+          setSelection({
+            buildings: [{ id: newId, position }],
+          });
+          setDragState({ dragStart: position });
+        }
+      }
     }
   };
-  const labelItem =
-    selection !== null &&
-    "buildings" in selection &&
-    base.items[selection.buildings[0].id];
 
   return (
     <div className={styles.editor}>
@@ -354,6 +386,11 @@ export const VillageEditor: React.FC<{
                 : []
             }
           />
+          {labelItem &&
+            labelItem.info.type === "wall" &&
+            typesAndAvailable["wall"] > 0 && (
+              <WallPlacement currentWall={labelItem} layout={base} />
+            )}
           {labelItem && labelItem.info.triggerRadius && (
             <ActivationRange
               x={labelItem.position[0] + labelItem.info.size[0] / 2}

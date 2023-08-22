@@ -108,6 +108,10 @@
 .wall {
   background-color: #999;
 }
+.wall-0 {
+  background-color: #99f;
+  opacity: 0.3;
+}
 .bomb {
   background-color: #444;
 }

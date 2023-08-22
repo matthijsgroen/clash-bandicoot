@@ -52,8 +52,9 @@ export const Building: React.FC<{
           {
             [styles.destroyed]: destroyed,
             [styles.attacking]: attacking,
-            // [styles[state ?? "none"]]: state,
             [styles[buildingType]]: styles[buildingType],
+            [styles[`${buildingType}-${level}`]]:
+              styles[`${buildingType}-${level}`],
             [`${className}`]: className,
             [styles.overlapping]: overlapping,
           },
