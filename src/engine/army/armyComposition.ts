@@ -8,6 +8,7 @@ export const elixirTroops: TroopType[] = [
   "giant",
   "goblin",
   "wallbreaker",
+  "balloon",
 ];
 
 export const darkElixirTroops: string[] = [];
