@@ -3,9 +3,13 @@ import { BattleState, BattleUnitState } from "../types";
 import { createObstacleGrid } from "../pathfinding/obstacleGrid";
 import { applyBuildingDamage } from "./utils";
 import { selectTargets } from "./modules/selectTargets";
-import { PathFindingData, getPaths, isUnitInRange } from "./modules/getPaths";
+import {
+  PathFindingData,
+  getWalkPaths,
+  isUnitInRange,
+} from "./modules/getPaths";
 import { getGroupIndex } from "./modules/getGroupIndex";
-import { MovementData, walk } from "./modules/walking";
+import { MovementData, walk } from "./modules/movement";
 
 export type GroundUnitData = {
   currentTarget?: string;
@@ -61,7 +65,7 @@ export const groundUnit: EntityAI = (state, unitId, delta) => {
   if (!unit.unitData.currentTarget) {
     unit.state = "idle";
     const targets = selectTargets(state, unit.info.targetPreference);
-    const paths = getPaths(state, unit, targets);
+    const paths = getWalkPaths(state, unit, targets);
 
     if (paths.length > 0) {
       const path = paths[(unit.unitData.groupIndex ?? 0) % paths.length];

@@ -10,6 +10,9 @@
 .unit.giant {
   scale: 1.5;
 }
+.unit.balloon {
+  scale: 2;
+}
 .unit.goblin {
   scale: 0.8;
 }

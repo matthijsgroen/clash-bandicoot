@@ -66,3 +66,40 @@ export const walk = (
   unit.position[1] += unit.unitData.currentAngle[1] * movementDistanceTick;
   unit.state = "moving";
 };
+
+export const fly = (
+  _state: BattleState,
+  unit: BattleUnitState<MovementData>,
+  delta: number
+) => {
+  if (!unit.unitData.path) return;
+
+  if (getDistance(unit.unitData.path[0], unit.position) < 0.1) {
+    unit.unitData.path.shift();
+    unit.unitData.currentAngle = undefined;
+  }
+
+  const nextPoint = unit.unitData.path[0];
+  if (!nextPoint) {
+    // unit.unitData.currentTarget = undefined;
+    unit.unitData.currentAngle = undefined;
+    unit.unitData.path = undefined;
+    unit.state = "idle";
+    return;
+  }
+
+  if (!unit.unitData.currentAngle) {
+    const angle = Math.atan2(
+      nextPoint[1] - unit.position[1],
+      nextPoint[0] - unit.position[0]
+    );
+    unit.unitData.currentAngle = [Math.cos(angle), Math.sin(angle)];
+  }
+  // https://clashofclans.fandom.com/wiki/Troop_Movement_Speed
+  const movementDistanceTick =
+    ((unit.info.movementSpeed * 12.5) / 100_000) * delta;
+
+  unit.position[0] += unit.unitData.currentAngle[0] * movementDistanceTick;
+  unit.position[1] += unit.unitData.currentAngle[1] * movementDistanceTick;
+  unit.state = "moving";
+};

@@ -7,6 +7,7 @@ import { attackerExplosion } from "./attackerExplosion";
 import { bomb } from "./bomb";
 import { wallBreaker } from "./wallbreaker";
 import { fireballs } from "./fireballs";
+import { bomber } from "./bomber";
 
 export const aiHandlers: Record<string, EntityAI> = {
   groundUnit,
@@ -17,4 +18,5 @@ export const aiHandlers: Record<string, EntityAI> = {
   wallBreaker,
   attackerExplosion,
   fireballs,
+  bomber,
 };

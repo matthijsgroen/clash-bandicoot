@@ -11,6 +11,15 @@ export const isUnitInRange = (
   position?: [x: number, y: number]
 ) => inRange(building, position ?? unit.position, unit.info.hitRadius);
 
+export const isAirUnitInRange = (
+  building: BattleBuildingState,
+  unit: BattleUnitState,
+  position?: [x: number, y: number]
+) => {
+  const distance = getDistance(position ?? unit.position, building.center);
+  return distance < unit.info.hitRadius;
+};
+
 export const inRange = (
   building: BattleBuildingState,
   position: [x: number, y: number],
@@ -30,7 +39,7 @@ export type PathFindingData = {
   pathStorage?: { path: Path; target: string; cost: number }[];
 };
 
-export const getPaths = (
+export const getWalkPaths = (
   state: BattleState,
   unit: BattleUnitState<PathFindingData>,
   targets: [string, BattleBuildingState][],
@@ -115,3 +124,22 @@ export const getPaths = (
 
   return [];
 };
+
+export const getFlyPaths = (
+  state: BattleState,
+  unit: BattleUnitState,
+  targets: [string, BattleBuildingState][]
+): { path: Path; target: string; cost: number }[] =>
+  targets
+    .map(([id, building]) => ({
+      target: id,
+      building,
+      cost: getDistance(unit.position, building.center),
+    }))
+    .sort((a, b) => a.cost - b.cost)
+    .filter((t, _i, l) => t.cost <= l[0].cost + TARGET_SELECTION_TOLERANCE)
+    .map(({ target, building, cost }) => ({
+      target,
+      path: [unit.position, building.center],
+      cost,
+    }));

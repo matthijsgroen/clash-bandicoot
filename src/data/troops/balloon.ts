@@ -45,7 +45,7 @@ troopLevels.forEach(
       hitRadius: 0.5,
       damage,
       trainingTime: time("30s"),
-      // aiType: "wallBreaker",
+      aiType: "bomber",
       aiSettings: {
         damageWhenDestroyed,
         damageRadius: 1.2,

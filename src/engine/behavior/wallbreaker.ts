@@ -5,9 +5,13 @@ import {
   BattleState,
   BattleUnitState,
 } from "../types";
-import { PathFindingData, getPaths, isUnitInRange } from "./modules/getPaths";
+import {
+  PathFindingData,
+  getWalkPaths,
+  isUnitInRange,
+} from "./modules/getPaths";
 import { selectTargets } from "./modules/selectTargets";
-import { walk } from "./modules/walking";
+import { walk } from "./modules/movement";
 import { EntityAI } from "./type";
 import { floorPosition, shiftPosition } from "./utils";
 
@@ -137,7 +141,7 @@ export const wallBreaker: EntityAI = (state, unitId, delta) => {
         ? [preferredTargets[0].target as [string, BattleBuildingState]]
         : selectTargets(state, unit.info.targetPreference);
 
-    const paths = getPaths(state, unit, targets, 0.5);
+    const paths = getWalkPaths(state, unit, targets, 0.5);
 
     if (paths.length > 0) {
       const path = paths[(unit.unitData.groupIndex ?? 0) % paths.length];
