@@ -1,7 +1,7 @@
 import { troopStore } from "../troopStore";
 import { time } from "../utils/time";
 
-// https://clashofclans.fandom.com/wiki/Giant
+// https://clashofclans.fandom.com/wiki/Wall_Breaker
 
 const troopLevels: [
   hitPoints: number,
