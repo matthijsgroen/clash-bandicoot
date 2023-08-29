@@ -134,6 +134,7 @@ const Units: React.FC = () => (
         y={unitData.position[1]}
         unitType={unitData.info.type}
         state={unitData.state}
+        unitMode={unitData.info.category}
         color={colorMap[unitData.type]}
       />
     ))}

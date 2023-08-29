@@ -12,8 +12,9 @@ export const Unit: React.FC<{
   y: number;
   state?: string;
   unitType: string;
+  unitMode?: "ground" | "air";
   color: CSSProperties["color"];
-}> = ({ x, y, state, unitType, color }) => {
+}> = ({ x, y, state, unitType, color, unitMode = "ground" }) => {
   return (
     <div
       style={
@@ -29,6 +30,7 @@ export const Unit: React.FC<{
       className={classNames(styles.unit, styles[unitType], {
         [styles.attacking]: state === "attacking",
         [styles.dead]: state === "dead",
+        [styles.air]: state !== "dead" && unitMode === "air",
       })}
     ></div>
   );

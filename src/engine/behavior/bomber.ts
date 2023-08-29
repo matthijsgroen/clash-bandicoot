@@ -1,10 +1,6 @@
 import { BattleEffectState, BattleState, BattleUnitState } from "../types";
 import { getGroupIndex } from "./modules/getGroupIndex";
-import {
-  getFlyPaths,
-  isAirUnitInRange,
-  isUnitInRange,
-} from "./modules/getPaths";
+import { getFlyPaths, isAirUnitInRange } from "./modules/getPaths";
 import { MovementData, fly } from "./modules/movement";
 import { selectTargets } from "./modules/selectTargets";
 import { EntityAI } from "./type";
@@ -75,6 +71,15 @@ export const bomber: EntityAI = (state, unitId, delta) => {
   }
   if (unit.hitPoints <= 0 && unit.state !== "dead") {
     // Add 'dying' behavior here
+    if (unit.info.aiSettings) {
+      explosion(
+        unit,
+        unit.position,
+        unitId,
+        unit.info.aiSettings?.damageWhenDestroyed,
+        state
+      );
+    }
     unit.state = "dead";
     return;
   }
