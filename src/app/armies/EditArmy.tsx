@@ -164,12 +164,17 @@ export const EditArmy: React.FC<{
                       label={type}
                       level={level === 1 ? undefined : level}
                       size={info?.size}
-                      onClick={() => {
-                        setArmy((obj) => ({
-                          ...obj,
-                          army: addTroop(obj.army, type, level, 1),
-                        }));
-                      }}
+                      onClick={
+                        info?.aiType
+                          ? () => {
+                              setArmy((obj) => ({
+                                ...obj,
+                                army: addTroop(obj.army, type, level, 1),
+                              }));
+                            }
+                          : undefined
+                      }
+                      disabled={!info?.aiType}
                       longPress
                     />
                   }
