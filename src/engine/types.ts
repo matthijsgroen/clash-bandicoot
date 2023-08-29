@@ -51,7 +51,7 @@ export type BattleUnitState<
   hitPoints: number;
   lastHitAt: number;
   effects: [];
-  type: string;
+  type: TroopType;
   level: number;
   position: [x: number, y: number];
   info: Troop<AISettings>;

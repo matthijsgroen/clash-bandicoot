@@ -21,6 +21,7 @@ import { GridFloat } from "../../ui-components/composition/Village/GridFloat";
 import { HealthBar } from "../../ui-components/atoms/HealthBar";
 import { TroopType } from "../../data/types";
 import { ButtonWithConfirm } from "../../ui-components/composition/ButtonWithConfirm";
+import { colorMap } from "../consts/unitColors";
 
 const CombatTimer: React.FC<{ battleAtom: PrimitiveAtom<BattleState> }> = ({
   battleAtom,
@@ -133,6 +134,7 @@ const Units: React.FC = () => (
         y={unitData.position[1]}
         unitType={unitData.info.type}
         state={unitData.state}
+        color={colorMap[unitData.type]}
       />
     ))}
   </>

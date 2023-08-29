@@ -4,23 +4,13 @@
   box-sizing: border-box;
   background-color: white;
   border-radius: 50%;
-}
-.unit.barbarian {
-  background-color: yellow;
   translate: -2.5px -2.5px;
-}
-.unit.archer {
-  background-color: pink;
-  translate: -2.5px -2.5px;
+  background-color: var(--color, "yellow");
 }
 .unit.giant {
-  background-color: red;
-  translate: -2.5px -2.5px;
   scale: 1.5;
 }
 .unit.goblin {
-  background-color: green;
-  translate: -2.5px -2.5px;
   scale: 0.8;
 }
 .unit.attacking {
