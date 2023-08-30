@@ -53,6 +53,7 @@ export const useLongPress = <T extends Events>(
   );
 
   if (!enabled || !events.onClick) {
+    clearInterval(timerRef.current.timer);
     return events;
   }
 

@@ -31,13 +31,13 @@ export const UnitButton: React.FC<
   size,
   amount,
   selected,
-  disabled,
+  disabled = false,
   hidden,
   jump,
   longPress = false,
   ...events
 }) => {
-  const augmentedEvents = useLongPress(events, longPress);
+  const augmentedEvents = useLongPress(events, longPress && !disabled);
 
   return (
     <button
