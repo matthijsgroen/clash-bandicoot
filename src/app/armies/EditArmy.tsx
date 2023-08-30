@@ -3,6 +3,7 @@ import { troopStore } from "../../data/troopStore";
 import {
   addTroop,
   elixirTroops,
+  getArmySize,
   getPlacementOverview,
   removeTroop,
 } from "../../engine/army/armyComposition";
@@ -30,6 +31,10 @@ import { ButtonWithConfirm } from "../../ui-components/composition/ButtonWithCon
 import { ArmyStats } from "./ArmyStats";
 import { UnitStat } from "../../ui-components/composition/UnitStat";
 import { getTroopTownhallLevel } from "../../engine/army/townhallLevel";
+import { getMaxArmySize } from "../../engine/army/armySize";
+import { MAX_TOWNHALL } from "../../data/consts";
+
+const MAX_ARMY_SIZE = getMaxArmySize(MAX_TOWNHALL);
 
 export const EditArmy: React.FC<{
   onChange?: (army: ArmyItem) => void;
@@ -174,7 +179,11 @@ export const EditArmy: React.FC<{
                             }
                           : undefined
                       }
-                      disabled={!info?.aiType}
+                      disabled={
+                        !info?.aiType ||
+                        (getArmySize(armyObject.army) + info?.size ?? 1) >
+                          MAX_ARMY_SIZE
+                      }
                       longPress
                     />
                   }

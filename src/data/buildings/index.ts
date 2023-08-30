@@ -16,3 +16,4 @@ import "./clanCastle";
 import "./bomb";
 import "./spellFactory";
 import "./wizardTower";
+import "./springTrap";

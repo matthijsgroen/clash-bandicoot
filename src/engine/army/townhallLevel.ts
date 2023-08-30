@@ -1,4 +1,5 @@
 import { buildingStore } from "../../data/buildingStore";
+import { MAX_TOWNHALL } from "../../data/consts";
 import { Troop } from "../../data/types";
 import { Army, getArmySize } from "./armyComposition";
 import { getMaxArmySize } from "./armySize";
@@ -32,11 +33,10 @@ export const getArmyTownhallLevel = (army: Army): number => {
   let fit = getMaxArmySize(townhall);
   while (fit < size) {
     townhall++;
-    const newFit = getMaxArmySize(townhall);
-    if (newFit <= fit) {
-      return townhall;
+    if (townhall > MAX_TOWNHALL) {
+      return MAX_TOWNHALL;
     }
-    fit = newFit;
+    fit = getMaxArmySize(townhall);
   }
 
   return townhall;

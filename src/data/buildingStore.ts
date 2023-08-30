@@ -1,3 +1,4 @@
+import { MAX_TOWNHALL } from "./consts";
 import { Building, BuildingLimit } from "./types";
 
 export type BuildingStore = {
@@ -16,6 +17,7 @@ export const createBuildingStore = (): BuildingStore => {
 
   return {
     addBuilding: (building) => {
+      if (building.thRequirement > MAX_TOWNHALL) return;
       buildings.push(building);
     },
     getBuilding: (type, level) =>

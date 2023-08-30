@@ -1,4 +1,5 @@
 import { buildingStore } from "../buildingStore";
+import { MAX_TOWNHALL } from "../consts";
 import { time } from "../utils/time";
 
 const buildingLevels: [hitPoints: number, gold: number, time: string][] = [
@@ -19,22 +20,24 @@ const buildingLevels: [hitPoints: number, gold: number, time: string][] = [
   [9_600, 18_000_000, "15d"],
 ];
 
-buildingLevels.forEach(([hitPoints, cost, timeStr], lvl) => {
-  buildingStore.addBuilding({
-    type: "townhall",
-    categories: ["resource"],
-    level: 1 + lvl,
-    thRequirement: lvl,
-    size: [4, 4],
-    hitPoints: hitPoints,
-    cost: {
-      type: "gold",
-      amount: cost,
-      time: time(timeStr),
-    },
-    aiSettings: {},
+buildingLevels
+  .slice(0, MAX_TOWNHALL)
+  .forEach(([hitPoints, cost, timeStr], lvl) => {
+    buildingStore.addBuilding({
+      type: "townhall",
+      categories: ["resource"],
+      level: 1 + lvl,
+      thRequirement: lvl,
+      size: [4, 4],
+      hitPoints: hitPoints,
+      cost: {
+        type: "gold",
+        amount: cost,
+        time: time(timeStr),
+      },
+      aiSettings: {},
+    });
   });
-});
 
 [[1, 1]].forEach(([amount, th]) =>
   buildingStore.setBuildingLimit("townhall", amount, th)
