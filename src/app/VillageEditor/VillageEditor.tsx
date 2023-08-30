@@ -1,5 +1,5 @@
 import styles from "./VillageEditor.module.css";
-import { BaseLayout } from "../../engine/types";
+import { BaseLayout, Position } from "../../engine/types";
 import {
   Buildings,
   Grid,
@@ -35,7 +35,6 @@ import { ActivationRange } from "../../ui-components/composition/Village/Activat
 import { WallPlacement } from "./WallPlacement";
 import { findBuilding } from "../../engine/layout/findBuilding";
 import { getBuildingTypesAndAvailableAmount } from "../../engine/layout/typesAndAvailable";
-import { Position } from "../../engine/behavior/utils";
 
 const getIsOutOfBounds = (
   buildings: { id: string }[],

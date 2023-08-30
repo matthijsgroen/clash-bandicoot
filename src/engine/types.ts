@@ -2,11 +2,13 @@ import { Building, TargetPreference, Troop, TroopType } from "../data/types";
 import { Army } from "./army/armyComposition";
 import { ObstacleGrid } from "./pathfinding/types";
 
+export type Position = [x: number, y: number];
+
 export type Placement = {
   unit: TroopType;
   level: number;
   timestamp: number;
-  position: [x: number, y: number];
+  position: Position;
 };
 
 export type Replay = {
@@ -16,7 +18,7 @@ export type Replay = {
 export type LayoutBuilding<
   Settings extends Record<string, unknown> = Record<string, unknown>
 > = {
-  position: [x: number, y: number];
+  position: Position;
   buildingId: string;
   info: Building<Settings>;
   buildingState?: string;
@@ -35,7 +37,7 @@ export type BattleBuildingState<
   hitPoints: number;
   lastHitAt: number;
   effects: [];
-  center: [x: number, y: number];
+  center: Position;
   building: LayoutBuilding<Settings>;
   state: string;
   visible: boolean;
@@ -53,7 +55,7 @@ export type BattleUnitState<
   effects: [];
   type: TroopType;
   level: number;
-  position: [x: number, y: number];
+  position: Position;
   info: Troop<AISettings>;
   unitData: T;
   state: string;
@@ -67,7 +69,7 @@ export type BattleEffectState<
 > = {
   type: string;
   level: number;
-  position: [x: number, y: number];
+  position: Position;
   range: number;
   info?: unknown; //Spell;
   targetModifiers: TargetPreference[];

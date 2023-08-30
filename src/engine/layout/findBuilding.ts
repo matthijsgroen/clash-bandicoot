@@ -1,5 +1,4 @@
-import { Position } from "../behavior/utils";
-import { BaseLayout } from "../types";
+import { BaseLayout, Position } from "../types";
 
 export const findBuilding = (base: BaseLayout, position: Position) =>
   Object.values(base.items).find((element) => {

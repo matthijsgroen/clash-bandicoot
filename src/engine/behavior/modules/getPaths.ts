@@ -3,7 +3,7 @@ import { roughPathLength, simplifyPath } from "../../pathfinding/path";
 import { findPath } from "../../pathfinding/pathfinding";
 import { Graph, Path } from "../../pathfinding/types";
 import { BattleBuildingState, BattleState, BattleUnitState } from "../../types";
-import { getDistance } from "../../utils/getDistance";
+import { getBuildingDistance, getDistance } from "../../utils/getDistance";
 
 export const isUnitInRange = (
   building: BattleBuildingState,
@@ -24,12 +24,7 @@ export const inRange = (
   building: BattleBuildingState,
   position: [x: number, y: number],
   radius: number
-) => {
-  const distance =
-    getDistance(position, building.center) -
-    building.building.info.size[0] / 2.05;
-  return distance < radius;
-};
+) => getBuildingDistance(building.building, position) < radius;
 
 const TARGET_SELECTION_TOLERANCE = 0.5;
 

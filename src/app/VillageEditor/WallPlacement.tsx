@@ -1,7 +1,6 @@
-import { Position } from "../../engine/behavior/utils";
 import { findBuilding } from "../../engine/layout/findBuilding";
 import { getBuildingTypesAndAvailableAmount } from "../../engine/layout/typesAndAvailable";
-import { BaseLayout, LayoutBuilding } from "../../engine/types";
+import { BaseLayout, LayoutBuilding, Position } from "../../engine/types";
 import { Building } from "../../ui-components/composition/Village";
 
 export const WallPlacement: React.FC<{

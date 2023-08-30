@@ -1,4 +1,4 @@
-import { BattleState } from "../types";
+import { BattleState, Position } from "../types";
 
 export const applyDamage = (
   target: { hitPoints: number; lastHitAt: number },
@@ -22,8 +22,6 @@ export const applyBuildingDamage = (
     lastHitAt: time,
   };
 };
-
-export type Position = [x: number, y: number];
 
 export const floorPosition = (position: Position): Position =>
   position.map(Math.floor) as Position;
