@@ -7,12 +7,12 @@
 .darkOverlay {
   background-color: #0006;
   border-top: 1px solid #aaa;
-  padding: 0 max(1rem, env(safe-area-inset-right))
-    calc(env(safe-area-inset-bottom));
   width: 100%;
 }
 .darkOverlay .scrollArea {
   margin: 0 auto;
+  padding: 0 max(1rem, env(safe-area-inset-right))
+    calc(env(safe-area-inset-bottom));
 }
 
 .scrollArea {
