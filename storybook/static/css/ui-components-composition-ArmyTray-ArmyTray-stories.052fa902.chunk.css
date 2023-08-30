@@ -1,3 +1,30 @@
+.ArmyTray_armyTray__FXipA {
+  overflow-y: hidden;
+  overflow-x: auto;
+  padding: 0 0.25rem;
+}
+
+.ArmyTray_darkOverlay__2-5o4 {
+  background-color: #0006;
+  border-top: 1px solid #aaa;
+  width: 100%;
+}
+.ArmyTray_darkOverlay__2-5o4 .ArmyTray_scrollArea__aS\+GD {
+  margin: 0 auto;
+  padding: 0 max(1rem, env(safe-area-inset-right))
+    calc(env(safe-area-inset-bottom));
+}
+
+.ArmyTray_scrollArea__aS\+GD {
+  display: grid;
+  height: 100%;
+  width: -webkit-max-content;
+  width: max-content;
+  grid-auto-flow: column;
+  grid-gap: 1.5rem;
+  gap: 1.5rem;
+}
+
 .Group_group__DI3f6 {
   display: grid;
   grid-auto-columns: var(--width);
@@ -11,33 +38,6 @@
   grid-auto-flow: column;
   grid-gap: 0.5rem;
   gap: 0.5rem;
-}
-
-.ArmyTray_armyTray__FXipA {
-  overflow-y: hidden;
-  overflow-x: auto;
-  padding: 0 0.25rem;
-}
-
-.ArmyTray_darkOverlay__2-5o4 {
-  background-color: #0006;
-  border-top: 1px solid #aaa;
-  padding: 0 max(1rem, env(safe-area-inset-right))
-    calc(env(safe-area-inset-bottom));
-  width: 100%;
-}
-.ArmyTray_darkOverlay__2-5o4 .ArmyTray_scrollArea__aS\+GD {
-  margin: 0 auto;
-}
-
-.ArmyTray_scrollArea__aS\+GD {
-  display: grid;
-  height: 100%;
-  width: -webkit-max-content;
-  width: max-content;
-  grid-auto-flow: column;
-  grid-gap: 1.5rem;
-  gap: 1.5rem;
 }
 
 .UnitButton_unit__r93h7 {
@@ -215,30 +215,5 @@
   bottom: 1.25rem;
 }
 
-.Placeholder_empty__wtf-1 {
-  border-radius: 0.5rem;
-  border: 2px dashed #aaa;
-  height: 100%;
-  box-sizing: border-box;
-}
-.Placeholder_large__7ZTQf {
-  height: var(--control-size-large);
-}
 
-.Inset_inset__H3p6A {
-  flex: 1 1 auto;
-  border-left: 1px solid #777;
-  border-right: 1px solid #fff9;
-  border-top: 1px solid #777;
-  border-bottom: 1px solid #fff9;
-  border-radius: 5px;
-  background-color: #0001;
-}
-.Inset_inline__rJFO9 {
-  padding: 0 0.25rem;
-  line-height: 1.2em;
-  display: inline-block;
-}
-
-
-/*# sourceMappingURL=ui-components-composition-ArmyTray-UnitButton-stories.884a9f3a.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-ArmyTray-ArmyTray-stories.052fa902.chunk.css.map*/

@@ -22,12 +22,12 @@
 .ArmyTray_darkOverlay__2-5o4 {
   background-color: #0006;
   border-top: 1px solid #aaa;
-  padding: 0 max(1rem, env(safe-area-inset-right))
-    calc(env(safe-area-inset-bottom));
   width: 100%;
 }
 .ArmyTray_darkOverlay__2-5o4 .ArmyTray_scrollArea__aS\+GD {
   margin: 0 auto;
+  padding: 0 max(1rem, env(safe-area-inset-right))
+    calc(env(safe-area-inset-bottom));
 }
 
 .ArmyTray_scrollArea__aS\+GD {
@@ -225,5 +225,20 @@
   height: var(--control-size-large);
 }
 
+.Inset_inset__H3p6A {
+  flex: 1 1 auto;
+  border-left: 1px solid #777;
+  border-right: 1px solid #fff9;
+  border-top: 1px solid #777;
+  border-bottom: 1px solid #fff9;
+  border-radius: 5px;
+  background-color: #0001;
+}
+.Inset_inline__rJFO9 {
+  padding: 0 0.25rem;
+  line-height: 1.2em;
+  display: inline-block;
+}
 
-/*# sourceMappingURL=ui-components-composition-ArmyTray-Group-stories.ea49417f.chunk.css.map*/
+
+/*# sourceMappingURL=ui-components-composition-ArmyTray-UnitButton-stories.b826dc81.chunk.css.map*/
