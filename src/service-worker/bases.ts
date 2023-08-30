@@ -3,6 +3,7 @@
 
 import { RouteHandler } from "workbox-core";
 import { log } from "./log";
+import { VillageRequestData } from "../api/bases";
 
 export const getBases: RouteHandler = async () => {
   const cache = await caches.open("bases");
@@ -55,7 +56,7 @@ export const postBase: RouteHandler = async ({ request }) => {
 };
 
 export const putBase: RouteHandler = async ({ url, request }) => {
-  const data = await request.json();
+  const data = (await request.json()) as VillageRequestData;
   const id = url.pathname.split("/").slice(-1)[0];
   const cache = await caches.open("bases");
   const base = await cache.match(`/local-api/bases/?id=${id}`);
@@ -66,8 +67,9 @@ export const putBase: RouteHandler = async ({ url, request }) => {
     version: 1,
   };
   if (base) {
-    const previousData = await base.json();
+    const previousData = ((await base.json()) as VillageRequestData[])[0];
     Object.assign(dataObject, previousData);
+    delete (dataObject as any)[0];
   }
   Object.assign(dataObject, data);
 

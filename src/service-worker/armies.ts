@@ -3,6 +3,7 @@
 
 import { RouteHandler } from "workbox-core";
 import { log } from "./log";
+import { ArmyRequestData } from "../api/armies";
 
 export const getArmies: RouteHandler = async () => {
   const cache = await caches.open("armies");
@@ -22,7 +23,7 @@ export const getArmies: RouteHandler = async () => {
 };
 
 export const postArmy: RouteHandler = async ({ request }) => {
-  const data = await request.json();
+  const data = (await request.json()) as ArmyRequestData;
 
   const cache = await caches.open("armies");
   const armyEntries = await cache.matchAll("/local-api/armies/", {
@@ -66,8 +67,9 @@ export const putArmy: RouteHandler = async ({ url, request }) => {
     version: 1,
   };
   if (base) {
-    const previousData = await base.json();
+    const previousData = (await base.json()) as ArmyRequestData[][0];
     Object.assign(dataObject, previousData);
+    delete (dataObject as any)[0];
   }
   Object.assign(dataObject, data);
 

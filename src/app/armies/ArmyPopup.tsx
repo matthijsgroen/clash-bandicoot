@@ -106,6 +106,7 @@ export const ArmyList: React.FC<{
                       .filter((p) => p.category === g)
                       .map((p) => (
                         <UnitButton
+                          key={p.type}
                           portraitColor={colorMap[p.type]}
                           label={p.type}
                           amount={p.available}
