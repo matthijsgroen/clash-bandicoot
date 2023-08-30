@@ -1,4 +1,6 @@
-export const shiftPosition = <T extends [x: number, y: number] | undefined>(
+import { Position } from "../types";
+
+export const shiftPosition = <T extends Position | undefined>(
   position: T,
   deltaX: number,
   deltaY: number

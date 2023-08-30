@@ -26,7 +26,7 @@ import {
   calculateGridPosition,
   getTouchPosition,
 } from "../../ui-components/composition/Village/Grid";
-import { shiftPosition } from "../../data/utils/shiftPosition";
+import { shiftPosition } from "../../engine/utils/shiftPosition";
 import { createNextKey } from "../../engine/utils/keyStore";
 import { Text } from "../../ui-components/atoms/Text";
 import { EditTray } from "./EditTray";
