@@ -22,6 +22,17 @@ export const EditTray: React.FC<{
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   return (
     <div className={styles.tray}>
+      <Button
+        color="lightgrey"
+        width="small"
+        height="default"
+        className={styles.insetButton}
+        onClick={() => {
+          setIsPanelOpen((state) => !state);
+        }}
+      >
+        🔧
+      </Button>
       <div
         className={classNames(styles.trayPanel, {
           [styles.trayOpen]: isPanelOpen,
@@ -86,17 +97,6 @@ export const EditTray: React.FC<{
           )}
         </div>
       </div>
-      <Button
-        color="lightgrey"
-        width="small"
-        height="default"
-        className={styles.insetButton}
-        onClick={() => {
-          setIsPanelOpen((state) => !state);
-        }}
-      >
-        🔧
-      </Button>
     </div>
   );
 };
