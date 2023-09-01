@@ -3,10 +3,14 @@ import { Dialog } from "../../ui-components/atoms/Dialog";
 import { Tab } from "../../ui-components/atoms/Tab";
 import { Toolbar } from "../../ui-components/atoms/Toolbar";
 import { EditArmy } from "./EditArmy";
-import { ArmyItem, deleteArmy, getArmies, putArmy } from "../../api/armies";
+import {
+  ArmyItem,
+  deleteArmy,
+  getArmies,
+  putArmy,
+  trainArmy,
+} from "../../api/armies";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useSetAtom } from "jotai";
-import { armyAtom } from "./armyState";
 import { ShowActiveArmy } from "./ShowActiveArmy";
 import { BackButton } from "../components/BackButton";
 import { ArmyList } from "./ArmyList";
@@ -22,6 +26,7 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
     queryFn: getArmies,
     networkMode: "always",
   });
+  const activeArmy = data?.find((army) => army.id === "active");
 
   const queryClient = useQueryClient();
   const updateMutation = useMutation({
@@ -38,8 +43,13 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
     },
     networkMode: "always",
   });
-
-  const updateArmy = useSetAtom(armyAtom);
+  const trainMutation = useMutation({
+    mutationFn: trainArmy,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["armyList"] });
+    },
+    networkMode: "always",
+  });
 
   return (
     <>
@@ -77,9 +87,9 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
         {!editItem && activeTab === "Quick Train" && (
           <ArmyList
             onEdit={(item) => setEditItem(item)}
-            armies={data}
+            armies={data?.filter((army) => army.id !== "active")}
             onTrain={(item) => {
-              updateArmy(item);
+              trainMutation.mutate(item);
               setActiveTab("Army");
             }}
           />
@@ -100,7 +110,7 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
             }}
           />
         )}
-        {activeTab === "Army" && <ShowActiveArmy />}
+        {activeTab === "Army" && <ShowActiveArmy armyItem={activeArmy} />}
       </Dialog>
     </>
   );

@@ -3,17 +3,23 @@ import { Button } from "../ui-components/atoms/Button";
 import { useAppUpdate } from "./hooks/useAppUpdater";
 import { VillagePopup } from "./Villages/VillagePopup";
 import { ArmyPopup } from "./Armies/ArmyPopup";
-import { useAtomValue } from "jotai";
-import { armyAtom } from "./Armies/armyState";
+import { useQuery } from "@tanstack/react-query";
+import { getArmies } from "../api/armies";
+import { TargetSearch } from "./Combat/TargetSearch";
 
-export const HomeScreen: React.FC<{
-  setScreen: (name: string | null) => void;
-}> = ({ setScreen }) => {
+export const HomeScreen: React.FC = () => {
   const [hasUpdate, triggerUpdate] = useAppUpdate();
-  const [openPopup, setOpenPopup] = useState<"villages" | "armies" | null>(
-    null
-  );
-  const armyItem = useAtomValue(armyAtom);
+  const [openPopup, setOpenPopup] = useState<
+    "villages" | "armies" | "combat" | null
+  >(null);
+
+  const { data } = useQuery({
+    queryKey: ["armyList"],
+    queryFn: getArmies,
+    networkMode: "always",
+    onSuccess: () => {},
+  });
+  const activeArmy = data?.find((army) => army.id === "active");
 
   return (
     <div>
@@ -29,11 +35,11 @@ export const HomeScreen: React.FC<{
       </header>
       <menu>
         <Button
-          onClick={() => setScreen("attack")}
+          onClick={() => setOpenPopup("combat")}
           color="orange"
           width="large"
           height="large"
-          disabled={armyItem === null}
+          disabled={activeArmy === null}
         >
           Attack
         </Button>
@@ -56,23 +62,11 @@ export const HomeScreen: React.FC<{
           Armies
         </Button>
 
-        <Button
-          onClick={() => setScreen("attack")}
-          color="orange"
-          width="large"
-          height="large"
-          disabled
-        >
+        <Button color="orange" width="large" height="large" disabled>
           Replays
         </Button>
 
-        <Button
-          onClick={() => setScreen("attack")}
-          color="orange"
-          width="large"
-          height="large"
-          disabled
-        >
+        <Button color="orange" width="large" height="large" disabled>
           Help
         </Button>
       </menu>
@@ -106,6 +100,12 @@ export const HomeScreen: React.FC<{
       )}
       {openPopup === "armies" && (
         <ArmyPopup onClose={() => setOpenPopup(null)} />
+      )}
+      {openPopup === "combat" && activeArmy && (
+        <TargetSearch
+          onClose={() => setOpenPopup(null)}
+          armyItem={activeArmy}
+        />
       )}
     </div>
   );

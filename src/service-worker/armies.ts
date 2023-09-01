@@ -4,6 +4,25 @@
 import { RouteHandler } from "workbox-core";
 import { log } from "./log";
 import { ArmyRequestData } from "../api/armies";
+import { challengeArmies } from "./factory-armies";
+
+export const installArmies = async () => {
+  const armyCache = await caches.open("armies");
+  log(`placing ${challengeArmies.length} armies in the cache`);
+  await armyCache.put(
+    `/local-api/armies/?id=builtin`,
+    new Response(
+      JSON.stringify(
+        challengeArmies.map((record, index) => ({
+          ...record,
+          id: `bi${index}`,
+          builtIn: true,
+          version: 1,
+        }))
+      )
+    )
+  );
+};
 
 export const getArmies: RouteHandler = async () => {
   const cache = await caches.open("armies");

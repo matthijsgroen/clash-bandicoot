@@ -54,6 +54,18 @@ export const putArmy = async (data: ArmyItem): Promise<ArmyItem> => {
   return convertFromRequest(result);
 };
 
+export const trainArmy = async (data: ArmyItem): Promise<ArmyItem> => {
+  const response = await fetch("/local-api/armies/active", {
+    method: "PUT",
+    body: JSON.stringify({
+      name: data.name,
+      army: pack(data.army),
+    }),
+  });
+  const result = (await response.json()) as ArmyRequestData;
+  return convertFromRequest(result);
+};
+
 export const deleteArmy = async (data: ArmyItem): Promise<void> => {
   await fetch(`/local-api/armies/${data.id}`, {
     method: "DELETE",

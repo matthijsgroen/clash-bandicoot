@@ -5,16 +5,14 @@ import { useQuery } from "@tanstack/react-query";
 import { Village, getBases } from "../../api/bases";
 import { getTownhallLevel } from "../../engine/layout/baseLayout";
 import { useTargetTransition } from "./hooks/useTargetTransition";
-import { useAtomValue } from "jotai";
-import { armyAtom } from "../Armies/armyState";
+import { ArmyItem } from "../../api/armies";
 
-export const TargetSearch: React.FC<{ onClose?: VoidFunction }> = ({
-  onClose,
-}) => {
+export const TargetSearch: React.FC<{
+  armyItem: ArmyItem;
+  onClose?: VoidFunction;
+}> = ({ armyItem, onClose }) => {
   const { base, isSearching, setNextBase, isReady } =
     useTargetTransition<Village>();
-
-  const armyItem = useAtomValue(armyAtom);
 
   const [targetIndex, setTargetIndex] = useState(0);
 

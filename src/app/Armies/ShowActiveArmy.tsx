@@ -1,5 +1,3 @@
-import { useAtomValue } from "jotai";
-import { armyAtom } from "./armyState";
 import { Inset } from "../../ui-components/atoms/Inset";
 import {
   ArmyTray,
@@ -10,12 +8,13 @@ import {
 import { getPlacementOverview } from "../../engine/army/armyComposition";
 import { colorMap } from "../consts/unitColors";
 import { ArmyStats } from "./ArmyStats";
+import { ArmyItem } from "../../api/armies";
 
-export const ShowActiveArmy: React.FC = () => {
-  const armyItem = useAtomValue(armyAtom);
-
+export const ShowActiveArmy: React.FC<{ armyItem?: ArmyItem }> = ({
+  armyItem,
+}) => {
   const placement =
-    armyItem === null ? [] : getPlacementOverview(armyItem.army);
+    armyItem === undefined ? [] : getPlacementOverview(armyItem.army);
   const groups = placement.reduce<string[]>(
     (r, u) => (r.includes(u.category) ? r : r.concat(u.category)),
     placement.length === 0 ? ["elixirTroops"] : []

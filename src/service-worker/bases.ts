@@ -4,6 +4,25 @@
 import { RouteHandler } from "workbox-core";
 import { log } from "./log";
 import { VillageRequestData } from "../api/bases";
+import { factoryBases } from "./factory-bases";
+
+export const installBases = async () => {
+  const baseCache = await caches.open("bases");
+  log(`placing ${factoryBases.length} bases in the cache`);
+  await baseCache.put(
+    `/local-api/bases/?id=builtin`,
+    new Response(
+      JSON.stringify(
+        factoryBases.map((record, index) => ({
+          ...record,
+          id: `bi${index}`,
+          builtIn: true,
+          version: 1,
+        }))
+      )
+    )
+  );
+};
 
 export const getBases: RouteHandler = async () => {
   const cache = await caches.open("bases");
