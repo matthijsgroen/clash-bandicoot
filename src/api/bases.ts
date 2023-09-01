@@ -26,7 +26,7 @@ const convertFromRequest = (input: VillageRequestData): Village => ({
 export const getBases = async (): Promise<Village[]> => {
   const response = await fetch("/local-api/bases");
   const data = (await response.json()) as VillageRequestData[];
-  return data.map(convertFromRequest);
+  return data.map(convertFromRequest).sort((a, b) => a.id.localeCompare(b.id));
 };
 
 export const postBase = async (

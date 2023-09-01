@@ -25,7 +25,7 @@ const convertFromRequest = (input: ArmyRequestData): ArmyItem => ({
 export const getArmies = async (): Promise<ArmyItem[]> => {
   const response = await fetch("/local-api/armies");
   const data = (await response.json()) as ArmyRequestData[];
-  return data.map(convertFromRequest);
+  return data.map(convertFromRequest).sort((a, b) => a.id.localeCompare(b.id));
 };
 
 export const postArmy = async (
