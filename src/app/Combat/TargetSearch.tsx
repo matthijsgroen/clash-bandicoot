@@ -6,7 +6,7 @@ import { Village, getBases } from "../../api/bases";
 import { getTownhallLevel } from "../../engine/layout/baseLayout";
 import { useTargetTransition } from "./hooks/useTargetTransition";
 import { useAtomValue } from "jotai";
-import { armyAtom } from "../armies/armyState";
+import { armyAtom } from "../Armies/armyState";
 
 export const TargetSearch: React.FC<{ onClose?: VoidFunction }> = ({
   onClose,

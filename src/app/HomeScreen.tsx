@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Button } from "../ui-components/atoms/Button";
 import { useAppUpdate } from "./hooks/useAppUpdater";
 import { VillagePopup } from "./villages/VillagePopup";
-import { ArmyPopup } from "./armies/ArmyPopup";
+import { ArmyPopup } from "./Armies/ArmyPopup";
 import { useAtomValue } from "jotai";
-import { armyAtom } from "./armies/armyState";
+import { armyAtom } from "./Armies/armyState";
 
 export const HomeScreen: React.FC<{
   setScreen: (name: string | null) => void;
