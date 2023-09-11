@@ -17,11 +17,13 @@ export const Badge: React.FC<PropsWithChildren<Props>> = ({
 }) => (
   <span className={styles.badgeContainer}>
     {children}
-    <span
-      className={styles.badge}
-      style={{ "--badge-color": color } as BadgeCSS}
-    >
-      {content}
-    </span>
+    {!hidden && (
+      <span
+        className={styles.badge}
+        style={{ "--badge-color": color } as BadgeCSS}
+      >
+        {content}
+      </span>
+    )}
   </span>
 );
