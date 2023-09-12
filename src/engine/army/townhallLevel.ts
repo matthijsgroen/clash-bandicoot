@@ -1,3 +1,4 @@
+import "../../data/buildings";
 import { buildingStore } from "../../data/buildingStore";
 import { MAX_TOWNHALL } from "../../data/consts";
 import { Troop } from "../../data/types";
