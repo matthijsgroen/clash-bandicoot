@@ -13,8 +13,9 @@ export const HelpDialog: React.FC<{
   onClose?: VoidFunction;
   triggerUpdate?: VoidFunction;
   updates: Update[];
-}> = ({ onClose, triggerUpdate, updates }) => {
-  const updateCount = getNewUpdateCount(updates);
+  lastSeen?: number;
+}> = ({ onClose, triggerUpdate, updates, lastSeen }) => {
+  const updateCount = getNewUpdateCount(updates, lastSeen);
   const [activeTab, setActiveTab] = useState<"help" | "updates" | "changelog">(
     "updates"
   );
@@ -44,6 +45,7 @@ export const HelpDialog: React.FC<{
       {activeTab === "updates" && (
         <Updates
           updates={updates}
+          lastSeen={lastSeen}
           triggerUpdate={triggerUpdate}
           viewChangelog={() => setActiveTab("changelog")}
         />

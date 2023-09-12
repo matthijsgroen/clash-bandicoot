@@ -27,7 +27,12 @@ import {
   postArmy,
   putArmy,
 } from "./service-worker/armies";
-import { installUpdates, getUpdates } from "./service-worker/updates";
+import {
+  installUpdates,
+  getUpdates,
+  getLastSeen,
+  putLastSeen,
+} from "./service-worker/updates";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -94,6 +99,16 @@ registerRoute(
   ({ url }) => url.pathname.endsWith("/local-api/updates"),
   getUpdates
 );
+registerRoute(
+  ({ url }) => url.pathname.endsWith("/local-api/updates/last-seen"),
+  getLastSeen
+);
+registerRoute(
+  ({ url }) => url.pathname.endsWith("/local-api/updates/last-seen"),
+  putLastSeen,
+  "PUT"
+);
+
 registerRoute(({ url }) => url.pathname.endsWith("/local-api/bases"), getBases);
 registerRoute(
   ({ url }) => url.pathname.endsWith("/local-api/bases"),

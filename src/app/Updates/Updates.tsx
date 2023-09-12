@@ -1,21 +1,31 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Update } from "../../data/changes/type";
-import {
-  getLastUpdateSeen,
-  updateUpdatesSeen,
-} from "../../data/changes/updateCount";
 import { Button } from "../../ui-components/atoms/Button";
 import { Text } from "../../ui-components/atoms/Text";
 import { Toolbar, ToolbarSpacer } from "../../ui-components/atoms/Toolbar";
 import { UpdateItem } from "./UpdateItem";
+import { putLastSeen } from "../../api/updates";
 
 export const Updates: React.FC<{
   updates: Update[];
+  lastSeen?: number;
   triggerUpdate?: VoidFunction;
   viewChangelog?: VoidFunction;
-}> = ({ updates, triggerUpdate, viewChangelog }) => {
-  const lastUpdateSeen = getLastUpdateSeen();
-  if (!triggerUpdate) {
-    updateUpdatesSeen(updates);
+}> = ({ updates, lastSeen, triggerUpdate, viewChangelog }) => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: putLastSeen,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["lastSeen"] });
+    },
+  });
+
+  if (
+    updates.length > 0 &&
+    !triggerUpdate &&
+    (lastSeen === undefined || updates[0].date > lastSeen)
+  ) {
+    mutation.mutate(updates[0].date);
   }
   return (
     <>
@@ -24,7 +34,7 @@ export const Updates: React.FC<{
           <Button
             color="cornflowerblue"
             onClick={() => {
-              updateUpdatesSeen(updates);
+              // updateUpdatesSeen(updates);
               triggerUpdate();
             }}
             width="huge"
@@ -50,8 +60,8 @@ export const Updates: React.FC<{
       {updates
         .filter(
           (u) =>
-            (triggerUpdate && lastUpdateSeen && lastUpdateSeen < u.date) ||
-            lastUpdateSeen === u.date
+            (triggerUpdate && lastSeen && lastSeen < u.date) ||
+            lastSeen === u.date
         )
         .map((update) => (
           <UpdateItem key={update.date} update={update} />

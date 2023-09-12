@@ -6,7 +6,7 @@ import { ArmyPopup } from "./Armies/ArmyPopup";
 import { useQuery } from "@tanstack/react-query";
 import { getArmies } from "../api/armies";
 import { TargetSearch } from "./Combat/TargetSearch";
-import { getUpdates } from "../api/updates";
+import { getLastSeen, getUpdates } from "../api/updates";
 import { Badge } from "../ui-components/atoms/Badge";
 import { HelpDialog } from "./Help/HelpDialog";
 import { getNewUpdateCount } from "../data/changes/updateCount";
@@ -30,7 +30,13 @@ export const HomeScreen: React.FC = () => {
     networkMode: "always",
   });
 
-  const updateCount = getNewUpdateCount(updates);
+  const { data: lastSeen } = useQuery({
+    queryKey: ["lastSeen"],
+    queryFn: getLastSeen,
+    networkMode: "always",
+  });
+
+  const updateCount = getNewUpdateCount(updates, lastSeen);
 
   return (
     <div>
@@ -116,6 +122,7 @@ export const HomeScreen: React.FC = () => {
           onClose={() => setOpenPopup(null)}
           triggerUpdate={hasUpdate ? triggerUpdate : undefined}
           updates={updates ?? []}
+          lastSeen={lastSeen}
         />
       )}
     </div>

@@ -1,3 +1,4 @@
+import { RouteHandler } from "workbox-core";
 import { changes } from "../data/changes/content";
 import { log } from "./log";
 
@@ -8,6 +9,23 @@ export const installUpdates = async () => {
     `/local-api/updates`,
     new Response(JSON.stringify(changes))
   );
+};
+
+export const putLastSeen: RouteHandler = async ({ url, request }) => {
+  const updateCache = await caches.open("updates");
+  const timestamp = (await request.json()) as number;
+  const response = new Response(JSON.stringify(timestamp));
+  await updateCache.put(`/local-api/updates/lastSeen`, response);
+  return response;
+};
+
+export const getLastSeen = async (): Promise<Response> => {
+  const updateCache = await caches.open("updates");
+  const data = await updateCache.match(`/local-api/updates/lastSeen`);
+  if (!data) {
+    return new Response(JSON.stringify(undefined));
+  }
+  return data;
 };
 
 export const getUpdates = async () => {
