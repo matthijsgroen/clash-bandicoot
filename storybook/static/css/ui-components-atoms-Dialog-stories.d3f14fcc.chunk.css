@@ -432,6 +432,9 @@
 .Tab_tab__dWlu\+.Tab_inactive__ohjdM::before {
   background-color: #fff2;
 }
+.Tab_tab__dWlu\+.Tab_disabled__\+d0xp {
+  opacity: 0.5;
+}
 
 
-/*# sourceMappingURL=ui-components-atoms-Dialog-stories.e16c37ef.chunk.css.map*/
+/*# sourceMappingURL=ui-components-atoms-Dialog-stories.d3f14fcc.chunk.css.map*/
