@@ -63,6 +63,7 @@ export const DialogTabs: Story = {
         </Button>
         <Tab active>Leger trainen</Tab>
         <Tab>Spreuken brouwen</Tab>
+        <Tab disabled>Snel trainen</Tab>
       </Toolbar>
     ),
     children: [

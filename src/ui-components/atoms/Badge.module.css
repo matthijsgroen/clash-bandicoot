@@ -16,5 +16,6 @@
   right: 0;
   min-width: 0.5rem;
   min-height: 0.5rem;
-  translate: 0.5rem -0.5rem;
+  translate: -0.1rem -0.5rem;
+  text-align: center;
 }

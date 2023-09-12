@@ -27,6 +27,7 @@ import {
   postArmy,
   putArmy,
 } from "./service-worker/armies";
+import { installUpdates, getUpdates } from "./service-worker/updates";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -39,7 +40,7 @@ clientsClaim();
 precacheAndRoute(self.__WB_MANIFEST);
 
 registerRoute(
-  ({ url }) => url.pathname.startsWith("/clash-bandicoot/storybook/"),
+  ({ url }) => url.pathname.includes("/storybook/"),
   new NetworkOnly()
 );
 
@@ -89,6 +90,10 @@ registerRoute(
   })
 );
 
+registerRoute(
+  ({ url }) => url.pathname.endsWith("/local-api/updates"),
+  getUpdates
+);
 registerRoute(({ url }) => url.pathname.endsWith("/local-api/bases"), getBases);
 registerRoute(
   ({ url }) => url.pathname.endsWith("/local-api/bases"),
@@ -136,6 +141,7 @@ self.addEventListener("install", (event) => {
   const install = async () => {
     await installBases();
     await installArmies();
+    await installUpdates();
   };
 
   event.waitUntil(install());

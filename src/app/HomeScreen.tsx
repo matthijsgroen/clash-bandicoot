@@ -6,20 +6,31 @@ import { ArmyPopup } from "./Armies/ArmyPopup";
 import { useQuery } from "@tanstack/react-query";
 import { getArmies } from "../api/armies";
 import { TargetSearch } from "./Combat/TargetSearch";
+import { getUpdates } from "../api/updates";
+import { Badge } from "../ui-components/atoms/Badge";
+import { HelpDialog } from "./Help/HelpDialog";
+import { getNewUpdateCount } from "../data/changes/updateCount";
 
 export const HomeScreen: React.FC = () => {
   const [hasUpdate, triggerUpdate] = useAppUpdate();
   const [openPopup, setOpenPopup] = useState<
-    "villages" | "armies" | "combat" | null
+    "villages" | "armies" | "combat" | "help" | null
   >(null);
 
   const { data } = useQuery({
     queryKey: ["armyList"],
     queryFn: getArmies,
     networkMode: "always",
-    onSuccess: () => {},
   });
   const activeArmy = data?.find((army) => army.id === "active");
+
+  const { data: updates } = useQuery({
+    queryKey: ["updates"],
+    queryFn: getUpdates,
+    networkMode: "always",
+  });
+
+  const updateCount = getNewUpdateCount(updates);
 
   return (
     <div>
@@ -33,7 +44,7 @@ export const HomeScreen: React.FC = () => {
           </strong>
         </p>
       </header>
-      <menu>
+      <menu style={{ display: "flex" }}>
         <Button
           onClick={() => setOpenPopup("combat")}
           color="orange"
@@ -66,24 +77,17 @@ export const HomeScreen: React.FC = () => {
           Replays
         </Button>
 
-        <Button color="orange" width="large" height="large" disabled>
-          Help
-        </Button>
-      </menu>
-
-      {hasUpdate && (
-        <div>
-          <p>The app has an update!</p>
+        <Badge content={`${updateCount}`} hidden={updateCount === 0}>
           <Button
             color="orange"
-            onClick={() => triggerUpdate()}
-            width="huge"
-            height="default"
+            width="large"
+            height="large"
+            onClick={() => setOpenPopup("help")}
           >
-            Update now
+            Help & Updates
           </Button>
-        </div>
-      )}
+        </Badge>
+      </menu>
 
       <footer>
         <p>
@@ -105,6 +109,13 @@ export const HomeScreen: React.FC = () => {
         <TargetSearch
           onClose={() => setOpenPopup(null)}
           armyItem={activeArmy}
+        />
+      )}
+      {openPopup === "help" && (
+        <HelpDialog
+          onClose={() => setOpenPopup(null)}
+          triggerUpdate={hasUpdate ? triggerUpdate : undefined}
+          updates={updates ?? []}
         />
       )}
     </div>

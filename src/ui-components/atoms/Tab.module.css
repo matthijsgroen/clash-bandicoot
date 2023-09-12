@@ -35,3 +35,6 @@
 .tab.inactive::before {
   background-color: #fff2;
 }
+.tab.disabled {
+  opacity: 0.5;
+}
