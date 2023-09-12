@@ -23,7 +23,8 @@
   transition: translate 100ms;
   background-color: var(--color, "yellow");
 }
-.unit.giant {
+.unit.giant,
+.unit.pekka {
   scale: 1.5;
 }
 .unit.balloon {

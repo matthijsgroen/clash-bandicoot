@@ -1,8 +1,8 @@
 import { buildingStore } from "../../data/buildingStore";
 import { MAX_TOWNHALL } from "../../data/consts";
 import { Troop } from "../../data/types";
-import { Army, getArmySize } from "./armyComposition";
-import { getMaxArmySize } from "./armySize";
+import { getArmySize, getMaxArmySize } from "./armySize";
+import { Army } from "./types";
 
 export const getTroopTownhallLevel = (troop: Troop): number => {
   const labNeeded = troop.laboratoryRequirement;
@@ -20,7 +20,7 @@ export const getTroopTownhallLevel = (troop: Troop): number => {
       return barrackInfo.thRequirement;
     }
   }
-  return 1;
+  return MAX_TOWNHALL + 1;
 };
 
 export const getArmyTownhallLevel = (army: Army): number => {

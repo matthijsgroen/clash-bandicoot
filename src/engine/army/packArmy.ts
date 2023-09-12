@@ -1,12 +1,12 @@
 import { pack as packArmy, unpack as unpackArmy } from "../utils/pack";
 import { TroopType } from "../../data/types";
 import {
-  Army,
   addTroop,
   categories,
   createArmy,
   getPlacementOverview,
 } from "./armyComposition";
+import { Army } from "./types";
 
 export const compressArmy = (army: Army): Uint8Array => {
   const result: number[] = [];

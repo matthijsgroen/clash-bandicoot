@@ -1,5 +1,5 @@
 import { Building, TargetPreference, Troop, TroopType } from "../data/types";
-import { Army } from "./army/armyComposition";
+import { Army } from "./army/types";
 import { ObstacleGrid } from "./pathfinding/types";
 
 export type Position = [x: number, y: number];

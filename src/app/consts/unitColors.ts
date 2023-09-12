@@ -7,4 +7,8 @@ export const colorMap: Record<TroopType, string> = {
   goblin: "green",
   wallbreaker: "white",
   balloon: "orangered",
+  wizard: "grey",
+  healer: "grey",
+  dragon: "grey",
+  pekka: "steelblue",
 };

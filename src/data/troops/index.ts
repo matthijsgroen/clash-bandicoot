@@ -4,3 +4,4 @@ import "./giant";
 import "./goblin";
 import "./wallbreaker";
 import "./balloon";
+import "./pekka";

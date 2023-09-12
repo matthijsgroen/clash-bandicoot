@@ -15,7 +15,7 @@ export const UnitButton: React.FC<
     buttonColor?: string;
     label?: string;
     amount?: number;
-    size?: number;
+    size?: number | "N/A";
     selected?: boolean;
     disabled?: boolean;
     level?: number;

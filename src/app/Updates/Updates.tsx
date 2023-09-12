@@ -54,7 +54,7 @@ export const Updates: React.FC<{
             lastUpdateSeen === u.date
         )
         .map((update) => (
-          <UpdateItem update={update} />
+          <UpdateItem key={update.date} update={update} />
         ))}
     </>
   );

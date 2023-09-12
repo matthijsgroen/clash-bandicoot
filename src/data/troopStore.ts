@@ -1,3 +1,5 @@
+import { getTroopTownhallLevel } from "../engine/army/townhallLevel";
+import { MAX_TOWNHALL } from "./consts";
 import { Troop, TroopType } from "./types";
 
 export type TroopStore = {
@@ -10,6 +12,7 @@ export const createTroopStore = (): TroopStore => {
 
   return {
     addTroop: (troop) => {
+      if (getTroopTownhallLevel(troop) > MAX_TOWNHALL) return;
       troops.push(troop);
     },
     getTroop: (type, level) =>

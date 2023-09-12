@@ -37,7 +37,11 @@ export type TroopType =
   | "giant"
   | "goblin"
   | "wallbreaker"
-  | "balloon";
+  | "balloon"
+  | "wizard"
+  | "healer"
+  | "dragon"
+  | "pekka";
 
 export type BuildingLimit = {
   thLevel: number;

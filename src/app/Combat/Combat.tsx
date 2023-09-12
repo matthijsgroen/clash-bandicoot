@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./Combat.module.css";
 import { BaseLayout, BattleState, Replay } from "../../engine/types";
 import { handleAttack } from "../../engine/combat/attack";
-import { Army } from "../../engine/army/armyComposition";
 import { Timer } from "../../ui-components/atoms/Timer";
 import { Destruction } from "../../ui-components/atoms/Destruction";
 import { ArmyControl } from "./ArmyControl";
@@ -22,6 +21,7 @@ import { HealthBar } from "../../ui-components/atoms/HealthBar";
 import { TroopType } from "../../data/types";
 import { ButtonWithConfirm } from "../../ui-components/composition/ButtonWithConfirm";
 import { colorMap } from "../consts/unitColors";
+import { Army } from "../../engine/army/types";
 
 const CombatTimer: React.FC<{ battleAtom: PrimitiveAtom<BattleState> }> = ({
   battleAtom,

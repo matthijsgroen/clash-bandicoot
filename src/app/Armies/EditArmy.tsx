@@ -3,7 +3,6 @@ import { troopStore } from "../../data/troopStore";
 import {
   addTroop,
   elixirTroops,
-  getArmySize,
   getPlacementOverview,
   removeTroop,
 } from "../../engine/army/armyComposition";
@@ -31,7 +30,7 @@ import { ButtonWithConfirm } from "../../ui-components/composition/ButtonWithCon
 import { ArmyStats } from "./ArmyStats";
 import { UnitStat } from "../../ui-components/composition/UnitStat";
 import { getTroopTownhallLevel } from "../../engine/army/townhallLevel";
-import { getMaxArmySize } from "../../engine/army/armySize";
+import { getArmySize, getMaxArmySize } from "../../engine/army/armySize";
 import { MAX_TOWNHALL } from "../../data/consts";
 
 const MAX_ARMY_SIZE = getMaxArmySize(MAX_TOWNHALL);
@@ -84,6 +83,7 @@ export const EditArmy: React.FC<{
                 .filter((p) => p.category === g)
                 .map((p) => (
                   <UnitButtonLayout
+                    key={p.type}
                     unitButton={
                       <UnitButton
                         portraitColor={colorMap[p.type]}
@@ -168,7 +168,7 @@ export const EditArmy: React.FC<{
                       portraitColor={colorMap[type]}
                       label={type}
                       level={level === 1 ? undefined : level}
-                      size={info?.size}
+                      size={info?.size ?? "N/A"}
                       onClick={
                         info?.aiType
                           ? () => {
@@ -193,6 +193,7 @@ export const EditArmy: React.FC<{
                       icon
                       width="mini"
                       height="mini"
+                      disabled={!info}
                       onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();

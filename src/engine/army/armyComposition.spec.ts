@@ -2,12 +2,12 @@ import { troopStore } from "../../data/troopStore";
 import {
   createArmy,
   addTroop,
-  getArmySize,
   armyBuilder,
   getPlacementOverview,
   placeUnit,
   canDeployTroops,
 } from "./armyComposition";
+import { getArmySize } from "./armySize";
 
 describe("Army composition", () => {
   describe("createArmy", () => {

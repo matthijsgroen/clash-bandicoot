@@ -1,6 +1,7 @@
 import "../../data/troops";
 import { troopStore } from "../../data/troopStore";
-import { Troop, TroopType } from "../../data/types";
+import { TroopType } from "../../data/types";
+import { Army, ArmyTroop } from "./types";
 
 export const elixirTroops: TroopType[] = [
   "barbarian",
@@ -9,6 +10,10 @@ export const elixirTroops: TroopType[] = [
   "goblin",
   "wallbreaker",
   "balloon",
+  "wizard",
+  "healer",
+  "dragon",
+  "pekka",
 ];
 
 export const darkElixirTroops: string[] = [];
@@ -22,15 +27,6 @@ export const categories = {
   heros,
   spells,
   darkSpells,
-};
-
-export type ArmyTroop = {
-  troop: Troop;
-  state: "placed" | "ready";
-};
-
-export type Army = {
-  units: ArmyTroop[];
 };
 
 export const createArmy = (): Army => ({ units: [] });
@@ -77,9 +73,6 @@ export const removeTroop = (
     }),
   };
 };
-
-export const getArmySize = (army: Army) =>
-  army.units.reduce((size, unit) => size + unit.troop.size, 0);
 
 export const getPlacementOverview = (army: Army) => {
   const placement: {

@@ -1,6 +1,5 @@
 import { ArmyItem } from "../../api/armies";
-import { getArmySize } from "../../engine/army/armyComposition";
-import { getMaxArmySize } from "../../engine/army/armySize";
+import { getArmySize, getMaxArmySize } from "../../engine/army/armySize";
 import { getArmyTownhallLevel } from "../../engine/army/townhallLevel";
 import { MiniStat } from "../../ui-components/composition/MiniStat";
 import { Text } from "../../ui-components/atoms/Text";

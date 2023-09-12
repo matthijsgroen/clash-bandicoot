@@ -1,4 +1,9 @@
 changes:
+  - date: 2023-09-12
+    version: 0.0.3-alpha
+    changes:
+      added:
+        - Support for P.E.K.K.A.
   - date: 2023-09-08
     version: 0.0.2-alpha
     changes:

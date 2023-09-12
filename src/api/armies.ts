@@ -1,5 +1,6 @@
-import { Army, createArmy } from "../engine/army/armyComposition";
+import { createArmy } from "../engine/army/armyComposition";
 import { pack, unpack } from "../engine/army/packArmy";
+import { Army } from "../engine/army/types";
 
 export type ArmyRequestData = {
   name: string;
