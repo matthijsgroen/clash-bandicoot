@@ -5,6 +5,7 @@ import { Text } from "../../ui-components/atoms/Text";
 import { Toolbar, ToolbarSpacer } from "../../ui-components/atoms/Toolbar";
 import { UpdateItem } from "./UpdateItem";
 import { putLastSeen } from "../../api/updates";
+import { useRef } from "react";
 
 export const Updates: React.FC<{
   updates: Update[];
@@ -20,13 +21,17 @@ export const Updates: React.FC<{
     },
   });
 
+  const isUpdating = useRef(false);
   if (
     updates.length > 0 &&
     !triggerUpdate &&
-    (lastSeen === undefined || updates[0].date > lastSeen)
+    !isUpdating.current &&
+    (lastSeen === undefined || updates[0].date !== lastSeen)
   ) {
+    isUpdating.current = true;
     mutation.mutate(updates[0].date);
   }
+
   return (
     <>
       <Toolbar>
@@ -34,7 +39,6 @@ export const Updates: React.FC<{
           <Button
             color="cornflowerblue"
             onClick={() => {
-              // updateUpdatesSeen(updates);
               triggerUpdate();
             }}
             width="huge"
@@ -61,7 +65,7 @@ export const Updates: React.FC<{
         .filter(
           (u) =>
             (triggerUpdate && lastSeen && lastSeen < u.date) ||
-            lastSeen === u.date
+            (!triggerUpdate && lastSeen === u.date)
         )
         .map((update) => (
           <UpdateItem key={update.date} update={update} />

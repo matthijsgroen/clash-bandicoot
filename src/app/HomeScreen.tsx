@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui-components/atoms/Button";
 import { useAppUpdate } from "./hooks/useAppUpdater";
 import { VillagePopup } from "./Villages/VillagePopup";
 import { ArmyPopup } from "./Armies/ArmyPopup";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getArmies } from "../api/armies";
 import { TargetSearch } from "./Combat/TargetSearch";
 import { getLastSeen, getUpdates } from "../api/updates";
@@ -23,6 +23,12 @@ export const HomeScreen: React.FC = () => {
     networkMode: "always",
   });
   const activeArmy = data?.find((army) => army.id === "active");
+  const queryClient = useQueryClient();
+  useEffect(() => {
+    if (hasUpdate) {
+      queryClient.invalidateQueries(["updates"]);
+    }
+  }, [hasUpdate, queryClient]);
 
   const { data: updates } = useQuery({
     queryKey: ["updates"],

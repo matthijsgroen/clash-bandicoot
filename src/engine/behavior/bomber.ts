@@ -56,7 +56,7 @@ const attack = (
     unit.unitData.attackDelay -= delta;
   } else {
     explosion(unit, position, unitId, unit.info.damage, state);
-    // unit.hitPoints = 0;
+    unit.unitData.attackDelay = unit.info.attackSpeed * 1000;
   }
 };
 
