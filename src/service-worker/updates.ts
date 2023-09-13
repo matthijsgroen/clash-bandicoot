@@ -11,9 +11,31 @@ export const installUpdates = async () => {
   );
 };
 
-export const putLastSeen: RouteHandler = async ({ url, request }) => {
+const updateBadge = async (lastSeen?: number) => {
+  const counter = lastSeen
+    ? changes.reduce((r, c) => (c.date > lastSeen ? r + 1 : r), 0)
+    : 1;
+  if (!navigator.setAppBadge) return;
+  if (counter > 0) {
+    await navigator.setAppBadge(counter);
+  } else {
+    await navigator.clearAppBadge();
+  }
+  log(`Setting update counter to ${counter}`);
+};
+
+export const updateUpdateCounter = async () => {
+  const lastSeen: number | undefined = (
+    await getLastSeen()
+  ).json() as unknown as number | undefined;
+  await updateBadge(lastSeen);
+};
+
+export const putLastSeen: RouteHandler = async ({ request }) => {
   const updateCache = await caches.open("updates");
   const timestamp = (await request.json()) as number;
+  await updateBadge(timestamp);
+
   const response = new Response(JSON.stringify(timestamp));
   await updateCache.put(`/local-api/updates/lastSeen`, response);
   return response;

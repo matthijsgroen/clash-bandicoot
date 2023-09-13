@@ -32,6 +32,7 @@ import {
   getUpdates,
   getLastSeen,
   putLastSeen,
+  updateUpdateCounter,
 } from "./service-worker/updates";
 
 declare const self: ServiceWorkerGlobalScope;
@@ -157,6 +158,7 @@ self.addEventListener("install", (event) => {
     await installBases();
     await installArmies();
     await installUpdates();
+    await updateUpdateCounter();
   };
 
   event.waitUntil(install());
