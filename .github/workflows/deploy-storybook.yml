@@ -2,7 +2,7 @@ name: "Deploy Storybook"
 
 on:
   workflow_run:
-    workflows: [CI]
+    workflows: [Deploy Application]
     types: [completed]
     branches: [main]
     paths:
