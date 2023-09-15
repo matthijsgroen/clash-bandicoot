@@ -21,4 +21,5 @@ export const buildingList = [
   "spellfactory",
   "wizardtower",
   "springtrap",
+  "xbow",
 ];
