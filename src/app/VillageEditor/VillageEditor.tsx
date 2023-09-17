@@ -35,6 +35,9 @@ import { ActivationRange } from "../../ui-components/composition/Village/Activat
 import { WallPlacement } from "./WallPlacement";
 import { findBuilding } from "../../engine/layout/findBuilding";
 import { getBuildingTypesAndAvailableAmount } from "../../engine/layout/typesAndAvailable";
+import { buildingStore } from "../../data/buildingStore";
+import { VillageSelection } from "./types";
+import { BuildingActions } from "./BuildingActions";
 
 const getIsOutOfBounds = (
   buildings: { id: string }[],
@@ -59,17 +62,7 @@ export const VillageEditor: React.FC<{
   readOnly?: boolean;
   name?: string;
 }> = ({ base: startBase, onClose, onSave, readOnly = false, name }) => {
-  const [selection, setSelection] = useState<
-    | null
-    | {
-        buildings: {
-          id: string;
-          position: [x: number, y: number];
-          isNew?: boolean;
-        }[];
-      }
-    | { buildingType: string; level: number }
-  >(null);
+  const [selection, setSelection] = useState<VillageSelection>(null);
   const [interactionMode, setInteractionMode] = useState<"selection" | "drag">(
     "selection"
   );
@@ -401,7 +394,7 @@ export const VillageEditor: React.FC<{
           {labelItem && (
             <GridFloat x={labelItem.position[0]} y={labelItem.position[1]}>
               <Text centered element="h1" color="palegreen">
-                {labelItem.info.type}
+                {labelItem.info.displayName ?? labelItem.info.type}
               </Text>
               <Text centered size="small" color="springgreen">
                 level {labelItem.info.level}
@@ -431,34 +424,39 @@ export const VillageEditor: React.FC<{
           "buildings" in selection && (
             <div className={styles.toolBar}>
               {selection.buildings.length === 1 && !readOnly && (
-                <Button
-                  color="#F2E1D9"
-                  width="default"
-                  height="default"
-                  disabled={!canUpgrade(base, selection.buildings[0].id)}
-                  onClick={() => {
-                    updateBase((base) =>
-                      upgradeBuilding(base, selection.buildings[0].id)
-                    );
-                  }}
-                >
-                  ⬆
-                </Button>
-              )}
-              {selection.buildings.length === 1 && !readOnly && (
-                <Button
-                  color="red"
-                  width="default"
-                  height="default"
-                  onClick={() => {
-                    updateBase((base) =>
-                      removeBuilding(base, selection.buildings[0].id)
-                    );
-                    setSelection(null);
-                  }}
-                >
-                  🗑️
-                </Button>
+                <>
+                  <Button
+                    color="#F2E1D9"
+                    width="default"
+                    height="default"
+                    disabled={!canUpgrade(base, selection.buildings[0].id)}
+                    onClick={() => {
+                      updateBase((base) =>
+                        upgradeBuilding(base, selection.buildings[0].id)
+                      );
+                    }}
+                  >
+                    ⬆
+                  </Button>
+                  <Button
+                    color="red"
+                    width="default"
+                    height="default"
+                    onClick={() => {
+                      updateBase((base) =>
+                        removeBuilding(base, selection.buildings[0].id)
+                      );
+                      setSelection(null);
+                    }}
+                  >
+                    🗑️
+                  </Button>
+                  <BuildingActions
+                    selection={selection}
+                    base={base}
+                    updateBase={updateBase}
+                  />
+                </>
               )}
             </div>
           )}
@@ -466,45 +464,48 @@ export const VillageEditor: React.FC<{
       {!readOnly && (
         <ArmyTray className={styles.placementControl} darkOverlay>
           <Group>
-            {Object.entries(typesAndAvailable).map(([type, amount]) => (
-              <UnitButton
-                key={type}
-                buttonColor="#bbf"
-                portraitColor="#bbf"
-                label={type}
-                jump
-                amount={amount}
-                hidden={amount === 0}
-                selected={
-                  selection !== null &&
-                  "buildingType" in selection &&
-                  selection.buildingType === type
-                }
-                onTouchStart={() => {
-                  setSelection({ buildingType: type, level: 1 });
-                  setDragState({});
-                }}
-                onTouchMove={(e) => {
-                  if (dragState === null || selection === null) {
-                    return;
+            {Object.entries(typesAndAvailable).map(([type, amount]) => {
+              const building = buildingStore.getBuilding(type, 1);
+              return (
+                <UnitButton
+                  key={type}
+                  buttonColor="#bbf"
+                  portraitColor="#bbf"
+                  label={building?.displayName ?? type}
+                  jump
+                  amount={amount}
+                  hidden={amount === 0}
+                  selected={
+                    selection !== null &&
+                    "buildingType" in selection &&
+                    selection.buildingType === type
                   }
-                  onDrag(shiftPosition(getTouchPosition(e, true), -2, -2));
-                }}
-                onTouchEnd={(e) => {
-                  if (e.stopPropagation) e.stopPropagation();
-                  if (e.preventDefault) e.preventDefault();
+                  onTouchStart={() => {
+                    setSelection({ buildingType: type, level: 1 });
+                    setDragState({});
+                  }}
+                  onTouchMove={(e) => {
+                    if (dragState === null || selection === null) {
+                      return;
+                    }
+                    onDrag(shiftPosition(getTouchPosition(e, true), -2, -2));
+                  }}
+                  onTouchEnd={(e) => {
+                    if (e.stopPropagation) e.stopPropagation();
+                    if (e.preventDefault) e.preventDefault();
 
-                  if (dragState === null || selection === null) {
-                    return;
-                  }
-                  onDragRelease();
-                }}
-                onMouseDown={() => {
-                  setSelection({ buildingType: type, level: 1 });
-                  setDragState({});
-                }}
-              />
-            ))}
+                    if (dragState === null || selection === null) {
+                      return;
+                    }
+                    onDragRelease();
+                  }}
+                  onMouseDown={() => {
+                    setSelection({ buildingType: type, level: 1 });
+                    setDragState({});
+                  }}
+                />
+              );
+            })}
           </Group>
         </ArmyTray>
       )}

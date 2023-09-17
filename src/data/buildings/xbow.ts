@@ -26,6 +26,18 @@ buildingLevels.forEach(([hitPoints, cost, timeStr, damage, th], lvl) => {
   buildingStore.addBuilding({
     type: "xbow",
     categories: ["defense"],
+    displayName: "X-Bow",
+    buildingColor: "#ffaaaa",
+    editActions: [
+      {
+        icon: "🎯",
+        label: "Ground",
+        mutation: {
+          mutationType: "changeType",
+          newType: "xbow:both",
+        },
+      },
+    ],
     level: 1 + lvl,
     size: [3, 3],
     thRequirement: th,
@@ -41,6 +53,39 @@ buildingLevels.forEach(([hitPoints, cost, timeStr, damage, th], lvl) => {
       firingRate: 0.128,
       damage,
       unitGroup: "ground",
+    },
+  });
+
+  buildingStore.addBuilding({
+    type: "xbow:both",
+    categories: ["defense"],
+    displayName: "X-Bow",
+    buildingColor: "#ffaaaa",
+    editActions: [
+      {
+        icon: "🎯",
+        label: "Air & Ground",
+        mutation: {
+          mutationType: "changeType",
+          newType: "xbow",
+        },
+      },
+    ],
+    level: 1 + lvl,
+    size: [3, 3],
+    thRequirement: th,
+    hitPoints: hitPoints,
+    cost: {
+      type: "gold",
+      amount: cost,
+      time: time(timeStr),
+    },
+    triggerRadius: 11.5,
+    aiType: "cannon",
+    aiSettings: {
+      firingRate: 0.128,
+      damage,
+      unitGroup: "all",
     },
   });
 });

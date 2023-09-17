@@ -22,4 +22,5 @@ export const buildingList = [
   "wizardtower",
   "springtrap",
   "xbow",
+  "xbow:both",
 ];

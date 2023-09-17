@@ -6,6 +6,7 @@ interface PlacementCSS extends CSSProperties {
   "--x": number;
   "--y": number;
   "--size": number;
+  "--building-color"?: CSSProperties["color"];
 }
 
 export const Building: React.FC<{
@@ -15,6 +16,7 @@ export const Building: React.FC<{
   className?: string;
   buildingType: string;
   level: number;
+  color?: CSSProperties["color"];
   destroyed?: boolean;
   attacking?: boolean;
 
@@ -27,6 +29,7 @@ export const Building: React.FC<{
   className,
   level,
   buildingType,
+  color,
   destroyed,
   attacking,
   // state,
@@ -40,6 +43,7 @@ export const Building: React.FC<{
           "--x": x,
           "--y": y,
           "--size": size,
+          "--building-color": color,
         } as PlacementCSS
       }
       className={classNames(styles.ground, {

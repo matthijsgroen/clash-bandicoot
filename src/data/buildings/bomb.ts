@@ -21,6 +21,7 @@ buildingLevels.forEach(([damage, cost, timeStr, th], lvl) => {
   buildingStore.addBuilding({
     type: "bomb",
     categories: ["trap"],
+    buildingColor: "#444",
     level: 1 + lvl,
     size: [1, 1],
     thRequirement: th,

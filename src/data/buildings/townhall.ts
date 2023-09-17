@@ -26,6 +26,7 @@ buildingLevels
     buildingStore.addBuilding({
       type: "townhall",
       categories: ["resource"],
+      buildingColor: "#90ff90",
       level: 1 + lvl,
       thRequirement: lvl,
       size: [4, 4],

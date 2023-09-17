@@ -21,6 +21,7 @@ buildingLevels.forEach(([hitPoints, cost, timeStr, damage, th], lvl) => {
   buildingStore.addBuilding({
     type: "wizardtower",
     categories: ["defense"],
+    buildingColor: "#ffaaaa",
     level: 1 + lvl,
     size: [3, 3],
     thRequirement: th,

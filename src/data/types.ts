@@ -1,3 +1,6 @@
+import { CSSProperties } from "react";
+import { BaseLayout } from "../engine/types";
+
 export type Cost = {
   amount: number;
   type: "elixir" | "darkElixir" | "gold" | "gems";
@@ -14,11 +17,24 @@ export type BuildingCategory =
 
 export type UnitCategory = "ground" | "air";
 
+export type BuildingEditAction = {
+  label: string;
+  icon: string;
+  enabled?: (base: BaseLayout) => boolean;
+  mutation: {
+    mutationType: "changeType";
+    newType: string;
+  };
+};
+
 export type Building<
   Settings extends Record<string, unknown> = Record<string, unknown>
 > = {
   type: string;
   level: number;
+  displayName?: string;
+  buildingColor?: CSSProperties["color"];
+  editActions?: BuildingEditAction[];
   size: [width: number, height: number];
   thRequirement: number;
   categories: BuildingCategory[];
