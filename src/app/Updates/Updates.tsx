@@ -64,10 +64,10 @@ export const Updates: React.FC<{
                 setNotificationPermission(response);
               });
             }}
-            width="huge"
+            width="default"
             height="default"
           >
-            Enable Notifications
+            🔔
           </Button>
         )}
         <ToolbarSpacer />
