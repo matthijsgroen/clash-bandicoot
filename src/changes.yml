@@ -1,4 +1,9 @@
 changes:
+  - date: 2023-09-19
+    version: 0.0.5-alpha
+    changes:
+      added:
+        - Support for X-Bows
   - date: 2023-09-13
     version: 0.0.4-alpha
     changes:
