@@ -38,8 +38,8 @@ export const putLastSeen: RouteHandler = async ({ request }) => {
   await updateBadge(timestamp);
 
   const response = new Response(JSON.stringify(timestamp));
-  await updateCache.put(`/local-api/updates/lastSeen`, response);
-  return response;
+  await updateCache.put(`/local-api/updates/lastSeen`, response.clone());
+  return response.clone();
 };
 
 export const getLastSeen = async (): Promise<Response> => {

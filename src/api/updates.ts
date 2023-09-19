@@ -13,8 +13,9 @@ export const getLastSeen = async (): Promise<number | undefined> => {
 export const putLastSeen = async (
   timestamp: number
 ): Promise<number | undefined> => {
+  const body = JSON.stringify(timestamp);
   const response = await fetch("/local-api/updates/last-seen", {
-    body: JSON.stringify(timestamp),
+    body,
     method: "PUT",
   });
   return response.json() as Promise<number | undefined>;
