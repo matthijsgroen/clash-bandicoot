@@ -70,6 +70,7 @@ const CombatBuilding: React.FC<{
       key={buildingId}
       x={building.position[0]}
       y={building.position[1]}
+      color={building.info.buildingColor}
       buildingType={building.info.type}
       level={building.info.level}
       size={building.info.size[0]}

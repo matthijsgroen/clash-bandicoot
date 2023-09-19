@@ -27,7 +27,24 @@ const Yaml = require("yaml");
  */
 const toMarkdownChanges = (entry) => {
   const lines = [];
-  lines.push(`## [${entry.version}] - ${entry.date}`);
+
+  const date = entry.date.includes("T")
+    ? new Date(Date.parse(`${entry.date}Z`)).toLocaleString("sv-se", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        minute: "numeric",
+        hour: "numeric",
+        timeZone: "UTC",
+      })
+    : new Date(Date.parse(`${entry.date}Z`)).toLocaleString("sv-se", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        timeZone: "UTC",
+      });
+
+  lines.push(`## [${entry.version}] - ${date}`);
 
   for (const [title, items] of Object.entries(entry.changes)) {
     if (items) {

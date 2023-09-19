@@ -1,4 +1,9 @@
 changes:
+  - date: 2023-09-19T21:00
+    version: 0.0.5-alpha
+    changes:
+      fixed:
+        - Colors of buildings in village edit mode
   - date: 2023-09-19
     version: 0.0.5-alpha
     changes:
