@@ -22,19 +22,13 @@ const updateBadge = async (lastSeen?: number) => {
       await navigator.clearAppBadge();
     }
   }
-  console.log(
-    `Update counter to %d - badge supported? ${
-      "setAppBadge" in navigator ? "yes" : "no"
-    }`,
-    counter
-  );
   log(`Setting update counter to ${counter}`);
 };
 
 export const updateUpdateCounter = async () => {
-  const lastSeen: number | undefined = (
+  const lastSeen: number | undefined = (await (
     await getLastSeen()
-  ).json() as unknown as number | undefined;
+  ).json()) as unknown as number | undefined;
   await updateBadge(lastSeen);
 };
 
