@@ -15,12 +15,19 @@ const updateBadge = async (lastSeen?: number) => {
   const counter = lastSeen
     ? changes.reduce((r, c) => (c.date > lastSeen ? r + 1 : r), 0)
     : 1;
-  if (!navigator.setAppBadge) return;
-  if (counter > 0) {
-    await navigator.setAppBadge(counter);
-  } else {
-    await navigator.clearAppBadge();
+  if ("setAppBadge" in navigator) {
+    if (counter > 0) {
+      await navigator.setAppBadge(counter);
+    } else {
+      await navigator.clearAppBadge();
+    }
   }
+  console.log(
+    `Update counter to %d - badge supported? ${
+      "setAppBadge" in navigator ? "yes" : "no"
+    }`,
+    counter
+  );
   log(`Setting update counter to ${counter}`);
 };
 
