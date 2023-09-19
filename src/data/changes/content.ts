@@ -1,7 +1,7 @@
 import { Update } from "./type";
 export const changes: Update[] = [
   {
-    date: 1695150000000,
+    date: 1695157200000,
     version: "0.0.5-alpha",
     changes: { fixed: ["Colors of buildings in village edit mode"] },
   },

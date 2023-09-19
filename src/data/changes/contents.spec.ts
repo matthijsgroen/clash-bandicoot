@@ -4,7 +4,7 @@ import yaml from "yaml";
 
 const toContentChanges = (entry: { date: string }) => ({
   ...entry,
-  date: Date.parse(entry.date),
+  date: Date.parse(`${entry.date}Z`),
 });
 
 describe("update contents", () => {

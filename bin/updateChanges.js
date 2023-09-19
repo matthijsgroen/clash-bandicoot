@@ -65,7 +65,7 @@ const toMarkdownChanges = (entry) => {
  */
 const toContentChanges = (entry) => ({
   ...entry,
-  date: Date.parse(entry.date),
+  date: Date.parse(`${entry.date}Z`),
 });
 
 const main = async () => {
