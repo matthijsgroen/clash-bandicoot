@@ -113,6 +113,7 @@
   border: 1px solid black;
   box-sizing: border-box;
   background-color: white;
+  background-color: var(--building-color, white);
   overflow: hidden;
 
   box-shadow: #000 1px 1px 0px;
@@ -195,32 +196,9 @@
   }
 }
 
-.Building_elixirstorage__ffL18,
-.Building_elixircollector__HJcgy {
-  background-color: pink;
-}
-.Building_goldmine__GZTmA,
-.Building_goldstorage__vjLya {
-  background-color: gold;
-}
-.Building_townhall__jPETY {
-  background-color: #90ff90;
-}
-.Building_cannon__bQz3N,
-.Building_mortar__AObK5,
-.Building_archertower__XOS9Q,
-.Building_airdefense__R2jiu {
-  background-color: #ffaaaa;
-}
-.Building_wall__6PBMR {
-  background-color: #999;
-}
 .Building_wall-0__N4i3y {
   background-color: #99f;
   opacity: 0.3;
-}
-.Building_bomb__E4RI5 {
-  background-color: #444;
 }
 
 .Text_text__uZi1L {
@@ -304,4 +282,4 @@
 }
 
 
-/*# sourceMappingURL=ui-components-composition-Village-GridFloat-stories.6392bf5c.chunk.css.map*/
+/*# sourceMappingURL=ui-components-composition-Village-GridFloat-stories.fdaae52b.chunk.css.map*/
