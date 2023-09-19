@@ -9,16 +9,21 @@ export type BuildingStore = {
   setBuildingLimit: (type: string, amount: number, thLevel: number) => void;
   getMaxBuildingAmount: (thLevel: number, type: string) => number;
   getMaxBuildingLevel: (thLevel: number, type: string) => number;
+  getBuildingTypeList: () => string[];
 };
 
 export const createBuildingStore = (): BuildingStore => {
   const buildings: Building[] = [];
   const limits: BuildingLimit[] = [];
+  const buildingTypeList: string[] = [];
 
   return {
     addBuilding: (building) => {
       if (building.thRequirement > MAX_TOWNHALL) return;
       buildings.push(building);
+      if (!buildingTypeList.includes(building.type)) {
+        buildingTypeList.push(building.type);
+      }
     },
     getBuilding: (type, level) =>
       buildings.find((b) => b.type === type && b.level === level),
@@ -46,6 +51,9 @@ export const createBuildingStore = (): BuildingStore => {
         }
       });
       return level;
+    },
+    getBuildingTypeList() {
+      return buildingTypeList;
     },
   };
 };

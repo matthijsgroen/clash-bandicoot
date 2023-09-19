@@ -26,6 +26,7 @@ buildingLevels.forEach(([hitPoints, cost, timeStr, th], lvl) => {
   buildingStore.addBuilding({
     type: "goldstorage",
     categories: ["resource"],
+    buildingColor: "gold",
     level: 1 + lvl,
     size: [3, 3],
     thRequirement: th,

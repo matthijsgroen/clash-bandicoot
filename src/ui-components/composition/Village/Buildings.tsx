@@ -31,6 +31,7 @@ export const Buildings: React.FC<{
               key={id}
               x={buildingState.position[0]}
               y={buildingState.position[1]}
+              color={info.buildingColor}
               buildingType={info.type}
               level={info.level}
               size={info.size[0]}

@@ -27,6 +27,7 @@ buildingLevels.forEach(([hitPoints, cost, timeStr, th], lvl) => {
   buildingStore.addBuilding({
     type: "elixircollector",
     categories: ["resource"],
+    buildingColor: "pink",
     level: 1 + lvl,
     size: [3, 3],
     thRequirement: th,

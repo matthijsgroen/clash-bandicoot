@@ -63,9 +63,10 @@ export const Updates: React.FC<{
       </Toolbar>
       {updates
         .filter(
-          (u) =>
+          (u, i) =>
             (triggerUpdate && lastSeen && lastSeen < u.date) ||
-            (!triggerUpdate && lastSeen === u.date)
+            (!triggerUpdate && lastSeen && lastSeen <= u.date) ||
+            (!triggerUpdate && !lastSeen && i === 0)
         )
         .map((update) => (
           <UpdateItem key={update.date} update={update} />

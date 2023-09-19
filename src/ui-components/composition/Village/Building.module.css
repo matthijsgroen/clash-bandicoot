@@ -30,7 +30,7 @@
   font-size: 8px;
   border: 1px solid black;
   box-sizing: border-box;
-  background-color: white;
+  background-color: var(--building-color, white);
   overflow: hidden;
 
   box-shadow: #000 1px 1px 0px;
@@ -88,30 +88,7 @@
   }
 }
 
-.elixirstorage,
-.elixircollector {
-  background-color: pink;
-}
-.goldmine,
-.goldstorage {
-  background-color: gold;
-}
-.townhall {
-  background-color: #90ff90;
-}
-.cannon,
-.mortar,
-.archertower,
-.airdefense {
-  background-color: #ffaaaa;
-}
-.wall {
-  background-color: #999;
-}
 .wall-0 {
   background-color: #99f;
   opacity: 0.3;
-}
-.bomb {
-  background-color: #444;
 }

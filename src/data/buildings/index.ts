@@ -17,3 +17,4 @@ import "./bomb";
 import "./spellFactory";
 import "./wizardTower";
 import "./springTrap";
+import "./xbow";

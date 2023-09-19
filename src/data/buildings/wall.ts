@@ -14,6 +14,7 @@ buildingLevels.forEach(([hitPoints, cost, th], lvl) => {
   buildingStore.addBuilding({
     type: "wall",
     categories: ["wall"],
+    buildingColor: "#999",
     level: 1 + lvl,
     size: [1, 1],
     thRequirement: th,
