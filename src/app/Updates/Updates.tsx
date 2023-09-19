@@ -5,7 +5,7 @@ import { Text } from "../../ui-components/atoms/Text";
 import { Toolbar, ToolbarSpacer } from "../../ui-components/atoms/Toolbar";
 import { UpdateItem } from "./UpdateItem";
 import { putLastSeen } from "../../api/updates";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export const Updates: React.FC<{
   updates: Update[];
@@ -20,6 +20,9 @@ export const Updates: React.FC<{
       queryClient.invalidateQueries({ queryKey: ["lastSeen"] });
     },
   });
+  const [notificationPermission, setNotificationPermission] = useState(
+    Notification.permission
+  );
 
   const isUpdating = useRef(false);
   if (
@@ -50,6 +53,22 @@ export const Updates: React.FC<{
           <Text color={"black"} skipOutline>
             The app is up to date.
           </Text>
+        )}
+        {notificationPermission !== "granted" && (
+          <Button
+            color="orange"
+            onClick={() => {
+              Notification.requestPermission((response) => {
+                setNotificationPermission(response);
+              })?.then?.((response) => {
+                setNotificationPermission(response);
+              });
+            }}
+            width="huge"
+            height="default"
+          >
+            Enable Notifications
+          </Button>
         )}
         <ToolbarSpacer />
         <Button
