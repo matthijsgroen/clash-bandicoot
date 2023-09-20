@@ -55,7 +55,7 @@ export const HomeScreen: React.FC = () => {
           width="large"
           height="large"
           disabled={
-            activeArmy === null ||
+            !activeArmy ||
             activeArmy?.army.units.length === 0 ||
             !hasServiceWorker
           }
