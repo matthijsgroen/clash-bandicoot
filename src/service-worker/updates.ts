@@ -26,10 +26,12 @@ const updateBadge = async (lastSeen?: number) => {
 };
 
 export const updateUpdateCounter = async () => {
-  const lastSeen: number | undefined = (await (
-    await getLastSeen()
-  ).json()) as unknown as number | undefined;
-  await updateBadge(lastSeen);
+  try {
+    const lastSeen: number | undefined = (await (
+      await getLastSeen()
+    ).json()) as unknown as number | undefined;
+    await updateBadge(lastSeen);
+  } catch (e) {}
 };
 
 export const putLastSeen: RouteHandler = async ({ request }) => {
@@ -46,7 +48,7 @@ export const getLastSeen = async (): Promise<Response> => {
   const updateCache = await caches.open("updates");
   const data = await updateCache.match(`/local-api/updates/lastSeen`);
   if (!data) {
-    return new Response(JSON.stringify(undefined));
+    return new Response(JSON.stringify(null));
   }
   return data;
 };

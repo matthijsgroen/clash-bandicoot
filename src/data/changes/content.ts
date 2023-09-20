@@ -1,6 +1,11 @@
 import { Update } from "./type";
 export const changes: Update[] = [
   {
+    date: 1695250800000,
+    version: "0.0.7-alpha",
+    changes: { fixed: ["Initial setup of service workers to manage app data"] },
+  },
+  {
     date: 1695168000000,
     version: "0.0.6-alpha",
     changes: { added: ["Support for Giant Bomb"] },

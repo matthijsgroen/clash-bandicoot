@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "../../ui-components/atoms/Button";
 import { useState } from "react";
 import { VillageEditor } from "../VillageEditor/VillageEditor";
@@ -15,16 +15,13 @@ import { Panel } from "../../ui-components/atoms/Panel";
 import { Toolbar, ToolbarSpacer } from "../../ui-components/atoms/Toolbar";
 import { VillageList } from "./VillageList";
 import { Tab } from "../../ui-components/atoms/Tab";
+import { useLocalBackend } from "../hooks/useLocalBackend";
 
 export const VillagePopup: React.FC<{ onClose?: VoidFunction }> = ({
   onClose,
 }) => {
   const queryClient = useQueryClient();
-  const { data } = useQuery({
-    queryKey: ["villageList"],
-    queryFn: getBases,
-    networkMode: "always",
-  });
+  const { data } = useLocalBackend(["villageList"], getBases);
 
   const createMutation = useMutation({
     mutationFn: postBase,

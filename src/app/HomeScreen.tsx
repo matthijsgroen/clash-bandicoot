@@ -3,25 +3,25 @@ import { Button } from "../ui-components/atoms/Button";
 import { useAppUpdate } from "./hooks/useAppUpdater";
 import { VillagePopup } from "./Villages/VillagePopup";
 import { ArmyPopup } from "./Armies/ArmyPopup";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { getArmies } from "../api/armies";
 import { TargetSearch } from "./Combat/TargetSearch";
 import { getLastSeen, getUpdates } from "../api/updates";
 import { Badge } from "../ui-components/atoms/Badge";
 import { HelpDialog } from "./Help/HelpDialog";
 import { getNewUpdateCount } from "../data/changes/updateCount";
+import { useLocalBackend } from "./hooks/useLocalBackend";
+import { useServiceWorker } from "./hooks/useServiceWorker";
 
 export const HomeScreen: React.FC = () => {
   const [hasUpdate, triggerUpdate] = useAppUpdate();
+  const hasServiceWorker = useServiceWorker();
+
   const [openPopup, setOpenPopup] = useState<
     "villages" | "armies" | "combat" | "help" | null
   >(null);
 
-  const { data } = useQuery({
-    queryKey: ["armyList"],
-    queryFn: getArmies,
-    networkMode: "always",
-  });
+  const { data } = useLocalBackend(["armyList"], getArmies);
   const activeArmy = data?.find((army) => army.id === "active");
   const queryClient = useQueryClient();
   useEffect(() => {
@@ -30,17 +30,8 @@ export const HomeScreen: React.FC = () => {
     }
   }, [hasUpdate, queryClient]);
 
-  const { data: updates } = useQuery({
-    queryKey: ["updates"],
-    queryFn: getUpdates,
-    networkMode: "always",
-  });
-
-  const { data: lastSeen } = useQuery({
-    queryKey: ["lastSeen"],
-    queryFn: getLastSeen,
-    networkMode: "always",
-  });
+  const { data: updates } = useLocalBackend(["updates"], getUpdates);
+  const { data: lastSeen } = useLocalBackend(["lastSeen"], getLastSeen);
 
   const updateCount = getNewUpdateCount(updates, lastSeen);
 
@@ -48,6 +39,7 @@ export const HomeScreen: React.FC = () => {
     <div>
       <header>
         <h1>Clash Bandicoot</h1>
+        {!hasServiceWorker && <p>Setting up...</p>}
         <p>
           The useless clash coach.{" "}
           <strong>
@@ -62,7 +54,11 @@ export const HomeScreen: React.FC = () => {
           color="orange"
           width="large"
           height="large"
-          disabled={activeArmy === null}
+          disabled={
+            activeArmy === null ||
+            activeArmy?.army.units.length === 0 ||
+            !hasServiceWorker
+          }
         >
           Attack
         </Button>
@@ -72,6 +68,7 @@ export const HomeScreen: React.FC = () => {
           color="orange"
           width="large"
           height="large"
+          disabled={!hasServiceWorker}
         >
           Bases
         </Button>
@@ -81,6 +78,7 @@ export const HomeScreen: React.FC = () => {
           color="orange"
           width="large"
           height="large"
+          disabled={!hasServiceWorker}
         >
           Armies
         </Button>
@@ -95,6 +93,7 @@ export const HomeScreen: React.FC = () => {
             width="large"
             height="large"
             onClick={() => setOpenPopup("help")}
+            disabled={!hasServiceWorker}
           >
             Help & Updates
           </Button>
@@ -128,7 +127,7 @@ export const HomeScreen: React.FC = () => {
           onClose={() => setOpenPopup(null)}
           triggerUpdate={hasUpdate ? triggerUpdate : undefined}
           updates={updates ?? []}
-          lastSeen={lastSeen}
+          lastSeen={lastSeen ?? undefined}
         />
       )}
     </div>

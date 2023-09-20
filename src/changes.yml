@@ -1,4 +1,9 @@
 changes:
+  - date: 2023-09-20T23:00
+    version: 0.0.7-alpha
+    changes:
+      fixed:
+        - Initial setup of service workers to manage app data
   - date: 2023-09-20
     version: 0.0.6-alpha
     changes:

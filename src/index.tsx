@@ -5,6 +5,7 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { setAppUpdate } from "./app/hooks/useAppUpdater";
+import { setHasServiceWorker } from "./app/hooks/useServiceWorker";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -19,6 +20,9 @@ root.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://cra.link/PWA
 serviceWorkerRegistration.register({
+  onSuccess: () => {
+    setHasServiceWorker();
+  },
   onUpdate: (registration) => {
     if (registration.waiting) {
       const nextUpdate = registration.waiting;

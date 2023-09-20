@@ -1,11 +1,11 @@
 import { Combat } from "./Combat";
 import { CloudCurtain } from "../../ui-components/atoms/CloudCurtain";
 import { useEffect, useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { Village, getBases } from "../../api/bases";
 import { getTownhallLevel } from "../../engine/layout/baseLayout";
 import { useTargetTransition } from "./hooks/useTargetTransition";
 import { ArmyItem } from "../../api/armies";
+import { useLocalBackend } from "../hooks/useLocalBackend";
 
 export const TargetSearch: React.FC<{
   armyItem: ArmyItem;
@@ -16,11 +16,7 @@ export const TargetSearch: React.FC<{
 
   const [targetIndex, setTargetIndex] = useState(0);
 
-  const { data } = useQuery({
-    queryKey: ["villageList"],
-    queryFn: getBases,
-    networkMode: "always",
-  });
+  const { data } = useLocalBackend(["villageList"], getBases);
   const targets = useMemo(
     () => (data ? data.filter((v) => getTownhallLevel(v.layout) !== 0) : []),
     [data]

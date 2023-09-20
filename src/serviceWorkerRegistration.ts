@@ -21,7 +21,7 @@ const isLocalhost = Boolean(
 );
 
 type Config = {
-  onSuccess?: (registration: ServiceWorkerRegistration) => void;
+  onSuccess?: () => void;
   onUpdate?: (registration: ServiceWorkerRegistration) => void;
 };
 
@@ -50,6 +50,9 @@ export function register(config?: Config) {
             "This web app is being served cache-first by a service " +
               "worker. To learn more, visit https://cra.link/PWA"
           );
+          if (config && config.onSuccess) {
+            config.onSuccess();
+          }
         });
       } else {
         // Is not localhost. Just register service worker
@@ -63,6 +66,12 @@ function registerValidSW(swUrl: string, config?: Config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
+      navigator.serviceWorker.ready.then(() => {
+        // Execute callback
+        if (config && config.onSuccess) {
+          config.onSuccess();
+        }
+      });
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker == null) {
@@ -88,11 +97,6 @@ function registerValidSW(swUrl: string, config?: Config) {
               // It's the perfect time to display a
               // "Content is cached for offline use." message.
               console.log("Content is cached for offline use.");
-
-              // Execute callback
-              if (config && config.onSuccess) {
-                config.onSuccess(registration);
-              }
             }
           }
         };

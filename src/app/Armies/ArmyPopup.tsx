@@ -10,10 +10,11 @@ import {
   putArmy,
   trainArmy,
 } from "../../api/armies";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ShowActiveArmy } from "./ShowActiveArmy";
 import { BackButton } from "../components/BackButton";
 import { ArmyList } from "./ArmyList";
+import { useLocalBackend } from "../hooks/useLocalBackend";
 
 export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
   onClose,
@@ -21,11 +22,7 @@ export const ArmyPopup: React.FC<{ onClose?: VoidFunction }> = ({
   const [editItem, setEditItem] = useState<null | ArmyItem>(null);
   const [activeTab, setActiveTab] = useState<"Army" | "Quick Train">("Army");
 
-  const { data } = useQuery({
-    queryKey: ["armyList"],
-    queryFn: getArmies,
-    networkMode: "always",
-  });
+  const { data } = useLocalBackend(["armyList"], getArmies);
   const activeArmy = data?.find((army) => army.id === "active");
 
   const queryClient = useQueryClient();

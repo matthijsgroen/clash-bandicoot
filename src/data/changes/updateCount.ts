@@ -1,7 +1,10 @@
 import { Update } from "./type";
 
-export const getNewUpdateCount = (updates?: Update[], lastSeen?: number) => {
-  if (updates === undefined || lastSeen === undefined) {
+export const getNewUpdateCount = (
+  updates?: Update[],
+  lastSeen?: number | null
+) => {
+  if (updates === undefined || lastSeen === undefined || lastSeen === null) {
     return 0;
   }
 
