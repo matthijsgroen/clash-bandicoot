@@ -23,4 +23,5 @@ export const buildingList = [
   "springtrap",
   "xbow",
   "xbow:both",
+  "giantbomb",
 ];

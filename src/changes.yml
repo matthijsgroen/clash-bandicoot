@@ -1,4 +1,9 @@
 changes:
+  - date: 2023-09-20
+    version: 0.0.6-alpha
+    changes:
+      added:
+        - Support for Giant Bomb
   - date: 2023-09-19T21:00
     version: 0.0.5-alpha
     changes:
