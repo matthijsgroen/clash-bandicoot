@@ -18,8 +18,16 @@
   color: white;
   border: 1px solid black;
   height: calc(100% - 2px);
-  background-color: color-mix(in srgb, var(--color) 80%, transparent);
+  background-color: var(--color);
+  background-image: linear-gradient(#fff2, #fff2);
   display: flex;
+}
+
+@supports (background-color: color-mix(in srgb, #fff 80%, transparent)) {
+  .outer {
+    background-color: color-mix(in srgb, var(--color) 80%, transparent);
+    background-image: none;
+  }
 }
 
 .inner {
